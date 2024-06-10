@@ -1,21 +1,31 @@
+ import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+
 public class ElementsController {
 	private POIManager poiManager;
 	private ContentManager contentManager;
 	private TourManager tourManager;
 	
+	private Map<Action, Integer> requests;
+	
+	private Queue<Action> pendingRequest;
+	
 	public ElementsController() {
 		this.poiManager = new POIManager();
 		this.contentManager = new ContentManager();
 		this.tourManager = new TourManager();
+		this.requests = new HashMap<>();
 	}
 	
 	
-	public boolean checkCorrectUser(AbstractUser user, Action action) {
+	private boolean checkCorrectUser(AbstractUser user, Action action) {
 		if ((user instanceof Contributor && user.getActions().contains(action))
 				|| (user instanceof AuthorizedContributor && user.getActions().contains(action)
 				|| (user instanceof Curator && user.getActions().contains(action))
 				|| (user instanceof AuthenticatedTourist && user.getActions().contains(action))))
-			return doAction(action);
+			return true;
 		else return false;
 	}
 
@@ -31,5 +41,20 @@ public class ElementsController {
 		} else return false;
 		
 	}
+	
+	private boolean executeRequest(AbstractUser user, Action action) {
+		return checkCorrectUser(user, action) && doAction(action);
+	}
+	
+	public boolean execute(AbstractUser user) {
+		while(pendingRequest.isEmpty()) {
+			executeRequest(user,pendingRequest.poll());
+		} return false;
+	}
+	
+	public boolean addAction(Action action) {
+		return pendingRequest.add(action);
+	}
+	
 
 }

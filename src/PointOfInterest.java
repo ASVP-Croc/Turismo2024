@@ -24,4 +24,8 @@ public class PointOfInterest {
 		return coordinate;
 	}
 
+	
+	public boolean addContent(Content content) {
+		return contents.add(content);
+	}
 }

@@ -9,11 +9,11 @@ public abstract class AbstractUser {
 
 	private final String surname;
 
-	private final String userName;
+	private String userName;
 
-	private String email;
+	private final String email;
 
-	private String phoneNumber;
+	private final String phoneNumber;
 
 	protected List<Action> actions;
 

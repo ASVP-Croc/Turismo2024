@@ -15,5 +15,13 @@ public class TourManager {
 	public boolean create(String description) {
 		return tours.add(new Tour(description));
 	}
+	
+	public boolean addPOIToTour(int i, PointOfInterest poi) {
+		return tours.get(i).addPoi(poi);
+	}
+	
+	public boolean addContentToTour(int i,Content content) {
+		return tours.get(i).addContent(content);
+	}
 
 }

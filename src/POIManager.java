@@ -15,5 +15,12 @@ public class POIManager {
 	public boolean create(String description, Coordinate coordinate) {
 		return pois.add(new PointOfInterest(description, coordinate));
 	}
-
+	
+	public PointOfInterest getPOI(int i) {
+		return pois.get(i);
+	}
+	
+	public boolean addContentToPOI(int i, Content content ) {
+		return pois.get(i).addContent(content);
+	}
 }
