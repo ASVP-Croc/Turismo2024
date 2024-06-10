@@ -1,5 +1,3 @@
-import java.util.List;
-
 public class ElementsController {
 	private POIManager poiManager;
 	private ContentManager contentManager;
