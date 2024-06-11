@@ -1,60 +1,43 @@
- import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class ElementsController {
-	private POIManager poiManager;
-	private ContentManager contentManager;
-	private TourManager tourManager;
+	private final POIManager poiManager;
+	private final TourManager tourManager;
 	
-	private Map<Action, Integer> requests;
+	private final Queue<Action> pendingRequest;
 	
-	private Queue<Action> pendingRequest;
-	
-	public ElementsController() {
-		this.poiManager = new POIManager();
-		this.contentManager = new ContentManager();
-		this.tourManager = new TourManager();
-		this.requests = new HashMap<>();
-	}
-	
-	
-	private boolean checkCorrectUser(AbstractUser user, Action action) {
-		if ((user instanceof Contributor && user.getActions().contains(action))
-				|| (user instanceof AuthorizedContributor && user.getActions().contains(action)
-				|| (user instanceof Curator && user.getActions().contains(action))
-				|| (user instanceof AuthenticatedTourist && user.getActions().contains(action))))
-			return true;
-		else return false;
+	public ElementsController(POIManager poiManager, TourManager tourManager) {
+		this.poiManager = poiManager;
+		this.tourManager = tourManager;
+		this.pendingRequest = new LinkedList<>();
 	}
 
-	private boolean doAction(Action action) {
-		if(action==Action.CreatePOI) {
-			return poiManager.create("ProvaPOI", new Coordinate(5,10));
-			
-		} else if(action==Action.CreateTour) {
-			return tourManager.create("ProvaTour");
-			
-		} else if(action==Action.CreateContent) {
-			return poiManager.getPois().get(0).getContents().add(contentManager.create("ProvaContent"));
+	private boolean sendAction(Action action) throws IOException {
+		if(action==Action.CreatePOI || action==Action.CreateContentPOI) {
+			return poiManager.execute(action);
+			} else if(action==Action.CreateTour || action==Action.CreateContentTour) {
+			return tourManager.execute(action);
 		} else return false;
-		
 	}
 	
-	private boolean executeRequest(AbstractUser user, Action action) {
-		return checkCorrectUser(user, action) && doAction(action);
-	}
-	
-	public boolean execute(AbstractUser user) {
-		while(pendingRequest.isEmpty()) {
-			executeRequest(user,pendingRequest.poll());
-		} return false;
-	}
-	
-	public boolean addAction(Action action) {
+	public boolean addRequest(Action action) {
 		return pendingRequest.add(action);
 	}
 	
-
+	private void executeRequest() throws IOException {
+		sendAction(pendingRequest.poll());
+	}
+	
+	public void execute() throws IOException {
+		while(!pendingRequest.isEmpty()) {
+			executeRequest();
+		}
+	}
+	
+	
+	
 }

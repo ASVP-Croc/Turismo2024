@@ -12,7 +12,7 @@ public class POIManager {
 		return pois;
 	}
 
-	public boolean create(String description, Coordinate coordinate) {
+	public boolean createPOI(String description, Coordinate coordinate) {
 		return pois.add(new PointOfInterest(description, coordinate));
 	}
 	
@@ -22,5 +22,15 @@ public class POIManager {
 	
 	public boolean addContentToPOI(int i, Content content ) {
 		return pois.get(i).addContent(content);
+	}
+
+	public boolean execute(Action action) {
+		if(action==Action.CreatePOI) {
+			return createPOI("Monumento", new Coordinate(5,10));
+		} else if(action==Action.CreateContentPOI) {
+			return addContentToPOI(0, new Content("Prova Aggiunta Contenuto su POI"));
+		}
+			return false;
+		
 	}
 }

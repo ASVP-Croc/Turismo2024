@@ -1,4 +1,3 @@
-
 public class AuthorizedContributor extends Contributor {
 
 	protected AuthorizedContributor(int id, String name, String surname, String userName, String email,

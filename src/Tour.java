@@ -26,6 +26,10 @@ public class Tour {
 		return contents;
 	}
 	
+	public Content getContent(int i) {
+		return contents.get(i);
+	}
+	
 	public boolean addPoi(PointOfInterest poi) {
 		return pois.add(poi);
 	}

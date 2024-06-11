@@ -1,5 +1,6 @@
 
 public enum Action {
-	CreatePOI, CreateTour, CreateContent;
+	CreatePOI, CreateTour, CreateContentPOI, CreateContentTour,
+	AddPOIToTour;
 
 }

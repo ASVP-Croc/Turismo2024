@@ -15,6 +15,10 @@ public class PointOfInterest {
 	public List<Content> getContents() {
 		return contents;
 	}
+	
+	public Content getContent(int i) {
+		return contents.get(i);
+	}
 
 	public String getDescription() {
 		return description;

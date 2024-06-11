@@ -11,8 +11,16 @@ public class TourManager {
 	public List<Tour> getTours() {
 		return tours;
 	}
+	
+	public Tour getTour(int i) {
+		return tours.get(i);
+	}
+	
+	public List<Content> getContents(int i){
+		return getTour(i).getContents();
+	}
 
-	public boolean create(String description) {
+	public boolean createTour(String description) {
 		return tours.add(new Tour(description));
 	}
 	
@@ -22,6 +30,15 @@ public class TourManager {
 	
 	public boolean addContentToTour(int i,Content content) {
 		return tours.get(i).addContent(content);
+	}
+
+	public boolean execute(Action action) {
+		if(action==Action.CreateTour) {
+			return createTour("Primo Tour Creato!");
+		} if(action==Action.CreateContentTour) {
+			return addContentToTour(0,new Content("Prva aggiunta Contentuto su Tour"));
+		}
+		return false;
 	}
 
 }
