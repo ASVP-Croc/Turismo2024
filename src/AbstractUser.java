@@ -27,17 +27,25 @@ public abstract class AbstractUser {
 	
 	public Action sendRequest() throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		System.out.println("1: CreaPOI" + "2: CreaItinerario" + "3: CreaContenuto per Itinerario"
-		+ "4: CreaContenuto per POI");
-		int input = reader.read();
-		if(input==1) {
+		System.out.println("1: CreaPOI " + "-" + " 2: CreaItinerario " + "-" + " 3: CreaContenuto per Itinerario " + "-"
+				+ " 4: CreaContenuto per POI");
+		int input = Integer.parseInt(reader.readLine());
+		if (input == 1) {
+			System.out.println("Hai selezionato: CreaPOI");
 			return Action.CreatePOI;
-		} else if(input==2) {
+		} else if (input == 2) {
+			System.out.println("Hai selezionato: CreaItinerario");
 			return Action.CreateTour;
-		} else if(input==3) {
+		} else if (input == 3) {
+			System.out.println("Hai selezionato: CreaContenuto per Itinerario");
 			return Action.CreateContentTour;
-		} else if(input==4)return Action.CreateContentPOI;
-		else return null;
+		} else if (input == 4) {
+			System.out.println("Hai selezionato: CreaContenuto per POI");
+			return Action.CreateContentPOI;
+		} else {
+			System.out.println("Nessuna Scelta");
+			return null;
+		}
 	}
 
 }
