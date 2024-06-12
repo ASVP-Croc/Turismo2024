@@ -1,16 +1,14 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class ElementsController {
+public class RequestsManager {
 	private final POIManager poiManager;
 	private final TourManager tourManager;
 	
 	private final Queue<Action> pendingRequest;
 	
-	public ElementsController(POIManager poiManager, TourManager tourManager) {
+	public RequestsManager(POIManager poiManager, TourManager tourManager) {
 		this.poiManager = poiManager;
 		this.tourManager = tourManager;
 		this.pendingRequest = new LinkedList<>();

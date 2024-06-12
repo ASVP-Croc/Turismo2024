@@ -4,7 +4,7 @@ public class Demo1Iterazione {
 	public static void main(String[] args) throws IOException {
 		POIManager poiManager = new POIManager();
 		TourManager tourManager = new TourManager();
-		ElementsController controller = new ElementsController(poiManager, tourManager);
+		RequestsManager controller = new RequestsManager(poiManager, tourManager);
 		
 	
 		AbstractUser user1 = new Contributor(1, "Fabio", "Grandi", "Fabiobig", "fabiograndi@gradi.it",
