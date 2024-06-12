@@ -5,12 +5,14 @@ import java.util.Queue;
 public class RequestsManager {
 	private final POIManager poiManager;
 	private final TourManager tourManager;
+	private final NotificationManager notificationManager;
 	
-	private final Queue<Action> pendingRequest;
+	private final Queue<Request> pendingRequest;
 	
-	public RequestsManager(POIManager poiManager, TourManager tourManager) {
+	public RequestsManager(POIManager poiManager, TourManager tourManager, NotificationManager notificationManager ) {
 		this.poiManager = poiManager;
 		this.tourManager = tourManager;
+		this.notificationManager = notificationManager;
 		this.pendingRequest = new LinkedList<>();
 	}
 
@@ -22,12 +24,15 @@ public class RequestsManager {
 		} else return false;
 	}
 	
-	public boolean addRequest(Action action) {
-		return pendingRequest.add(action);
+	public boolean addRequest(Request request) {
+		return pendingRequest.add(request);
 	}
 	
 	private void executeRequest() throws IOException {
-		sendAction(pendingRequest.poll());
+		Request request = pendingRequest.poll();
+		if(sendAction(request.getAction())) {
+			notificationManager.sendMessage(request);
+		};
 	}
 	
 	public void execute() throws IOException {

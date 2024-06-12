@@ -4,14 +4,15 @@ public class Demo1Iterazione {
 	public static void main(String[] args) throws IOException {
 		POIManager poiManager = new POIManager();
 		TourManager tourManager = new TourManager();
-		RequestsManager controller = new RequestsManager(poiManager, tourManager);
+		NotificationManager notificationManager = new NotificationManager();
+		RequestsManager controller = new RequestsManager(poiManager, tourManager, notificationManager);
 		
 	
 		AbstractUser user1 = new Contributor(1, "Fabio", "Grandi", "Fabiobig", "fabiograndi@gradi.it",
 				"3331001001");
-		AbstractUser user2 = new AuthorizedContributor(1, "Fabio", "Grandi", "Fabiobig", "fabiograndi@gradi.it",
+		AbstractUser user2 = new AuthorizedContributor(2, "Fabio", "Grandi", "Fabiobig", "fabiograndi@gradi.it",
 				"3331001001");
-		AbstractUser user3 = new Curator(1, "Fabio", "Grandi", "Fabiobig", "fabiograndi@gradi.it",
+		AbstractUser user3 = new Curator(3, "Fabio", "Grandi", "Fabiobig", "fabiograndi@gradi.it",
 				"3331001001");
 		
 		controller.addRequest(user1.sendRequest());
