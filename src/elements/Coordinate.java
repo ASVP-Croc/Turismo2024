@@ -1,3 +1,4 @@
+package elements;
 
 public class Coordinate {
 	private final double dX;

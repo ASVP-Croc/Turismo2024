@@ -1,3 +1,9 @@
+package managers;
+import elements.Request;
+import users.AuthenticatedTourist;
+import users.AuthorizedContributor;
+import users.Contributor;
+import users.Curator;
 
 public class NotificationManager {
 	

@@ -1,9 +1,10 @@
+package elements;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PointOfInterest {
 	private final List<Content> contents;
-	private final String description;
+	private String description;
 	private final Coordinate coordinate;
 
 	public PointOfInterest(String description, Coordinate coordinate) {
@@ -15,7 +16,11 @@ public class PointOfInterest {
 	public List<Content> getContents() {
 		return contents;
 	}
-	
+
+	public boolean addContent(Content content) {
+		return contents.add(content);
+	}
+
 	public Content getContent(int i) {
 		return contents.get(i);
 	}
@@ -24,12 +29,11 @@ public class PointOfInterest {
 		return description;
 	}
 
-	public Coordinate getCoordinate() {
-		return coordinate;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	
-	public boolean addContent(Content content) {
-		return contents.add(content);
+	public Coordinate getCoordinate() {
+		return coordinate;
 	}
 }

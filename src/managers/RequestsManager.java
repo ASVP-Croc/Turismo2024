@@ -1,6 +1,10 @@
+package managers;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
+
+import elements.Request;
+import users.Action;
 
 public class RequestsManager {
 	private final POIManager poiManager;
