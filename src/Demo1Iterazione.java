@@ -2,8 +2,9 @@ import java.io.IOException;
 
 public class Demo1Iterazione {
 	public static void main(String[] args) throws IOException {
-		POIManager poiManager = new POIManager();
-		TourManager tourManager = new TourManager();
+		ContentManager contentManager = new ContentManager();
+		POIManager poiManager = new POIManager(contentManager);
+		TourManager tourManager = new TourManager(contentManager);
 		NotificationManager notificationManager = new NotificationManager();
 		RequestsManager controller = new RequestsManager(poiManager, tourManager, notificationManager);
 		
