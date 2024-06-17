@@ -1,5 +1,6 @@
 import java.io.IOException;
 
+import managers.ContentManager;
 import managers.NotificationManager;
 import managers.POIManager;
 import managers.RequestsManager;

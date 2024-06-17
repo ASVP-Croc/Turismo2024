@@ -1,3 +1,6 @@
+package managers;
+
+import elements.Content;
 
 public class ContentManager {
 	
