@@ -1,5 +1,11 @@
+package managers;
 import java.util.ArrayList;
 import java.util.List;
+
+import elements.Content;
+import elements.PointOfInterest;
+import elements.Tour;
+import users.Action;
 
 public class TourManager {
 	private final ContentManager contentManager;

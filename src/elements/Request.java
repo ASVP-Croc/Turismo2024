@@ -1,3 +1,6 @@
+package elements;
+import users.AbstractUser;
+import users.Action;
 
 public class Request {
 	private final AbstractUser user;

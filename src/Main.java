@@ -1,6 +1,15 @@
 import java.io.IOException;
 
-public class Demo1Iterazione {
+import managers.NotificationManager;
+import managers.POIManager;
+import managers.RequestsManager;
+import managers.TourManager;
+import users.AbstractUser;
+import users.AuthorizedContributor;
+import users.Contributor;
+import users.Curator;
+
+public class Main {
 	public static void main(String[] args) throws IOException {
 		ContentManager contentManager = new ContentManager();
 		POIManager poiManager = new POIManager(contentManager);
@@ -9,12 +18,12 @@ public class Demo1Iterazione {
 		RequestsManager controller = new RequestsManager(poiManager, tourManager, notificationManager);
 		
 	
-		AbstractUser user1 = new Contributor(1, "Fabio", "Grandi", "Fabiobig", "fabiograndi@gradi.it",
+		AbstractUser user1 = new Contributor(1, "Lorenzo", "Crovace", "ASVP_Croc", "crovace@gmail.it",
 				"3331001001");
-		AbstractUser user2 = new AuthorizedContributor(2, "Fabio", "Grandi", "Fabiobig", "fabiograndi@gradi.it",
-				"3331001001");
-		AbstractUser user3 = new Curator(3, "Fabio", "Grandi", "Fabiobig", "fabiograndi@gradi.it",
-				"3331001001");
+		AbstractUser user2 = new AuthorizedContributor(2, "Simone", "Nonsoilcognome", "SilverSimon", "simon@gmail.it",
+				"3331001002");
+		AbstractUser user3 = new Curator(3, "Matteo", "Pallotti", "Maverick", "pallotti@gmail.it",
+				"3331001003");
 		
 		controller.addRequest(user1.sendRequest());
 		controller.addRequest(user2.sendRequest());

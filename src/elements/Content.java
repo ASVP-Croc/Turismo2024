@@ -1,3 +1,4 @@
+package elements;
 
 public class Content {
 	private final String text;

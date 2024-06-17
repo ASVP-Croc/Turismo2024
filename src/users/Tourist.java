@@ -1,3 +1,4 @@
+package users;
 public class Tourist extends AbstractUser {
 
 	protected Tourist() {

@@ -1,5 +1,11 @@
+package managers;
 import java.util.ArrayList;
 import java.util.List;
+
+import elements.Content;
+import elements.Coordinate;
+import elements.PointOfInterest;
+import users.Action;
 
 public class POIManager {
 	private final ContentManager contentManager;
