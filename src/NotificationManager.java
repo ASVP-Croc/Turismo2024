@@ -1,6 +1,10 @@
 
 public class NotificationManager {
 	
+	public NotificationManager() {
+		
+	}
+	
 	public void sendMessage (Request request){
 		if (request.getUser() instanceof Contributor || request.getUser() instanceof AuthenticatedTourist) {
 			System.out.println("Il " + request.getAction()+ " è stato completato ed è in attesa di validazione.");

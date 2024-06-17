@@ -2,9 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TourManager {
+	private final ContentManager contentManager;
 	private final List<Tour> tours;
 
-	public TourManager() {
+	public TourManager(ContentManager contentManager) {
+		this.contentManager = contentManager;
 		this.tours = new ArrayList<>();
 	}
 
@@ -36,7 +38,7 @@ public class TourManager {
 		if(action==Action.CreateTour) {
 			return createTour("Primo Tour Creato!");
 		} if(action==Action.CreateContentTour) {
-			return addContentToTour(0,new Content("Prva aggiunta Contentuto su Tour"));
+			return addContentToTour(0, contentManager.create("Prva aggiunta Contentuto su Tour"));
 		}
 		return false;
 	}

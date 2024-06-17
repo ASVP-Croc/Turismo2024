@@ -2,9 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class POIManager {
+	private final ContentManager contentManager;
 	private final List<PointOfInterest> pois;
 
-	public POIManager() {
+	public POIManager(ContentManager contentManager) {
+		this.contentManager = contentManager;
 		this.pois = new ArrayList<>();
 	}
 
@@ -28,7 +30,7 @@ public class POIManager {
 		if(action==Action.CreatePOI) {
 			return createPOI("Monumento", new Coordinate(5,10));
 		} else if(action==Action.CreateContentPOI) {
-			return addContentToPOI(0, new Content("Prova Aggiunta Contenuto su POI"));
+			return addContentToPOI(0, contentManager.create("Prova aggiunta contenuto POI"));
 		}
 			return false;
 		
