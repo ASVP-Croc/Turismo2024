@@ -22,15 +22,20 @@ public class ContestsManager {
 	public Contest execute(Request request) {
 		Action action = request.getAction();
 		if(action==Action.CreateContest) {
-			Contest contest = create(request);
+			Contest contest = createContest();
 			
 			return contest;
 		} else if(action==Action.CreateContentInContest) {
-			return addContentToPOI(request);
+			return addContentToContest(request);
 		} else return null;
 	}
 	
-	private Contest creatContest() {
+	private Contest addContentToContest(Request request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private Contest createContest() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Seleziona 1-POI o 2-Itinerario per associare un luogo al Contest.");
 		int select = scanner.nextInt();

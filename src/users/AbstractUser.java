@@ -30,7 +30,6 @@ public abstract class AbstractUser {
 	}
 
 	public Request sendRequest() throws IOException {
-<<<<<<< HEAD
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("1: CreaPOI " + "-" + " 2: CreaItinerario " + "-" + " 3: CreaContenuto per Itinerario " + "-"
 				+ " 4: CreaContenuto per POI");
@@ -51,9 +50,7 @@ public abstract class AbstractUser {
 			System.out.println("Nessuna Scelta");
 			return null;
 		}
-=======
-		return null;
->>>>>>> 6a1e666313acfedf13ad6b52c5fd485ff9672a93
+
 	}
 
 	public String getUserName() {

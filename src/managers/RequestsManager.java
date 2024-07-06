@@ -38,7 +38,8 @@ public class RequestsManager {
 			tourManager.execute(request);
 			return true;
 			} else if(nextAction==Action.CreateContest || nextAction==Action.CreateContentInContest) {
-				return contestManager.execute(request);
+				contestManager.execute(request);
+				return true;
 				} else if(nextAction==Action.Validate) {
 					return validationManager.execute(request);
 				} else if(nextAction==Action.ReportContent) {
