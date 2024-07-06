@@ -33,7 +33,7 @@ public class ToursManager {
 		return getTour(id).getContents();
 	}
 
-	public Tour createTour(Request request) {
+	private Tour createTour(Request request) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Inserisci una descrizione per il Tour da creare: ");
 		String text = scanner.nextLine();
@@ -61,12 +61,12 @@ public class ToursManager {
 		return tour;
 	}
 	
-	public Tour addPOIToTour(Integer id, PointOfInterest poi) {
+	private Tour addPOIToTour(Integer id, PointOfInterest poi) {
 		tours.get(id).addPoi(poi);
 		return tours.get(id);
 	}
 	
-	public boolean addPOIToTour() {
+	public Tour addPOIToTour() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Seleziona un Tour inserendo l'ID");
 		getTours().forEach(tour->System.out.println(tour));
@@ -74,16 +74,17 @@ public class ToursManager {
 		System.out.println("Seleziona un POI da aggiungere scrivendo l'ID!");
 		poiManager.getPOIs().forEach(poi->System.out.println(poi));
 		Integer integer = scanner.nextInt();
-		return tours.get(id).addPoi(poiManager.getPOI(integer));
+		tours.get(id).addPoi(poiManager.getPOI(integer));
+		return tours.get(id);
 	}
 	
 	
 	
-	public Content addContentToTour(Request request, Integer id) {
+	private Content addContentToTour(Request request, Integer id) {
 		return tours.get(id).addContent(contentManager.execute(null));
 	}
 	
-	public Tour addContentToTour(Request request) {
+	private Tour addContentToTour(Request request) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Seleziona un Tour inserendo l'ID");
 		getTours().forEach(tour->System.out.println(tour));
@@ -122,14 +123,14 @@ public class ToursManager {
 		} else return false;
 	}
 		
-		public boolean execute(Request request, Integer id1, Integer id2) {
-			if(request.getAction()==Action.Post) {
-				getTour(id1).getContent(id2).setVisibility();
-				return true;
-			} else if(request.getAction()==Action.Delete) {
-				getTour(id1).deleteContent(id2);
-				return true;
-			} else return false;
+	public boolean execute(Request request, Integer id1, Integer id2) {
+		if(request.getAction()==Action.Post) {
+			getTour(id1).getContent(id2).setVisibility();
+			return true;
+		} else if(request.getAction()==Action.Delete) {
+			getTour(id1).deleteContent(id2);
+			return true;
+		} else return false;
 	}
 
 }

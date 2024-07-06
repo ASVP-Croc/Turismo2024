@@ -1,5 +1,5 @@
 package managers;
-import java.io.IOException;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -58,6 +58,8 @@ public class RequestsManager {
 	private boolean execute() {
 		return sendRequest(pendingRequest.poll());
 	}
+	
+	
 	
 }
 	

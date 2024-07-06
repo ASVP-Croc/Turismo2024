@@ -22,6 +22,10 @@ public class POIsManager {
 	public Stream<PointOfInterest> getPOIs() {
 		return pois.values().stream();
 	}
+	
+	public PointOfInterest getPOI(Integer index) {
+		return pois.get(index);
+	}
 
 	public PointOfInterest createPOI(Request request) {
 		Scanner scanner = new Scanner(System.in);
@@ -43,10 +47,6 @@ public class POIsManager {
 		getPOI(id).addContent(contentManager.execute(request));
 		return getPOI(id);
 		
-	}
-
-	public PointOfInterest getPOI(Integer index) {
-		return pois.get(index);
 	}
 	
 	private PointOfInterest addContentToPOI(Request request) {

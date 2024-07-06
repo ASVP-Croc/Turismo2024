@@ -11,31 +11,49 @@ import users.Action;
 public class ContestsManager {
 	private final POIsManager poiManager;
 	private final ToursManager tourManager;
+	private final ContentsManager contentManager;
 	private final Map<Integer, Contest> contests;
 	
-	public ContestsManager(POIsManager poiManager, ToursManager tourManager) {
+	public ContestsManager(POIsManager poiManager, ToursManager tourManager, ContentsManager contentManager) {
 		this.poiManager = poiManager;
 		this.tourManager = tourManager;
+		this.contentManager = contentManager;
 		this.contests = new HashMap<>();
+	}
+	
+	public Contest getContest(Integer id) {
+		return contests.get(id);
+	}
+	
+	public Stream<Contest> getContests() {
+		return contests.values().stream();
 	}
 	
 	public Contest execute(Request request) {
 		Action action = request.getAction();
 		if(action==Action.CreateContest) {
-			Contest contest = createContest();
-			
-			return contest;
+			return createContest(request);
 		} else if(action==Action.CreateContentInContest) {
 			return addContentToContest(request);
 		} else return null;
 	}
 	
 	private Contest addContentToContest(Request request) {
-		// TODO Auto-generated method stub
-		return null;
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Seleziona un Tour a cui aggiungere un Contenuto:");
+		getContests().forEach(elem->System.out.println(elem));
+		System.out.println("Insrisci l'ID per selzionare il Contest: ");
+		Integer id = scanner.nextInt();
+		return addContentToContest(id, request);
+		}
+	
+	private Contest addContentToContest(Integer id, Request request) {
+		getContest(id).addContent(contentManager.execute(request));
+		return getContest(id);
 	}
+	
 
-	private Contest createContest() {
+	private Contest createContest(Request request) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Seleziona 1-POI o 2-Itinerario per associare un luogo al Contest.");
 		int select = scanner.nextInt();
@@ -46,7 +64,12 @@ public class ContestsManager {
 			poiManager.getPOI(id);
 			System.out.println("Inserisci una descrizione per il Contest: ");
 			String description = scanner.nextLine();
-			return new Contest(description,poiManager.getPOI(id));
+			Contest contest = new Contest(description,poiManager.getPOI(id));
+			System.out.println("Desideri inserire ora un contenuto per il Contest creato? Si/No");
+			String scan = scanner.nextLine();
+			if(scan=="Si") {
+				addContentToContest(contest.getId(), request);
+			} else return contest;
 		} else if(select==2) {
 			tourManager.getTours();
 			System.out.println("Seleziona un Tour inserendo l'ID.");
@@ -54,8 +77,14 @@ public class ContestsManager {
 			tourManager.getTour(id);
 			System.out.println("Inserisci una descrizione per il Contest: ");
 			String description = scanner.nextLine();
-			return new Contest(description,tourManager.getTour(id));
+			Contest contest = new Contest(description,poiManager.getPOI(id));
+			System.out.println("Desideri inserire ora un contenuto per il Contest creato? Si/No");
+			String scan = scanner.nextLine();
+			if(scan=="Si") {
+				addContentToContest(contest.getId(), request);
+			} else return contest;
 		} return null;
+			
 	}
 	
 	public boolean execute(Request request, Integer id1, Integer id2) {
@@ -66,15 +95,6 @@ public class ContestsManager {
 			getContest(id1).deleteContent(id2);
 			return true;
 		} else return false;
-	}
-		
-	private Contest getContest(Integer id) {
-		return contests.get(id);
-		
-	}
-
-	public Stream<Contest> getContests() {
-		return contests.values().stream();
 	}
 	
 }
