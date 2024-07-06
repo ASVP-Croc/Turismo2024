@@ -17,6 +17,7 @@ public abstract class AbstractUser {
 	private String phoneNumber;
 	private Role role = Role.Tourist;
 	private List<Action> actions;
+	private static List<AbstractUser> users = new ArrayList<AbstractUser>();
 
 	protected AbstractUser(int id, String name, String surname, String userName, String email, String phoneNumber) {
 		this.id = id;
@@ -27,8 +28,9 @@ public abstract class AbstractUser {
 		this.phoneNumber = phoneNumber;
 		this.actions = new ArrayList<>();
 	}
-	
+
 	public Request sendRequest() throws IOException {
+<<<<<<< HEAD
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("1: CreaPOI " + "-" + " 2: CreaItinerario " + "-" + " 3: CreaContenuto per Itinerario " + "-"
 				+ " 4: CreaContenuto per POI");
@@ -49,6 +51,9 @@ public abstract class AbstractUser {
 			System.out.println("Nessuna Scelta");
 			return null;
 		}
+=======
+		return null;
+>>>>>>> 6a1e666313acfedf13ad6b52c5fd485ff9672a93
 	}
 
 	public String getUserName() {
@@ -75,14 +80,6 @@ public abstract class AbstractUser {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public List<Action> getActions() {
-		return actions;
-	}
-
-	public void setActions(List<Action> actions) {
-		this.actions = actions;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -103,4 +100,19 @@ public abstract class AbstractUser {
 		this.role = role;
 	}
 
+	public List<Action> getActions() {
+		return actions;
+	}
+
+	public void setActions(List<Action> actions) {
+		this.actions = actions;
+	}
+
+	public static List<AbstractUser> getUsers() {
+		return users;
+	}
+
+	public static boolean addUsers(AbstractUser user) {
+		return AbstractUser.users.add(user);
+	}
 }
