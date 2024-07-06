@@ -41,10 +41,10 @@ public abstract class AbstractUser {
 			return new Request(this,Action.CreateTour);
 		} else if (input == 3) {
 			System.out.println("Hai selezionato: CreaContenuto per Itinerario");
-			return new Request(this,Action.CreateContentTour);
+			return new Request(this,Action.CreateContentInTour);
 		} else if (input == 4) {
 			System.out.println("Hai selezionato: CreaContenuto per POI");
-			return new Request(this,Action.CreateContentPOI);
+			return new Request(this,Action.CreateContentInPOI);
 		} else {
 			System.out.println("Nessuna Scelta");
 			return null;

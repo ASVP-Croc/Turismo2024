@@ -1,6 +1,6 @@
 package users;
 
-enum Role {
+public enum Role {
 	Administrator,
 	Animator,
 	AuthenticatedTourist,

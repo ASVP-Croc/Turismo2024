@@ -1,7 +1,18 @@
 package users;
 
 public enum Action {
-	CreatePOI, CreateTour, CreateContentPOI, CreateContentTour,
-	AddPOIToTour;
-
+	AddPOIInTour,
+	CreateContentInContest,
+	CreateContentInPOI,
+	CreateContentInTour,
+	CreateContest,
+	CreatePOI,
+	CreateTour,
+	DefineRole,
+	Delete,
+	Post,
+	ReportContent,
+	SaveElement,
+	SearchElement,
+	Validate,
 }

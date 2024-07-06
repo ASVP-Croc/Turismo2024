@@ -1,39 +1,40 @@
 package elements;
-import java.util.ArrayList;
-import java.util.List;
 
-public class PointOfInterest {
-	private final List<Content> contents;
-	private String description;
+import java.util.stream.Stream;
+
+public class PointOfInterest extends Element{
 	private final Coordinate coordinate;
 
 	public PointOfInterest(String description, Coordinate coordinate) {
-		this.description = description;
+		super(description);
 		this.coordinate = coordinate;
-		this.contents = new ArrayList<>();
+	}
+	
+	public Integer getId() {
+		return super.getId();
 	}
 
-	public List<Content> getContents() {
-		return contents;
+	public Stream<Content> getContents() {
+		return super.getMyContents();
 	}
 
-	public boolean addContent(Content content) {
-		return contents.add(content);
+	public Content addContent(Content content) {
+		return super.addContent(content);
 	}
 
-	public Content getContent(int i) {
-		return contents.get(i);
+	public Content getContent(Integer id) {
+		return super.getContent(id);
 	}
 
 	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+		return super.getDescritpion();
 	}
 
 	public Coordinate getCoordinate() {
 		return coordinate;
+	}
+	
+	public void deleteContent(Integer id) {
+		getContents();//ricontrolla
 	}
 }

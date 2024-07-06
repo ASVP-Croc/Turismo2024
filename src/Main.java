@@ -1,10 +1,10 @@
 import java.io.IOException;
 
-import managers.ContentManager;
-import managers.NotificationManager;
-import managers.POIManager;
+import managers.ContentsManager;
+import managers.NotificationsManager;
+import managers.POIsManager;
 import managers.RequestsManager;
-import managers.TourManager;
+import managers.ToursManager;
 import users.AbstractUser;
 import users.AuthorizedContributor;
 import users.Contributor;
@@ -12,10 +12,10 @@ import users.Curator;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
-		ContentManager contentManager = new ContentManager();
-		POIManager poiManager = new POIManager(contentManager);
-		TourManager tourManager = new TourManager(contentManager);
-		NotificationManager notificationManager = new NotificationManager();
+		ContentsManager contentManager = new ContentsManager();
+		POIsManager poiManager = new POIsManager(contentManager);
+		ToursManager tourManager = new ToursManager(contentManager);
+		NotificationsManager notificationManager = new NotificationsManager();
 		RequestsManager controller = new RequestsManager(poiManager, tourManager, notificationManager);
 		
 	
