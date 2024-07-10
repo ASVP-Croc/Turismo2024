@@ -35,7 +35,20 @@ public class ContestsManager {
 			return createContest(request);
 		} else if(action==Action.CreateContentInContest) {
 			return addContentToContest(request);
-		} else return null;
+		} else if(action==Action.GetContests) showContests();
+		return null;
+	}
+	
+	private void showContests() {
+		Scanner scanner = new Scanner(System.in);
+		getContests().forEach(elem->System.out.println(elem));
+		System.out.println("Inserisci l'ID per visualizzare il Contenuto: ");
+		Integer id = scanner.nextInt();
+		showContentsInPOI(id);
+	}
+	
+	private void showContentsInPOI(Integer id) {
+		getContest(id).getContents().forEach(elem->System.out.println(elem));
 	}
 	
 	private Contest addContentToContest(Request request) {
@@ -48,10 +61,9 @@ public class ContestsManager {
 		}
 	
 	private Contest addContentToContest(Integer id, Request request) {
-		getContest(id).addContent(contentManager.execute(request));
+		getContest(id).addContent(contentManager.execute(request, getContest(id)));
 		return getContest(id);
 	}
-	
 
 	private Contest createContest(Request request) {
 		Scanner scanner = new Scanner(System.in);

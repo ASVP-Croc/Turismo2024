@@ -16,13 +16,13 @@ public class NotificationsManager {
 		
 	}
 	
-	public boolean sendRequest (String text, Request request){
+	private boolean sendRequest (String text, Request request){
 			return accountManager.execute(request, new Notification(text));
 		}
 
 	public boolean execute(String text,Request request) {
 		if(request.getAction()==Action.Post) {
-			return sendRequest("La tua richiesta è andata a buon fine e l'elemento è stato pubblicato sulla piattaforma!"+text, request);
+			return sendRequest("La tua richiesta è andata a buon fine e l'elemento è stato pubblicato sulla piattaforma!", request);
 		} else if(request.getAction()==Action.Delete) {
 			return sendRequest("OPS! Il tuo elemento non ha passato la validazione per il seguente motivo: "+text, request);
 		}

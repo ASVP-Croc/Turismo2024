@@ -4,16 +4,12 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
 import managers.ContentsManager;
 import managers.NotificationsManager;
 import managers.POIsManager;
-=======
 import elements.Request;
 import grafic.MainPage;
-import managers.NotificationManager;
-import managers.POIManager;
->>>>>>> 6a1e666313acfedf13ad6b52c5fd485ff9672a93
+
 import managers.RequestsManager;
 import managers.ToursManager;
 import users.AbstractUser;
@@ -24,20 +20,18 @@ import users.Curator;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
-<<<<<<< HEAD
+
 		ContentsManager contentManager = new ContentsManager();
 		POIsManager poiManager = new POIsManager(contentManager);
 		ToursManager tourManager = new ToursManager(contentManager);
 		NotificationsManager notificationManager = new NotificationsManager();
 		RequestsManager controller = new RequestsManager(poiManager, tourManager, notificationManager);
-=======
 
 		AbstractUser userLogged = null;
 		POIManager poiManager = new POIManager();
 		TourManager tourManager = new TourManager();
 		NotificationManager notificationManager = new NotificationManager();
 		RequestsManager requestManager = new RequestsManager(poiManager, tourManager, notificationManager);
->>>>>>> 6a1e666313acfedf13ad6b52c5fd485ff9672a93
 		
 
 		AbstractUser.addUsers(new Contributor(1, "Lorenzo", "Crovace", "ASVP_Croc", "crovace@gmail.it", "3331001001"));

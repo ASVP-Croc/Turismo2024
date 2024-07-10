@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 import elements.*;
 import users.Action;
-
+//
 public class POIsManager {
 	private final ContentsManager contentManager;
 	private final ValidationsManager validationManager;
@@ -44,7 +44,7 @@ public class POIsManager {
 	}
 	
 	private PointOfInterest addContentToPOI(Request request, Integer id) {
-		getPOI(id).addContent(contentManager.execute(request));
+		getPOI(id).addContent(contentManager.execute(request, getPOI(id)));
 		return getPOI(id);
 		
 	}
@@ -55,12 +55,24 @@ public class POIsManager {
 		getPOIs().forEach(elem->System.out.println(elem));
 		System.out.println("Insrisci l'ID per selzionare il POI: ");
 		Integer id = scanner.nextInt();
-		getPOI(id).addContent(contentManager.execute(request));
+		getPOI(id).addContent(contentManager.execute(request, getPOI(id)));
 		return getPOI(id);
 	}
 	
 	private boolean sendValidation(Request request, PointOfInterest poi) {
 		return validationManager.execute(request, poi);
+	}
+	
+	private void showPOIs() {
+		Scanner scanner = new Scanner(System.in);
+		getPOIs().forEach(elem->System.out.println(elem));
+		System.out.println("Inserisci l'ID per visualizzare il Contenuto: ");
+		Integer id = scanner.nextInt();
+		showContentsInPOI(id);
+	}
+	
+	private void showContentsInPOI(Integer id) {
+		getPOI(id).getContents().forEach(elem->System.out.println(elem));
 	}
 
 	public PointOfInterest execute(Request request) {
@@ -71,7 +83,10 @@ public class POIsManager {
 			return poi;
 		} else if(action==Action.CreateContentInPOI) {
 			return addContentToPOI(request);
-		} else return null;
+		} else if(action==Action.GetPOIs) {
+			showPOIs();
+		}
+		return null;
 	}
 	
 	public boolean execute(Request request, Integer id) {

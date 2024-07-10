@@ -21,7 +21,7 @@ public abstract class Element {
 		return myContents.put(content.getId(), content);
 	}
 	
-	protected  Stream<Content>getMyContents() {
+	public Stream<Content>getContents() {
 		return myContents.values().stream();
 	}
 	
@@ -39,6 +39,10 @@ public abstract class Element {
 	
 	public void setVisibility() {
 		published=true;
+	}
+
+	public boolean getVisibility() {
+		return published;
 	}
 
 }

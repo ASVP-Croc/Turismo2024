@@ -23,5 +23,9 @@ public class Content {
 		published=true;
 	}
 	
+	public boolean getVisibility() {
+		return published;
+	}
+	
 }
 	

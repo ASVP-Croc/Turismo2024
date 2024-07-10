@@ -30,14 +30,14 @@ public class RequestsManager {
 
 	private boolean sendRequest(Request request) {
 		Action nextAction = request.getAction();
-		if(nextAction==Action.CreatePOI || nextAction==Action.CreateContentInPOI) {
+		if(nextAction==Action.CreatePOI || nextAction==Action.CreateContentInPOI ||  nextAction==Action.GetPOIs) {
 			poiManager.execute(request);
 			return true;
 			} else if(nextAction==Action.CreateTour || nextAction==Action.CreateContentInTour ||
-					nextAction==Action.AddPOIInTour) {
+					nextAction==Action.AddPOIInTour ||  nextAction==Action.GetTours) {
 			tourManager.execute(request);
 			return true;
-			} else if(nextAction==Action.CreateContest || nextAction==Action.CreateContentInContest) {
+			} else if(nextAction==Action.CreateContest || nextAction==Action.CreateContentInContest ||  nextAction==Action.GetContests) {
 				contestManager.execute(request);
 				return true;
 				} else if(nextAction==Action.Validate) {
@@ -50,12 +50,13 @@ public class RequestsManager {
 		} 
 	
 	
-	public boolean addRequest(Request request) {
+	private boolean addRequest(Request request) {
 		return pendingRequest.add(request);
 		
 	}
 	
-	private boolean execute() {
+	public boolean execute(Request request) {
+		addRequest(request);
 		return sendRequest(pendingRequest.poll());
 	}
 	

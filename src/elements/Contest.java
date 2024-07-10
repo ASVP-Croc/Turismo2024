@@ -15,7 +15,7 @@ public class Contest extends Element {
 	}
 	
 	public Stream<Content> getContents(){
-		return super.getMyContents();
+		return super.getContents();
 	}
 	
 	public String getDescription() {

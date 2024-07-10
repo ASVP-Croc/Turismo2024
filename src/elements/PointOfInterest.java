@@ -15,7 +15,7 @@ public class PointOfInterest extends Element{
 	}
 
 	public Stream<Content> getContents() {
-		return super.getMyContents();
+		return super.getContents();
 	}
 
 	public Content addContent(Content content) {

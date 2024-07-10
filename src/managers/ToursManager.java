@@ -58,6 +58,8 @@ public class ToursManager {
 			addContentToTour(request,tour.getId());
 		}
 		//fino a quando l'utente vuole.
+		
+		sendValidation(request, tour);
 		return tour;
 	}
 	
@@ -76,12 +78,13 @@ public class ToursManager {
 		Integer integer = scanner.nextInt();
 		tours.get(id).addPoi(poiManager.getPOI(integer));
 		return tours.get(id);
-	}
+	}//gestione aggiunta poi con validazione
 	
 	
 	
-	private Content addContentToTour(Request request, Integer id) {
-		return tours.get(id).addContent(contentManager.execute(null));
+	private Tour addContentToTour(Request request, Integer id) {
+		tours.get(id).addContent(contentManager.execute(request, tours.get(id)));
+		return tours.get(id);
 	}
 	
 	private Tour addContentToTour(Request request) {
@@ -89,8 +92,27 @@ public class ToursManager {
 		System.out.println("Seleziona un Tour inserendo l'ID");
 		getTours().forEach(tour->System.out.println(tour));
 		Integer id = scanner.nextInt();
-		tours.get(id).addContent(contentManager.execute(request));
+		tours.get(id).addContent(contentManager.execute(request, tours.get(id)));
 		return tours.get(id);
+	}
+	
+	private void showTours() {
+		Scanner scanner = new Scanner(System.in);
+		getTours().forEach(elem->System.out.println(elem));
+		System.out.println("Inserisci l'Id per selezionare un Tour: ");
+		Integer id = scanner.nextInt();
+		System.out.println("Seleziona 1 per visualizzare i POIs, 2 per visualizzare i Contenuti");
+		Integer select = scanner.nextInt();
+		if(select==1) showPOIsInTour(id);
+		else if(select==2) showContentsInTour(id);
+	}
+	
+	private void showContentsInTour(Integer id) {
+		getTour(id).getContents().forEach(elem->System.out.println(elem));
+	}
+	
+	private void showPOIsInTour(Integer id) {
+		getTour(id).getPois().forEach(elem->System.out.println(elem));
 	}
 
 	public Tour execute(Request request) {
@@ -101,16 +123,14 @@ public class ToursManager {
 			return addContentToTour(request);
 		} else if(action==Action.AddPOIInTour) {
 			addPOIToTour();
+		} else if(action==Action.GetTours) {
+			showTours();
 		}
 		return null;
 	}
 	
 	private boolean sendValidation(Request request, Tour tour) {
 		return validationManager.execute(request, tour);
-	}
-	
-	private boolean sendValidation(Request request, Content content) {
-		return validationManager.execute(request, content);
 	}
 	
 	public boolean execute(Request request, Integer id) {
