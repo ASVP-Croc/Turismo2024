@@ -11,23 +11,10 @@ import elements.*;
 import users.*;
 
 public class ValidationsManager {
-	private final POIsManager poiManager;
-	private final ToursManager tourManager;
-	private final ContestsManager contestManager;
-	private final NotificationsManager notificationManager;
-	private final Queue<Element> elementList;
-	private final Queue<Contest> contestList;
-	
-	public ValidationsManager(POIsManager poiManager, ToursManager tourManager, ContestsManager contestManager, NotificationsManager notificationManager) {
-		this.poiManager = poiManager;
-		this.tourManager = tourManager;
-		this.contestManager = contestManager;
-		this.notificationManager = notificationManager;
-		this.elementList = new LinkedList();
-		this.contestList = new LinkedList();
-	}
+	private final static Queue<Element> elementList = new LinkedList();
+	private final static Queue<Contest> contestList = new LinkedList();
 
-	public boolean execute(Request request) {
+	public static boolean execute(Request request) {
 		if(request.getAction()==Action.Validate && request.getUser().getRole()==Role.Curator) {
 			return validateElements(request);
 		} else if (request.getAction()==Action.Validate && request.getUser().getRole()==Role.Animator) {
@@ -35,27 +22,26 @@ public class ValidationsManager {
 			} else return false;
 	}
 	
-	private boolean validateElements(Request request) {
-		while(!elementList.isEmpty()){
+	private static boolean validateElements(Request request) {
 			System.out.println("Benvenuto Curatore! Ci sono degli elementi da validare!");
 			Element element = elementList.poll();
 			if(element.getVisibility()==false)
 				return validateElement(request, element);
 			else if( element.getContents().anyMatch(elem->elem.getVisibility()==false))
 				return validateContent(request, element);
-			} System.out.println("Benvenuto Curatore! Non ci sono elementi da validare al momento!");
+			System.out.println("Benvenuto Curatore! Non ci sono elementi da validare al momento!");
 			return false;
 		}
 	
-	public boolean execute(Request request, Contest contest) {
+	public static boolean execute(Request request, Contest contest) {
 		return pendingValidation(request,contest);
 	}
 	
-	public boolean execute(Request request, Element element) {
+	public static boolean execute(Request request, Element element) {
 		return pendingValidation(request, element);
 	}
 	
-	private boolean validateContentInContest(Request request) {
+	private static boolean validateContentInContest(Request request) {
 		while(!contestList.isEmpty()){
 			System.out.println("Benvenuto Animatore! Ci sono dei Contenuti da validare!");
 			Contest contest = contestList.poll();
@@ -65,15 +51,15 @@ public class ValidationsManager {
 			return false;
 	}
 	
-	private boolean pendingValidation(Request request, Contest contest) {
+	private static boolean pendingValidation(Request request, Contest contest) {
 		return contestList.add(contest);
 	}
 	
-	private boolean pendingValidation(Request request, Element element) {
+	private static boolean pendingValidation(Request request, Element element) {
 		return elementList.add(element);
 	}
 	
-	private boolean validateElement(Request request, Element element) {
+	private static boolean validateElement(Request request, Element element) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println(element);
 		System.out.println("Validare L'elemento? Si/No");
@@ -86,7 +72,7 @@ public class ValidationsManager {
 	}
 	
 	
-	private boolean validateContent(Request request, Element element) {
+	private static boolean validateContent(Request request, Element element) {
 		Scanner scanner = new Scanner(System.in);
 		Set<Content> content= element.getContents()
 				.filter(elem->elem.getVisibility()==false)
@@ -106,7 +92,7 @@ public class ValidationsManager {
 	}
 			
 	
-	private boolean deleteMessages(Request request, Integer id) {
+	private static boolean deleteMessages(Request request, Integer id) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Inserisci una motivazione per la mancata validazione: ");
 		String reason = scanner.nextLine();
@@ -116,7 +102,7 @@ public class ValidationsManager {
 		return true;
 	}
 	
-	private boolean deleteMessages(Request request, Integer id1, Integer id2) {
+	private static boolean deleteMessages(Request request, Integer id1, Integer id2) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Inserisci una motivazione per la mancata validazione: ");
 		String reason = scanner.nextLine();
@@ -126,7 +112,7 @@ public class ValidationsManager {
 		return true;
 	}
 	
-	private boolean validateMessages(Request request, Integer id) {
+	private static boolean validateMessages(Request request, Integer id) {
 		Request next = new Request(request.getUser(), Action.Post);
 		sendRequest(next, id);
 		sendNotification("",next);
@@ -134,7 +120,7 @@ public class ValidationsManager {
 		return true;
 	}
 	
-	private boolean validateMessages(Request request, Integer id1, Integer id2) {
+	private static boolean validateMessages(Request request, Integer id1, Integer id2) {
 		Request next = new Request(request.getUser(), Action.Post);
 		sendRequest(next, id1, id2);
 		sendNotification("",next);
@@ -142,27 +128,27 @@ public class ValidationsManager {
 		return true;
 	}
 	
-	private boolean sendNotification(String text, Request request) {
-		return notificationManager.execute(text,request);
+	private static boolean sendNotification(String text, Request request) {
+		return NotificationsManager.execute(text,request);
 	}
 
 		
 //Ricontrolla. L'id inizia con 1 se è un POI, 2 se Tour.
-	private boolean sendRequest(Request request, Integer id) {
+	private static boolean sendRequest(Request request, Integer id) {
 		if(id.intValue()==1) {
-			return poiManager.execute(request, id);
+			return POIsManager.execute(request, id);
 		} else if(id.intValue()==2) {
-			return tourManager.execute(request, id);
+			return ToursManager.execute(request, id);
 		} else return false;
 	}
 //Ricontrolla. L'id inizia con 1 se è un POI, 2 se Tour, 3 se Contest.
-	private boolean sendRequest(Request request, Integer id1, Integer id2) {
+	private static boolean sendRequest(Request request, Integer id1, Integer id2) {
 		if(id1.intValue()==1) {
-			return poiManager.execute(request, id1, id2 );
+			return POIsManager.execute(request, id1, id2 );
 		} else if(id1.intValue()==2) {
-			return tourManager.execute(request, id1, id2);
+			return ToursManager.execute(request, id1, id2);
 		}  else if(id1.intValue()==3) {
-			return contestManager.execute(request, id1, id2);
+			return ContestsManager.execute(request, id1, id2);
 		} else return false;
 	}
 

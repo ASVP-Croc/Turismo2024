@@ -8,28 +8,18 @@ import java.util.stream.Stream;
 import elements.*;
 import users.Action;
 
-public class ContestsManager {
-	private final POIsManager poiManager;
-	private final ToursManager tourManager;
-	private final ContentsManager contentManager;
-	private final Map<Integer, Contest> contests;
+public class ContestsManager  {
+	private final static Map<Integer, Contest> contests = new HashMap<>();
 	
-	public ContestsManager(POIsManager poiManager, ToursManager tourManager, ContentsManager contentManager) {
-		this.poiManager = poiManager;
-		this.tourManager = tourManager;
-		this.contentManager = contentManager;
-		this.contests = new HashMap<>();
-	}
-	
-	public Contest getContest(Integer id) {
+	public static Contest getContest(Integer id) {
 		return contests.get(id);
 	}
 	
-	public Stream<Contest> getContests() {
+	public static Stream<Contest> getContests() {
 		return contests.values().stream();
 	}
 	
-	public Contest execute(Request request) {
+	public static Contest execute(Request request) {
 		Action action = request.getAction();
 		if(action==Action.CreateContest) {
 			return createContest(request);
@@ -39,7 +29,7 @@ public class ContestsManager {
 		return null;
 	}
 	
-	private void showContests() {
+	private static void showContests() {
 		Scanner scanner = new Scanner(System.in);
 		getContests().forEach(elem->System.out.println(elem));
 		System.out.println("Inserisci l'ID per visualizzare il Contenuto: ");
@@ -47,11 +37,11 @@ public class ContestsManager {
 		showContentsInPOI(id);
 	}
 	
-	private void showContentsInPOI(Integer id) {
+	private static void showContentsInPOI(Integer id) {
 		getContest(id).getContents().forEach(elem->System.out.println(elem));
 	}
 	
-	private Contest addContentToContest(Request request) {
+	private static Contest addContentToContest(Request request) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Seleziona un Tour a cui aggiungere un Contenuto:");
 		getContests().forEach(elem->System.out.println(elem));
@@ -60,46 +50,46 @@ public class ContestsManager {
 		return addContentToContest(id, request);
 		}
 	
-	private Contest addContentToContest(Integer id, Request request) {
-		getContest(id).addContent(contentManager.execute(request, getContest(id)));
+	private static Contest addContentToContest(Integer id, Request request) {
+		getContest(id).addContent(ContentsManager.execute(request, getContest(id)));
 		return getContest(id);
 	}
 
-	private Contest createContest(Request request) {
+	private static Contest createContest(Request request) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Seleziona 1-POI o 2-Itinerario per associare un luogo al Contest.");
 		int select = scanner.nextInt();
 		if(select==1) {
-			poiManager.getPOIs();
+			POIsManager.getPOIs();
 			System.out.println("Seleziona un POI inserendo l'ID.");
 			Integer id = scanner.nextInt();
-			poiManager.getPOI(id);
+			POIsManager.getPOI(id);
 			System.out.println("Inserisci una descrizione per il Contest: ");
 			String description = scanner.nextLine();
-			Contest contest = new Contest(description,poiManager.getPOI(id));
+			Contest contest = new Contest(description,POIsManager.getPOI(id));
 			System.out.println("Desideri inserire ora un contenuto per il Contest creato? Si/No");
 			String scan = scanner.nextLine();
 			if(scan=="Si") {
 				addContentToContest(contest.getId(), request);
 			} else return contest;
 		} else if(select==2) {
-			tourManager.getTours();
+			ToursManager.getTours();
 			System.out.println("Seleziona un Tour inserendo l'ID.");
 			Integer id = scanner.nextInt();
-			tourManager.getTour(id);
+			ToursManager.getTour(id);
 			System.out.println("Inserisci una descrizione per il Contest: ");
 			String description = scanner.nextLine();
-			Contest contest = new Contest(description,poiManager.getPOI(id));
+			Contest contest = new Contest(description, ToursManager.getTour(id));
 			System.out.println("Desideri inserire ora un contenuto per il Contest creato? Si/No");
 			String scan = scanner.nextLine();
 			if(scan=="Si") {
-				addContentToContest(contest.getId(), request);
+				return addContentToContest(contest.getId(), request);
 			} else return contest;
 		} return null;
 			
 	}
 	
-	public boolean execute(Request request, Integer id1, Integer id2) {
+	public static boolean execute(Request request, Integer id1, Integer id2) {
 		if(request.getAction()==Action.Post) {
 			getContest(id1).getContent(id2).setVisibility();
 			return true;

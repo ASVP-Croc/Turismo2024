@@ -5,15 +5,16 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public abstract class Element {
+	private static Integer generalID = 0;
 	private final String description;
 	private final Map<Integer, Content> myContents;
-	private final Integer id;
+	private final Integer id ;
 	private boolean published;
 	
 	public Element(String text) {
 		this.description = text;
 		this.myContents = new HashMap<>();
-		this.id = 0;
+		this.id = generalID++;
 		this.published=false;
 	}
 	

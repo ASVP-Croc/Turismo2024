@@ -3,7 +3,6 @@ package users;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import elements.Request;
@@ -17,7 +16,6 @@ public abstract class AbstractUser {
 	private String phoneNumber;
 	private Role role = Role.Tourist;
 	private List<Action> actions;
-	private static List<AbstractUser> users = new ArrayList<AbstractUser>();
 
 	protected AbstractUser(int id, String name, String surname, String userName, String email, String phoneNumber) {
 		this.id = id;
@@ -26,7 +24,6 @@ public abstract class AbstractUser {
 		this.userName = userName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
-		this.actions = new ArrayList<>();
 	}
 
 	public Request sendRequest() throws IOException {
@@ -103,13 +100,5 @@ public abstract class AbstractUser {
 
 	public void setActions(List<Action> actions) {
 		this.actions = actions;
-	}
-
-	public static List<AbstractUser> getUsers() {
-		return users;
-	}
-
-	public static boolean addUsers(AbstractUser user) {
-		return AbstractUser.users.add(user);
 	}
 }

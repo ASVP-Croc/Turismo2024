@@ -20,7 +20,9 @@ import users.Curator;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
-
+		private static final ContentsManager contentManager = new ContentsManager();
+		private static final POIsManager poiManager = new POIsManager();
+		private static final ToursManager Manager = new ToursManager();
 		ContentsManager contentManager = new ContentsManager();
 		POIsManager poiManager = new POIsManager(contentManager);
 		ToursManager tourManager = new ToursManager(contentManager);

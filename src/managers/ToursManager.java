@@ -9,31 +9,21 @@ import elements.*;
 import users.Action;
 
 public class ToursManager {
-	private final ContentsManager contentManager;
-	private final POIsManager poiManager;
-	private final ValidationsManager validationManager;
-	private final Map<Integer, Tour> tours;
+	private final static Map<Integer, Tour> tours = new HashMap<>();
 
-	public ToursManager(ContentsManager contentManager, POIsManager poiManager, ValidationsManager validationManager) {
-		this.contentManager = contentManager;
-		this.poiManager = poiManager;
-		this.validationManager = validationManager;
-		this.tours = new HashMap<>();
-	}
-
-	public Stream<Tour> getTours() {
+	public static Stream<Tour> getTours() {
 		return tours.values().stream();
 	}
 	
-	public Tour getTour(Integer id) {
+	public static Tour getTour(Integer id) {
 		return tours.get(id);
 	}
 	
-	public Stream<Content> getContents(Integer id){
+	public static Stream<Content> getContents(Integer id){
 		return getTour(id).getContents();
 	}
 
-	private Tour createTour(Request request) {
+	private static Tour createTour(Request request) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Inserisci una descrizione per il Tour da creare: ");
 		String text = scanner.nextLine();
@@ -47,56 +37,57 @@ public class ToursManager {
 		System.out.println("3- per Creare un nuovo Contenuto da aggiungere al Tour!");
 		int select = scanner.nextInt();
 		if(select==1) {
-			addPOIToTour(tour.getId(),poiManager.execute(request));
+			POIsManager.execute(request);
+			return addPOIToTour(request, tour.getId());
 		} else if(select==2) {
-			System.out.println("Seleziona un POI da aggiungere scrivendo l'ID!");
-			poiManager.getPOIs().forEach(poi->System.out.println(poi));
-			Integer integer = scanner.nextInt();
-			addPOIToTour(tour.getId(), poiManager.getPOI(integer));
+			return addPOIToTour(request, tour.getId());
 		}
 		else if(select==3) {
-			addContentToTour(request,tour.getId());
-		}
-		//fino a quando l'utente vuole.
-		
-		sendValidation(request, tour);
+			return addContentToTour(request,tour.getId());
+		} sendValidation(request, tour);
 		return tour;
 	}
 	
-	private Tour addPOIToTour(Integer id, PointOfInterest poi) {
-		tours.get(id).addPoi(poi);
+	private static Tour addPOIToTour(Request request, Integer id) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Seleziona un POI da aggiungere scrivendo l'ID!");
+		POIsManager.getPOIs().forEach(poi->System.out.println(poi));
+		Integer integer = scanner.nextInt();
+		Request nextRequest = new Request(request.getUser(), Action.AddPOIInTour);
+		sendValidation(nextRequest, tours.get(id));
+		tours.get(id).addPoi(POIsManager.getPOI(integer));
 		return tours.get(id);
 	}
 	
-	public Tour addPOIToTour() {
+	private static Tour addPOIToTour() {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Seleziona un Tour inserendo l'ID");
 		getTours().forEach(tour->System.out.println(tour));
 		Integer id = scanner.nextInt();
 		System.out.println("Seleziona un POI da aggiungere scrivendo l'ID!");
-		poiManager.getPOIs().forEach(poi->System.out.println(poi));
+		POIsManager.getPOIs().forEach(poi->System.out.println(poi));
 		Integer integer = scanner.nextInt();
-		tours.get(id).addPoi(poiManager.getPOI(integer));
+		tours.get(id).addPoi(POIsManager.getPOI(integer));
 		return tours.get(id);
 	}//gestione aggiunta poi con validazione
 	
 	
 	
-	private Tour addContentToTour(Request request, Integer id) {
-		tours.get(id).addContent(contentManager.execute(request, tours.get(id)));
+	private static Tour addContentToTour(Request request, Integer id) {
+		tours.get(id).addContent(ContentsManager.execute(request, tours.get(id)));
 		return tours.get(id);
 	}
 	
-	private Tour addContentToTour(Request request) {
+	private static Tour addContentToTour(Request request) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Seleziona un Tour inserendo l'ID");
 		getTours().forEach(tour->System.out.println(tour));
 		Integer id = scanner.nextInt();
-		tours.get(id).addContent(contentManager.execute(request, tours.get(id)));
+		tours.get(id).addContent(ContentsManager.execute(request, tours.get(id)));
 		return tours.get(id);
 	}
 	
-	private void showTours() {
+	private static void showTours() {
 		Scanner scanner = new Scanner(System.in);
 		getTours().forEach(elem->System.out.println(elem));
 		System.out.println("Inserisci l'Id per selezionare un Tour: ");
@@ -107,33 +98,33 @@ public class ToursManager {
 		else if(select==2) showContentsInTour(id);
 	}
 	
-	private void showContentsInTour(Integer id) {
+	private static void showContentsInTour(Integer id) {
 		getTour(id).getContents().forEach(elem->System.out.println(elem));
 	}
 	
-	private void showPOIsInTour(Integer id) {
+	private static void showPOIsInTour(Integer id) {
 		getTour(id).getPois().forEach(elem->System.out.println(elem));
 	}
 
-	public Tour execute(Request request) {
+	public static Tour execute(Request request) {
 		Action action = request.getAction();
 		if(action==Action.CreateTour) {
 			return createTour(request);
 		} else if(action==Action.CreateContentInTour) {
 			return addContentToTour(request);
 		} else if(action==Action.AddPOIInTour) {
-			addPOIToTour();
+			return addPOIToTour();
 		} else if(action==Action.GetTours) {
 			showTours();
 		}
 		return null;
 	}
 	
-	private boolean sendValidation(Request request, Tour tour) {
-		return validationManager.execute(request, tour);
+	private static boolean sendValidation(Request request, Tour tour) {
+		return ValidationsManager.execute(request, tour);
 	}
 	
-	public boolean execute(Request request, Integer id) {
+	public static boolean execute(Request request, Integer id) {
 		if(request.getAction()==Action.Post) {
 			getTour(id).setVisibility();
 			return true;
@@ -143,7 +134,7 @@ public class ToursManager {
 		} else return false;
 	}
 		
-	public boolean execute(Request request, Integer id1, Integer id2) {
+	public static boolean execute(Request request, Integer id1, Integer id2) {
 		if(request.getAction()==Action.Post) {
 			getTour(id1).getContent(id2).setVisibility();
 			return true;
