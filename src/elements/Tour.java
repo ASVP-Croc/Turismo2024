@@ -32,11 +32,11 @@ public class Tour extends Element{
 		return super.addContent(content);
 	}
 
-	public Content getContent(int index) {
-		return super.getContent(index);
+	public Content getContent(Integer id) {
+		return super.getContent(id);
 	}
 
-	public boolean addPoi(PointOfInterest poi) {
+	public boolean addPOI(PointOfInterest poi) {
 		return pois.add(poi);
 	}
 	

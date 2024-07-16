@@ -29,28 +29,28 @@ public class POIsManager {
 		System.out.println("Inserisci un titolo per il POI da creare: ");
 		String text = scanner.nextLine();
 		PointOfInterest poi = new PointOfInterest(text, new Coordinate(dx, dy));
+		pois.put(poi.getId(),poi);
 		System.out.println("Inserisci 1 per aggiungere ora un Contenuto, 2 per completare la creazione.");
 		int select = scanner.nextInt();
 		if(select==1) {
-			Request nextRequest = new Request(request.getUser(), Action.CreateContentInPOI);
-			addContentToPOI(nextRequest, poi);
-		} return pois.put(poi.getId(),poi);
+			return addContentToPOI(request, poi);
+		} else return poi;
 	}
 	
 	private static PointOfInterest addContentToPOI(Request request, PointOfInterest poi) {
-		poi.addContent(ContentsManager.execute(request, poi));
+		Request nextRequest = new Request(request.getUser(), Action.CreateContentInPOI);
+		poi.addContent(ContentsManager.execute(nextRequest, poi));
 		return poi;
 	}
 	
 	private static PointOfInterest addContentToPOI(Request request) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Seleziona un POI a cui aggiungere un Contenuto:");
-		getPOIs().forEach(elem->System.out.println(elem));
+		getPOIs().forEach(elem->System.out.println("Dsc: " + elem.getDescription()+ " Id: "+elem.getId()));
 		System.out.println("Inserisci l'ID per selezionare il POI: ");
 		Integer id = scanner.nextInt();
-		getPOI(id).addContent(ContentsManager.execute(request, getPOI(id)));
-		return getPOI(id);
-		
+		PointOfInterest poi = getPOI(id);
+		return addContentToPOI(request,poi);
 	}
 	
 	private static boolean sendValidation(Request request, PointOfInterest poi) {
@@ -59,14 +59,14 @@ public class POIsManager {
 	
 	private static void showPOIs() {
 		Scanner scanner = new Scanner(System.in);
-		getPOIs().forEach(elem->System.out.println(elem));
+		getPOIs().forEach(elem->System.out.println("Dsc: " + elem.getDescription()+ " Id: "+elem.getId()));
 		System.out.println("Inserisci l'ID per visualizzare il Contenuto: ");
 		Integer id = scanner.nextInt();
 		showContentsInPOI(id);
 	}
 	
 	private static void showContentsInPOI(Integer id) {
-		getPOI(id).getContents().forEach(elem->System.out.println(elem));
+		getPOI(id).getContents().forEach(elem->System.out.println("Dsc: " + elem.getText()+ " Id: "+elem.getId()));
 	}
 
 	

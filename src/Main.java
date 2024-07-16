@@ -20,20 +20,10 @@ import users.Curator;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
-		private static final ContentsManager contentManager = new ContentsManager();
-		private static final POIsManager poiManager = new POIsManager();
-		private static final ToursManager Manager = new ToursManager();
-		ContentsManager contentManager = new ContentsManager();
-		POIsManager poiManager = new POIsManager(contentManager);
-		ToursManager tourManager = new ToursManager(contentManager);
-		NotificationsManager notificationManager = new NotificationsManager();
-		RequestsManager controller = new RequestsManager(poiManager, tourManager, notificationManager);
+		
 
 		AbstractUser userLogged = null;
-		POIManager poiManager = new POIManager();
-		TourManager tourManager = new TourManager();
-		NotificationManager notificationManager = new NotificationManager();
-		RequestsManager requestManager = new RequestsManager(poiManager, tourManager, notificationManager);
+		
 		
 
 		AbstractUser.addUsers(new Contributor(1, "Lorenzo", "Crovace", "ASVP_Croc", "crovace@gmail.it", "3331001001"));

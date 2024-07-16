@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public abstract class Element {
-	private static Integer generalID = 0;
+	private static Integer generalID = 1;
 	private final String description;
 	private final Map<Integer, Content> myContents;
 	private final Integer id ;

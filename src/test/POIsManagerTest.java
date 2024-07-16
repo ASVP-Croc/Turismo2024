@@ -23,13 +23,34 @@ class POIsManagerTest {
 		POIsManager.execute(creaPOI1);
 		POIsManager.execute(creaPOI2);
 		POIsManager.execute(creaPOI3);
+		assertTrue(POIsManager.getPOIs().count()==3);
 	}
 
 	@Test
-	void testExecuteRequest() {
-		fail("Not yet implemented");
+	void testAddContentToPOI() {
+		AbstractUser contributorAutorizzato = new AuthorizedContributor(2, "Matteo", "Pallotti", "Maverick",  "pallotti@gmail.it", "3331001003");
+		Request creaPOI2 = new Request(contributorAutorizzato, Action.CreatePOI);
+		Request addContentToPOI = new Request(contributorAutorizzato, Action.CreateContentInPOI);
+		POIsManager.execute(creaPOI2);
+		POIsManager.execute(addContentToPOI);
+		assertEquals(2,POIsManager.getPOI(1).getContents().count());
+	}
+	
+	@Test
+	void testGetPOIs() {
+		AbstractUser contributor = new Contributor(1, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
+		AbstractUser contributorAutorizzato = new AuthorizedContributor(2, "Matteo", "Pallotti", "Maverick",  "pallotti@gmail.it", "3331001003");
+		AbstractUser turistaAutenticato = new AuthenticatedTourist(3, "Simone", "Nonsoilcognome", "SilverSimon", "simon@gmail.it", "3331001002");
+		Request creaPOI1 = new Request(contributor, Action.CreatePOI);
+		Request creaPOI2 = new Request(contributorAutorizzato, Action.CreatePOI);
+		Request getPOIs = new Request(turistaAutenticato, Action.GetPOIs);
+		POIsManager.execute(creaPOI1);
+		POIsManager.execute(creaPOI2);
+		POIsManager.execute(getPOIs);
 	}
 
+	
+	
 	@Test
 	void testExecuteRequestInteger() {
 		fail("Not yet implemented");
