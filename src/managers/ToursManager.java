@@ -25,44 +25,53 @@ public class ToursManager {
 		String text = scanner.nextLine();
 		Tour tour = new Tour(text);
 		tours.put(tour.getId(), tour);
+		sendValidation(request, tour);
 		System.out.println("Inserisci almeno 2 POI per completare il Tour: ");
-		for(int i=0; i<2;i++) {
-		System.out.println("1- per Creare un nuovo POI!");
-		System.out.println("2- per aggiungere un POI già esistente!");
-		int select = scanner.nextInt();
-		if(select==1) {
-			Request nextRequest = new Request(request.getUser(), Action.CreatePOI);
-			POIsManager.execute(nextRequest);
-			addPOIToTour(request, tour);
-		} else if(select==2) {
-			addPOIToTour(request,tour);
+		while(tour.getPois().count()<2){
+		addPOIInTour(request, tour);
 		}
-		}
-		System.out.println("1- per Creare un nuovo POI!");
-		System.out.println("2- per aggiungere un POI già esistente!");
-		System.out.println("3- per Creare un nuovo Contenuto da aggiungere al Tour!");
-		int select1 = scanner.nextInt();
-		if(select1==1) {
-			Request nextRequest = new Request(request.getUser(), Action.CreatePOI);
-			POIsManager.execute(nextRequest);
-			return addPOIToTour(request, tour);
-		} else if(select1==2) {
-			return addPOIToTour(request,tour);
-		}
-		else if(select1==3) {
-			return addContentToTour(request,tour);
-		} sendValidation(request, tour);
+		addContentToTour(request, tour);
 		return tour;
+	}
+	
+	private static void addPOIInTour(Request request, Tour tour) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("1- per Creare un nuovo POI, 2- per aggiungere un POI già esistente, 3-Esci");
+		int select = scanner.nextInt();
+		while(select==1 || select==2) {
+
+		if(select==1) {
+			PointOfInterest poi = createPOI(request);
+			addPOIToTour(request, tour, poi);
+			} else if(select==2) {
+			addPOIToTour(request,tour);
+			} 
+		System.out.println("1- per Creare un nuovo POI, 2- per aggiungere un POI già esistente, 3-Esci");
+		select = scanner.nextInt();
+		}
+	}
+	
+	private static Tour addPOIToTour(Request request, Tour tour, PointOfInterest poi) {
+		tour.addPOI(poi);
+		return tour;
+	}
+
+	private static PointOfInterest createPOI(Request request) {
+		Request nextRequest = new Request(request.getUser(), Action.CreatePOI);
+		return POIsManager.execute(nextRequest);
 	}
 	
 	private static Tour addPOIToTour(Request request, Tour tour) {
 		Scanner scanner = new Scanner(System.in);
+		int select = 1;
+		while(select==1) {
 		System.out.println("Seleziona un POI da aggiungere scrivendo l'ID!");
 		POIsManager.getPOIs().forEach(poi->System.out.println("Dsc: " + poi.getDescription()+ " Id: "+poi.getId()));
 		Integer id = scanner.nextInt();
 		tour.addPOI(POIsManager.getPOI(id));
-		Request nextRequest = new Request(request.getUser(), Action.AddPOIInTour);
-		sendValidation(nextRequest, tour);
+		System.out.println("1-aggiungi un altro POI, 2-esci");
+		select = scanner.nextInt();
+		}
 		return tour;
 	}
 	
@@ -71,15 +80,21 @@ public class ToursManager {
 		System.out.println("Seleziona un Tour inserendo l'ID");
 		getTours().forEach(tour->System.out.println("Dsc: " + tour.getDescription()+ " Id: "+tour.getId()));
 		Integer id = scanner.nextInt();
-		return addPOIToTour(request, tours.get(id));
-	}//gestione aggiunta poi con validazione
-	
-	
+		Tour tour = new Tour(tours.get(id));
+		sendValidation(request, tour);
+		return addPOIToTour(request, tour);
+	}
 	
 	private static Tour addContentToTour(Request request, Tour tour) {
-		Request nextRequest = new Request(request.getUser(), Action.CreateContentInTour);
-		tour.addContent(ContentsManager.execute(nextRequest,tour));
-		return tour;
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("1- per Creare un nuovo Contenuto da aggiungere al Tour, 2-Esci");
+		int select = scanner.nextInt();
+		while(select==1) {
+			Request nextRequest = new Request(request.getUser(), Action.CreateContentInTour);
+			tour.addContent(ContentsManager.execute(nextRequest,tour));
+			System.out.println("1- per Creare un nuovo Contenuto da aggiungere al Tour, 2-Esci");
+			select = scanner.nextInt();
+		} return tour;
 	}
 	
 	private static Tour addContentToTour(Request request) {
@@ -87,8 +102,7 @@ public class ToursManager {
 		System.out.println("Seleziona un Tour inserendo l'ID");
 		getTours().forEach(tour->System.out.println("Dsc: " + tour.getDescription()+ " Id: "+tour.getId()));
 		Integer id = scanner.nextInt();
-		Tour tour = tours.get(id);
-		return addContentToTour(request, tour);
+		return addContentToTour(request, tours.get(id));
 	}
 	
 	private static void showTours() {

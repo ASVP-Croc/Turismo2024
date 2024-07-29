@@ -18,20 +18,43 @@ public class ValidationsManager {
 		if(request.getAction()==Action.Validate && request.getUser().getRole()==Role.Curator) {
 			return validateElements(request);
 		} else if (request.getAction()==Action.Validate && request.getUser().getRole()==Role.Animator) {
-			return validateContentInContest(request);
+			return validateContentsInContest(request);
 			} else return false;
 	}
 	
 	private static boolean validateElements(Request request) {
+		if(elementList.isEmpty()) {System.out.println("Benvenuto Curatore! Non ci sono elementi da validare al momento!");
+		return true;
+		} else { Scanner scanner = new Scanner(System.in);
 			System.out.println("Benvenuto Curatore! Ci sono degli elementi da validare!");
-			Element element = elementList.poll();
+			Integer select = 1;
+			while(!elementList.isEmpty() && select==1) {
+				Element element = elementList.poll();
 			if(element.getVisibility()==false)
-				return validateElement(request, element);
-			else if( element.getContents().anyMatch(elem->elem.getVisibility()==false))
-				return validateContent(request, element);
-			System.out.println("Benvenuto Curatore! Non ci sono elementi da validare al momento!");
-			return false;
+				validateElement(request, element);
+			else if(element.getContents().anyMatch(content->content.getVisibility()==false))
+				validateContent(request, element);
+			System.out.println("1-Visualizza il prossimo elemento da validare, 2-Esci");
+			select=scanner.nextInt();}
+		} return true;
+	}
+	
+	private static boolean validateContentsInContest(Request request) {
+		if(contestList.isEmpty()){ System.out.println("Benvenuto Curatore! Non ci sono elementi da validare al momento!");
+		return true;
+		} else { Scanner scanner = new Scanner(System.in);
+			System.out.println("Benvenuto Animatore! Ci sono dei Contenuti da validare!");
+			Contest contest = contestList.poll();
+			Integer select = 1;
+			while(contest!=null && select==1) {
+			if(contest.getContents().anyMatch(content->content.getVisibility()==false))
+				validateContent(request, contest);
+			System.out.println("1-Visualizza il prossimo Contest per validare i contenuti, 2-Esci");
+			select=scanner.nextInt();
+			if(select==1) contest = contestList.poll();
+		} return false;
 		}
+	}
 	
 	public static boolean execute(Request request, Contest contest) {
 		return pendingValidation(request,contest);
@@ -41,88 +64,95 @@ public class ValidationsManager {
 		return pendingValidation(request, element);
 	}
 	
-	private static boolean validateContentInContest(Request request) {
-		while(!contestList.isEmpty()){
-			System.out.println("Benvenuto Animatore! Ci sono dei Contenuti da validare!");
-			Contest contest = contestList.poll();
-			if(contest.getVisibility()==true)
-				return validateContent(request, contest);
-			} System.out.println("Benvenuto Curatore! Non ci sono elementi da validare al momento!");
-			return false;
+	private static boolean autoValidation(Request request, Element element) {
+		if(request.getAction()==Action.CreatePOI || request.getAction()==Action.CreateTour || request.getAction()==Action.AddPOIInTour)
+		if(element.getVisibility()==false) {
+			element.setVisibility();
+			return true;
+			}
+		else if(request.getAction()==Action.CreateContentInContest || request.getAction()==Action.CreateContentInPOI || request.getAction()==Action.CreateContentInTour) {
+			element.getContents().filter(elem->elem.getCreator()==Role.AuthorizedContributor || elem.getCreator()==Role.Curator)
+			.forEach(elem->elem.setVisibility());
+			return true;
+		} return false;
 	}
 	
 	private static boolean pendingValidation(Request request, Contest contest) {
+		if(checkActor(request.getUser())==true) {
 		return contestList.add(contest);
+		} else return autoValidation(request, contest);
 	}
 	
 	private static boolean pendingValidation(Request request, Element element) {
+		if(checkActor(request.getUser())==true) {
 		return elementList.add(element);
+		} else return autoValidation(request, element);
 	}
 	
 	private static boolean validateElement(Request request, Element element) {
 		Scanner scanner = new Scanner(System.in);
-		System.out.println(element);
-		System.out.println("Validare L'elemento? Si/No");
-		String result = scanner.nextLine();
-		if(result.equals("No")) {
-			return deleteMessages(request, element.getId());
-		} else if(result.equals("Si")) {
-			return validateMessages(request, element.getId());
+		System.out.println("Dsc: "+ element.getDescritpion()+" "+ "Id: "+ element.getId());
+		System.out.println("1-per validare L'elemento, 2-per scartere l'elemento");
+		Integer result = scanner.nextInt();
+		if(result==2) {
+			while(elementList.contains(element)) {
+				elementList.remove(element);
+			}
+			return deleteMessages(request, element);
+		} else if(result==1) {
+			return validateMessages(request, element);
 		} else return false;
 	}
 	
 	
 	private static boolean validateContent(Request request, Element element) {
 		Scanner scanner = new Scanner(System.in);
-		Set<Content> content= element.getContents()
-				.filter(elem->elem.getVisibility()==false)
-				.collect(Collectors.toSet());
-		if(content.iterator().hasNext()) {
-			Content nextContent = content.iterator().next();
-			System.out.println(nextContent);
-			System.out.println("Validare il contenuto? Si/No");
-			String result = scanner.nextLine();
-			if(result.equals("No")) {
-				return deleteMessages(request, element.getId(), nextContent.getId());
-			} else if(result.equals("Si")) {
-				return validateMessages(request, element.getId(), nextContent.getId());
-			}
-		}
-		return false;
+		element.getContents().filter(content->content.getVisibility()==false)
+				.forEach(content->System.out.println("ID: "+content.getId()));
+		System.out.println("Inserisci l'ID per visualizzare il Contenuto");
+		Integer id = scanner.nextInt();
+		System.out.println("Dsc: "+element.getContent(id).getText());
+		System.out.println("1-per validare il Contenuto, 2-per scartare il Contenuto");
+		Integer result = scanner.nextInt();
+		if(result==2) {
+			return deleteMessages(request, element, id);
+		} else if(result==1) {
+			return validateMessages(request, element,id);
+		} return false;
 	}
 			
 	
-	private static boolean deleteMessages(Request request, Integer id) {
+	private static boolean deleteMessages(Request request, Element element) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Inserisci una motivazione per la mancata validazione: ");
 		String reason = scanner.nextLine();
 		Request next = new Request(request.getUser(), Action.Delete);
-		sendRequest(next, id);//notifica il Manager di eliminare l'elemento
+		sendRequest(next, element);//notifica il Manager di eliminare l'elemento
 		sendNotification(reason, next);//invia una richiesta al gestore notifiche
 		return true;
 	}
 	
-	private static boolean deleteMessages(Request request, Integer id1, Integer id2) {
+	private static boolean deleteMessages(Request request, Element element, Integer id2) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Inserisci una motivazione per la mancata validazione: ");
 		String reason = scanner.nextLine();
 		Request next = new Request(request.getUser(), Action.Delete);
-		sendRequest(next, id1, id2);//notifica il Manager di eliminare l'elemento
+		sendRequest(next, element, id2);//notifica il Manager di eliminare l'elemento
 		sendNotification(reason, next);//invia una richiesta al gestore notifiche
 		return true;
 	}
 	
-	private static boolean validateMessages(Request request, Integer id) {
+	private static boolean validateMessages(Request request, Element element) {
 		Request next = new Request(request.getUser(), Action.Post);
-		sendRequest(next, id);
+		sendRequest(next, element);
 		sendNotification("",next);
 		System.out.println("Il Contenuto è stato pubblicato ed è ora visibile sulla piattaforma!");
 		return true;
 	}
 	
-	private static boolean validateMessages(Request request, Integer id1, Integer id2) {
+	private static boolean validateMessages(Request request, Element element, Integer id2) {
 		Request next = new Request(request.getUser(), Action.Post);
-		sendRequest(next, id1, id2);
+		sendRequest(next, element, id2);
 		sendNotification("",next);
 		System.out.println("Il Contenuto è stato pubblicato ed è ora visibile sulla piattaforma!");
 		return true;
@@ -132,27 +162,26 @@ public class ValidationsManager {
 		return NotificationsManager.execute(text,request);
 	}
 
-		
-//Ricontrolla. L'id inizia con 1 se è un POI, 2 se Tour.
-	private static boolean sendRequest(Request request, Integer id) {
-		if(id.intValue()==1) {
-			return POIsManager.execute(request, id);
-		} else if(id.intValue()==2) {
-			return ToursManager.execute(request, id);
+	
+	private static boolean sendRequest(Request request, Element element) {
+		if(element instanceof PointOfInterest) {
+			return POIsManager.execute(request, element.getId());
+		} else if(element instanceof Tour) {
+			return ToursManager.execute(request, element.getId());
 		} else return false;
 	}
-//Ricontrolla. L'id inizia con 1 se è un POI, 2 se Tour, 3 se Contest.
-	private static boolean sendRequest(Request request, Integer id1, Integer id2) {
-		if(id1.intValue()==1) {
-			return POIsManager.execute(request, id1, id2 );
-		} else if(id1.intValue()==2) {
-			return ToursManager.execute(request, id1, id2);
-		}  else if(id1.intValue()==3) {
-			return ContestsManager.execute(request, id1, id2);
+	
+	private static boolean sendRequest(Request request, Element element, Integer id2) {
+		if(element instanceof PointOfInterest) {
+			return POIsManager.execute(request, element.getId(), id2 );
+		} else if(element instanceof Tour) {
+			return ToursManager.execute(request, element.getId(), id2);
+		}  else if(element instanceof Contest) {
+			return ContestsManager.execute(request, element.getId(), id2);
 		} else return false;
 	}
 
-	private boolean checkActor(AbstractUser user) {
+	private static boolean checkActor(AbstractUser user) {
 		return user.getRole() == Role.Contributor || user.getRole()== Role.AuthenticatedTourist;
 	}
 	

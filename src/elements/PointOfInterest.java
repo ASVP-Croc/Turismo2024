@@ -2,12 +2,16 @@ package elements;
 
 import java.util.stream.Stream;
 
+import users.Role;
+
 public class PointOfInterest extends Element{
 	private final Coordinate coordinate;
+	private Role addedBy;
 
 	public PointOfInterest(String description, Coordinate coordinate) {
 		super(description);
 		this.coordinate = coordinate;
+		this.addedBy = null;
 	}
 	
 	public Integer getId() {
@@ -36,5 +40,9 @@ public class PointOfInterest extends Element{
 	
 	public void deleteContent(Integer id) {
 		getContents();//ricontrolla
+	}
+	
+	public void setAddedBy(Role role) {
+		addedBy= role;
 	}
 }

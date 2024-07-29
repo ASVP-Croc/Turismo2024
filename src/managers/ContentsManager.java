@@ -15,7 +15,7 @@ public class ContentsManager {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Inserisci un contenuto:  ");
 		String description = scanner.nextLine();
-		Content content = new Content(description);
+		Content content = new Content(description, request.getUser().getRole());
 		sendValidation(request, element);
 		return content;
 	}
@@ -37,14 +37,12 @@ public class ContentsManager {
 	public static Content execute(Request request, Element element) {
 		if(request.getAction()==Action.CreateContentInPOI || request.getAction()==Action.CreateContentInTour) {
 			Content content = create(request, element);
-			sendValidation(request, element);
 			return content;
 		} else return null;
 	}
 	public static Content execute(Request request, Contest element) {
 		if(request.getAction()==Action.CreateContentInContest) {
 		Content content = create(request, element);
-		sendValidation(request, element);
 		return content;
 		} else return null;
 }

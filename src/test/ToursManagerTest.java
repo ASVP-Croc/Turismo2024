@@ -59,8 +59,8 @@ class ToursManagerTest {
 		Request addContentInTour2 = new Request(turistaAutenticato, Action.AddPOIInTour);
 		ToursManager.execute(addContentInTour1);
 		ToursManager.execute(addContentInTour2);
-		assertEquals(4, ToursManager.getTour(1).getPois().size());
-		
+		assertEquals(4, ToursManager.getTour(1).getPois().count());
+		//modifica con clonazione. Creo un nuovo tour e aggiungo uno o più POI. il vecchio rimane invariato.
 	}
 
 	@Test

@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 import elements.*;
 import users.Action;
-//
+
 public class POIsManager {
 	private static final Map<Integer, PointOfInterest> pois = new HashMap<>();
 
@@ -30,16 +30,19 @@ public class POIsManager {
 		String text = scanner.nextLine();
 		PointOfInterest poi = new PointOfInterest(text, new Coordinate(dx, dy));
 		pois.put(poi.getId(),poi);
+		sendValidation(request, poi);
 		System.out.println("Inserisci 1 per aggiungere ora un Contenuto, 2 per completare la creazione.");
 		int select = scanner.nextInt();
 		if(select==1) {
-			return addContentToPOI(request, poi);
-		} else return poi;
+			addContentToPOI(request, poi);
+			//manca iterazione aggiunta contenuti
+		} return poi;
 	}
 	
 	private static PointOfInterest addContentToPOI(Request request, PointOfInterest poi) {
 		Request nextRequest = new Request(request.getUser(), Action.CreateContentInPOI);
-		poi.addContent(ContentsManager.execute(nextRequest, poi));
+		Content content = ContentsManager.execute(nextRequest, poi);
+		poi.addContent(content);
 		return poi;
 	}
 	
@@ -49,8 +52,7 @@ public class POIsManager {
 		getPOIs().forEach(elem->System.out.println("Dsc: " + elem.getDescription()+ " Id: "+elem.getId()));
 		System.out.println("Inserisci l'ID per selezionare il POI: ");
 		Integer id = scanner.nextInt();
-		PointOfInterest poi = getPOI(id);
-		return addContentToPOI(request,poi);
+		return addContentToPOI(request,getPOI(id));
 	}
 	
 	private static boolean sendValidation(Request request, PointOfInterest poi) {
@@ -73,9 +75,7 @@ public class POIsManager {
 	public static PointOfInterest execute(Request request) {
 		Action action = request.getAction();
 		if(action==Action.CreatePOI) {
-			PointOfInterest poi = createPOI(request);
-			sendValidation(request, poi);
-			return poi;
+			return createPOI(request);
 		} else if(action==Action.CreateContentInPOI) {
 			return addContentToPOI(request);
 		} else if(action==Action.GetPOIs) {

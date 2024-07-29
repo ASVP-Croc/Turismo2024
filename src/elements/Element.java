@@ -26,7 +26,7 @@ public abstract class Element {
 		return myContents.values().stream();
 	}
 	
-	protected String getDescritpion() {
+	public String getDescritpion() {
 		return description;
 	}
 	
@@ -34,7 +34,7 @@ public abstract class Element {
 		return id;
 	}
 	
-	protected Content getContent(Integer id) {
+	public Content getContent(Integer id) {
 		return myContents.get(id);
 	}
 	

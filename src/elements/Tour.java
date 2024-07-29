@@ -5,19 +5,26 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class Tour extends Element{
-	private final List<PointOfInterest> pois;
+	private final List<PointOfInterest> myPOIs;
+	
 
 	public Tour(String description) {
 		super(description);
-		this.pois = new ArrayList<>();
-		}
+		this.myPOIs = new ArrayList<>();
+	}
+	
+	//costruttore di copia
+	public Tour(Tour other) {
+	    super(other.getDescription());
+	    this.myPOIs = new ArrayList<>(other.myPOIs);
+	}
 	
 	public Integer getId() {
 		return super.getId();
 	}
 
-	public List<PointOfInterest> getPois() {
-		return pois;
+	public Stream<PointOfInterest> getPois() {
+		return myPOIs.stream();
 	}
 
 	public String getDescription() {
@@ -37,7 +44,7 @@ public class Tour extends Element{
 	}
 
 	public boolean addPOI(PointOfInterest poi) {
-		return pois.add(poi);
+		return myPOIs.add(poi);
 	}
 	
 	public void deleteContent(Integer id) {
