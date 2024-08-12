@@ -28,21 +28,26 @@ public class POIsManager {
 		scanner.nextLine(); // Consuma il carattere di newline
 		System.out.println("Inserisci un titolo per il POI da creare: ");
 		String text = scanner.nextLine();
-		PointOfInterest poi = new PointOfInterest(text, new Coordinate(dx, dy));
+		PointOfInterest poi = new PointOfInterest(text, new Coordinate(dx, dy), request.getUser().getId());
 		pois.put(poi.getId(),poi);
 		sendValidation(request, poi);
-		System.out.println("Inserisci 1 per aggiungere ora un Contenuto, 2 per completare la creazione.");
+		System.out.println("1- per aggiungere ora un Contenuto, 2 per completare la creazione.");
 		int select = scanner.nextInt();
 		if(select==1) {
 			addContentToPOI(request, poi);
-			//manca iterazione aggiunta contenuti
 		} return poi;
 	}
 	
 	private static PointOfInterest addContentToPOI(Request request, PointOfInterest poi) {
+		Scanner scanner = new Scanner(System.in);
 		Request nextRequest = new Request(request.getUser(), Action.CreateContentInPOI);
+		int select = 1;
+		while(select==1) {
 		Content content = ContentsManager.execute(nextRequest, poi);
 		poi.addContent(content);
+		System.out.println("1-Aggiungi un nuovo contenuto, 2-Esci");
+		select = scanner.nextInt();
+		}
 		return poi;
 	}
 	
@@ -59,16 +64,26 @@ public class POIsManager {
 		return ValidationsManager.execute(request, poi);
 	}
 	
-	private static void showPOIs() {
+	private static void showPOIs(Request request) {
 		Scanner scanner = new Scanner(System.in);
 		getPOIs().forEach(elem->System.out.println("Dsc: " + elem.getDescription()+ " Id: "+elem.getId()));
-		System.out.println("Inserisci l'ID per visualizzare il Contenuto: ");
+		System.out.println("Inserisci l'ID per selezionare un elemento e visualizzare il Contenuto: ");
 		Integer id = scanner.nextInt();
-		showContentsInPOI(id);
+		showContentsInPOI(request, id);
 	}
 	
-	private static void showContentsInPOI(Integer id) {
+	private static void showContentsInPOI(Request request, Integer id) {
+		Scanner scanner = new Scanner(System.in);
 		getPOI(id).getContents().forEach(elem->System.out.println("Dsc: " + elem.getText()+ " Id: "+elem.getId()));
+		System.out.println("1-Salva elemento, 2-Segnala Contenuto, 3-Esci");
+		int select = scanner.nextInt();
+		if(select==1) {
+			Request nextRequest = new Request(request.getUser(), Action.SaveElement);
+			AccountsManager.execute(nextRequest, getPOI(id));
+		} else if(select==2) {
+			Request nextRequest = new Request(request.getUser(), Action.ReportContent);
+			ReportsManager.execute(request);
+		} else showPOIs(request);
 	}
 
 	
@@ -79,7 +94,7 @@ public class POIsManager {
 		} else if(action==Action.CreateContentInPOI) {
 			return addContentToPOI(request);
 		} else if(action==Action.GetPOIs) {
-			showPOIs();
+			showPOIs(request);
 		} return null;
 	}
 	
@@ -101,6 +116,14 @@ public class POIsManager {
 			getPOI(id1).deleteContent(id2);
 			return true;
 		} else return false;
+	}
+	
+	private static void saveElement() {
+		System.out.println("");
+	}
+	
+	private static void reportContent() {
+		
 	}
 	
 	

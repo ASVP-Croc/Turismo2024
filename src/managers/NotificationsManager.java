@@ -1,31 +1,24 @@
 package managers;
-import elements.Notification;
+
 import elements.Request;
 import users.Action;
-import users.AuthenticatedTourist;
-import users.AuthorizedContributor;
-import users.Contributor;
-import users.Curator;
-import users.Role;
 
 public class NotificationsManager {
 	
-	private static boolean sendRequest (String text, Request request){
-			return AccountsManager.execute(request, new Notification(text));
+	private static boolean sendRequest (Request request, String text, Integer id){
+			return true;//AccountsManager.execute(request, new Notification(text), id);
 		}
 
-	public static boolean execute(String text,Request request) {
+	public static boolean execute(Request request, String text, Integer id) {
 		if(request.getAction()==Action.Post) {
-			return sendRequest("La tua richiesta è andata a buon fine e l'elemento è stato pubblicato sulla piattaforma!", request);
+			return sendRequest(request, "La tua richiesta è andata a buon fine e l'elemento è stato pubblicato sulla piattaforma!", id);
 		} else if(request.getAction()==Action.Delete) {
-			return sendRequest("OPS! Il tuo elemento non ha passato la validazione per il seguente motivo: "+text, request);
+			return sendRequest(request, "OPS! Il tuo elemento non ha passato la validazione per il seguente motivo: "+text, id);
 		}
 		return false;
 	}
-	
-	public static boolean execute(Request request) {
-		 if(request.getUser().getRole()==Role.AuthenticatedTourist || request.getUser().getRole()==Role.Contributor) {
-			 return sendRequest("E' stato creato un novo elemento da validare! Accedi all'area Validazioni per copletare l'operazione.", request);
-		 } else return false;
+
+	public static boolean execute(Request request, String text) {
+		return true;// AccountsManager.execute(request,new Notification(text));
 	}
 }

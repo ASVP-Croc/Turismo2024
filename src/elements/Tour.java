@@ -8,14 +8,14 @@ public class Tour extends Element{
 	private final List<PointOfInterest> myPOIs;
 	
 
-	public Tour(String description) {
-		super(description);
+	public Tour(String description, Integer id) {
+		super(description, id);
 		this.myPOIs = new ArrayList<>();
 	}
 	
 	//costruttore di copia
-	public Tour(Tour other) {
-	    super(other.getDescription());
+	public Tour(Tour other, Integer id) {
+	    super(other.getDescription(), id);
 	    this.myPOIs = new ArrayList<>(other.myPOIs);
 	}
 	
@@ -47,8 +47,8 @@ public class Tour extends Element{
 		return myPOIs.add(poi);
 	}
 	
-	public void deleteContent(Integer id) {
-		getContents();//ricontorlla
+	public Content deleteContent(Integer id) {
+		return super.deleteContent(id);
 	}
 
 }

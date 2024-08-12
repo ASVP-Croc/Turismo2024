@@ -1,6 +1,5 @@
 package elements;
 
-import users.AbstractUser;
 import users.Role;
 
 public class Content {
@@ -9,12 +8,14 @@ public class Content {
 	private final Integer id;
 	private final Role creator;
 	private boolean published;
+	private final Element referenced;
 
-	public Content(String text, Role role) {
+	public Content(String text, Role role, Element element) {
 		this.text = text;
 		this.id= generalId++;
 		this.creator = role;
 		this.published=false;
+		this.referenced=element;
 	}
 
 	public String getText() {
@@ -35,6 +36,10 @@ public class Content {
 	
 	public boolean getVisibility() {
 		return published;
+	}
+	
+	public Element getReferencedElement() {
+		return referenced;
 	}
 	
 }

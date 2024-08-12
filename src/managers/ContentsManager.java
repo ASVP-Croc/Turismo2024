@@ -15,7 +15,7 @@ public class ContentsManager {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Inserisci un contenuto:  ");
 		String description = scanner.nextLine();
-		Content content = new Content(description, request.getUser().getRole());
+		Content content = new Content(description, request.getUser().getRole(), element);
 		sendValidation(request, element);
 		return content;
 	}

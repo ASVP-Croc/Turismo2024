@@ -1,12 +1,17 @@
 package users;
 
+
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Scanner;
 
+import elements.Element;
+import elements.Notification;
 import elements.Request;
 
-public abstract class AbstractUser {
+public abstract class AbstractUser  {
 	private final int id;
 	private final String name;
 	private final String surname;
@@ -14,8 +19,8 @@ public abstract class AbstractUser {
 	private String email;
 	private String phoneNumber;
 	private Role role = Role.Tourist;
-	private List<Action> actions;
-	private List<AbstractUser> users;
+	private Queue<Notification> notifications;
+	private List<Element> savedElements;
 
 	protected AbstractUser(int id, String name, String surname, String userName, String email, String phoneNumber) {
 		this.id = id;
@@ -24,7 +29,8 @@ public abstract class AbstractUser {
 		this.userName = userName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
-		this.users = new ArrayList<>();
+		this.notifications = new LinkedList<>();
+		this.savedElements = new ArrayList<>();
 	}
 
 	public Request sendRequest() {
@@ -113,15 +119,33 @@ public abstract class AbstractUser {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public boolean setRole(Role role) {
 		this.role = role;
+		return true;
 	}
-
-	public List<Action> getActions() {
-		return actions;
+	
+	public boolean addNotification(Notification notification) {
+		return notifications.add(notification);
 	}
-
-	public void setActions(List<Action> actions) {
-		this.actions = actions;
+	
+	public void getNotifications() {
+		if(notifications.isEmpty()) System.out.println("Non ci sono nitifiche per te al momento!");
+		else {
+			Scanner scanner = new Scanner(System.in);
+			System.out.println("Ci sono delle notifiche per te! 1- per vedere la prossima notifica, 2- per uscire");
+			int select = scanner.nextInt();
+			while(!notifications.isEmpty() && select==1) {
+			Notification noty = notifications.poll();
+			System.out.println(noty);
+			System.out.println("1- per vedere la prossima notifica, 2- per uscire");
+			select = scanner.nextInt();
+			}
+		}
+	}
+	
+	public boolean addElement(Element element) {
+		return savedElements.add(element);
 	}
 }
+		
+	

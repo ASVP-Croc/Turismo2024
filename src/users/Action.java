@@ -1,6 +1,7 @@
 package users;
 
 public enum Action {
+	AddAuthenticatedUser,
 	AddPOIInTour,
 	CreateContentInContest,
 	CreateContentInPOI,
@@ -14,8 +15,9 @@ public enum Action {
 	GetPOIs,
 	GetTours,
 	Post,
+	Registration,
 	ReportContent,
 	SaveElement,
 	SearchElement,
-	Validate;
-}
+	Validate, ;
+	}

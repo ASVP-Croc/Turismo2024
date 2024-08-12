@@ -1,11 +1,8 @@
 package managers;
 
-
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import elements.*;
 import users.*;
@@ -44,24 +41,15 @@ public class ValidationsManager {
 		return true;
 		} else { Scanner scanner = new Scanner(System.in);
 			System.out.println("Benvenuto Animatore! Ci sono dei Contenuti da validare!");
-			Contest contest = contestList.poll();
 			Integer select = 1;
-			while(contest!=null && select==1) {
+			while(!contestList.isEmpty() && select==1) {
+				Contest contest = contestList.poll();
 			if(contest.getContents().anyMatch(content->content.getVisibility()==false))
 				validateContent(request, contest);
 			System.out.println("1-Visualizza il prossimo Contest per validare i contenuti, 2-Esci");
 			select=scanner.nextInt();
-			if(select==1) contest = contestList.poll();
 		} return false;
 		}
-	}
-	
-	public static boolean execute(Request request, Contest contest) {
-		return pendingValidation(request,contest);
-	}
-	
-	public static boolean execute(Request request, Element element) {
-		return pendingValidation(request, element);
 	}
 	
 	private static boolean autoValidation(Request request, Element element) {
@@ -75,18 +63,6 @@ public class ValidationsManager {
 			.forEach(elem->elem.setVisibility());
 			return true;
 		} return false;
-	}
-	
-	private static boolean pendingValidation(Request request, Contest contest) {
-		if(checkActor(request.getUser())==true) {
-		return contestList.add(contest);
-		} else return autoValidation(request, contest);
-	}
-	
-	private static boolean pendingValidation(Request request, Element element) {
-		if(checkActor(request.getUser())==true) {
-		return elementList.add(element);
-		} else return autoValidation(request, element);
 	}
 	
 	private static boolean validateElement(Request request, Element element) {
@@ -128,7 +104,7 @@ public class ValidationsManager {
 		String reason = scanner.nextLine();
 		Request next = new Request(request.getUser(), Action.Delete);
 		sendRequest(next, element);//notifica il Manager di eliminare l'elemento
-		sendNotification(reason, next);//invia una richiesta al gestore notifiche
+		sendNotification(next, reason, element.getCreatorId());//invia una richiesta al gestore notifiche
 		return true;
 	}
 	
@@ -138,14 +114,14 @@ public class ValidationsManager {
 		String reason = scanner.nextLine();
 		Request next = new Request(request.getUser(), Action.Delete);
 		sendRequest(next, element, id2);//notifica il Manager di eliminare l'elemento
-		sendNotification(reason, next);//invia una richiesta al gestore notifiche
+		sendNotification(next, reason, element.getCreatorId());//invia una richiesta al gestore notifiche
 		return true;
 	}
 	
 	private static boolean validateMessages(Request request, Element element) {
 		Request next = new Request(request.getUser(), Action.Post);
 		sendRequest(next, element);
-		sendNotification("",next);
+		sendNotification(next, "", element.getCreatorId());
 		System.out.println("Il Contenuto è stato pubblicato ed è ora visibile sulla piattaforma!");
 		return true;
 	}
@@ -153,13 +129,13 @@ public class ValidationsManager {
 	private static boolean validateMessages(Request request, Element element, Integer id2) {
 		Request next = new Request(request.getUser(), Action.Post);
 		sendRequest(next, element, id2);
-		sendNotification("",next);
+		sendNotification(next, "", element.getCreatorId());
 		System.out.println("Il Contenuto è stato pubblicato ed è ora visibile sulla piattaforma!");
 		return true;
 	}
 	
-	private static boolean sendNotification(String text, Request request) {
-		return NotificationsManager.execute(text,request);
+	private static boolean sendNotification(Request request, String text, Integer id) {
+		return NotificationsManager.execute(request, text, id);
 	}
 
 	
@@ -184,5 +160,32 @@ public class ValidationsManager {
 	private static boolean checkActor(AbstractUser user) {
 		return user.getRole() == Role.Contributor || user.getRole()== Role.AuthenticatedTourist;
 	}
+	
+	public static boolean execute(Request request, Contest contest) {
+		return pendingValidation(request,contest);
+	}
+	
+	public static boolean execute(Request request, Element element) {
+		return pendingValidation(request, element);
+	}
+	
+	private static boolean pendingValidation(Request request, Contest contest) {
+		if(checkActor(request.getUser())==true) {
+			//sendNotificationToValidators(request, "Salve Animatore! Hai un nuovo contenuto da validare!");
+		return contestList.add(contest);
+		} else return autoValidation(request, contest);
+	}
+	
+	private static boolean pendingValidation(Request request, Element element) {
+		if(checkActor(request.getUser())==true) {
+			//sendNotificationToValidators(request, "Salve Curatore! Hai un nuovo elemento da validare!");
+		return elementList.add(element);
+		} else return autoValidation(request, element);
+	}
+	
+	//private static boolean sendNotificationToValidators(Request request, String text) {
+	//	return NotificationsManager.execute(request, text);
+	//}
+	
 	
 	}

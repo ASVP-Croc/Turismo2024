@@ -5,8 +5,8 @@ import java.util.stream.Stream;
 public class Contest extends Element {
 	private final Element element;
 	
-	public Contest(String description, Element element) {
-		super(description);
+	public Contest(String description, Element element, Integer id) {
+		super(description, id);
 		this.element = element;
 	}
 	
@@ -34,8 +34,8 @@ public class Contest extends Element {
 		return super.getContent(id);
 	}
 
-	public void deleteContent(Integer id) {
-		getContents();//ricontrolla
+	public Content deleteContent(Integer id) {
+		return super.deleteContent(id);
 		
 	}
 

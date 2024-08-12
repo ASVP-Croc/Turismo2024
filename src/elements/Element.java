@@ -4,18 +4,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
+
 public abstract class Element {
 	private static Integer generalID = 1;
 	private final String description;
 	private final Map<Integer, Content> myContents;
 	private final Integer id ;
 	private boolean published;
+	private Integer creator;
 	
-	public Element(String text) {
+	public Element(String text, Integer id) {
 		this.description = text;
 		this.myContents = new HashMap<>();
 		this.id = generalID++;
 		this.published=false;
+		this.creator = id;
 	}
 	
 	public Content addContent(Content content) {
@@ -44,6 +47,14 @@ public abstract class Element {
 
 	public boolean getVisibility() {
 		return published;
+	}
+
+	public Integer getCreatorId() {
+		return this.creator;
+	}
+	
+	public Content deleteContent(Integer id) {
+		return myContents.remove(id);
 	}
 
 }

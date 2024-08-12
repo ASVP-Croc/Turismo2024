@@ -23,7 +23,7 @@ public class ToursManager {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Inserisci una descrizione per il Tour da creare: ");
 		String text = scanner.nextLine();
-		Tour tour = new Tour(text);
+		Tour tour = new Tour(text, request.getUser().getId());
 		tours.put(tour.getId(), tour);
 		sendValidation(request, tour);
 		System.out.println("Inserisci almeno 2 POI per completare il Tour: ");
@@ -80,7 +80,7 @@ public class ToursManager {
 		System.out.println("Seleziona un Tour inserendo l'ID");
 		getTours().forEach(tour->System.out.println("Dsc: " + tour.getDescription()+ " Id: "+tour.getId()));
 		Integer id = scanner.nextInt();
-		Tour tour = new Tour(tours.get(id));
+		Tour tour = new Tour(tours.get(id), request.getUser().getId());
 		sendValidation(request, tour);
 		return addPOIToTour(request, tour);
 	}
@@ -105,7 +105,7 @@ public class ToursManager {
 		return addContentToTour(request, tours.get(id));
 	}
 	
-	private static void showTours() {
+	private static void showTours(Request request) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Inserisci l'Id per selezionare un Tour: ");
 		getTours().forEach(elem->System.out.println("Dsc: " + elem.getDescription()+ " Id: "+elem.getId()));
@@ -114,16 +114,33 @@ public class ToursManager {
 		System.out.println("Dsc: " + tour.getDescription()+ " Id: "+tour.getId());
 		System.out.println("Seleziona 1 per visualizzare i POIs, 2 per visualizzare i Contenuti");
 		Integer select = scanner.nextInt();
-		if(select==1) showPOIsInTour(id);
-		else if(select==2) showContentsInTour(id);
+		if(select==1) showPOIsInTour(request, id);
+		else if(select==2) showContentsInTour(request, id);
 	}
 	
-	private static void showContentsInTour(Integer id) {
+	private static void showContentsInTour(Request request, Integer id) {
+		Scanner scanner = new Scanner(System.in);
 		getTour(id).getContents().forEach(elem->System.out.println("Dsc: " + elem.getText()+ " Id: "+elem.getId()));
+		System.out.println("1-Salva Elemento, 2-SegnalaContenuti, 3-Esci");
+		int select = scanner.nextInt();
+		if(select==1) {
+			Request nextRequest = new Request(request.getUser(), Action.SaveElement);
+			AccountsManager.execute(nextRequest, getTour(id));
+		} else if(select==2) {
+			Request nextRequest = new Request(request.getUser(), Action.ReportContent);
+		} else showTours(request);
 	}
 	
-	private static void showPOIsInTour(Integer id) {
+	private static void showPOIsInTour(Request request, Integer id) {
+		Scanner scanner = new Scanner(System.in);
 		getTour(id).getPois().forEach(elem->System.out.println("Dsc: " + elem.getDescription()+ " Id: "+elem.getId()));
+		System.out.println("1-Salva Elemento, 2-Esci");
+		int select = scanner.nextInt();
+		if(select==1) {
+			Request nextRequest = new Request(request.getUser(), Action.SaveElement);
+			AccountsManager.execute(nextRequest, getTour(id));
+		} else showTours(request);
+			
 	}
 
 	public static Tour execute(Request request) {
@@ -135,7 +152,7 @@ public class ToursManager {
 		} else if(action==Action.AddPOIInTour) {
 			return addPOIToTour(request);
 		} else if(action==Action.GetTours) {
-			showTours();
+			showTours(request);
 		}
 		return null;
 	}

@@ -41,12 +41,18 @@ public class ContestsManager  {
 	private static void showContentsInContest(Contest contest, Request request) {
 		Scanner scanner = new Scanner(System.in);
 		contest.getContents().forEach(elem->System.out.println("Dsc: " + elem.getText()+ " Id: "+elem.getId()));
-		System.out.println("Inserisci 1 per aggiungere un nuovo contenuto al contest : "+
+		System.out.println("1-Inserisci nuovo contenuto al contest, 2-Salva Elemento, 3-Segnala Contenuto, 4-Esci"+
 		contest.getDescription()+" " +contest.getId());
 		Integer select = scanner.nextInt();
 		if(select==1) {
 			addContentToContest(contest, request);
-		}
+		} else if(select==2) {
+			Request nextRequest = new Request(request.getUser(), Action.SaveElement);
+			AccountsManager.execute(request, contest);
+		} else if(select==3) {
+			Request nextRequest = new Request(request.getUser(), Action.ReportContent);
+			ReportsManager.execute(request);
+		} else showContests(request);
 	}
 	
 	private static Contest addContentToContest(Request request) {
@@ -75,13 +81,13 @@ public class ContestsManager  {
 			System.out.println("Seleziona un POI inserendo l'ID.");
 			POIsManager.getPOIs().forEach(elem-> System.out.println("Dsc: " + elem.getDescription()+ " Id: "+elem.getId()));
 			Integer id = scanner.nextInt();
-			contest = new Contest(description,POIsManager.getPOI(id));
+			contest = new Contest(description,POIsManager.getPOI(id), request.getUser().getId());
 		} else if(select==2) {
 			ToursManager.getTours();
 			System.out.println("Seleziona un Tour inserendo l'ID.");
 			ToursManager.getTours().forEach(elem-> System.out.println("Dsc: " + elem.getDescription()+ " Id: "+elem.getId()));
 			Integer id = scanner.nextInt();
-			contest = new Contest(description, ToursManager.getTour(id));
+			contest = new Contest(description, ToursManager.getTour(id), request.getUser().getId() );
 		}return  contests.put(contest.getId(), contest);
 	}
 	
