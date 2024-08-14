@@ -11,7 +11,10 @@ import elements.Request;
 import users.*;
 
 public class AccountsManager {
+	
 	private static final Map<Integer, AbstractUser> users = new HashMap<>();
+	
+	
 
 	public static boolean execute(Request request) {
 		Action action = request.getAction();

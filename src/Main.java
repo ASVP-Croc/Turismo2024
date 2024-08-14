@@ -8,10 +8,11 @@ import managers.ContentsManager;
 import managers.NotificationsManager;
 import managers.POIsManager;
 import elements.Request;
-import grafic.MainPage;
+import grafic.HomePage;
 
 import managers.RequestsManager;
 import managers.ToursManager;
+import managers.ViewManager;
 import users.AbstractUser;
 import users.Action;
 import users.AuthorizedContributor;
@@ -22,19 +23,19 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		
 
-		AbstractUser userLogged = null;
+		AbstractUser userLogged = new Contributor(1, "Lorenzo", "Crovace", "ASVP_Croc", "crovace@gmail.it", "3331001001");
 		
 		
 
-		AbstractUser.addUsers(new Contributor(1, "Lorenzo", "Crovace", "ASVP_Croc", "crovace@gmail.it", "3331001001"));
-		AbstractUser.addUsers(new AuthorizedContributor(2, "Simone", "Nonsoilcognome", "SilverSimon", "simon@gmail.it", "3331001002"));
-		AbstractUser.addUsers(new Curator(3, "Matteo", "Pallotti", "Maverick", "pallotti@gmail.it", "3331001003"));
+//		AbstractUser.addUsers(new Contributor(1, "Lorenzo", "Crovace", "ASVP_Croc", "crovace@gmail.it", "3331001001"));
+//		AbstractUser.addUsers(new AuthorizedContributor(2, "Simone", "Nonsoilcognome", "SilverSimon", "simon@gmail.it", "3331001002"));
+//		AbstractUser.addUsers(new Curator(3, "Matteo", "Pallotti", "Maverick", "pallotti@gmail.it", "3331001003"));
 
-		start(userLogged);
+		start();
 	}
 
-	private static void start(AbstractUser userLogged){
-		MainPage.startMainPage(userLogged);
+	private static void start() throws IOException{
+		ViewManager.start();
 	}
 
 //	requestManager.addRequest(user1.sendRequest());
