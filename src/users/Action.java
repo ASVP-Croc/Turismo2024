@@ -14,10 +14,11 @@ public enum Action {
 	GetContests,
 	GetPOIs,
 	GetTours,
+	Login,
 	Post,
 	Registration,
 	ReportContent,
 	SaveElement,
 	SearchElement,
-	Validate, ;
+	Validate;
 	}

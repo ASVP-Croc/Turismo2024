@@ -35,7 +35,7 @@ public class Main {
 	}
 
 	private static void start() throws IOException{
-		ViewManager.start();
+		ViewManager.showPage();
 	}
 
 //	requestManager.addRequest(user1.sendRequest());

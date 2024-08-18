@@ -10,12 +10,11 @@ import grafic.WebPage;
 public class ViewManager {
 	
 	private static BufferedReader reader;
-	private static WebPage nextPage;
+	private static WebPage nextPage = new HomePage();
 	private static boolean run = true;
 	
-	public static void start() throws IOException {
+	public static void showPage() throws IOException {
 		reader = new BufferedReader(new InputStreamReader(System.in));
-		nextPage = new HomePage();
 		while (run) {
 			nextPage.open();
 		}
