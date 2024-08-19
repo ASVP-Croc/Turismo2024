@@ -22,14 +22,14 @@ public abstract class AbstractAuthenticatedUser implements GeneralUser {
 	private Queue<Notification> notifications;
 	private List<Element> savedElements;
 
-	protected AbstractAuthenticatedUser(String name, String surname, String userName, String email, String phoneNumber) {
+	protected AbstractAuthenticatedUser(String name, String surname, String userName, String email, String phoneNumber, Role role) {
 		this.id = id++;
 		this.name = name;
 		this.surname = surname;
 		this.userName = userName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
-		this.role = Role.AuthenticatedTourist;
+		this.role = role;
 		this.notifications = new LinkedList<>();
 		this.savedElements = new ArrayList<>();
 	}

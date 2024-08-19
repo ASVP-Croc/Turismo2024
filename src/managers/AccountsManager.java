@@ -12,7 +12,7 @@ import users.*;
 
 public class AccountsManager {
 	
-	private static final Map<Integer, AbstractUser> users = new HashMap<>();
+	private static final Map<Integer, AuthenticatedUser> users = new HashMap<>();
 	
 	
 
@@ -52,14 +52,15 @@ public class AccountsManager {
 		return users.get(id).setRole(role);
 	}
 	
-	private static Stream<AbstractUser> getUsers(){
+	private static Stream<AuthenticatedUser> getUsers(){
 		return users.values().stream();
 	}
 	
-	private static boolean addUser(AbstractUser user) {
+	private static boolean addUser(GeneralUser user) {
 		if(user.getRole()==Role.Tourist) {
-		user.setRole(Role.AuthenticatedTourist);
-		users.put(user.getId(), user);
+			AuthenticatedUser newUser = new AuthenticatedUser();
+		newUser.setRole(Role.AuthenticatedTourist);
+		users.put(newUser.getId(), newUser);
 		return true;
 		}
 		return false;

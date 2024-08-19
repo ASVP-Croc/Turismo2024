@@ -11,14 +11,14 @@ public abstract class Element {
 	private final Map<Integer, Content> myContents;
 	private final Integer id ;
 	private boolean published;
-	private Integer creator;
+	private Integer author;
 	
 	public Element(String text, Integer id) {
 		this.description = text;
 		this.myContents = new HashMap<>();
 		this.id = generalID++;
 		this.published=false;
-		this.creator = id;
+		this.author = id;
 	}
 	
 	public Content addContent(Content content) {
@@ -49,8 +49,8 @@ public abstract class Element {
 		return published;
 	}
 
-	public Integer getCreatorId() {
-		return this.creator;
+	public Integer getAuthorId() {
+		return this.author;
 	}
 	
 	public Content deleteContent(Integer id) {

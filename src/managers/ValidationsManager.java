@@ -104,7 +104,7 @@ public class ValidationsManager {
 		String reason = scanner.nextLine();
 		Request next = new Request(request.getUser(), Action.Delete);
 		sendRequest(next, element);//notifica il Manager di eliminare l'elemento
-		sendNotification(next, reason, element.getCreatorId());//invia una richiesta al gestore notifiche
+		sendNotification(next, reason, element.getAuthorId());//invia una richiesta al gestore notifiche
 		return true;
 	}
 	
@@ -114,14 +114,14 @@ public class ValidationsManager {
 		String reason = scanner.nextLine();
 		Request next = new Request(request.getUser(), Action.Delete);
 		sendRequest(next, element, id2);//notifica il Manager di eliminare l'elemento
-		sendNotification(next, reason, element.getCreatorId());//invia una richiesta al gestore notifiche
+		sendNotification(next, reason, element.getAuthorId());//invia una richiesta al gestore notifiche
 		return true;
 	}
 	
 	private static boolean validateMessages(Request request, Element element) {
 		Request next = new Request(request.getUser(), Action.Post);
 		sendRequest(next, element);
-		sendNotification(next, "", element.getCreatorId());
+		sendNotification(next, "", element.getAuthorId());
 		System.out.println("Il Contenuto è stato pubblicato ed è ora visibile sulla piattaforma!");
 		return true;
 	}
@@ -129,7 +129,7 @@ public class ValidationsManager {
 	private static boolean validateMessages(Request request, Element element, Integer id2) {
 		Request next = new Request(request.getUser(), Action.Post);
 		sendRequest(next, element, id2);
-		sendNotification(next, "", element.getCreatorId());
+		sendNotification(next, "", element.getAuthorId());
 		System.out.println("Il Contenuto è stato pubblicato ed è ora visibile sulla piattaforma!");
 		return true;
 	}
