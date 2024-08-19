@@ -8,18 +8,14 @@ import elements.Request;
 import managers.ContestsManager;
 import managers.POIsManager;
 import managers.ToursManager;
-import users.AbstractAuthenticatedUser;
-import users.Action;
-import users.Animator;
-import users.AuthenticatedTourist;
-import users.AuthorizedContributor;
-import users.Contributor;
+import users.*;
+
 
 class ContestsManagerTest extends ContestsManager {
 
 	@Test
 	void testCreateContest() {
-		AbstractAuthenticatedUser animatore = new Animator(1, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
+		AbstractAuthenticatedUser animatore = new AuthenticatedUser("Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393", Role.Animator);
 		Request creaContest = new Request(animatore, Action.CreateContest);
 		Request creaTour = new Request(animatore, Action.CreateTour);
 		ToursManager.execute(creaTour);

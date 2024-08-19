@@ -57,11 +57,21 @@ public class AccountsManager {
 	}
 	
 	private static boolean addUser(GeneralUser user) {
+		Scanner scanner = new Scanner(System.in);
 		if(user.getRole()==Role.Tourist) {
-			AuthenticatedUser newUser = new AuthenticatedUser();
-		newUser.setRole(Role.AuthenticatedTourist);
-		users.put(newUser.getId(), newUser);
-		return true;
+			System.out.println("Inserisci il tuo nome: ");
+			String name = scanner.nextLine();
+			System.out.println("Inserisci il tuo cognome: ");
+			String surname = scanner.nextLine();
+			System.out.println("Inserisci il tuo username: ");
+			String username = scanner.nextLine();
+			System.out.println("Inserisci il tuo email: ");
+			String email = scanner.nextLine();
+			System.out.println("Inserisci il tuo numero: ");
+			String number = scanner.nextLine();
+			AuthenticatedUser newUser = new AuthenticatedUser(name, surname, username,email, number, Role.AuthenticatedTourist);
+			users.put(newUser.getId(), newUser);
+			return true;
 		}
 		return false;
 	}
