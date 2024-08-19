@@ -14,10 +14,10 @@ class ValidationsManagerTest {
 	@Test
 	void testExecuteRequest() {
 		//Creo gli users
-		AbstractUser contributor = new Contributor(1, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
-		AbstractUser contributorAuth = new AuthorizedContributor(2, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
-		AbstractUser curatore = new Curator(3, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
-		AbstractUser animatore = new Animator(4, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
+		AbstractAuthenticatedUser contributor = new Contributor(1, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
+		AbstractAuthenticatedUser contributorAuth = new AuthorizedContributor(2, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
+		AbstractAuthenticatedUser curatore = new Curator(3, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
+		AbstractAuthenticatedUser animatore = new Animator(4, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
 		//Creo i POI con users differenti
 		RequestsManager.execute(contributor.sendRequest());
 		RequestsManager.execute(contributorAuth.sendRequest());
@@ -37,8 +37,8 @@ class ValidationsManagerTest {
 
 	@Test
 	void testExecuteRequestContest() {
-		AbstractUser contributor = new Contributor(1, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
-		AbstractUser curatore = new Curator(3, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
+		AbstractAuthenticatedUser contributor = new Contributor(1, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
+		AbstractAuthenticatedUser curatore = new Curator(3, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
 		RequestsManager.execute(contributor.sendRequest());
 		RequestsManager.execute(contributor.sendRequest());
 		RequestsManager.execute(curatore.sendRequest());
@@ -52,8 +52,8 @@ class ValidationsManagerTest {
 
 	@Test
 	void testExecuteRequestElement() {
-		AbstractUser contributor = new Contributor(1, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
-		AbstractUser curatore = new Curator(3, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
+		AbstractAuthenticatedUser contributor = new Contributor(1, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
+		AbstractAuthenticatedUser curatore = new Curator(3, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
 		RequestsManager.execute(contributor.sendRequest());
 		RequestsManager.execute(contributor.sendRequest());
 		RequestsManager.execute(curatore.sendRequest());

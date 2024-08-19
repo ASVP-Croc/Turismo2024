@@ -11,24 +11,25 @@ import elements.Element;
 import elements.Notification;
 import elements.Request;
 
-public abstract class AbstractUser  {
-	private final int id;
+public abstract class AbstractAuthenticatedUser implements GeneralUser {
+	private static Integer id = 1;
 	private final String name;
 	private final String surname;
 	private String userName;
 	private String email;
 	private String phoneNumber;
-	private Role role = Role.Tourist;
+	private Role role;
 	private Queue<Notification> notifications;
 	private List<Element> savedElements;
 
-	protected AbstractUser(int id, String name, String surname, String userName, String email, String phoneNumber) {
-		this.id = id;
+	protected AbstractAuthenticatedUser(String name, String surname, String userName, String email, String phoneNumber) {
+		this.id = id++;
 		this.name = name;
 		this.surname = surname;
 		this.userName = userName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
+		this.role = Role.AuthenticatedTourist;
 		this.notifications = new LinkedList<>();
 		this.savedElements = new ArrayList<>();
 	}
@@ -103,7 +104,7 @@ public abstract class AbstractUser  {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 

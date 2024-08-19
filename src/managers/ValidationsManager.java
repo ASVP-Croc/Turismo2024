@@ -157,7 +157,7 @@ public class ValidationsManager {
 		} else return false;
 	}
 
-	private static boolean checkActor(AbstractUser user) {
+	private static boolean checkActor(GeneralUser user) {
 		return user.getRole() == Role.Contributor || user.getRole()== Role.AuthenticatedTourist;
 	}
 	
@@ -171,21 +171,21 @@ public class ValidationsManager {
 	
 	private static boolean pendingValidation(Request request, Contest contest) {
 		if(checkActor(request.getUser())==true) {
-			//sendNotificationToValidators(request, "Salve Animatore! Hai un nuovo contenuto da validare!");
+			sendNotificationToValidators(request, "Salve Animatore! Hai un nuovo contenuto da validare!");
 		return contestList.add(contest);
 		} else return autoValidation(request, contest);
 	}
 	
 	private static boolean pendingValidation(Request request, Element element) {
 		if(checkActor(request.getUser())==true) {
-			//sendNotificationToValidators(request, "Salve Curatore! Hai un nuovo elemento da validare!");
+			sendNotificationToValidators(request, "Salve Curatore! Hai un nuovo elemento da validare!");
 		return elementList.add(element);
 		} else return autoValidation(request, element);
 	}
 	
-	//private static boolean sendNotificationToValidators(Request request, String text) {
-	//	return NotificationsManager.execute(request, text);
-	//}
+	private static boolean sendNotificationToValidators(Request request, String text) {
+		return NotificationsManager.execute(request, text);
+	}
 	
 	
 	}

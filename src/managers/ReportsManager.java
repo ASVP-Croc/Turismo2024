@@ -7,7 +7,9 @@ import java.util.Scanner;
 import elements.Content;
 import elements.Contest;
 import elements.Element;
+import elements.PointOfInterest;
 import elements.Request;
+import elements.Tour;
 import users.Action;
 import users.Role;
 
@@ -53,13 +55,18 @@ public class ReportsManager{
 	private static boolean deleteMessage(Request request, Element element, Content content) {
 		Scanner scanner = new Scanner(System.in);
 		Request next = new Request(request.getUser(), Action.Delete);
-		sendRequest(next, element, content.getId());//notifica il Manager di eliminare l'elemento
+		sendRequest(next, element, content.getId());
 		return true;
 	}
 
-	private static void sendRequest(Request next, Element element, Integer id) {
-		// TODO Auto-generated method stub
-		
+	private static boolean sendRequest(Request request, Element element, Integer id2) {
+		if(element instanceof PointOfInterest) {
+			return POIsManager.execute(request, element.getId(), id2 );
+		} else if(element instanceof Tour) {
+			return ToursManager.execute(request, element.getId(), id2);
+		}  else if(element instanceof Contest) {
+			return ContestsManager.execute(request, element.getId(), id2);
+		} else return false;
 	}
 	
 }

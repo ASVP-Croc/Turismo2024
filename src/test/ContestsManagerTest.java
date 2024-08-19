@@ -8,7 +8,7 @@ import elements.Request;
 import managers.ContestsManager;
 import managers.POIsManager;
 import managers.ToursManager;
-import users.AbstractUser;
+import users.AbstractAuthenticatedUser;
 import users.Action;
 import users.Animator;
 import users.AuthenticatedTourist;
@@ -19,7 +19,7 @@ class ContestsManagerTest extends ContestsManager {
 
 	@Test
 	void testCreateContest() {
-		AbstractUser animatore = new Animator(1, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
+		AbstractAuthenticatedUser animatore = new Animator(1, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
 		Request creaContest = new Request(animatore, Action.CreateContest);
 		Request creaTour = new Request(animatore, Action.CreateTour);
 		ToursManager.execute(creaTour);
@@ -29,7 +29,7 @@ class ContestsManagerTest extends ContestsManager {
 	}
 	@Test
 	void testGetContests() {
-		AbstractUser animatore = new Animator(1, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
+		AbstractAuthenticatedUser animatore = new Animator(1, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
 		Request creaContest = new Request(animatore, Action.CreateContest);
 		Request creaTour = new Request(animatore, Action.CreateTour);
 		ToursManager.execute(creaTour);
@@ -41,7 +41,7 @@ class ContestsManagerTest extends ContestsManager {
 
 	@Test
 	void testAddContentToContest() {
-		AbstractUser animatore = new Animator(1, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
+		AbstractAuthenticatedUser animatore = new Animator(1, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
 		Request creaContest = new Request(animatore, Action.CreateContest);
 		Request creaTour = new Request(animatore, Action.CreateTour);
 		ToursManager.execute(creaTour);

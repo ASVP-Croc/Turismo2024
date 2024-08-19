@@ -12,7 +12,7 @@ import grafic.MainPage;
 
 import managers.RequestsManager;
 import managers.ToursManager;
-import users.AbstractUser;
+import users.AbstractAuthenticatedUser;
 import users.Action;
 import users.AuthorizedContributor;
 import users.Contributor;
@@ -22,18 +22,18 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		
 
-		AbstractUser userLogged = null;
+		AbstractAuthenticatedUser userLogged = null;
 		
 		
 
-		AbstractUser.addUsers(new Contributor(1, "Lorenzo", "Crovace", "ASVP_Croc", "crovace@gmail.it", "3331001001"));
-		AbstractUser.addUsers(new AuthorizedContributor(2, "Simone", "Nonsoilcognome", "SilverSimon", "simon@gmail.it", "3331001002"));
-		AbstractUser.addUsers(new Curator(3, "Matteo", "Pallotti", "Maverick", "pallotti@gmail.it", "3331001003"));
+		AbstractAuthenticatedUser.addUsers(new Contributor(1, "Lorenzo", "Crovace", "ASVP_Croc", "crovace@gmail.it", "3331001001"));
+		AbstractAuthenticatedUser.addUsers(new AuthorizedContributor(2, "Simone", "Nonsoilcognome", "SilverSimon", "simon@gmail.it", "3331001002"));
+		AbstractAuthenticatedUser.addUsers(new Curator(3, "Matteo", "Pallotti", "Maverick", "pallotti@gmail.it", "3331001003"));
 
 		start(userLogged);
 	}
 
-	private static void start(AbstractUser userLogged){
+	private static void start(AbstractAuthenticatedUser userLogged){
 		MainPage.startMainPage(userLogged);
 	}
 

@@ -1,17 +1,18 @@
 package elements;
-import users.AbstractUser;
+
 import users.Action;
+import users.GeneralUser;
 
 public class Request {
-	private final AbstractUser user;
+	private final GeneralUser user;
 	private final Action action;
 	
-	public Request(AbstractUser user, Action action) {
+	public Request(GeneralUser user, Action action) {
 		this.user = user;
 		this.action = action;
 	}
 	
-	public AbstractUser getUser() {
+	public GeneralUser getUser() {
 		return user;
 	}
 	

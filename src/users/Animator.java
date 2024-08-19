@@ -1,5 +1,5 @@
 package users;
-public class Animator extends AbstractUser {
+public class Animator extends AbstractAuthenticatedUser {
 
 	public Animator(int id, String name, String surname, String userName, String email, String phoneNumber) {
 		super(id, name, surname, userName, email, phoneNumber);

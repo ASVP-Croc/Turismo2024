@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import users.AbstractUser;
+import users.AbstractAuthenticatedUser;
 
 public class MainPage {
-	public static void startMainPage(AbstractUser userLogged) {
+	public static void startMainPage(AbstractAuthenticatedUser userLogged) {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
 		System.out.println("Benvenuto Turista!");
@@ -17,9 +17,9 @@ public class MainPage {
 		while (!chosen) {
 			try {
 				System.out.println("Seleziona il tuo account, oppure < 0 > per uscire:\n");
-				List<AbstractUser> users = AbstractUser.getUsers();
+				List<AbstractAuthenticatedUser> users = AbstractAuthenticatedUser.getUsers();
 				for (int i = 0; i < users.size(); i++) {
-					AbstractUser tmp = AbstractUser.getUsers().get(i);
+					AbstractAuthenticatedUser tmp = AbstractAuthenticatedUser.getUsers().get(i);
 					System.out.println(tmp.getId() + ": " + tmp.getSurname() + ", " + tmp.getName() + " --> "
 							+ tmp.getUserName() + "(" + tmp.getRole() + ")");
 				}

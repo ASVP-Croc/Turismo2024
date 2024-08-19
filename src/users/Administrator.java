@@ -1,5 +1,5 @@
 package users;
-public class Administrator extends AbstractUser {
+public class Administrator extends AbstractAuthenticatedUser {
 
 	protected Administrator(int id, String name, String surname, String userName, String email, String phoneNumber) {
 		super(id, name, surname, userName, email, phoneNumber);

@@ -11,7 +11,7 @@ import elements.Request;
 import users.*;
 
 public class AccountsManager {
-	private static final Map<Integer, AbstractUser> users = new HashMap<>();
+	private static final Map<Integer, AbstractAuthenticatedUser> users = new HashMap<>();
 
 	public static boolean execute(Request request) {
 		Action action = request.getAction();
@@ -49,15 +49,27 @@ public class AccountsManager {
 		return users.get(id).setRole(role);
 	}
 	
-	private static Stream<AbstractUser> getUsers(){
+	private static Stream<AbstractAuthenticatedUser> getUsers(){
 		return users.values().stream();
 	}
 	
-	private static boolean addUser(AbstractUser user) {
+	private static boolean addUser(GeneralUser user) {
 		if(user.getRole()==Role.Tourist) {
-		user.setRole(Role.AuthenticatedTourist);
-		users.put(user.getId(), user);
-		return true;
+			System.out.println("Inserisci i tuo i dati per completare l'operazione");
+			Scanner scanner = new Scanner(System.in);
+			System.out.println("Nome: ");
+			String name = scanner.nextLine();
+			System.out.println("Cognome: ");
+			String surname = scanner.nextLine();
+			System.out.println("Username: ");
+			String username = scanner.nextLine();
+			System.out.println("E-mail: ");
+			String email = scanner.nextLine();
+			System.out.println("Numero Telefonico: ");
+			String phoneNumber = scanner.nextLine();
+			AuthenticatedUser newUser = new AuthenticatedUser(name, surname, username, email, phoneNumber);
+			users.put(newUser.getId(), newUser);
+			return true;
 		}
 		return false;
 	}

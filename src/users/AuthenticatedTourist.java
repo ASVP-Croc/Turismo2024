@@ -1,5 +1,5 @@
 package users;
-public class AuthenticatedTourist extends AbstractUser {
+public class AuthenticatedTourist extends AbstractAuthenticatedUser {
 
 	public AuthenticatedTourist(int id, String name, String surname, String userName, String email,
 			String phoneNumber) {
