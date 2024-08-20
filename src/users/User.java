@@ -8,7 +8,8 @@ public class User implements GeneralUser {
 
 	public Request sendRequest() {
 		Scanner scanner = new Scanner(System.in);
-		System.out.println(" 1: Visualizza POIs "+"-"+"2: Visualizza Tour "+"-"+"3: Visualizza Contest"+"-"+"4: Registrazione");
+		System.out.println(" 1: Visualizza POIs "+"-"+"2: Visualizza Tour "+"-"+"3: Visualizza Contest"+"-"
+		+"4: Registrazione"+"-"+"5: Login");
 		Integer input = scanner.nextInt();
 		if (input == 1) {
 			System.out.println("Hai selezionato: VisualizzaPOI");
@@ -22,11 +23,14 @@ public class User implements GeneralUser {
 		} else if (input==4) {
 			System.out.println("Hai selezionato: Registrazione");
 			return new Request(this, Action.Registration);
-		} else {
-			System.out.println("Nessuna Scelta");
+		} else if (input==5) {
+			System.out.println("Hai selezionato: Login");
+			return new Request(this, Action.Login);
+			}
+		else System.out.println("Nessuna Scelta");
 			return null;
 		}
-}
+
 
 	@Override
 	public Integer getId() {

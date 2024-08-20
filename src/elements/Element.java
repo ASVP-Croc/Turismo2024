@@ -13,12 +13,12 @@ public abstract class Element {
 	private boolean published;
 	private Integer author;
 	
-	public Element(String text, Integer id) {
+	public Element(String text, Integer authorId) {
 		this.description = text;
 		this.myContents = new HashMap<>();
 		this.id = generalID++;
 		this.published=false;
-		this.author = id;
+		this.author = authorId;
 	}
 	
 	public Content addContent(Content content) {

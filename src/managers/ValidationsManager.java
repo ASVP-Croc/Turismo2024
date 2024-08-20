@@ -121,7 +121,7 @@ public class ValidationsManager {
 	private static boolean validateMessages(Request request, Element element) {
 		Request next = new Request(request.getUser(), Action.Post);
 		sendRequest(next, element);
-		sendNotification(next, "", element.getAuthorId());
+		sendNotification(next, " ", element.getAuthorId());
 		System.out.println("Il Contenuto è stato pubblicato ed è ora visibile sulla piattaforma!");
 		return true;
 	}
@@ -129,7 +129,7 @@ public class ValidationsManager {
 	private static boolean validateMessages(Request request, Element element, Integer id2) {
 		Request next = new Request(request.getUser(), Action.Post);
 		sendRequest(next, element, id2);
-		sendNotification(next, "", element.getAuthorId());
+		sendNotification(next, " ", element.getAuthorId());
 		System.out.println("Il Contenuto è stato pubblicato ed è ora visibile sulla piattaforma!");
 		return true;
 	}

@@ -6,13 +6,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 import elements.Element;
 import elements.Notification;
 import elements.Request;
 
 public abstract class AbstractAuthenticatedUser implements GeneralUser {
-	private static Integer id = 1;
+	private static Integer GeneralId = 1;
+	private final Integer id;
 	private final String name;
 	private final String surname;
 	private String userName;
@@ -23,7 +25,7 @@ public abstract class AbstractAuthenticatedUser implements GeneralUser {
 	private List<Element> savedElements;
 
 	protected AbstractAuthenticatedUser(String name, String surname, String userName, String email, String phoneNumber, Role role) {
-		this.id = id++;
+		this.id = GeneralId++;
 		this.name = name;
 		this.surname = surname;
 		this.userName = userName;
@@ -38,7 +40,8 @@ public abstract class AbstractAuthenticatedUser implements GeneralUser {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("1: CreaPOI " + "-" + " 2: CreaItinerario " + "-" + " 3: CreaContenuto per Itinerario " + "-"
 				+ " 4: CreaContenuto per POI "+"-"+"5: Aggiungi POI a Itinerario "+"-"+"6: CreaContest "+"-"+"7: Crea Contenuto per Contest "+
-				"-"+"8: Validare Elementi o Contenuti "+"-"+" 9: Visualizza POIs "+"-"+"10: Visualizza Tour "+"-"+"11: Visualizza Contest");
+				"-"+"8: Validare Elementi o Contenuti "+"-"+" 9: Visualizza POIs "+"-"+"10: Visualizza Tour "+"-"
+				+"11: Visualizza Contest"+ "12: Cambia Ruolo");
 		Integer input = scanner.nextInt();
 		if (input == 1) {
 			System.out.println("Hai selezionato: CreaPOI");
@@ -73,12 +76,15 @@ public abstract class AbstractAuthenticatedUser implements GeneralUser {
 		} else if (input == 11) {
 			System.out.println("Hai selezionato: VisualizzaContest");
 			return new Request(this,Action.GetContests);
-		} else {
+		} else if (input== 12) {
+			System.out.println("Hai selezionato: Cambia Ruolo");
+			return new Request(this, Action.DefineRole);
+		}
 			System.out.println("Nessuna Scelta");
 			return null;
 		}
 
-	}
+	
 
 	public String getUserName() {
 		return userName;
@@ -137,7 +143,7 @@ public abstract class AbstractAuthenticatedUser implements GeneralUser {
 			int select = scanner.nextInt();
 			while(!notifications.isEmpty() && select==1) {
 			Notification noty = notifications.poll();
-			System.out.println(noty);
+			System.out.println(noty.getMessage());
 			System.out.println("1- per vedere la prossima notifica, 2- per uscire");
 			select = scanner.nextInt();
 			}
@@ -146,6 +152,10 @@ public abstract class AbstractAuthenticatedUser implements GeneralUser {
 	
 	public boolean addElement(Element element) {
 		return savedElements.add(element);
+	}
+	
+	public Stream<Element> getSavedElement(){
+		return savedElements.stream();
 	}
 }
 		

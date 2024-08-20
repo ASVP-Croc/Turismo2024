@@ -20,7 +20,7 @@ public class RequestsManager {
 				ContestsManager.execute(request);
 				} else if(nextAction==Action.Validate) {
 					ValidationsManager.execute(request);
-				} else if(nextAction==Action.DefineRole || nextAction==Action.Registration) {
+				} else if(nextAction==Action.DefineRole || nextAction==Action.Registration || nextAction==Action.Login) {
 					AccountsManager.execute(request);
 					};
 		} 

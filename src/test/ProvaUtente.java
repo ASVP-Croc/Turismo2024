@@ -1,17 +1,20 @@
 package test;
 
+import managers.AccountsManager;
 import managers.RequestsManager;
 import users.*;
 
-public class ProvaUtente {
+class ProvaUtente{
 	
 	public void testUser() {
-		GeneralUser = new AuthenticatedUser("L", "C", "A", "e", "3", Role.Administrator);
-	GeneralUser user = new User();
-	user.getRole();
-	RequestsManager.execute(user.sendRequest());
-	AbstractAuthenticatedUser user2 = new AuthenticatedUser("L", "C", "A", "e", "3");
-	user.
+		//Creazione admin
+		GeneralUser user1 = new User();
+		RequestsManager.execute(user1.sendRequest());
+		//creazione utente semplice+registrazione
+		GeneralUser user2 = new User();
+		RequestsManager.execute(user2.sendRequest());
+		//cambio ruolo
+		RequestsManager.execute(user1.sendRequest());
 	
 	}
 

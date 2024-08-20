@@ -25,7 +25,7 @@ class ContestsManagerTest extends ContestsManager {
 	}
 	@Test
 	void testGetContests() {
-		AbstractAuthenticatedUser animatore = new Animator(1, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
+		AbstractAuthenticatedUser animatore = new AuthenticatedUser("Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393", Role.Animator);
 		Request creaContest = new Request(animatore, Action.CreateContest);
 		Request creaTour = new Request(animatore, Action.CreateTour);
 		ToursManager.execute(creaTour);
@@ -37,7 +37,7 @@ class ContestsManagerTest extends ContestsManager {
 
 	@Test
 	void testAddContentToContest() {
-		AbstractAuthenticatedUser animatore = new Animator(1, "Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393");
+		AbstractAuthenticatedUser animatore = new AuthenticatedUser("Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393", Role.Animator);
 		Request creaContest = new Request(animatore, Action.CreateContest);
 		Request creaTour = new Request(animatore, Action.CreateTour);
 		ToursManager.execute(creaTour);

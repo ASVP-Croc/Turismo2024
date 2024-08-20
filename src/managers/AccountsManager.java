@@ -14,14 +14,15 @@ public class AccountsManager {
 	
 	private static final Map<Integer, AuthenticatedUser> users = new HashMap<>();
 	
-	
-
 	public static boolean execute(Request request) {
 		Action action = request.getAction();
 		if(action==Action.DefineRole) {
 			return setRole();
 		} else if(action==Action.Registration) {
-			return addUser(request.getUser());}
+			return addUser(request.getUser());
+		} else if(action==Action.Login) {
+			login(request.getUser());
+		}
 		return false;
 	}
 	
@@ -30,6 +31,15 @@ public class AccountsManager {
 			return saveElement(request, element);
 			}
 		return false;
+	}
+	
+	private static boolean login(GeneralUser user) {
+		Scanner scanner = new Scanner(System.in);
+		users.values().forEach(utente->System.out.println("ID: "+utente.getId()+" Username: "+ utente.getUserName()));
+		System.out.println("Inserisci l'id per selezionare il tuo account: ");
+		Integer id = scanner.nextInt();
+		user = users.get(id);
+		return true;
 	}
 	
 	private static boolean saveElement(Request request, Element element) {
@@ -52,7 +62,7 @@ public class AccountsManager {
 		return users.get(id).setRole(role);
 	}
 	
-	private static Stream<AuthenticatedUser> getUsers(){
+	public static Stream<AuthenticatedUser> getUsers(){
 		return users.values().stream();
 	}
 	
@@ -72,7 +82,7 @@ public class AccountsManager {
 			AuthenticatedUser newUser = new AuthenticatedUser(name, surname, username,email, number, Role.AuthenticatedTourist);
 			users.put(newUser.getId(), newUser);
 			return true;
-		}
+		} 
 		return false;
 	}
 	

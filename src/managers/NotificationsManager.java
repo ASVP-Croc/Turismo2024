@@ -1,12 +1,13 @@
 package managers;
 
+import elements.Notification;
 import elements.Request;
 import users.Action;
 
 public class NotificationsManager {
 	
 	private static boolean sendRequest (Request request, String text, Integer id){
-			return true;//AccountsManager.execute(request, new Notification(text), id);
+			return AccountsManager.execute(request, new Notification(text), id);
 		}
 
 	public static boolean execute(Request request, String text, Integer id) {
@@ -19,6 +20,6 @@ public class NotificationsManager {
 	}
 
 	public static boolean execute(Request request, String text) {
-		return true;// AccountsManager.execute(request,new Notification(text));
+		return AccountsManager.execute(request,new Notification(text));
 	}
 }
