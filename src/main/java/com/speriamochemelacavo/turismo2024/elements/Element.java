@@ -4,19 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-
 public abstract class Element {
-	private static Integer generalID = 1;
-	private final String description;
-	private final Map<Integer, Content> myContents;
-	private final Integer id ;
-	private boolean published;
+	
+	private int id;
+	private String description;
 	private Integer author;
+	private boolean published;
+	private Map<Integer, Content> myContents;
 	
 	public Element(String text, Integer authorId) {
 		this.description = text;
 		this.myContents = new HashMap<>();
-		this.id = generalID++;
 		this.published=false;
 		this.author = authorId;
 	}

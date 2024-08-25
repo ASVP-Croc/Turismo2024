@@ -7,6 +7,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,7 +22,10 @@ public class Notification {
 	@Column(name = "message")
 	private String message;
 	@Column(name = "author")
-	private User authorUser;
+	private User authortUser;
+	@OneToOne
+	@JoinColumn(name = "recipient")
+	private User recipientUser;
 	
 	
 	public Notification(String text) {
@@ -27,10 +33,5 @@ public class Notification {
 	
 	public String getMessage() {
 		return message;
-	}
-	
-	
-	public String addMotivation(String text) {
-		return message+text;
 	}
 }

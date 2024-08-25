@@ -14,6 +14,7 @@ import com.speriamochemelacavo.turismo2024.elements.Element;
 import com.speriamochemelacavo.turismo2024.elements.Notification;
 import com.speriamochemelacavo.turismo2024.elements.Request;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,7 +44,7 @@ public class AuthenticatedUser implements GeneralUser {
 	private String phoneNumber;
 	@Autowired
 	private Role role;
-	@OneToMany(mappedBy = "recipient")
+	@OneToMany(mappedBy = "recipientUser", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Queue<Notification> notifications;
 	@ManyToOne
 	private List<Element> savedElements;
