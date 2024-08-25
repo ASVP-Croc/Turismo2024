@@ -79,7 +79,7 @@ public class AccountsManager {
 			String email = scanner.nextLine();
 			System.out.println("Inserisci il tuo numero: ");
 			String number = scanner.nextLine();
-			AuthenticatedUser newUser = new AuthenticatedUser(name, surname, username,email, number, Role.AuthenticatedTourist);
+			AuthenticatedUser newUser = new AuthenticatedUser();
 			users.put(newUser.getId(), newUser);
 			return true;
 		} 
