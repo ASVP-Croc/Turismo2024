@@ -12,9 +12,9 @@ class POIsManagerTest {
 	
 	@Test
 	void testCreatePOI() {
-		AbstractAuthenticatedUser contributor = new AuthenticatedUser("Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393", Role.Contributor);
-		AbstractAuthenticatedUser contributorAutorizzato = new AuthenticatedUser("Matteo", "Pallotti", "Maverick",  "pallotti@gmail.it", "3331001003", Role.AuthorizedContributor);
-		AbstractAuthenticatedUser turistaAutenticato = new AuthenticatedUser("Simone", "Nonsoilcognome", "SilverSimon", "simon@gmail.it", "3331001002", Role.AuthenticatedTourist);
+		AuthenticatedUser contributor = new AuthenticatedUser("Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393", Role.Contributor);
+		AuthenticatedUser contributorAutorizzato = new AuthenticatedUser("Matteo", "Pallotti", "Maverick",  "pallotti@gmail.it", "3331001003", Role.AuthorizedContributor);
+		AuthenticatedUser turistaAutenticato = new AuthenticatedUser("Simone", "Nonsoilcognome", "SilverSimon", "simon@gmail.it", "3331001002", Role.AuthenticatedTourist);
 		Request creaPOI1 = new Request(contributor, Action.CreatePOI);
 		Request creaPOI2 = new Request(contributorAutorizzato, Action.CreatePOI);
 		Request creaPOI3 = new Request(turistaAutenticato, Action.CreatePOI);
@@ -26,7 +26,7 @@ class POIsManagerTest {
 
 	@Test
 	void testAddContentToPOI() {
-		AbstractAuthenticatedUser contributorAutorizzato = new AuthenticatedUser("Matteo", "Pallotti", "Maverick",  "pallotti@gmail.it", "3331001003", Role.AuthorizedContributor);
+		AuthenticatedUser contributorAutorizzato = new AuthenticatedUser("Matteo", "Pallotti", "Maverick",  "pallotti@gmail.it", "3331001003", Role.AuthorizedContributor);
 		Request creaPOI2 = new Request(contributorAutorizzato, Action.CreatePOI);
 		Request addContentToPOI = new Request(contributorAutorizzato, Action.CreateContentInPOI);
 		POIsManager.execute(creaPOI2);
@@ -36,9 +36,9 @@ class POIsManagerTest {
 	
 	@Test
 	void testGetPOIs() {
-		AbstractAuthenticatedUser contributor = new AuthenticatedUser("Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393", Role.Contributor);
-		AbstractAuthenticatedUser contributorAutorizzato = new AuthenticatedUser("Matteo", "Pallotti", "Maverick",  "pallotti@gmail.it", "3331001003", Role.AuthorizedContributor);
-		AbstractAuthenticatedUser turistaAutenticato = new AuthenticatedUser("Simone", "Nonsoilcognome", "SilverSimon", "simon@gmail.it", "3331001002", Role.AuthenticatedTourist);
+		AuthenticatedUser contributor = new AuthenticatedUser("Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393", Role.Contributor);
+		AuthenticatedUser contributorAutorizzato = new AuthenticatedUser("Matteo", "Pallotti", "Maverick",  "pallotti@gmail.it", "3331001003", Role.AuthorizedContributor);
+		AuthenticatedUser turistaAutenticato = new AuthenticatedUser("Simone", "Nonsoilcognome", "SilverSimon", "simon@gmail.it", "3331001002", Role.AuthenticatedTourist);
 		Request creaPOI1 = new Request(contributor, Action.CreatePOI);
 		Request creaPOI2 = new Request(contributorAutorizzato, Action.CreatePOI);
 		Request getPOIs = new Request(turistaAutenticato, Action.GetPOIs);

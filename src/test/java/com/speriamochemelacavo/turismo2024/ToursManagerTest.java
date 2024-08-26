@@ -13,9 +13,9 @@ class ToursManagerTest {
 
 	@Test
 	void testCreateTours() {
-		AbstractAuthenticatedUser contributor = new AuthenticatedUser("Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393", Role.Contributor);
-		AbstractAuthenticatedUser contributorAutorizzato = new AuthenticatedUser("Matteo", "Pallotti", "Maverick",  "pallotti@gmail.it", "3331001003", Role.AuthorizedContributor);
-		AbstractAuthenticatedUser turistaAutenticato = new AuthenticatedUser("Simone", "Nonsoilcognome", "SilverSimon", "simon@gmail.it", "3331001002", Role.AuthenticatedTourist);
+		AuthenticatedUser contributor = new AuthenticatedUser("Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393", Role.Contributor);
+		AuthenticatedUser contributorAutorizzato = new AuthenticatedUser("Matteo", "Pallotti", "Maverick",  "pallotti@gmail.it", "3331001003", Role.AuthorizedContributor);
+		AuthenticatedUser turistaAutenticato = new AuthenticatedUser("Simone", "Nonsoilcognome", "SilverSimon", "simon@gmail.it", "3331001002", Role.AuthenticatedTourist);
 		Request creaTour1 = new Request(contributor, Action.CreateTour);
 		Request creaTour2 = new Request(contributorAutorizzato, Action.CreateTour);
 		Request creaTour3 = new Request(turistaAutenticato, Action.CreateTour);
@@ -27,9 +27,9 @@ class ToursManagerTest {
 	
 	@Test
 	void testCreateContentInTour() {
-		AbstractAuthenticatedUser contributor = new AuthenticatedUser("Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393", Role.Contributor);
-		AbstractAuthenticatedUser contributorAutorizzato = new AuthenticatedUser("Matteo", "Pallotti", "Maverick",  "pallotti@gmail.it", "3331001003", Role.AuthorizedContributor);
-		AbstractAuthenticatedUser turistaAutenticato = new AuthenticatedUser("Simone", "Nonsoilcognome", "SilverSimon", "simon@gmail.it", "3331001002", Role.AuthenticatedTourist);
+		AuthenticatedUser contributor = new AuthenticatedUser("Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393", Role.Contributor);
+		AuthenticatedUser contributorAutorizzato = new AuthenticatedUser("Matteo", "Pallotti", "Maverick",  "pallotti@gmail.it", "3331001003", Role.AuthorizedContributor);
+		AuthenticatedUser turistaAutenticato = new AuthenticatedUser("Simone", "Nonsoilcognome", "SilverSimon", "simon@gmail.it", "3331001002", Role.AuthenticatedTourist);
 		Request creaTour1 = new Request(contributor, Action.CreateTour);
 		Request creaTour2 = new Request(contributorAutorizzato, Action.CreateTour);
 		ToursManager.execute(creaTour1);
@@ -44,9 +44,9 @@ class ToursManagerTest {
 	
 	@Test
 	void testAddPOItInTour() {
-		AbstractAuthenticatedUser contributor = new AuthenticatedUser("Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393", Role.Contributor);
-		AbstractAuthenticatedUser contributorAutorizzato = new AuthenticatedUser("Matteo", "Pallotti", "Maverick",  "pallotti@gmail.it", "3331001003", Role.AuthorizedContributor);
-		AbstractAuthenticatedUser turistaAutenticato = new AuthenticatedUser("Simone", "Nonsoilcognome", "SilverSimon", "simon@gmail.it", "3331001002", Role.AuthenticatedTourist);
+		AuthenticatedUser contributor = new AuthenticatedUser("Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393", Role.Contributor);
+		AuthenticatedUser contributorAutorizzato = new AuthenticatedUser("Matteo", "Pallotti", "Maverick",  "pallotti@gmail.it", "3331001003", Role.AuthorizedContributor);
+		AuthenticatedUser turistaAutenticato = new AuthenticatedUser("Simone", "Nonsoilcognome", "SilverSimon", "simon@gmail.it", "3331001002", Role.AuthenticatedTourist);
 		Request creaTour1 = new Request(contributor, Action.CreateTour);
 		Request creaTour2 = new Request(contributorAutorizzato, Action.CreateTour);
 		ToursManager.execute(creaTour1);
@@ -61,9 +61,9 @@ class ToursManagerTest {
 
 	@Test
 	void testGetTour() {
-		AbstractAuthenticatedUser contributor = new AuthenticatedUser("Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393", Role.Contributor);
-		AbstractAuthenticatedUser contributorAutorizzato = new AuthenticatedUser("Matteo", "Pallotti", "Maverick",  "pallotti@gmail.it", "3331001003", Role.AuthorizedContributor);
-		AbstractAuthenticatedUser turistaAutenticato = new AuthenticatedUser("Simone", "Nonsoilcognome", "SilverSimon", "simon@gmail.it", "3331001002", Role.AuthenticatedTourist);
+		AuthenticatedUser contributor = new AuthenticatedUser("Lorenzo", "Crovace", "ASVP_CROC", "lorenzo.crovace@studenti.unicam.it", "3492913393", Role.Contributor);
+		AuthenticatedUser contributorAutorizzato = new AuthenticatedUser("Matteo", "Pallotti", "Maverick",  "pallotti@gmail.it", "3331001003", Role.AuthorizedContributor);
+		AuthenticatedUser turistaAutenticato = new AuthenticatedUser("Simone", "Nonsoilcognome", "SilverSimon", "simon@gmail.it", "3331001002", Role.AuthenticatedTourist);
 		Request creaTour1 = new Request(contributor, Action.CreateTour);
 		Request creaTour2 = new Request(contributorAutorizzato, Action.CreateTour);
 		Request getTourContent = new Request(turistaAutenticato, Action.GetTours);
