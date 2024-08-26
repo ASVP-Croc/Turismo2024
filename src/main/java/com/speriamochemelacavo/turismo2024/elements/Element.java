@@ -31,10 +31,6 @@ public abstract class Element implements Serializable{
 	private AuthenticatedUser author;
 	@Column(name = "isPublished")
 	private boolean isPublished;
-	@Column(name = "latitude")
-	private float latitude;
-	@Column(name = "longitude")
-	private float longitude;
 	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Content> myContents;
 	

@@ -4,7 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
 public class Tour extends Element{
+	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
+	@JoinColumn(name = "tourId", referencedColumnName = "id")
 	private final List<PointOfInterest> myPOIs;
 	
 

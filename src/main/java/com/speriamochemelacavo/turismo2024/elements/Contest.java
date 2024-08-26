@@ -2,18 +2,16 @@ package com.speriamochemelacavo.turismo2024.elements;
 
 import java.util.stream.Stream;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
 public class Contest extends Element {
-	private final Element element;
 	
 	public Contest(String description, Element element, Integer id) {
 		super(description, id);
-		this.element = element;
 	}
-	
-	public Element getElement() {
-		return element;
-	}
-	
+
 	public Stream<Content> getContents(){
 		return super.getContents();
 	}
