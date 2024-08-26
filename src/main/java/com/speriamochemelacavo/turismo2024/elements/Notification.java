@@ -1,6 +1,6 @@
 package com.speriamochemelacavo.turismo2024.elements;
 
-import com.speriamochemelacavo.turismo2024.users.User;
+import com.speriamochemelacavo.turismo2024.users.AuthenticatedUser;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,11 +21,14 @@ public class Notification {
 	private int id;
 	@Column(name = "message")
 	private String message;
-	@Column(name = "author")
-	private User authortUser;
-	@OneToOne
+	@Column(name = "object")
+	private Element object;
+	@ManyToOne
+	@JoinColumn(name = "author")
+	private AuthenticatedUser authorUser;
+	@ManyToOne
 	@JoinColumn(name = "recipient")
-	private User recipientUser;
+	private AuthenticatedUser recipientUser;
 	
 	
 	public Notification(String text) {

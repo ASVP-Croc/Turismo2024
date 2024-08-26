@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import com.speriamochemelacavo.turismo2024.elements.Request;
 import com.speriamochemelacavo.turismo2024.managers.ContestsManager;
-import com.speriamochemelacavo.turismo2024.managers.POIsManager;
 import com.speriamochemelacavo.turismo2024.managers.ToursManager;
 import com.speriamochemelacavo.turismo2024.users.*;
 

@@ -1,6 +1,5 @@
 package com.speriamochemelacavo.turismo2024;
 
-import com.speriamochemelacavo.turismo2024.managers.AccountsManager;
 import com.speriamochemelacavo.turismo2024.managers.RequestsManager;
 import com.speriamochemelacavo.turismo2024.users.*;
 

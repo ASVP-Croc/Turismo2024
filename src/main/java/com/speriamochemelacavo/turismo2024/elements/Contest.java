@@ -22,7 +22,7 @@ public class Contest extends Element {
 		return super.getDescritpion();
 	}
 
-	public Content addContent(Content content){
+	public boolean addContent(Content content){
 		return super.addContent(content);
 	}
 	
@@ -34,7 +34,7 @@ public class Contest extends Element {
 		return super.getContent(id);
 	}
 
-	public Content deleteContent(Integer id) {
+	public boolean deleteContent(Integer id) {
 		return super.deleteContent(id);
 		
 	}

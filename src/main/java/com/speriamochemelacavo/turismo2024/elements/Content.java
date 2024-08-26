@@ -1,20 +1,43 @@
 package com.speriamochemelacavo.turismo2024.elements;
 
+import com.speriamochemelacavo.turismo2024.users.AuthenticatedUser;
 import com.speriamochemelacavo.turismo2024.users.Role;
 
-public class Content {
-	private final String text;
-	private static Integer generalId = 0;
-	private final Integer id;
-	private final Role creator;
-	private boolean published;
-	private final Element referenced;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "contents")
+public class Content {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	@Column(name = "text")
+	private String text;
+	@ManyToOne
+	@JoinColumn(name = "referencedElement")
+	private Element referenced;
+	@ManyToOne
+	@JoinColumn(name = "creator")
+	private AuthenticatedUser creator;
+	@Column(name = "isPublished")
+	private boolean isPublished;
+
+	public Content() {
+		
+	}
+	
 	public Content(String text, Role role, Element element) {
 		this.text = text;
-		this.id= generalId++;
-		this.creator = role;
-		this.published=false;
+		this.creator.setRole(role);
+		this.isPublished=false;
 		this.referenced=element;
 	}
 
@@ -22,20 +45,20 @@ public class Content {
 		return text;
 	}
 	
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 	
 	public Role getCreator() {
-		return creator;
+		return creator.getRole();
 	}
 	
 	public void setVisibility() {
-		published=true;
+		isPublished=true;
 	}
 	
 	public boolean getVisibility() {
-		return published;
+		return isPublished;
 	}
 	
 	public Element getReferencedElement() {

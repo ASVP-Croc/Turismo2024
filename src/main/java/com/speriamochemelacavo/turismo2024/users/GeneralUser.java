@@ -6,7 +6,7 @@ public interface GeneralUser {
 	
 	Request sendRequest();
 	
-	Integer getId();
+	int getId();
 	
 	Role getRole();
 }

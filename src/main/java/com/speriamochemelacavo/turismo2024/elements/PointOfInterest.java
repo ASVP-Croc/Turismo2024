@@ -19,7 +19,7 @@ public class PointOfInterest extends Element{
 		return super.getContents();
 	}
 
-	public Content addContent(Content content) {
+	public boolean addContent(Content content) {
 		return super.addContent(content);
 	}
 
@@ -35,7 +35,7 @@ public class PointOfInterest extends Element{
 		return coordinate;
 	}
 	
-	public Content deleteContent(Integer id) {
+	public boolean deleteContent(Integer id) {
 		return super.deleteContent(id);
 	}
 

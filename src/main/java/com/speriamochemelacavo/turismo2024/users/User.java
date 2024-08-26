@@ -33,7 +33,7 @@ public class User implements GeneralUser {
 
 
 	@Override
-	public Integer getId() {
+	public int getId() {
 		return 0;
 	}
 

@@ -46,7 +46,7 @@ public class AuthenticatedUser implements GeneralUser {
 	private Role role;
 	@OneToMany(mappedBy = "recipientUser", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Queue<Notification> notifications;
-	@ManyToOne
+	@ManyToMany
 	private List<Element> savedElements;
 
 	public AuthenticatedUser() {}
@@ -136,7 +136,7 @@ public class AuthenticatedUser implements GeneralUser {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
