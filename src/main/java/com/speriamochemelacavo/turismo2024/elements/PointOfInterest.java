@@ -4,11 +4,9 @@ import java.util.stream.Stream;
 
 
 public class PointOfInterest extends Element{
-	private final Coordinate coordinate;
 
-	public PointOfInterest(String description, Coordinate coordinate, Integer id) {
+	public PointOfInterest(String description,  int id) {
 		super(description, id);
-		this.coordinate = coordinate;
 	}
 	
 	public Integer getId() {
@@ -29,10 +27,6 @@ public class PointOfInterest extends Element{
 
 	public String getDescription() {
 		return super.getDescritpion();
-	}
-
-	public Coordinate getCoordinate() {
-		return coordinate;
 	}
 	
 	public boolean deleteContent(Integer id) {

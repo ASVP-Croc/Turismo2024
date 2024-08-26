@@ -19,7 +19,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Elements")
-public abstract class Element implements Serializable {
+public abstract class Element implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +31,10 @@ public abstract class Element implements Serializable {
 	private AuthenticatedUser author;
 	@Column(name = "isPublished")
 	private boolean isPublished;
+	@Column(name = "latitude")
+	private float latitude;
+	@Column(name = "longitude")
+	private float longitude;
 	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Content> myContents;
 	

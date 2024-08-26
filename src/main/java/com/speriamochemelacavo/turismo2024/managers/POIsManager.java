@@ -28,7 +28,7 @@ public class POIsManager {
 		scanner.nextLine(); // Consuma il carattere di newline
 		System.out.println("Inserisci un titolo per il POI da creare: ");
 		String text = scanner.nextLine();
-		PointOfInterest poi = new PointOfInterest(text, new Coordinate(dx, dy), request.getUser().getId());
+		PointOfInterest poi = new PointOfInterest(text, request.getUser().getId());
 		pois.put(poi.getId(),poi);
 		sendValidation(request, poi);
 		System.out.println("1- per aggiungere ora un Contenuto, 2 per completare la creazione.");
