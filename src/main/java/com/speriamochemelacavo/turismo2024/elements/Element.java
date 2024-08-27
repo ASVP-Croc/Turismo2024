@@ -34,9 +34,7 @@ public abstract class Element implements Serializable{
 	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Content> myContents;
 	
-	public Element() {
-		
-	}
+	public Element() {}
 	
 	public Element(String text, Integer authorId) {
 		this.description = text;
@@ -78,5 +76,38 @@ public abstract class Element implements Serializable{
 	public boolean deleteContent(int id) {
 		return myContents.remove(id) != null;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public AuthenticatedUser getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(AuthenticatedUser author) {
+		this.author = author;
+	}
+
+	public boolean isPublished() {
+		return isPublished;
+	}
+
+	public void setPublished(boolean isPublished) {
+		this.isPublished = isPublished;
+	}
+
+	public List<Content> getMyContents() {
+		return myContents;
+	}
+
+	public void setMyContents(List<Content> myContents) {
+		this.myContents = myContents;
+	}
+	
 
 }

@@ -4,7 +4,6 @@ import java.util.stream.Stream;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 
 @Entity
 public class PointOfInterest extends Element{
@@ -13,6 +12,8 @@ public class PointOfInterest extends Element{
 	private float latitude;
 	@Column(name = "longitude")
 	private float longitude;
+	
+	public PointOfInterest() {}
 
 	public PointOfInterest(String description,  int id) {
 		super(description, id);
