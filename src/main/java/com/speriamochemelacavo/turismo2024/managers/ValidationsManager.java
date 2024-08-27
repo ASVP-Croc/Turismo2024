@@ -27,7 +27,7 @@ public class ValidationsManager {
 			Integer select = 1;
 			while(!elementList.isEmpty() && select==1) {
 				Element element = elementList.poll();
-			if(element.getVisibility()==false)
+			if(element.isPublished()==false)
 				validateElement(request, element);
 			else if(element.getContents().anyMatch(content->content.getVisibility()==false))
 				validateContent(request, element);
@@ -54,8 +54,8 @@ public class ValidationsManager {
 	
 	private static boolean autoValidation(Request request, Element element) {
 		if(request.getAction()==Action.CreatePOI || request.getAction()==Action.CreateTour || request.getAction()==Action.AddPOIInTour)
-		if(element.getVisibility()==false) {
-			element.setVisibility();
+		if(element.isPublished()==false) {
+			element.setPublished(true);;
 			return true;
 			}
 		else if(request.getAction()==Action.CreateContentInContest || request.getAction()==Action.CreateContentInPOI || request.getAction()==Action.CreateContentInTour) {
@@ -67,7 +67,7 @@ public class ValidationsManager {
 	
 	private static boolean validateElement(Request request, Element element) {
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("Dsc: "+ element.getDescritpion()+" "+ "Id: "+ element.getId());
+		System.out.println("Dsc: "+ element.getDescription()+" "+ "Id: "+ element.getId());
 		System.out.println("1-per validare L'elemento, 2-per scartere l'elemento");
 		Integer result = scanner.nextInt();
 		if(result==2) {

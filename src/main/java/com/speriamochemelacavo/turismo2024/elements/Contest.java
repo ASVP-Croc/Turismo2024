@@ -17,7 +17,7 @@ public class Contest extends Element {
 	}
 	
 	public String getDescription() {
-		return super.getDescritpion();
+		return super.getDescription();
 	}
 
 	public boolean addContent(Content content){

@@ -100,7 +100,7 @@ public class POIsManager {
 	
 	public static boolean execute(Request request, Integer id) {
 		if(request.getAction()==Action.Post) {
-			getPOI(id).setVisibility();
+			getPOI(id).setPublished(true);;
 			return true;
 		} else if(request.getAction()==Action.Delete) {
 			pois.remove(id);

@@ -53,7 +53,7 @@ public class PointOfInterest extends Element{
 	}
 
 	public String getDescription() {
-		return super.getDescritpion();
+		return super.getDescription();
 	}
 	
 	public boolean deleteContent(Integer id) {

@@ -48,7 +48,7 @@ class AccountsManagerTest {
 		user2 = new AuthenticatedUser("Lorenzo", "Crovace", "ASVP","email", "numero",Role.AuthenticatedTourist);
 		//Visualise & save element
 		RequestsManager.execute(user2.sendRequest());
-		AccountsManager.getUsers().forEach(user->user.getSavedElement().forEach(elem->System.out.println("Dsc: "+ elem.getDescritpion()+
+		AccountsManager.getUsers().forEach(user->user.getSavedElement().forEach(elem->System.out.println("Dsc: "+ elem.getDescription()+
 		" Id: "+ elem.getId())));
 		
 	}

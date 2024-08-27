@@ -163,7 +163,7 @@ public class ToursManager {
 	
 	public static boolean execute(Request request, Integer id) {
 		if(request.getAction()==Action.Post) {
-			getTour(id).setVisibility();
+			getTour(id).setPublished(true);;
 			return true;
 		} else if(request.getAction()==Action.Delete) {
 			tours.remove(id);

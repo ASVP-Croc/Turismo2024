@@ -49,24 +49,12 @@ public abstract class Element implements Serializable{
 		return myContents.stream();
 	}
 	
-	public String getDescritpion() {
-		return description;
-	}
-	
 	public Integer getId() {
 		return id;
 	}
 	
 	public Content getContent(Integer id) {
 		return myContents.get(id);
-	}
-	
-	public void setVisibility() {
-		isPublished=true;
-	}
-
-	public boolean getVisibility() {
-		return isPublished;
 	}
 
 	public int getAuthorId() {

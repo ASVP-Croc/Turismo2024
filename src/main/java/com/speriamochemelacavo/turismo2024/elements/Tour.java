@@ -38,7 +38,7 @@ public class Tour extends Element{
 	}
 
 	public String getDescription() {
-		return super.getDescritpion();
+		return super.getDescription();
 	}
 
 	public Stream<Content> getContents() {
