@@ -35,7 +35,7 @@ public class AccountsService {
 	}
 	
 
-	public void updateUserById(AuthenticatedUser useruserToUptade) {
+	public void updateUser(AuthenticatedUser useruserToUptade) {
 		AuthenticatedUser userToUpdate = findById(useruserToUptade.getId());
 		userToUpdate.setName(useruserToUptade.getName());
 		userToUpdate.setSurname(useruserToUptade.getSurname());
