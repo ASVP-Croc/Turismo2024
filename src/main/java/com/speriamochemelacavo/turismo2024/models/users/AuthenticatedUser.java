@@ -6,48 +6,37 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Scanner;
-import java.util.stream.Stream;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.Notification;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-//@Entity
-//@Table(name = "users")
 @Component
+@Entity
+@Table(name = "users")
 public class AuthenticatedUser implements GeneralUser {
 	
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
 	private int id;
-//	@Column(name = "name")
 	private String name;
-//	@Column(name = "surname")
 	private String surname;
-//	@Column(name = "username")
 	private String userName;
-//	@Column(name = "email")
 	private String email;
-//	@Column(name = "phonenumber")
 	private String phoneNumber;
+	@Enumerated(EnumType.STRING)
 	private Role role;
-//	@OneToMany(mappedBy = "recipientUser", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Queue<Notification> notifications;
-//	@ManyToMany
+	@OneToMany(mappedBy = "recipientUser", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Notification> notifications;
+	@OneToMany
 	private List<Element> savedElements;
 
 	public AuthenticatedUser() {}
@@ -178,7 +167,7 @@ public class AuthenticatedUser implements GeneralUser {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Queue<Notification> getNotifications() {
+	public List<Notification> getNotifications() {
 		return notifications;
 	}
 

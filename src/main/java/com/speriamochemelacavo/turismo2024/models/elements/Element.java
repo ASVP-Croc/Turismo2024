@@ -19,23 +19,18 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-//@Entity
-//@Table(name = "Elements")
+@Entity
+@Table(name = "Elements")
 @Component
 public class Element {
 	
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
 	private int id;
-//	@Column(name = "description")
 	private String description;
-//	@ManyToOne
-//	@JoinColumn(name = "author")
-	@Autowired
+	@ManyToOne
 	private AuthenticatedUser author;
-//	@Column(name = "isPublished")
 	private boolean isPublished;
-//	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Content> myContents;
 	
 	public Element() {

@@ -4,56 +4,50 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.Notification;
 import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
+import com.speriamochemelacavo.turismo2024.repository.UserRepository;
 
 @Service
 public class AccountsService {
 	
-	private final List<AuthenticatedUser> users = new ArrayList<>();
-	
-	public AccountsService () {
-		users.add(new AuthenticatedUser(101, "Matteo", "Pallotti", "Maverick", "maverick@gmail.com", "3929217858", Role.Administrator));
-		users.add(new AuthenticatedUser(102, "Lorenzo", "Crovace", "AVCP", "avcp@gmail.com", "123456789", Role.Curator));
-		users.add(new AuthenticatedUser(103, "Simon", "Silver", "SimonSilver", "simon@gmail.com", "987654321", Role.Animator));
-	}
+	@Autowired
+	UserRepository repository;
 	
 	public List<AuthenticatedUser> findAll() {
-		return users;
+		return repository.findAll();
 	}
 	
 	public AuthenticatedUser findById(int userToFindId) {
-		return users.stream().filter(user -> user.getId() == userToFindId).findFirst().get();
+		return repository.findById(userToFindId).orElseThrow();
 	}
 
 	public void addUser(AuthenticatedUser userToAdd) {
-		users.add(userToAdd);
+		repository.save(userToAdd);
 	}
 	
+	public void addUsers(List<AuthenticatedUser> usersToAdd) {
+		repository.saveAll(usersToAdd);
+	}
 
 	public void updateUser(AuthenticatedUser useruserToUptade) {
-		AuthenticatedUser userToUpdate = findById(useruserToUptade.getId());
-		userToUpdate.setName(useruserToUptade.getName());
-		userToUpdate.setSurname(useruserToUptade.getSurname());
-		userToUpdate.setUserName(useruserToUptade.getUserName());
-		userToUpdate.setEmail(useruserToUptade.getEmail());
-		userToUpdate.setPhoneNumber(useruserToUptade.getPhoneNumber());
-		userToUpdate.setRole(useruserToUptade.getRole());
+		repository.save(useruserToUptade);
 	}
 	
 	public void deleteUserById(int userToDeleteId) {
-		users.removeIf(user -> user.getId() == userToDeleteId);
+		repository.deleteById(userToDeleteId);
 	}
 	
 	public List<Element> getSavedElements(int userToGetSavedElementsId){
 		return findById(userToGetSavedElementsId).getSavedElements();
 	}
 
-	public Queue<Notification> getNotifications(int userToGetNotificationId){
+	public List<Notification> getNotifications(int userToGetNotificationId){
 		return findById(userToGetNotificationId).getNotifications();
 	}
 	

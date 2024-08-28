@@ -15,21 +15,17 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-//@Entity
-//@Table(name = "contents")
+@Component
+@Entity
+@Table(name = "contents")
 public class Content {
 
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
 	private int id;
-//	@Column(name = "text")
 	private String text;
-//	@ManyToOne
-//	@JoinColumn(name = "referencedElement")
+	@ManyToOne
 	private Element referenced;
-//	@ManyToOne
-//	@JoinColumn(name = "creator")
-	@Autowired
+	@ManyToOne
 	private AuthenticatedUser creator;
 //	@Column(name = "isPublished")
 	private boolean isPublished;
