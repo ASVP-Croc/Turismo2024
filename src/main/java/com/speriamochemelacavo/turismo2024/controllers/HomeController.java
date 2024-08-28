@@ -17,21 +17,16 @@ public class HomeController {
 	AccountsManager accountManager;
 	
 	@GetMapping("/")
-	public String redirect() {
-		return welcome();
-	}
-	
-	@GetMapping("/turismo2024")
 	public String welcome() {
 		return "Benvenuto in TURISMO2024!";
 	}
 	
-	@GetMapping("/turismo2024/users")
+	@GetMapping("/users")
 	public List<AuthenticatedUser> getUsers(){
 		return accountManager.findAll();
 	}
 	
-	@GetMapping("/turismo2024/user/{id}")
+	@GetMapping("/user/{id}")
 	public AuthenticatedUser getUserById(@PathVariable int id){
 		return accountManager.findById(id);
 	}
