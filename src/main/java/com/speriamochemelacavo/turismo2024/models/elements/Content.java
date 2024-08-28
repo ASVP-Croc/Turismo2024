@@ -17,7 +17,6 @@ import jakarta.persistence.Table;
 
 //@Entity
 //@Table(name = "contents")
-@Component
 public class Content {
 
 //	@Id

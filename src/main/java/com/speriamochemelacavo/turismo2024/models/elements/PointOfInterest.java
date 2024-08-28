@@ -1,15 +1,12 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
 
-import org.springframework.stereotype.Component;
-
 import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
 //@Entity
-@Component
 public class PointOfInterest extends Element{
 	
 //	@Column(name = "latitude")

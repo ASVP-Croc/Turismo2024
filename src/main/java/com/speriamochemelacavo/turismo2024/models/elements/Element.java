@@ -22,7 +22,7 @@ import jakarta.persistence.Table;
 //@Entity
 //@Table(name = "Elements")
 @Component
-public abstract class Element {
+public class Element {
 	
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)

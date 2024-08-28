@@ -44,7 +44,6 @@ public class AuthenticatedUser implements GeneralUser {
 	private String email;
 //	@Column(name = "phonenumber")
 	private String phoneNumber;
-	@Autowired
 	private Role role = Role.Tourist;
 //	@OneToMany(mappedBy = "recipientUser", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Queue<Notification> notifications;

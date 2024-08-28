@@ -15,7 +15,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 //@Entity
-@Component
 public class Tour extends Element{
 	
 //	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)

@@ -7,7 +7,6 @@ import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
 import jakarta.persistence.Entity;
 
 //@Entity
-@Component
 public class Contest extends Element {
 	
 	public Contest() {
