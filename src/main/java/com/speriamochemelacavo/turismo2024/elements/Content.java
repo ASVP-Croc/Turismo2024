@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "contents")
 public class Content {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -41,29 +41,46 @@ public class Content {
 		this.referenced=element;
 	}
 
-	public String getText() {
-		return text;
-	}
-	
 	public int getId() {
 		return id;
 	}
-	
-	public Role getCreator() {
-		return creator.getRole();
+
+	public void setId(int id) {
+		this.id = id;
 	}
-	
-	public void setVisibility() {
-		isPublished=true;
+
+	public String getText() {
+		return text;
 	}
-	
-	public boolean getVisibility() {
-		return isPublished;
+
+	public void setText(String text) {
+		this.text = text;
 	}
-	
-	public Element getReferencedElement() {
+
+	public Element getReferenced() {
 		return referenced;
 	}
+
+	public void setReferenced(Element referenced) {
+		this.referenced = referenced;
+	}
+
+	public AuthenticatedUser getCreator() {
+		return creator;
+	}
+
+	public void setCreator(AuthenticatedUser creator) {
+		this.creator = creator;
+	}
+
+	public boolean isPublished() {
+		return isPublished;
+	}
+
+	public void setPublished(boolean isPublished) {
+		this.isPublished = isPublished;
+	}
+
 	
 }
 	

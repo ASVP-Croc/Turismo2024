@@ -34,35 +34,37 @@ public abstract class Element implements Serializable{
 	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Content> myContents;
 	
-	public Element() {}
-	
-	public Element(String text, Integer authorId) {
-		this.description = text;
-		this.isPublished=false;
+	public Element() {
+		
 	}
 	
-	public boolean addContent(Content content) {
-		return myContents.add(content);
-	}
-	
-	public Stream<Content>getContents() {
-		return myContents.stream();
+	public Element(String description, AuthenticatedUser author) {
+		this.description = description;
+		this.author = author;
 	}
 	
 	public Integer getId() {
 		return id;
 	}
 	
+	public boolean addContent(Content content) {
+		return myContents.add(content);
+	}
+	
+	public boolean deleteContent(int id) {
+		return myContents.remove(id) != null;
+	}
+	
+	public Stream<Content>getContents() {
+		return myContents.stream();
+	}
+
 	public Content getContent(Integer id) {
 		return myContents.get(id);
 	}
 
 	public int getAuthorId() {
 		return this.author.getId();
-	}
-	
-	public boolean deleteContent(int id) {
-		return myContents.remove(id) != null;
 	}
 
 	public String getDescription() {

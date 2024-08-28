@@ -24,17 +24,47 @@ public class Notification {
 	@Column(name = "object")
 	private Element object;
 	@ManyToOne
-	@JoinColumn(name = "author")
-	private AuthenticatedUser authorUser;
-	@ManyToOne
 	@JoinColumn(name = "recipient")
 	private AuthenticatedUser recipientUser;
 	
-	
-	public Notification(String text) {
+	public Notification() {
+		
 	}
 	
+	public Notification(String text) {
+		this.message = text;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getMessage() {
 		return message;
 	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public Element getObject() {
+		return object;
+	}
+
+	public void setObject(Element object) {
+		this.object = object;
+	}
+
+	public AuthenticatedUser getRecipientUser() {
+		return recipientUser;
+	}
+
+	public void setRecipientUser(AuthenticatedUser recipientUser) {
+		this.recipientUser = recipientUser;
+	}
+	
 }

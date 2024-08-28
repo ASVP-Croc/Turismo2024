@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 
 import com.speriamochemelacavo.turismo2024.elements.*;
 import com.speriamochemelacavo.turismo2024.users.Action;
+import com.speriamochemelacavo.turismo2024.users.AuthenticatedUser;
 
 public class ContestsManager  {
 	private final static Map<Integer, Contest> contests = new HashMap<>();
@@ -19,15 +20,17 @@ public class ContestsManager  {
 		return contests.values().stream();
 	}
 	
-	public static Contest execute(Request request) {
-		Action action = request.getAction();
-		if(action==Action.CreateContest) {
-			return createContest(request);
-		} else if(action==Action.CreateContentInContest) {
-			return addContentToContest(request);
-		} else if(action==Action.GetContests) showContests(request);
-		return null;
-	}
+//	public static Contest execute(Request request) {
+//		Action action = request.getAction();
+//		if(action==Action.CreateContest) {
+//			return createContest(request);
+//		} else if(action==Action.CreateContentInContest) {
+//			return addContentToContest(request);
+//		} else if(action==Action.GetContests) showContests(request);
+//		return null;
+//	}
+	
+	public 
 	
 	private static void showContests(Request request) {
 		Scanner scanner = new Scanner(System.in);
@@ -70,7 +73,7 @@ public class ContestsManager  {
 		return contest;
 	}
 
-	private static Contest createContest(Request request) {
+	private static Contest createContest(AuthenticatedUser author) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Inserisci una descrizione per il Contest: ");
 		String description = scanner.nextLine();
@@ -81,19 +84,19 @@ public class ContestsManager  {
 			System.out.println("Seleziona un POI inserendo l'ID.");
 			POIsManager.getPOIs().forEach(elem-> System.out.println("Dsc: " + elem.getDescription()+ " Id: "+elem.getId()));
 			Integer id = scanner.nextInt();
-			contest = new Contest(description,POIsManager.getPOI(id), request.getUser().getId());
+			contest = new Contest(description, author);
 		} else if(select==2) {
 			ToursManager.getTours();
 			System.out.println("Seleziona un Tour inserendo l'ID.");
 			ToursManager.getTours().forEach(elem-> System.out.println("Dsc: " + elem.getDescription()+ " Id: "+elem.getId()));
 			Integer id = scanner.nextInt();
-			contest = new Contest(description, ToursManager.getTour(id), request.getUser().getId() );
+			contest = new Contest(description, author);
 		}return  contests.put(contest.getId(), contest);
 	}
 	
 	public static boolean execute(Request request, Integer id1, Integer id2) {
 		if(request.getAction()==Action.Post) {
-			getContest(id1).getContent(id2).setVisibility();
+			getContest(id1).getContent(id2).setPublished(true);;
 			return true;
 		} else if(request.getAction()==Action.Delete) {
 			getContest(id1).deleteContent(id2);

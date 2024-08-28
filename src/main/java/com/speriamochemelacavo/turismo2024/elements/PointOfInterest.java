@@ -2,6 +2,8 @@ package com.speriamochemelacavo.turismo2024.elements;
 
 import java.util.stream.Stream;
 
+import com.speriamochemelacavo.turismo2024.users.AuthenticatedUser;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
@@ -15,8 +17,10 @@ public class PointOfInterest extends Element{
 	
 	public PointOfInterest() {}
 
-	public PointOfInterest(String description,  int id) {
-		super(description, id);
+	public PointOfInterest(String description,  AuthenticatedUser author, float latitude, float longitude) {
+		super(description, author);
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 	
 	public float getLongitude() {
@@ -34,30 +38,6 @@ public class PointOfInterest extends Element{
 	
 	public float getLatitude() {
 		return latitude;
-	}
-	
-	public Integer getId() {
-		return super.getId();
-	}
-
-	public Stream<Content> getContents() {
-		return super.getContents();
-	}
-
-	public boolean addContent(Content content) {
-		return super.addContent(content);
-	}
-
-	public Content getContent(Integer id) {
-		return super.getContent(id);
-	}
-
-	public String getDescription() {
-		return super.getDescription();
-	}
-	
-	public boolean deleteContent(Integer id) {
-		return super.deleteContent(id);
 	}
 
 }

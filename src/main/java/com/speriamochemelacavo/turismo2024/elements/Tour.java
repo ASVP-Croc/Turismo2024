@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import com.speriamochemelacavo.turismo2024.users.AuthenticatedUser;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -15,50 +17,26 @@ public class Tour extends Element{
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
 	@JoinColumn(name = "tourId", referencedColumnName = "id")
-	private final List<PointOfInterest> myPOIs;
+	private final List<PointOfInterest> myPOIs = new ArrayList<>();
 	
-
-	public Tour(String description, Integer id) {
-		super(description, id);
-		this.myPOIs = new ArrayList<>();
+	public Tour() {
+		
 	}
 	
-	//costruttore di copia
-	public Tour(Tour other, Integer id) {
-	    super(other.getDescription(), id);
-	    this.myPOIs = new ArrayList<>(other.myPOIs);
+	public Tour(String description,  AuthenticatedUser author) {
+		super(description, author);
+	}
+
+	public List<PointOfInterest> getMyPOIs() {
+		return myPOIs;
 	}
 	
-	public Integer getId() {
-		return super.getId();
-	}
-
-	public Stream<PointOfInterest> getPois() {
-		return myPOIs.stream();
-	}
-
-	public String getDescription() {
-		return super.getDescription();
-	}
-
-	public Stream<Content> getContents() {
-		return super.getContents();
-	}
-
-	public boolean addContent(Content content) {
-		return super.addContent(content);
-	}
-
-	public Content getContent(Integer id) {
-		return super.getContent(id);
-	}
-
-	public boolean addPOI(PointOfInterest poi) {
-		return myPOIs.add(poi);
-	}
+//	//costruttore di copia
+//	public Tour(Tour other,  AuthenticatedUser author) {
+//	    super(other.getDescription(), author);
+//	    this.myPOIs = new ArrayList<>(other.myPOIs);
+//	}
 	
-	public boolean deleteContent(Integer id) {
-		return super.deleteContent(id);
-	}
+	
 
 }

@@ -29,7 +29,7 @@ public class ValidationsManager {
 				Element element = elementList.poll();
 			if(element.isPublished()==false)
 				validateElement(request, element);
-			else if(element.getContents().anyMatch(content->content.getVisibility()==false))
+			else if(element.getContents().anyMatch(content->content.isPublished()==false))
 				validateContent(request, element);
 			System.out.println("1-Visualizza il prossimo elemento da validare, 2-Esci");
 			select=scanner.nextInt();}
@@ -44,7 +44,7 @@ public class ValidationsManager {
 			Integer select = 1;
 			while(!contestList.isEmpty() && select==1) {
 				Contest contest = contestList.poll();
-			if(contest.getContents().anyMatch(content->content.getVisibility()==false))
+			if(contest.getContents().anyMatch(content->content.isPublished()==false))
 				validateContent(request, contest);
 			System.out.println("1-Visualizza il prossimo Contest per validare i contenuti, 2-Esci");
 			select=scanner.nextInt();
@@ -59,8 +59,8 @@ public class ValidationsManager {
 			return true;
 			}
 		else if(request.getAction()==Action.CreateContentInContest || request.getAction()==Action.CreateContentInPOI || request.getAction()==Action.CreateContentInTour) {
-			element.getContents().filter(elem->elem.getCreator()==Role.AuthorizedContributor || elem.getCreator()==Role.Curator)
-			.forEach(elem->elem.setVisibility());
+			element.getContents().filter(elem->elem.getCreator().getRole()==Role.AuthorizedContributor || elem.getCreator().getRole()==Role.Curator)
+			.forEach(elem->elem.setPublished(true));
 			return true;
 		} return false;
 	}
@@ -83,7 +83,7 @@ public class ValidationsManager {
 	
 	private static boolean validateContent(Request request, Element element) {
 		Scanner scanner = new Scanner(System.in);
-		element.getContents().filter(content->content.getVisibility()==false)
+		element.getContents().filter(content->content.isPublished()==false)
 				.forEach(content->System.out.println("ID: "+content.getId()));
 		System.out.println("Inserisci l'ID per visualizzare il Contenuto");
 		Integer id = scanner.nextInt();

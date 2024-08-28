@@ -22,13 +22,13 @@ public class POIsManager {
 	private static PointOfInterest createPOI(Request request) {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Inserisci la coordinata X per il POI da creare: ");
-		double dx = scanner.nextDouble();
+		float dx = scanner.nextFloat();
 		System.out.println("Inserisci la coordinata Y per il POI da creare: ");
-		double dy = scanner.nextDouble();
+		float dy = scanner.nextFloat();
 		scanner.nextLine(); // Consuma il carattere di newline
 		System.out.println("Inserisci un titolo per il POI da creare: ");
 		String text = scanner.nextLine();
-		PointOfInterest poi = new PointOfInterest(text, request.getUser().getId());
+		PointOfInterest poi = new PointOfInterest(text, request.getUser(), dx, dy);
 		pois.put(poi.getId(),poi);
 		sendValidation(request, poi);
 		System.out.println("1- per aggiungere ora un Contenuto, 2 per completare la creazione.");
@@ -110,7 +110,7 @@ public class POIsManager {
 	
 	public static boolean execute(Request request, Integer id1, Integer id2) {
 		if(request.getAction()==Action.Post) {
-			getPOI(id1).getContent(id2).setVisibility();
+			getPOI(id1).getContent(id2).setPublished(true);;
 			return true;
 		} else if(request.getAction()==Action.Delete) {
 			getPOI(id1).deleteContent(id2);

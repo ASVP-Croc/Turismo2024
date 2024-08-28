@@ -43,7 +43,7 @@ public class ReportsManager{
 				System.out.println("1-per convalidare il Contenuto, 2-per scartare il Contenuto");
 				Integer result = scanner.nextInt();
 				if(result==2) {
-					return deleteMessage(request, content.getReferencedElement(),content);
+					return deleteMessage(request, content.getReferenced(),content);
 				}
 				System.out.println("1-Visualizza il prossimo Contest per validare i contenuti, 2-Esci");
 				select=scanner.nextInt();
