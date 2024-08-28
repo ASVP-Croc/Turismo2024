@@ -1,7 +1,10 @@
-package com.speriamochemelacavo.turismo2024.elements;
+package com.speriamochemelacavo.turismo2024.models.elements;
 
-import com.speriamochemelacavo.turismo2024.users.AuthenticatedUser;
-import com.speriamochemelacavo.turismo2024.users.Role;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
+import com.speriamochemelacavo.turismo2024.models.users.Role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,22 +15,24 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "contents")
+//@Entity
+//@Table(name = "contents")
+@Component
 public class Content {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "text")
+//	@Column(name = "text")
 	private String text;
-	@ManyToOne
-	@JoinColumn(name = "referencedElement")
+//	@ManyToOne
+//	@JoinColumn(name = "referencedElement")
 	private Element referenced;
-	@ManyToOne
-	@JoinColumn(name = "creator")
+//	@ManyToOne
+//	@JoinColumn(name = "creator")
+	@Autowired
 	private AuthenticatedUser creator;
-	@Column(name = "isPublished")
+//	@Column(name = "isPublished")
 	private boolean isPublished;
 
 	public Content() {

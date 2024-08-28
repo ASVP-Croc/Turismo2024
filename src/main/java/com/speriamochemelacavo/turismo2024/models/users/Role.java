@@ -1,5 +1,8 @@
-package com.speriamochemelacavo.turismo2024.users;
+package com.speriamochemelacavo.turismo2024.models.users;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public enum Role {
 	Administrator,
 	Animator,

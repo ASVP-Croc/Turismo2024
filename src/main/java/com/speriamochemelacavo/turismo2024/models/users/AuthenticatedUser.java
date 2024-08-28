@@ -1,4 +1,4 @@
-package com.speriamochemelacavo.turismo2024.users;
+package com.speriamochemelacavo.turismo2024.models.users;
 
 
 
@@ -10,9 +10,10 @@ import java.util.Scanner;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import com.speriamochemelacavo.turismo2024.elements.Element;
-import com.speriamochemelacavo.turismo2024.elements.Notification;
+import com.speriamochemelacavo.turismo2024.models.elements.Element;
+import com.speriamochemelacavo.turismo2024.models.elements.Notification;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -25,33 +26,35 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "users")
+//@Entity
+//@Table(name = "users")
+@Component
 public class AuthenticatedUser implements GeneralUser {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "name")
+//	@Column(name = "name")
 	private String name;
-	@Column(name = "surname")
+//	@Column(name = "surname")
 	private String surname;
-	@Column(name = "username")
+//	@Column(name = "username")
 	private String userName;
-	@Column(name = "email")
+//	@Column(name = "email")
 	private String email;
-	@Column(name = "phonenumber")
+//	@Column(name = "phonenumber")
 	private String phoneNumber;
 	@Autowired
-	private Role role;
-	@OneToMany(mappedBy = "recipientUser", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Role role = Role.Tourist;
+//	@OneToMany(mappedBy = "recipientUser", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Queue<Notification> notifications;
-	@ManyToMany
+//	@ManyToMany
 	private List<Element> savedElements;
 
 	public AuthenticatedUser() {}
 	
-	public AuthenticatedUser(String name, String surname, String userName, String email, String phoneNumber, Role role) {
+	public AuthenticatedUser(int id, String name, String surname, String userName, String email, String phoneNumber, Role role) {
+		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.userName = userName;

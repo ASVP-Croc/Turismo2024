@@ -1,18 +1,20 @@
-package com.speriamochemelacavo.turismo2024.elements;
+package com.speriamochemelacavo.turismo2024.models.elements;
 
-import java.util.stream.Stream;
 
-import com.speriamochemelacavo.turismo2024.users.AuthenticatedUser;
+import org.springframework.stereotype.Component;
+
+import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
-@Entity
+//@Entity
+@Component
 public class PointOfInterest extends Element{
 	
-	@Column(name = "latitude")
+//	@Column(name = "latitude")
 	private float latitude;
-	@Column(name = "longitude")
+//	@Column(name = "longitude")
 	private float longitude;
 	
 	public PointOfInterest() {}

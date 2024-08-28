@@ -1,10 +1,12 @@
-package com.speriamochemelacavo.turismo2024.elements;
+package com.speriamochemelacavo.turismo2024.models.elements;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.speriamochemelacavo.turismo2024.users.AuthenticatedUser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -17,21 +19,23 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "Elements")
-public abstract class Element implements Serializable{
+//@Entity
+//@Table(name = "Elements")
+@Component
+public abstract class Element {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "description")
+//	@Column(name = "description")
 	private String description;
-	@ManyToOne
-	@JoinColumn(name = "author")
+//	@ManyToOne
+//	@JoinColumn(name = "author")
+	@Autowired
 	private AuthenticatedUser author;
-	@Column(name = "isPublished")
+//	@Column(name = "isPublished")
 	private boolean isPublished;
-	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
+//	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Content> myContents;
 	
 	public Element() {

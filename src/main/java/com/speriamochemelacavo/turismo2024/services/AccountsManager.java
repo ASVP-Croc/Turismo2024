@@ -1,30 +1,61 @@
-package com.speriamochemelacavo.turismo2024.managers;
+package com.speriamochemelacavo.turismo2024.services;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.stream.Stream;
+import java.util.Queue;
 
-import com.speriamochemelacavo.turismo2024.elements.Element;
-import com.speriamochemelacavo.turismo2024.elements.Notification;
-import com.speriamochemelacavo.turismo2024.users.*;
+import org.springframework.stereotype.Service;
 
+import com.speriamochemelacavo.turismo2024.models.elements.Element;
+import com.speriamochemelacavo.turismo2024.models.elements.Notification;
+import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
+import com.speriamochemelacavo.turismo2024.models.users.Role;
+
+@Service
 public class AccountsManager {
 	
-	private static final List<AuthenticatedUser> users = new ArrayList<>();
+	private final List<AuthenticatedUser> users = new ArrayList<>();
 	
-	public List<AuthenticatedUser> getUsers(){
+	public AccountsManager () {
+		
+		users.add(new AuthenticatedUser(101, "Matteo", "Pallotti", "Maverick", "maverick@gmail.com", "3929217858", Role.Administrator));
+		users.add(new AuthenticatedUser(102, "Lorenzo", "Crovace", "AVCP", "avcp@gmail.com", "123456789", Role.Curator));
+		users.add(new AuthenticatedUser(103, "Simon", "Silver", "SimonSilver", "simon@gmail.com", "987654321", Role.Animator));
+	}
+	
+	public List<AuthenticatedUser> findAll() {
 		return users;
 	}
 	
-	public Stream<AuthenticatedUser> getStreamUser(){
-		return users.stream();
+	public AuthenticatedUser findById(int userToFindId) {
+		return users.stream().filter(user -> user.getId() == userToFindId).findFirst().get();
+	}
+
+	public void addUser(AuthenticatedUser userToAdd) {
+		users.add(userToAdd);
 	}
 	
-	public AuthenticatedUser findById(int id) {
-		return users.stream().filter(user->user.getId()==id).findFirst().get();
+
+	public void updateUserById(AuthenticatedUser useruserToUptade) {
+		AuthenticatedUser userToUpdate = findById(useruserToUptade.getId());
+		userToUpdate.setName(useruserToUptade.getName());
+		userToUpdate.setSurname(useruserToUptade.getSurname());
+		userToUpdate.setUserName(useruserToUptade.getUserName());
+		userToUpdate.setEmail(useruserToUptade.getEmail());
+		userToUpdate.setPhoneNumber(useruserToUptade.getPhoneNumber());
+		userToUpdate.setRole(useruserToUptade.getRole());
+	}
+	
+	public void deleteUserById(int userToDeleteId) {
+		users.remove(userToDeleteId);
+	}
+	
+	public List<Element> getSavedElements(int userToGetSavedElementsId){
+		return findById(userToGetSavedElementsId).getSavedElements();
+	}
+
+	public Queue<Notification> getNotifications(int userToGetNotificationId){
+		return findById(userToGetNotificationId).getNotifications();
 	}
 	
 //	public static boolean execute(Request request) {
@@ -55,9 +86,6 @@ public class AccountsManager {
 //		return true;
 //	}
 	
-	private static boolean saveElement(AuthenticatedUser user, Element element) {
-		return user.getSavedElements().add(element);
-	}
 
 //	private static boolean setRole() {
 //		Scanner scanner = new Scanner(System.in);
@@ -75,29 +103,6 @@ public class AccountsManager {
 //		return users.get(id).setRole(role);
 //	}
 	
-	private static boolean addUser(GeneralUser user) {
-		Scanner scanner = new Scanner(System.in);
-		if(user.getRole()==Role.Tourist) {
-			System.out.println("Inserisci il tuo nome: ");
-			String name = scanner.nextLine();
-			System.out.println("Inserisci il tuo cognome: ");
-			String surname = scanner.nextLine();
-			System.out.println("Inserisci il tuo username: ");
-			String username = scanner.nextLine();
-			System.out.println("Inserisci il tuo email: ");
-			String email = scanner.nextLine();
-			System.out.println("Inserisci il tuo numero: ");
-			String number = scanner.nextLine();
-			AuthenticatedUser newUser = new AuthenticatedUser(name, surname, username, email, number, Role.AuthenticatedTourist);
-			users.add(newUser);
-			return true;
-		} 
-		return false;
-	}
-	
-	public static boolean addNotification(AuthenticatedUser user, Notification notify) {
-		return user.getNotifications().add(notify);
-	}
 
 //	public static boolean execute(Request request, Notification notification) {
 //		Action action = request.getAction();

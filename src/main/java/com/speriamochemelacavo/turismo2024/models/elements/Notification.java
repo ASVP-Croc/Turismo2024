@@ -1,6 +1,9 @@
-package com.speriamochemelacavo.turismo2024.elements;
+package com.speriamochemelacavo.turismo2024.models.elements;
 
-import com.speriamochemelacavo.turismo2024.users.AuthenticatedUser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,22 +12,24 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "notifications")
+//@Entity
+//@Table(name = "notifications")
+@Component
 public class Notification {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "message")
+//	@Column(name = "message")
 	private String message;
-	@Column(name = "object")
+//	@Column(name = "object")
+	@Autowired
 	private Element object;
-	@ManyToOne
-	@JoinColumn(name = "recipient")
+//	@ManyToOne
+//	@JoinColumn(name = "recipient")
+	@Autowired
 	private AuthenticatedUser recipientUser;
 	
 	public Notification() {

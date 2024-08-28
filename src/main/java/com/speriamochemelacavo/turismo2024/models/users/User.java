@@ -1,4 +1,4 @@
-package com.speriamochemelacavo.turismo2024.users;
+package com.speriamochemelacavo.turismo2024.models.users;
 
 import java.util.Scanner;
 
