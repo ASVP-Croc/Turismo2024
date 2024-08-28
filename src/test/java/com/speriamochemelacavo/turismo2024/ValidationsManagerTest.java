@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
-import com.speriamochemelacavo.turismo2024.services.POIsManager;
-import com.speriamochemelacavo.turismo2024.services.ToursManager;
+import com.speriamochemelacavo.turismo2024.services.POIsService;
+import com.speriamochemelacavo.turismo2024.services.ToursService;
 
 class ValidationsManagerTest {
 

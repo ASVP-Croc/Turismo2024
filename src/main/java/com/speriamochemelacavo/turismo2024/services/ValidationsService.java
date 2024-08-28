@@ -15,7 +15,7 @@ import com.speriamochemelacavo.turismo2024.models.users.GeneralUser;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 
 @Service
-public class ValidationsManager {
+public class ValidationsService {
 //	private final static Queue<Element> elementList = new LinkedList();
 //	private final static Queue<Contest> contestList = new LinkedList();
 //

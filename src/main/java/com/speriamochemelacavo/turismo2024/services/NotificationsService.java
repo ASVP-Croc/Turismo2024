@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import com.speriamochemelacavo.turismo2024.models.elements.Notification;
 
 @Service
-public class NotificationsManager {
+public class NotificationsService {
 	
 //	private static boolean sendRequest (Request request, String text, Integer id){
 //			return AccountsManager.execute(request, new Notification(text), id);

@@ -8,7 +8,7 @@ import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
 import com.speriamochemelacavo.turismo2024.models.users.GeneralUser;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.models.users.User;
-import com.speriamochemelacavo.turismo2024.services.AccountsManager;
+import com.speriamochemelacavo.turismo2024.services.AccountsService;
 
 class AccountsManagerTest {
 //	

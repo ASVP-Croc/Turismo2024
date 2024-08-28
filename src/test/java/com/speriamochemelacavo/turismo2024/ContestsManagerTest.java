@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
-import com.speriamochemelacavo.turismo2024.services.ContestsManager;
-import com.speriamochemelacavo.turismo2024.services.ToursManager;
+import com.speriamochemelacavo.turismo2024.services.ContestsService;
+import com.speriamochemelacavo.turismo2024.services.ToursService;
 
 
-class ContestsManagerTest extends ContestsManager {
+class ContestsManagerTest extends ContestsService {
 //
 //	@Test
 //	void testCreateContest() {

@@ -6,10 +6,14 @@ import java.util.List;
 import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 
-public class POIsManager {
+public class POIsService {
 	
 private final List<PointOfInterest> POIs = new ArrayList<>();
 	
+	public POIsService () {
+		
+	}
+
 	public List<PointOfInterest> findAll() {
 		return POIs;
 	}
@@ -33,7 +37,7 @@ private final List<PointOfInterest> POIs = new ArrayList<>();
 	}
 	
 	public void deletePOIById(int POIToDeleteId) {
-		POIs.remove(POIToDeleteId);
+		POIs.removeIf(POI -> POI.getId() == POIToDeleteId);
 	}
 	
 	public List<Content> getContentsById(int POIToGetContentsId){

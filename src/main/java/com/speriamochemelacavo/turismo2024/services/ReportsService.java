@@ -14,7 +14,7 @@ import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 
 @Service
-public class ReportsManager{
+public class ReportsService{
 	
 //	private final static Queue<Content> reportedContents = new LinkedList<>();
 //	

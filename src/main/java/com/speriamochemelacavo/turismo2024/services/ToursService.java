@@ -12,7 +12,7 @@ import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 
 @Service
-public class ToursManager {
+public class ToursService {
 //	private final static Map<Integer, Tour> tours = new HashMap<>();
 //
 //	public static Stream<Tour> getTours() {

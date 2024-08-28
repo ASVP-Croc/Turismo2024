@@ -12,7 +12,7 @@ import com.speriamochemelacavo.turismo2024.models.elements.Contest;
 import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
 
 @Service
-public class ContestsManager  {
+public class ContestsService  {
 //	private final static Map<Integer, Contest> contests = new HashMap<>();
 //	
 //	public static Contest getContest(Integer id) {

@@ -12,12 +12,11 @@ import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 
 @Service
-public class AccountsManager {
+public class AccountsService {
 	
 	private final List<AuthenticatedUser> users = new ArrayList<>();
 	
-	public AccountsManager () {
-		
+	public AccountsService () {
 		users.add(new AuthenticatedUser(101, "Matteo", "Pallotti", "Maverick", "maverick@gmail.com", "3929217858", Role.Administrator));
 		users.add(new AuthenticatedUser(102, "Lorenzo", "Crovace", "AVCP", "avcp@gmail.com", "123456789", Role.Curator));
 		users.add(new AuthenticatedUser(103, "Simon", "Silver", "SimonSilver", "simon@gmail.com", "987654321", Role.Animator));
@@ -47,7 +46,7 @@ public class AccountsManager {
 	}
 	
 	public void deleteUserById(int userToDeleteId) {
-		users.remove(userToDeleteId);
+		users.removeIf(user -> user.getId() == userToDeleteId);
 	}
 	
 	public List<Element> getSavedElements(int userToGetSavedElementsId){
@@ -57,6 +56,17 @@ public class AccountsManager {
 	public Queue<Notification> getNotifications(int userToGetNotificationId){
 		return findById(userToGetNotificationId).getNotifications();
 	}
+	
+	public String userToString(AuthenticatedUser userToString) {
+        return "Utente: "
+        		+ userToString.getId()
+        		+ userToString.getName() 
+        		+ userToString.getSurname()
+        		+ userToString.getUserName()
+        		+ userToString.getEmail()
+        		+ userToString.getPhoneNumber()
+        		+ userToString.getRole();
+    }
 	
 //	public static boolean execute(Request request) {
 //		Action action = request.getAction();

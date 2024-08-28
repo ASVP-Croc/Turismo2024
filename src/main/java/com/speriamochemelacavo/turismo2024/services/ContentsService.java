@@ -10,7 +10,7 @@ import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 
 @Service
-public class ContentsManager {
+public class ContentsService {
 	
 //	private static Content create(Request request, Element element) {
 //		Scanner scanner = new Scanner(System.in);
