@@ -18,27 +18,26 @@ import com.speriamochemelacavo.turismo2024.services.AccountsService;
 public class UserController {
 
 	@Autowired
-	AccountsService accountManager;
+	AccountsService accountService;
 	
 	
 	@GetMapping("/users")
 	public List<AuthenticatedUser> getUsers(){
-		return accountManager.findAll();
+		return accountService.findAll();
 	}
 	
 	@GetMapping("/user/{id}")
 	public AuthenticatedUser getUserById(@PathVariable int id){
-		return accountManager.findById(id);
+		return accountService.findById(id);
 	}
 	
 	@PostMapping("/user/registration")
 	public void registerUser(@RequestBody AuthenticatedUser newUser) {
-		System.out.println(accountManager.userToString(newUser));
-		accountManager.addUser(newUser);
+		accountService.addUser(newUser);
 		}
 	
 	@DeleteMapping("/user/delete/{id}")
 	public void deleteUserById(@PathVariable int id) {
-		accountManager.deleteUserById(id);
+		accountService.deleteUserById(id);
 		}
 }

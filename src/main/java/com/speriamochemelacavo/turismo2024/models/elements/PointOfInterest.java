@@ -7,6 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
 //@Entity
+
 public class PointOfInterest extends Element{
 	
 //	@Column(name = "latitude")
