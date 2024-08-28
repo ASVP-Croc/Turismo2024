@@ -27,7 +27,6 @@ public class Content {
 	private Element referenced;
 	@ManyToOne
 	private AuthenticatedUser creator;
-//	@Column(name = "isPublished")
 	private boolean isPublished;
 
 	public Content() {

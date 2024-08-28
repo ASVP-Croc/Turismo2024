@@ -9,9 +9,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+@Component
 @Entity
 @Table(name = "notifications")
-@Component
 public class Notification {
 	
 	@Id
