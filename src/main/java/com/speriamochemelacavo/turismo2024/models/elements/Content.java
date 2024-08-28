@@ -29,17 +29,6 @@ public class Content {
 	private AuthenticatedUser creator;
 	private boolean isPublished;
 
-	public Content() {
-		
-	}
-	
-	public Content(String text, Role role, Element element) {
-		this.text = text;
-		this.creator.setRole(role);
-		this.isPublished=false;
-		this.referenced=element;
-	}
-
 	public int getId() {
 		return id;
 	}

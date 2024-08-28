@@ -1,5 +1,7 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
 
 import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
@@ -21,7 +23,6 @@ public class Notification {
 	private Element object;
 	@ManyToOne
 	private AuthenticatedUser recipientUser;
-	
 	public Notification() {
 		
 	}

@@ -15,6 +15,7 @@ public class PointOfInterest extends Element{
 	
 	private float latitude;
 	private float longitude;
+	private String address;
 	
 	public float getLongitude() {
 		return longitude;

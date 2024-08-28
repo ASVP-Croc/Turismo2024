@@ -20,14 +20,13 @@ import com.speriamochemelacavo.turismo2024.services.AccountsService;
 @RestController
 public class UserController {
 
-	private boolean isCreatedUsers = false;
+	private static boolean isCreatedUsers = false;
 	
 	@Autowired
 	AccountsService accountService;
 	
-	
-	@GetMapping("/users")
-	public List<AuthenticatedUser> getUsers(){
+	@GetMapping("/iniziaDb")
+	public void insertInitialUsers(){
 		if (!isCreatedUsers) {
 			List<AuthenticatedUser> initialUsers = new ArrayList<>();
 			initialUsers.add(new AuthenticatedUser(101, "Matteo", "Pallotti", "Maverick", "maverick@gmail.com", "3929217858", Role.Administrator));
@@ -36,6 +35,10 @@ public class UserController {
 			accountService.addUsers(initialUsers);
 			isCreatedUsers = true;
 			}
+	}
+	
+	@GetMapping("/users")
+	public List<AuthenticatedUser> getUsers(){
 		return accountService.findAll();
 	}
 	

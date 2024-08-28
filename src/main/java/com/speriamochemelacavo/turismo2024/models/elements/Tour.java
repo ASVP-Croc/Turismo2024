@@ -7,13 +7,14 @@ import org.springframework.stereotype.Component;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 @Component
 @Entity
 public class Tour extends Element{
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<PointOfInterest> myPOIs = new ArrayList<>();
 
 	public List<PointOfInterest> getMyPOIs() {

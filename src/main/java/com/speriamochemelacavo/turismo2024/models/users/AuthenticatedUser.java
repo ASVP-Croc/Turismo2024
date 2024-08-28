@@ -1,7 +1,5 @@
 package com.speriamochemelacavo.turismo2024.models.users;
 
-
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,13 +15,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Component
 @Entity
 @Table(name = "users")
-public class AuthenticatedUser implements GeneralUser {
+public class AuthenticatedUser {
 	
 	@Id
 	private int id;
@@ -36,7 +35,7 @@ public class AuthenticatedUser implements GeneralUser {
 	private Role role;
 	@OneToMany(mappedBy = "recipientUser", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Notification> notifications;
-	@OneToMany
+	@ManyToMany
 	private List<Element> savedElements;
 
 	public AuthenticatedUser() {}
@@ -175,7 +174,6 @@ public class AuthenticatedUser implements GeneralUser {
 		return savedElements;
 	}
 	
-	@Override
 	public Role getRole() {
 	return role;
 }

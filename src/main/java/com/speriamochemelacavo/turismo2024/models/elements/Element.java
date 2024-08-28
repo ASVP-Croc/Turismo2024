@@ -33,15 +33,6 @@ public class Element {
 	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Content> myContents;
 	
-	public Element() {
-		
-	}
-	
-	public Element(String description, AuthenticatedUser author) {
-		this.description = description;
-		this.author = author;
-	}
-	
 	public Integer getId() {
 		return id;
 	}

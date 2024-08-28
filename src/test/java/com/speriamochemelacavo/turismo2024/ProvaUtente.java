@@ -1,8 +1,5 @@
 package com.speriamochemelacavo.turismo2024;
 
-import com.speriamochemelacavo.turismo2024.models.users.GeneralUser;
-import com.speriamochemelacavo.turismo2024.models.users.User;
-
 class ProvaUtente{
 	
 //	public void testUser() {

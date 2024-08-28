@@ -5,9 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
-import com.speriamochemelacavo.turismo2024.models.users.GeneralUser;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
-import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.services.AccountsService;
 
 class AccountsManagerTest {
