@@ -1,49 +1,61 @@
 package com.speriamochemelacavo.turismo2024.services;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
+import com.speriamochemelacavo.turismo2024.repository.POIRepository;
 
-public class POIsService {
+@Service
+public class POIsService extends ElementsService<PointOfInterest> {
 	
-private final List<PointOfInterest> POIs = new ArrayList<>();
+
+	@Autowired
+	POIRepository poiRepository;
 	
-	public POIsService () {
+	@Autowired
+	ContentsService contentService;
+
+	
+	
+	public void addPOI(PointOfInterest poi) {
 		
+		updatePOI(poi);
 	}
-
+	
+	public void addPOIs(List<PointOfInterest> poiToAdd) {
+		poiRepository.saveAll(poiToAdd);
+	}
+	
+	public void addContentToPOIById(Content content, int poiById) {
+		PointOfInterest poiToUpdate = findById(poiById);
+		contentService.addContent(content);
+	}
+	
 	public List<PointOfInterest> findAll() {
-		return POIs;
+		return poiRepository.findAll();
 	}
 	
-	public PointOfInterest findById(int POIToFindId) {
-		return POIs.stream().filter(user -> user.getId() == POIToFindId).findFirst().get();
-	}
-
-	public void addPOI(PointOfInterest POIToAdd) {
-		POIs.add(POIToAdd);
+	public List<Content> getPOIContentsById(int poiId){
+		return findById(poiId).getMyContents();
 	}
 	
-
-	public void updatePOI(PointOfInterest newPOI) {
-		PointOfInterest POIToUpdate = findById(newPOI.getId());
-		POIToUpdate.setAuthor(newPOI.getAuthor());
-		POIToUpdate.setDescription(newPOI.getDescription());
-		POIToUpdate.setLatitude(newPOI.getLatitude());
-		POIToUpdate.setLongitude(newPOI.getLongitude());
-		POIToUpdate.setPublished(newPOI.isPublished());
-	}
-	
-	public void deletePOIById(int POIToDeleteId) {
-		POIs.removeIf(POI -> POI.getId() == POIToDeleteId);
-	}
-	
-	public List<Content> getContentsById(int POIToGetContentsId){
-		return findById(POIToGetContentsId).getMyContents();
+	public void updatePOI(PointOfInterest poi) {
+		poiRepository.save(poi);
 	}
 	
 	
+	public void deletePOIById(int poiToDeleteId) {
+		poiRepository.deleteById(poiToDeleteId);
+	}
+	
+	public void deleteContentToPOIById(int poiById, int contentById) {
+		PointOfInterest poiToUpdate = findById(poiById);
+		poiToUpdate.getContent(contentById);
+	}
+		
 }
 

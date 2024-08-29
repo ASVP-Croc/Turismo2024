@@ -14,30 +14,30 @@ import com.speriamochemelacavo.turismo2024.repository.UserRepository;
 public class AccountsService {
 	
 	@Autowired
-	UserRepository repository;
+	UserRepository userRepository;
 	
 	public List<AuthenticatedUser> findAll() {
-		return repository.findAll();
+		return userRepository.findAll();
 	}
 	
 	public AuthenticatedUser findById(int userToFindId) {
-		return repository.findById(userToFindId).orElseThrow();
+		return userRepository.findById(userToFindId).orElseThrow();
 	}
 
 	public void addUser(AuthenticatedUser userToAdd) {
-		repository.save(userToAdd);
+		userRepository.save(userToAdd);
 	}
 	
 	public void addUsers(List<AuthenticatedUser> usersToAdd) {
-		repository.saveAll(usersToAdd);
+		userRepository.saveAll(usersToAdd);
 	}
 
 	public void updateUser(AuthenticatedUser useruserToUptade) {
-		repository.save(useruserToUptade);
+		userRepository.save(useruserToUptade);
 	}
 	
 	public void deleteUserById(int userToDeleteId) {
-		repository.deleteById(userToDeleteId);
+		userRepository.deleteById(userToDeleteId);
 	}
 	
 	public List<Element> getSavedElements(int userToGetSavedElementsId){

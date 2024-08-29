@@ -1,18 +1,63 @@
 package com.speriamochemelacavo.turismo2024.services;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.stream.Stream;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.speriamochemelacavo.turismo2024.models.*;
+import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tour;
+import com.speriamochemelacavo.turismo2024.repository.TourRepository;
 
 @Service
 public class ToursService {
+	
+	@Autowired
+	TourRepository tourRepository;
+	
+	public Tour findById(int tourToFindId) {
+		return tourRepository.findById(tourToFindId).orElseThrow();
+	}
+	
+	public void addTour(Tour tour) {
+		tourRepository.save(tour);
+	}
+	
+	public void addTours(List<Tour> toursToAdd) {
+		tourRepository.saveAll(toursToAdd);
+	}
+	
+	public void addPOIToTourById(PointOfInterest poi, int tourById) {
+		findById(tourById).getMyPOIs().add(poi);
+	}
+	
+	public void addContentToTour(Content content, int tourById) {
+		findById(tourById).addContent(content);
+	}
+	
+	public List<Tour> findAll() {
+		return tourRepository.findAll();
+	}
+	
+	public List<Content> getTourContents(int tourId){
+		return findById(tourId).getMyContents();
+	}
+	
+	public void updateTour(Tour tour) {
+		tourRepository.save(tour);
+	}
+	
+	
+	public void deleteTourById(int tourToDeleteId) {
+		tourRepository.deleteById(tourToDeleteId);
+	}
+	
+//	public void deleteTourContent(int tourId, int tourContentId) {
+//		findById(tourId).deleteContent(tourContentId);
+//	}
+	
+	
 //	private final static Map<Integer, Tour> tours = new HashMap<>();
 //
 //	public static Stream<Tour> getTours() {

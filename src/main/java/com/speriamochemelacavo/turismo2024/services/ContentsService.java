@@ -2,15 +2,24 @@ package com.speriamochemelacavo.turismo2024.services;
 
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.Contest;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
+import com.speriamochemelacavo.turismo2024.repository.ContentRepository;
 
 @Service
 public class ContentsService {
+	
+	@Autowired
+	ContentRepository contentRepository;
+
+	public void addContent(Content content) {
+		contentRepository.save(content);
+	}
 	
 //	private static Content create(Request request, Element element) {
 //		Scanner scanner = new Scanner(System.in);

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 
 @Repository
-public interface ElementRepository extends JpaRepository<Element, Integer>{
+public interface ElementRepository<T extends Element> extends JpaRepository<T, Integer>{
 	
 }
 
