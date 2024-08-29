@@ -31,6 +31,7 @@ public class Element {
 	@ManyToOne
 	private AuthenticatedUser author;
 	private boolean isPublished;
+	private int CAP;
 	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Content> myContents;
 	
@@ -91,6 +92,14 @@ public class Element {
 
 	public void setPublished(boolean isPublished) {
 		this.isPublished = isPublished;
+	}
+
+	public int getCAP() {
+		return CAP;
+	}
+
+	public void setCAP(int cAP) {
+		CAP = cAP;
 	}
 
 	public List<Content> getMyContents() {

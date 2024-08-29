@@ -22,7 +22,8 @@ import com.speriamochemelacavo.turismo2024.services.POIsService;
 @RestController
 public class PreparationController {
 
-	private static boolean isCreatedPOI = false;
+	private static boolean isCreatedUsers = false;
+	private static boolean isCreatedPOIs = false;
 	
 	@Autowired
 	ElementsService<PointOfInterest> poiService;
@@ -30,19 +31,25 @@ public class PreparationController {
 	@Autowired
 	AccountsService accountService;
 
-	@GetMapping("/iniziaDb")
-	public void insertInitialRecords(){
-		if (!isCreatedPOI) {
+	@GetMapping("/startDbUsers")
+	public void insertInitialUserRecords(){
+		if (!isCreatedUsers) {
 			List<AuthenticatedUser> initialUsers = new ArrayList<>();
 			initialUsers.add(new AuthenticatedUser(101, "Matteo", "Pallotti", "Maverick", "maverick@gmail.com", "3929217858", Role.Administrator));
 			initialUsers.add(new AuthenticatedUser(102, "Lorenzo", "Crovace", "AVCP", "avcp@gmail.com", "123456789", Role.Curator));
 			initialUsers.add(new AuthenticatedUser(103, "Simone", "Silver", "SimonSilver", "simon@gmail.com", "987654321", Role.Animator));
 			accountService.addUsers(initialUsers);
-			accountService.saveLoggedUser(101);
+			isCreatedUsers = true;
+			}
+	}
+	
+	@GetMapping("/startDbPOIs")
+	public void insertInitialPOIRecords(){
+		if (!isCreatedPOIs) {
 			poiService.addElement(new PointOfInterest(1, "prova"), accountService.getLoggedUser());
 			poiService.addElement(new PointOfInterest(2, "provicchia"), accountService.getLoggedUser());
 			poiService.addElement(new PointOfInterest(3, "provetta"), accountService.getLoggedUser());
-			isCreatedPOI = true;
+			isCreatedPOIs  = true;
 			}
 	}
 }

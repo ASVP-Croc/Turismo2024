@@ -17,7 +17,6 @@ public class PointOfInterest extends Element{
 	private float latitude;
 	private float longitude;
 	private String address;
-	private int CAP;
 	
 	public PointOfInterest() {
 		super();
@@ -51,13 +50,4 @@ public class PointOfInterest extends Element{
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-	public int getCAP() {
-		return CAP;
-	}
-
-	public void setCAP(int cAP) {
-		this.CAP = cAP;
-	}
-
 }
