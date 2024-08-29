@@ -16,12 +16,16 @@ import jakarta.persistence.OneToMany;
 @Entity
 public class Tour extends Element{
 	
-	public Tour(int id, String description, AuthenticatedUser author) {
-		super(id, description, author);
-	}
-
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<PointOfInterest> myPOIs = new ArrayList<>();
+	
+	public Tour() {
+		super();
+	}
+
+	public Tour(int id, String description) {
+		super(id, description);
+	}
 
 	public List<PointOfInterest> getMyPOIs() {
 		return myPOIs;

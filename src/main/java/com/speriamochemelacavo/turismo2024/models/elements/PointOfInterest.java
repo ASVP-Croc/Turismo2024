@@ -12,15 +12,20 @@ import jakarta.persistence.Table;
 @Component
 @Entity
 public class PointOfInterest extends Element{
-	
-	public PointOfInterest(int id, String description, AuthenticatedUser author) {
-		super(id, description, author);
-	}
+
 
 	private float latitude;
 	private float longitude;
 	private String address;
 	private int CAP;
+	
+	public PointOfInterest() {
+		super();
+	}
+
+	public PointOfInterest(int id, String description) {
+		super(id, description);
+	}
 	
 	public float getLongitude() {
 		return longitude;

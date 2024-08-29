@@ -10,8 +10,14 @@ import jakarta.persistence.Entity;
 @Entity
 public class Contest extends Element {
 
-	public Contest(int id, String description, AuthenticatedUser author) {
-		super(id, description, author);
+	
+	
+	public Contest() {
+		super();
+	}
+
+	public Contest(int id, String description) {
+		super(id, description);
 	}
 	
 }

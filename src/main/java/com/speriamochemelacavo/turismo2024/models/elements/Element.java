@@ -34,12 +34,13 @@ public class Element {
 	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Content> myContents;
 	
+	public Element() {
+		
+	}
 	
-	
-	public Element(int id, String description, AuthenticatedUser author) {
+	public Element(int id, String description) {
 		this.id = id;
 		this.description = description;
-		this.author = author;
 		this.isPublished = false;
 		this.myContents = new ArrayList<Content>();		
 	}
