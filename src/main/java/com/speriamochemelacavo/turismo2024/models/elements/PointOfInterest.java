@@ -13,9 +13,14 @@ import jakarta.persistence.Table;
 @Entity
 public class PointOfInterest extends Element{
 	
+	public PointOfInterest(int id, String description, AuthenticatedUser author) {
+		super(id, description, author);
+	}
+
 	private float latitude;
 	private float longitude;
 	private String address;
+	private int CAP;
 	
 	public float getLongitude() {
 		return longitude;
@@ -32,6 +37,22 @@ public class PointOfInterest extends Element{
 	
 	public float getLatitude() {
 		return latitude;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public int getCAP() {
+		return CAP;
+	}
+
+	public void setCAP(int cAP) {
+		this.CAP = cAP;
 	}
 
 }

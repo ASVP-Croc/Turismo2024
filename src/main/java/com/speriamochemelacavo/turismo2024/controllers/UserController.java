@@ -42,6 +42,12 @@ public class UserController {
 		return accountService.findAll();
 	}
 	
+
+	@GetMapping("/user/login/{id}")
+	public void loginById(@PathVariable int id){
+		accountService.saveLoggedUser(id);
+	}
+	
 	@GetMapping("/user/{id}")
 	public AuthenticatedUser getUserById(@PathVariable int id){
 		return accountService.findById(id);

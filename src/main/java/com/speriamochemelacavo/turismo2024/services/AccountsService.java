@@ -13,8 +13,18 @@ import com.speriamochemelacavo.turismo2024.repository.UserRepository;
 @Service
 public class AccountsService {
 	
+	private AuthenticatedUser loggedUser;
+	
 	@Autowired
 	UserRepository userRepository;
+	
+	public void saveLoggedUser(int id) {
+		this.loggedUser = findById(id);
+	}
+	
+	public AuthenticatedUser getLoggedUser() {
+		return this.loggedUser;
+	}
 	
 	public List<AuthenticatedUser> findAll() {
 		return userRepository.findAll();

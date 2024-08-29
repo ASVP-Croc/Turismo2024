@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -33,6 +34,16 @@ public class Element {
 	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Content> myContents;
 	
+	
+	
+	public Element(int id, String description, AuthenticatedUser author) {
+		this.id = id;
+		this.description = description;
+		this.author = author;
+		this.isPublished = false;
+		this.myContents = new ArrayList<Content>();		
+	}
+
 	public Integer getId() {
 		return id;
 	}
