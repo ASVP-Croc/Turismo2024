@@ -14,8 +14,7 @@ public class ElementsService<T extends Element>{
 	
 	@Autowired
 	ElementRepository<T> elementRepository;
-	@Autowired
-	ContentsService contentService;
+
 	@Autowired
 	AccountsService accountService;
 	

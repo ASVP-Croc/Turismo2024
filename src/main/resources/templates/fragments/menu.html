@@ -4,32 +4,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<div style="width: 100%; height: 90px; background-color: #999;" th:fragment="menu">
-		<a href="/startDbUsers" style="height: 70%; align-items:center;">
-			<button>
-				<h1>Popola il DB Utenti</h1>
-			</button>
-		</a>
-		<a href="/startDbPOIs" style="height: 70%; align-items:center;">
-			<button>
-				<h1>Popola il DB POI</h1>
-			</button>
-		</a>
-		<a href="users" style="height: 70%; align-items:center;">
-			<button>
-				<h1>Lista Utenti</h1>
-			</button>
-		</a>
-		<a href="pois" style="height: 70%; align-items:center;">
-			<button>
-				<h1>Lista POI</h1>
-			</button>
-		</a>
-		<a href="login" style="height: 70%; align-items:center;">
-			<button>
-				<h1>Login</h1>
-			</button>
-		</a>
+	<div class="adattivo" th:fragment="menu">
+		<button th:onclick = "location.href = '/startDbUsers'" class = "bottoni">
+			<h1 class = "scritteBottoni">Popola il DB Utenti</h1>
+		</button>
+		<button th:onclick = "location.href = '/startDbPOIs'" class = "bottoni">
+			<h1 class = "scritteBottoni">Popola il DB POI</h1>
+		</button>
+		<button th:onclick = "location.href = '/users'" class = "bottoni">
+			<h1 class = "scritteBottoni">Lista Utenti</h1>
+		</button>
+		<button th:onclick = "location.href = '/pois'" class = "bottoni">
+			<h1 class = "scritteBottoni">Lista POI</h1>
+		</button>
+		<button th:onclick = "location.href = '/login'" class = "bottoni">
+			<h1 class = "scritteBottoni">Login</h1>
+		</button>
 	</div>
 </body>
 </html>

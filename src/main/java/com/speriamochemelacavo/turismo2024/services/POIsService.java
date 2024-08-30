@@ -19,10 +19,16 @@ public class POIsService extends ElementsService<PointOfInterest> {
 		return findById(poiId).getAddress();
 	}
 	
-	public int getCAPById(int poiId) {
-		return findById(poiId).getCAP();
+	public void setLatitudeById(int poiId, float latitude) {
+		findById(poiId).setLatitude(latitude);
 	}
 	
+	public void setLongitudeById(int poiId, float longitude) {
+		findById(poiId).setLongitude(longitude);
+	}
 	
+	public void setAddressById(int poiId, String address) {
+		findById(poiId).setAddress(address);
+	}	
 }
 
