@@ -26,7 +26,7 @@ public class AuthenticatedUser {
 	
 	@Id
 	private int id;
-	private String name;
+	private String name = "Turista";
 	private String surname;
 	private String userName;
 	private String email;

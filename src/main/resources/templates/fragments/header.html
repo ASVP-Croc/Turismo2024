@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Turismo2024</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<div th:replace="~{fragments/header :: header}"></div>
-	<div th:replace="~{fragments/menu :: menu}"></div>
+	<header th:fragment = "header">
+		<h1 style = "text-align: center;" th:text = "'Benvenuto ' + ${nameUser} + '!'"></h1>
+	</header>
 </body>
 </html>

@@ -13,6 +13,7 @@ import com.speriamochemelacavo.turismo2024.repository.UserRepository;
 @Service
 public class AccountsService {
 	
+	@Autowired
 	private AuthenticatedUser loggedUser;
 	
 	@Autowired
