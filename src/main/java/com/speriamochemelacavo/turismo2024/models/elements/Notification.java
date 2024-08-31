@@ -1,10 +1,8 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
-import java.util.Date;
-
 import org.springframework.stereotype.Component;
 
-import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
+import com.speriamochemelacavo.turismo2024.models.users.User;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -22,7 +20,7 @@ public class Notification {
 	@ManyToOne
 	private Element object;
 	@ManyToOne
-	private AuthenticatedUser recipientUser;
+	private User recipientUser;
 	public Notification() {
 		
 	}
@@ -55,11 +53,11 @@ public class Notification {
 		this.object = object;
 	}
 
-	public AuthenticatedUser getRecipientUser() {
+	public User getRecipientUser() {
 		return recipientUser;
 	}
 
-	public void setRecipientUser(AuthenticatedUser recipientUser) {
+	public void setRecipientUser(User recipientUser) {
 		this.recipientUser = recipientUser;
 	}
 	

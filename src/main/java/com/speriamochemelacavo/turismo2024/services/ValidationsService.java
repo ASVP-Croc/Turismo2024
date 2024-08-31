@@ -1,17 +1,6 @@
 package com.speriamochemelacavo.turismo2024.services;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
-
 import org.springframework.stereotype.Service;
-
-import com.speriamochemelacavo.turismo2024.models.*;
-import com.speriamochemelacavo.turismo2024.models.elements.Contest;
-import com.speriamochemelacavo.turismo2024.models.elements.Element;
-import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
-import com.speriamochemelacavo.turismo2024.models.elements.Tour;
-import com.speriamochemelacavo.turismo2024.models.users.Role;
 
 @Service
 public class ValidationsService {

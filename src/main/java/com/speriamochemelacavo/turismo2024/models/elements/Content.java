@@ -1,49 +1,26 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
-import com.speriamochemelacavo.turismo2024.models.users.Role;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+
+/**
+ * Rappresenta un {@link Element Elemento} contenente una risorsa multimediale di qualsiasi natura(un'immagine, un video, un file, etc.) collegato ad uno e un solo altro {@link Element Elemento} contenitore.
+ * Contiene il link di riferimento alla risorsa salvata.
+ *
+ * @field {@link Element} referenced: L'elemento padre che contiene la risorsa.
+ * @field String resource: il path riferito al file.
+ * 
+ */
 
 @Component
 @Entity
-@Table(name = "contents")
-public class Content {
+public class Content extends Element{
 
-	@Id
-	private int id;
-	private String text;
 	@ManyToOne
 	private Element referenced;
-	@ManyToOne
-	private AuthenticatedUser creator;
-	private boolean isPublished;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
+	private String resource;
 
 	public Element getReferenced() {
 		return referenced;
@@ -53,22 +30,12 @@ public class Content {
 		this.referenced = referenced;
 	}
 
-	public AuthenticatedUser getCreator() {
-		return creator;
+	public String getResource() {
+		return resource;
 	}
 
-	public void setCreator(AuthenticatedUser creator) {
-		this.creator = creator;
+	public void setResource(String resource) {
+		this.resource = resource;
 	}
-
-	public boolean isPublished() {
-		return isPublished;
-	}
-
-	public void setPublished(boolean isPublished) {
-		this.isPublished = isPublished;
-	}
-
-	
 }
 	

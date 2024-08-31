@@ -3,12 +3,11 @@ package com.speriamochemelacavo.turismo2024.models.users;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-
 import org.springframework.stereotype.Component;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.Notification;
+import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -19,14 +18,34 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+/**
+ * Rappresenta un qualsiasi {@link User Utente} registrato.
+ * Principalmente, gli {@link User Utenti} registrato si differenziano tra loro grazie ad un Id e al {@link Role Ruolo} che ricoprono all'interno della piattaforma.
+ * Il {@link Role Ruolo} permette loro di utilizzare diverse funzionalità che la piattaforma offre (creazione di {@link PointOfInterest Punti di Interesse}, validazione dei vari {@link Element Elementi}, modifica delle autorizzazioni, etc.).
+ * Hanno la possibilità di ricevere delle {@link Notification Notifiche} che li avvertono di ogni cambiamento che li riguardi e posso salvare gli {@link Element Elementi} che ritengono interessanti, per poi ritrovarli facilmente in seguito.
+ * Devono avere un nome, un cognome, un username, una email e un numero di telefono associati.
+ * Alla loro creazione, ogni {@link User Utente} avrà il {@link Role Ruolo} di {@link Role.Tourist Turista} e un Id assegnato automaticamente dalla Piattaforma.
+ *
+ * @field int id: l'id assegnato all'{@link User Utente} dopo l'inserimento nel Database.
+ * @field String name: il nome dell'{@link User Utente}.
+ * @field String surname: il cognome dell'{@link User Utente}.
+ * @field String userName: l'username dell'{@link User Utente}.
+ * @field String email: l'email di registrazione dell'{@link User Utente}.
+ * @field String phoneNumber: il numero di telefono dell'{@link User Utente}.
+ * @field {@link Role} role: il {@link Role Ruolo} dell'{@link User Utente}.
+ * @field {@link List} notifications: la lista delle notifiche che hanno come destinatoario l'{@link User Utente}.
+ * @field {@link List} savedElements: la lista degli {@link Element Elementi} salvati dall'{@link User Utente}.
+ * 
+ */
+
 @Component
 @Entity
 @Table(name = "users")
-public class AuthenticatedUser {
+public class User {
 	
 	@Id
 	private int id;
-	private String name = "Turista";
+	private String name;
 	private String surname;
 	private String userName;
 	private String email;
@@ -38,9 +57,9 @@ public class AuthenticatedUser {
 	@ManyToMany
 	private List<Element> savedElements;
 
-	public AuthenticatedUser() {}
+	public User() {}
 	
-	public AuthenticatedUser(int id, String name, String surname, String userName, String email, String phoneNumber, Role role) {
+	public User(int id, String name, String surname, String userName, String email, String phoneNumber, Role role) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;

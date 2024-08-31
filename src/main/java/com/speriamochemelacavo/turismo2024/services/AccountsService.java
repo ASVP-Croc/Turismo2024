@@ -7,43 +7,55 @@ import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.Notification;
-import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
+import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.repository.UserRepository;
 
 @Service
 public class AccountsService {
 	
 	@Autowired
-	private AuthenticatedUser loggedUser;
+	private User loggedUser;
+	private boolean isLogged;
 	
 	@Autowired
 	UserRepository userRepository;
 	
 	public void saveLoggedUser(int id) {
-		this.loggedUser = findById(id);
+		if (findById(id).getId() != 0) {
+			this.loggedUser = findById(id);
+			setLogged(true);
+		}
 	}
 	
-	public AuthenticatedUser getLoggedUser() {
+	public User getLoggedUser() {
 		return this.loggedUser;
 	}
 	
-	public List<AuthenticatedUser> findAll() {
+	public boolean isLogged() {
+		return isLogged;
+	}
+
+	public void setLogged(boolean isLogged) {
+		this.isLogged = isLogged;
+	}
+
+	public List<User> findAll() {
 		return userRepository.findAll();
 	}
 	
-	public AuthenticatedUser findById(int userToFindId) {
+	public User findById(int userToFindId) {
 		return userRepository.findById(userToFindId).orElseThrow();
 	}
 
-	public void addUser(AuthenticatedUser userToAdd) {
+	public void addUser(User userToAdd) {
 		userRepository.save(userToAdd);
 	}
 	
-	public void addUsers(List<AuthenticatedUser> usersToAdd) {
+	public void addUsers(List<User> usersToAdd) {
 		userRepository.saveAll(usersToAdd);
 	}
 
-	public void updateUser(AuthenticatedUser useruserToUptade) {
+	public void updateUser(User useruserToUptade) {
 		userRepository.save(useruserToUptade);
 	}
 	
@@ -59,7 +71,7 @@ public class AccountsService {
 		return findById(userToGetNotificationId).getNotifications();
 	}
 	
-	public String userToString(AuthenticatedUser userToString) {
+	public String userToString(User userToString) {
         return "Utente: "
         		+ userToString.getId()
         		+ userToString.getName() 

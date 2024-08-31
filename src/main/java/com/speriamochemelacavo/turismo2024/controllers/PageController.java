@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.speriamochemelacavo.turismo2024.services.AccountsService;
 
@@ -17,12 +16,13 @@ public class PageController {
 	
 	@RequestMapping("/")
 	public String welcome(Model model) {
-		model.addAttribute("nameUser", accountService.getLoggedUser().getName().isBlank() ? "Turista" : accountService.getLoggedUser().getName());
+		model.addAttribute("nameUser", !accountService.isLogged() ? "Turista" : accountService.getLoggedUser().getName());
 		return "index";
 	}
 
 	@RequestMapping("/login")
-	public String login() {
+	public String login(Model model) {
+		model.addAttribute("nameUser", !accountService.isLogged() ? "Turista" : accountService.getLoggedUser().getName());
 	 return "login";
 	}
 	

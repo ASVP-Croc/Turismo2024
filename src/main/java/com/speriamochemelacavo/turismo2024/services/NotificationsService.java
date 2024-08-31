@@ -2,8 +2,6 @@ package com.speriamochemelacavo.turismo2024.services;
 
 import org.springframework.stereotype.Service;
 
-import com.speriamochemelacavo.turismo2024.models.elements.Notification;
-
 @Service
 public class NotificationsService {
 	

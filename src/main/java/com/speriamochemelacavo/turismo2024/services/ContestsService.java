@@ -1,15 +1,6 @@
 package com.speriamochemelacavo.turismo2024.services;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.stream.Stream;
-
 import org.springframework.stereotype.Service;
-
-import com.speriamochemelacavo.turismo2024.models.*;
-import com.speriamochemelacavo.turismo2024.models.elements.Contest;
-import com.speriamochemelacavo.turismo2024.models.users.AuthenticatedUser;
 
 @Service
 public class ContestsService  {
