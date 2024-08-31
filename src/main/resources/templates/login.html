@@ -9,7 +9,7 @@
 	<div th:replace="~{fragments/header :: header}"></div>
 	<div th:replace="~{fragments/menu :: menu}"></div>
     <div>
-		<form th:action="@{/send}" method="get">
+		<form th:action="@{/login/send}" method="get">
 			 <input type="text" name="myInput" placeholder="Inserisci il tuo ID">
 			 <button type="submit" >Invia</button>
 		</form>

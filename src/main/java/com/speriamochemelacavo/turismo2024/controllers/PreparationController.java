@@ -40,9 +40,9 @@ public class PreparationController {
 	@GetMapping("/startDbPOIs")
 	public void insertInitialPOIRecords(){
 		if (!isCreatedPOIs) {
-			poiService.addElement(new PointOfInterest(1, "prova"), accountService.getLoggedUser());
-			poiService.addElement(new PointOfInterest(2, "provicchia"), accountService.getLoggedUser());
-			poiService.addElement(new PointOfInterest(3, "provetta"), accountService.getLoggedUser());
+			poiService.addElement(new PointOfInterest(1, "prova"));
+			poiService.addElement(new PointOfInterest(2, "provicchia"));
+			poiService.addElement(new PointOfInterest(3, "provetta"));
 			isCreatedPOIs  = true;
 			}
 	}

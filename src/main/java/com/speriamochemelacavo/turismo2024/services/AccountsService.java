@@ -63,22 +63,30 @@ public class AccountsService {
 		userRepository.deleteById(userToDeleteId);
 	}
 	
-	public List<Element> getSavedElements(int userToGetSavedElementsId){
+	public List<Element> getSavedElementsByIdUser(int userToGetSavedElementsId){
 		return findById(userToGetSavedElementsId).getSavedElements();
+	}
+	
+	public List<Element> getUserLoggedSavedElements(){
+		return getLoggedUser().getSavedElements();
+	}
+	
+	public void addNewSavedElements(Element elementToAdd) {
+		updateUser(getLoggedUser());
 	}
 
 	public List<Notification> getNotifications(int userToGetNotificationId){
-		return findById(userToGetNotificationId).getNotifications();
+		return getLoggedUser().getNotifications();
 	}
 	
 	public String userToString(User userToString) {
         return "Utente: "
-        		+ userToString.getId()
-        		+ userToString.getName() 
-        		+ userToString.getSurname()
-        		+ userToString.getUserName()
-        		+ userToString.getEmail()
-        		+ userToString.getPhoneNumber()
+        		+ userToString.getId() + "\n"
+        		+ userToString.getName()  + "\n"
+        		+ userToString.getSurname() + "\n"
+        		+ userToString.getUserName() + "\n"
+        		+ userToString.getEmail() + "\n"
+        		+ userToString.getPhoneNumber() + "\n"
         		+ userToString.getRole();
     }
 	

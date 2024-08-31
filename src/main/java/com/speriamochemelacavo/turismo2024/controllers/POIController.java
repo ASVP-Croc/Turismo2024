@@ -34,7 +34,7 @@ public class POIController {
 
 	@PostMapping("/poi")
 	public void addPOI(@RequestBody PointOfInterest newPOI) {
-		poiService.addElement(newPOI,accountService.getLoggedUser());
+		poiService.addElement(newPOI);
 	}
 
 	

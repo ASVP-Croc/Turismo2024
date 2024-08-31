@@ -15,6 +15,9 @@ public abstract class ElementsService<T extends Element>{
 	@Autowired
 	ElementRepository<T> repository;
 	
+	@Autowired
+	AccountsService accountService;
+	
 	public T findById(int elemToFindId) {
 		return repository.findById(elemToFindId).orElseThrow();
 	}
@@ -23,12 +26,13 @@ public abstract class ElementsService<T extends Element>{
 		return repository.findAll();
 	}
 	
-	public void addElement(T element, User author) {
-		element.setAuthor(author);
+	public void addElement(T element) {
+		element.setAuthor(accountService.getLoggedUser());
 		repository.save(element);
 	}
 	
 	public void addElements(List<T> elemsToAdd) {
+		elemsToAdd.stream().forEach(e -> e.setAuthor(accountService.getLoggedUser()));
 		repository.saveAll(elemsToAdd);
 	}
 
