@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.services.AccountsService;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
+import com.speriamochemelacavo.turismo2024.services.POIsService;
 
 @RestController
 public class POIController {
 	
 	@Autowired
-	ElementsService<PointOfInterest> poiService;
+	POIsService poiService;
 	
 	@Autowired
 	AccountsService accountService;
