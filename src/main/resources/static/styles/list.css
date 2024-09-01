@@ -8,7 +8,8 @@
 }
 /* Stile per i div delle cards */
 .card {
-	width: calc(25%);
+	width: 25%;
+	height: auto;
 	padding: 20px;
 	margin: 10px;
 	border: 2px solid gray;
