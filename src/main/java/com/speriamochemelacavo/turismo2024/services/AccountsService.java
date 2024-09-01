@@ -16,6 +16,7 @@ public class AccountsService {
 	@Autowired
 	private User loggedUser;
 	private boolean isLogged;
+	private boolean isLoaded;
 	
 	@Autowired
 	UserRepository userRepository;
@@ -35,6 +36,14 @@ public class AccountsService {
 
 	public void setLogged(boolean isLogged) {
 		this.isLogged = isLogged;
+	}
+
+	public boolean isLoaded() {
+		return isLoaded;
+	}
+
+	public void setLoaded(boolean isLoaded) {
+		this.isLoaded = isLoaded;
 	}
 
 	public List<User> findAll() {

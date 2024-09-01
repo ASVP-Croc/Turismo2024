@@ -29,11 +29,6 @@ public class UserController {
 	@Autowired
 	PageController pageController;
 	
-	@GetMapping("/users")
-	public List<User> getUsers(){
-		return accountService.findAll();
-	}
-	
 	@GetMapping("/users/{id}")
 	public User getUserById(@PathVariable int id){
 		return accountService.findById(id);

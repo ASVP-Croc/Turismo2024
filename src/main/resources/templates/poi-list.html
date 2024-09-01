@@ -11,11 +11,11 @@
 	<div th:replace="~{fragments/menu :: menu}"></div>
     <div class = "container">
     	<button class = "card" th:each = "poi : ${listPoi}">
-    		<td class = "scritteCard" th:value = "Titolo: ${poi.name}">
-    		<td class = "scritteCard" th:value = "Descrizione: ${poi.descrizione}">
-    		<td class = "scritteCard" th:value = "Titolo: ${poi.name}">
-    		<td class = "scritteCard" th:value = "Titolo: ${poi.name}">
-    		<td class = "scritteCard" th:value = "Titolo: ${poi.name}">   		
+    		<h1 class = "scritteCard" th:text = "${'Titolo: '} + ${poi.name}">Titolo</h1>
+    		<h1 class = "scritteCard" th:text = "${'Descrizione: '} + ${poi.description}">Descrizione</h1>
+    		<h1 class = "scritteCard" th:text = "${'Autore: '} + ${poi.author.userName}">Autore</h1>
+    		<h1 class = "scritteCard" th:text = "${'CAP: '} + ${poi.CAP}">CAP</h1>
+    		<h1 class = "scritteCard" th:text = "${'Indirizzo: '} + ${poi.address}">Indirizzo</h1>
     	</button>
 	</div>		
 </body>

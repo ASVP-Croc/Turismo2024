@@ -26,6 +26,10 @@ public class PageController {
 		model.addAttribute("nameUser",
 				!accountService.isLogged() ? "Turista" : accountService.getLoggedUser().getName());
 		model.addAttribute("isLogged", accountService.isLogged());
+		model.addAttribute("isLoadedUsers", accountService.isLoaded());
+		model.addAttribute("isLoadedPois", poiService.isLoaded());
+		boolean isVisible = (accountService.isLoaded()&!poiService.isLoaded());
+		model.addAttribute("isVisible", isVisible);
 		return "index";
 	}
 
@@ -33,24 +37,57 @@ public class PageController {
 	public String login(Model model) {
 		model.addAttribute("nameUser",
 				!accountService.isLogged() ? "Turista" : accountService.getLoggedUser().getName());
-		if (accountService.isLogged())
-			return "redirect:/";
+		model.addAttribute("isLoadedUsers", accountService.isLoaded());
+		model.addAttribute("isLoadedPois", poiService.isLoaded());
+		boolean isVisible = (accountService.isLoaded()&!poiService.isLoaded());
+		model.addAttribute("isVisible", isVisible);
 		return "login";
 	}
 
+	@RequestMapping("/logout")
+	public String logout(Model model) {
+		accountService.setLogged(false);
+		model.addAttribute("nameUser", "Turista");
+		model.addAttribute("isLoadedUsers", accountService.isLoaded());
+		model.addAttribute("isLoadedPois", poiService.isLoaded());
+		boolean isVisible = (accountService.isLoaded()&!poiService.isLoaded());
+		model.addAttribute("isVisible", isVisible);
+		return "index";
+	}
+
+	@RequestMapping("/users")
+	public String getUsers(Model model) {
+		model.addAttribute("nameUser",
+			!accountService.isLogged() ? "Turista" : accountService.getLoggedUser().getName());
+		model.addAttribute("isLogged", accountService.isLogged());
+		model.addAttribute("listUser", accountService.findAll());
+		model.addAttribute("isLoadedUsers", accountService.isLoaded());
+		model.addAttribute("isLoadedPois", poiService.isLoaded());
+		boolean isVisible = (accountService.isLoaded()&!poiService.isLoaded());
+		model.addAttribute("isVisible", isVisible);
+		return "users-list";
+	}
+	
 	@RequestMapping("/pois")
 	public String getPois(Model model) {
 		model.addAttribute("nameUser",
 			!accountService.isLogged() ? "Turista" : accountService.getLoggedUser().getName());
 		model.addAttribute("isLogged", accountService.isLogged());
 		model.addAttribute("listPoi", poiService.findAll());
+		model.addAttribute("isLoadedUsers", accountService.isLoaded());
+		boolean isVisible = (accountService.isLoaded()&!poiService.isLoaded());
+		model.addAttribute("isVisible", isVisible);
 		return "poi-list";
 	}
-
+	
 	@RequestMapping("/registration")
 	public String userRegistration(Model model) {
 		model.addAttribute("nameUser",
 				!accountService.isLogged() ? "Turista" : accountService.getLoggedUser().getName());
+		model.addAttribute("isLoadedUsers", accountService.isLoaded());
+		model.addAttribute("isLoadedPois", poiService.isLoaded());
+		boolean isVisible = (accountService.isLoaded()&!poiService.isLoaded());
+		model.addAttribute("isVisible", isVisible);
 		return "registration";
 	}
 }

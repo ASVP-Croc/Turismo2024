@@ -7,6 +7,16 @@ import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 @Service
 public class POIsService extends ElementsService<PointOfInterest> {
 	
+	private boolean isLoaded;
+	
+	public boolean isLoaded() {
+		return isLoaded;
+	}
+
+	public void setLoaded(boolean isLoaded) {
+		this.isLoaded = isLoaded;
+	}
+
 	public float getLatitudeById(int poiId) {
 		return findById(poiId).getLatitude();
 	}

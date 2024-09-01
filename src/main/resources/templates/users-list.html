@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Turismo2024</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/styles/menu.css}" rel="stylesheet" />
+    <link th:href="@{/styles/list.css}" rel="stylesheet" />
+</head>
+<body>
+	<div th:replace="~{fragments/header :: header}"></div>
+	<div th:replace="~{fragments/menu :: menu}"></div>
+    <div class = "container">
+    	<button class = "card" th:each = "user : ${listUser}">
+    		<h1 class = "scritteCard" th:text = "${'Nome: '} + ${user.name}">Titolo</h1>
+    		<h1 class = "scritteCard" th:text = "${'Cognome: '} + ${user.surname}">Descrizione</h1>
+    		<h1 class = "scritteCard" th:text = "${'Username: '} + ${user.userName}">Autore</h1>
+    		<h1 class = "scritteCard" th:text = "${'email: '} + ${user.email}">CAP</h1>
+    		<h1 class = "scritteCard" th:text = "${'Ruolo: '} + ${user.role}">Indirizzo</h1>
+    	</button>
+	</div>		
+</body>
+</html>

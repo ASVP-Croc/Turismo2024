@@ -5,10 +5,10 @@
 </head>
 <body>
 	<div class="adattivo" th:fragment="menu">
-		<button th:onclick = "location.href = '/startDbUsers'" class = "bottoni">
+		<button th:unless = "${isLoadedUsers}" th:onclick = "location.href = '/startDbUsers'" class = "bottoni">
 			<h1 class = "scritteBottoni">Popola il DB Utenti</h1>
 		</button>
-		<button th:onclick = "location.href = '/startDbPOIs'" class = "bottoni">
+		<button th:if = "${isVisible}" th:onclick = "location.href = '/startDbPOIs'" class = "bottoni">
 			<h1 class = "scritteBottoni">Popola il DB POI</h1>
 		</button>
 		<button th:onclick = "location.href = '/users'" class = "bottoni">
