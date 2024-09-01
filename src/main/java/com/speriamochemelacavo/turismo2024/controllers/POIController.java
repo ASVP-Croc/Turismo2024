@@ -8,13 +8,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.services.AccountsService;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
 
-@RestController
+@RestController("/poi")
 public class POIController {
 	
 	@Autowired
@@ -23,17 +24,17 @@ public class POIController {
 	@Autowired
 	AccountsService accountService;
 	
-	@GetMapping("/pois")
-	public List<PointOfInterest> getPOIs() {
-		return poiService.findAll();
+	@GetMapping("/all")
+	public RedirectView getPOIs() {
+		return new RedirectView("/pois");
 	}
 
-	@GetMapping("/poi/{id}")
+	@GetMapping("/{id}")
 	public PointOfInterest getPOIById(@PathVariable int id) {
 		return poiService.findById(id);
 	}
 
-	@PostMapping("/poi")
+	@PostMapping("")
 	public void addPOI(@RequestBody PointOfInterest newPOI) {
 		poiService.addElement(newPOI);
 	}

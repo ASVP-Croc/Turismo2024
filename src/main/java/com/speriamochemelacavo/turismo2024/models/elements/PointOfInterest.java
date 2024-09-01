@@ -29,8 +29,9 @@ public class PointOfInterest extends Element{
 		super();
 	}
 
-	public PointOfInterest(int id, String description) {
-		super(id, description);
+	public PointOfInterest(String name, String description, String address) {
+		super(name, description);
+		this.address = address;
 	}
 	
 	public float getLongitude() {

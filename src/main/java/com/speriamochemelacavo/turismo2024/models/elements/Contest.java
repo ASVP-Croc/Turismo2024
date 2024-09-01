@@ -27,8 +27,8 @@ public class Contest extends Element {
 		super();
 	}
 
-	public Contest(int id, String description) {
-		super(id, description);
+	public Contest(String name, String description) {
+		super(name, description);
 	}
 
 	public Date getStarts() {

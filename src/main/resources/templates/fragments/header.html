@@ -1,11 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Type" content="text/html" />
 </head>
 <body>
 	<header th:fragment = "header">
-		<h1 style = "text-align: center;" th:text = "'Benvenuto ' + ${nameUser} + '!'"></h1>
+		<div class="adattivo">
+			<button th:onclick = "location.href = '/'" class = "bottoni">
+				<h1 class = "scritteBottoni" th:text = "'Benvenuto ' + ${nameUser} + '!'"></h1>
+			</button>
+		</div>
 	</header>
 </body>
 </html>

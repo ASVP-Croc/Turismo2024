@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
+import org.thymeleaf.spring6.view.ThymeleafView;
 
+import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.services.AccountsService;
 
@@ -22,6 +25,9 @@ public class UserController {
 	
 	@Autowired
 	AccountsService accountService;
+	
+	@Autowired
+	PageController pageController;
 	
 	@GetMapping("/users")
 	public List<User> getUsers(){
@@ -34,8 +40,11 @@ public class UserController {
 	}
 
 	@PostMapping("/registration")
-	public void registerUser(@RequestBody User newUser) {
+	public RedirectView registerUser(User newUser) {
+		newUser.setRole(Role.AuthenticatedTourist);
 		accountService.addUser(newUser);
+		accountService.saveLoggedUser(newUser.getUserName());
+		return new RedirectView("/");
 	}
 	
 	@PutMapping("/users/update")

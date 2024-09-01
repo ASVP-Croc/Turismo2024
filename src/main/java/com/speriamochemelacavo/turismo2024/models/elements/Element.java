@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -29,6 +31,7 @@ import jakarta.persistence.Table;
 public abstract class Element {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private String description;
@@ -41,8 +44,8 @@ public abstract class Element {
 		
 	}
 	
-	public Element(int id, String description) {
-		this.id = id;
+	public Element(String name, String description) {
+		this.name = name;
 		this.description = description;
 		this.isPublished = false;	
 	}
@@ -91,7 +94,7 @@ public abstract class Element {
 		return CAP;
 	}
 
-	public void setCAP(int cAP) {
-		CAP = cAP;
+	public void setCAP(int CAP) {
+		this.CAP = CAP;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Indexed;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.Notification;
@@ -13,7 +14,10 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -40,16 +44,20 @@ import jakarta.persistence.Table;
 
 @Component
 @Entity
-@Table(name = "users")
+@Table(name = "users", indexes = {
+	    @Index(name = "idx_userName", columnList = "user_name", unique = true)})
 public class User {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private String surname;
 	private String userName;
 	private String email;
 	private String phoneNumber;
+	private String address;
+	private int CAP;
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	@OneToMany(mappedBy = "recipientUser", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -59,13 +67,14 @@ public class User {
 
 	public User() {}
 	
-	public User(int id, String name, String surname, String userName, String email, String phoneNumber, Role role) {
-		this.id = id;
+	public User(String name, String surname, String userName, String email, String phoneNumber, String address, int CAP, Role role) {
 		this.name = name;
 		this.surname = surname;
 		this.userName = userName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
+		this.address = address;
+		this.CAP = CAP;
 		this.role = role;
 		this.notifications = new LinkedList<>();
 		this.savedElements = new ArrayList<>();
@@ -133,6 +142,22 @@ public class User {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public int getCAP() {
+		return CAP;
+	}
+
+	public void setCAP(int cAP) {
+		CAP = cAP;
 	}
 }
 		

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Type" content="text/html" />
 </head>
 <body>
 	<div class="adattivo" th:fragment="menu">
@@ -17,11 +17,14 @@
 		<button th:onclick = "location.href = '/pois'" class = "bottoni">
 			<h1 class = "scritteBottoni">Lista POI</h1>
 		</button>
-		<button th:onclick = "location.href = '/login'" class = "bottoni">
+		<button th:unless = "${isLogged}" th:onclick = "location.href = '/login'" class = "bottoni">
 			<h1 class = "scritteBottoni">Login</h1>
 		</button>
-		<button th:onclick = "location.href = '/registration'" class = "bottoni">
+		<button th:unless = "${isLogged}" th:onclick = "location.href = '/registration'" class = "bottoni">
 			<h1 class = "scritteBottoni">Registrati</h1>
+		</button>
+		<button th:if = "${isLogged}" th:onclick = "location.href = '/logout'" class = "bottoni">
+			<h1 class = "scritteBottoni">Logout</h1>
 		</button>
 	</div>
 </body>

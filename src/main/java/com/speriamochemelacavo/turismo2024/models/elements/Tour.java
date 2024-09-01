@@ -30,8 +30,8 @@ public class Tour extends Element{
 		super();
 	}
 
-	public Tour(int id, String description) {
-		super(id, description);
+	public Tour(String name, String description) {
+		super(name, description);
 	}
 
 	public List<PointOfInterest> getMyPOIs() {

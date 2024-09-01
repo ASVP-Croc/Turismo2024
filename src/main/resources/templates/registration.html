@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
     <title>Turismo2024</title> 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html" />
 	<link th:href="@{/styles/menu.css}" rel="stylesheet" />
 </head>
 <body>
@@ -11,27 +11,27 @@
     <div>
 		<form action="/registration" method="post">
 			<label>Inserisci il tuo Nome</label>
-		    <input type="text" name="name" />
+		    <input type="text" name = "name"/>
 		    <br />
 		    <label>Inserisci il tuo Cognome</label>
-		    <input type="text" name="surname" />
+		    <input type="text" name = "surname"/>
 		    <br />
 		    <label>Inserisci il tuo Username</label>
-		    <input type="text" name="userName" />
+		    <input type="text" name = "userName"/>
 		    <br />
 		    <label>Inserisci la tua email</label>
-		    <input type="text" name="email" />
+		    <input type="text" name = "email"/>
 		    <br />
 		    <label>Inserisci il tuo numero di telefono</label>
-		    <input type="text" name="phoneNumber" />
+		    <input type="text" name = "phoneNumber"/>
+		    <br />
+		    <label>Inserisci il tuo Indirizzo</label>
+		    <input type="text" name = "address"/>
+		    <br />
+		    <label>Inserisci il tuo CAP</label>
+		    <input type="text" name = "CAP"/>
 		    <br />
 		    <button type="submit" >Invia</button>
-			<!-- <input type="text" name="name" placeholder="Inserisci il tuo Nome">
-			<input type="text" name="surname" placeholder="Inserisci il tuo Cognome">
-			<input type="text" name="userName" placeholder="Inserisci il tuo Username">
-			<input type="text" name="email" placeholder="Inserisci la tua email">
-			<input type="text" name="phoneNumber" placeholder="Inserisci il tuo numero di telefono">
-			<button type="submit" >Invia</button> -->
 		</form>
 	</div>		
 </body>

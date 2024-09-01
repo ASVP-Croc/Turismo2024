@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.users.User;
@@ -26,24 +27,29 @@ public class PreparationController {
 	AccountsService accountService;
 
 	@GetMapping("/startDbUsers")
-	public void insertInitialUserRecords(){
+	public RedirectView insertInitialUserRecords(){
 		if (!isCreatedUsers) {
 			List<User> initialUsers = new ArrayList<>();
-			initialUsers.add(new User(101, "Matteo", "Pallotti", "Maverick", "maverick@gmail.com", "3929217858", Role.Administrator));
-			initialUsers.add(new User(102, "Lorenzo", "Crovace", "AVCP", "avcp@gmail.com", "123456789", Role.Curator));
-			initialUsers.add(new User(103, "Simone", "Silver", "SimonSilver", "simon@gmail.com", "987654321", Role.Animator));
+			initialUsers.add(new User("Matteo", "Pallotti", "Maverick", "maverick@gmail.com", "3929217858", "C.da San Pietro Orgiano, 13", 63900, Role.Administrator));
+			initialUsers.add(new User("Lorenzo", "Crovace", "AVCP", "avcp@gmail.com", "123456789", "Via Pippo 51", 61000, Role.Curator));
+			initialUsers.add(new User("Simone", "Silver", "SimonSilver", "simon@gmail.com", "987654321", "Via Pluto", 61234, Role.Animator));
 			accountService.addUsers(initialUsers);
 			isCreatedUsers = true;
 			}
+		return new RedirectView("/");
 	}
 	
 	@GetMapping("/startDbPOIs")
-	public void insertInitialPOIRecords(){
+	public RedirectView insertInitialPOIRecords(){
 		if (!isCreatedPOIs) {
-			poiService.addElement(new PointOfInterest(1, "prova"));
-			poiService.addElement(new PointOfInterest(2, "provicchia"));
-			poiService.addElement(new PointOfInterest(3, "provetta"));
+			poiService.addElement(new PointOfInterest("passetto", "prova", "Via Passetto"));
+			poiService.addElement(new PointOfInterest("centro città", "provicchia", "È in centro"));
+			poiService.addElement(new PointOfInterest("lungomare", "provetta", "Vicino al mare"));
+			poiService.addElement(new PointOfInterest("autostrada", "provona", "fuori città"));
+			poiService.addElement(new PointOfInterest("museo", "provaccia", "vicino al centro"));
+			poiService.addElement(new PointOfInterest("museo", "provaccia", "vicino al centro"));
 			isCreatedPOIs  = true;
 			}
+		return new RedirectView("/");
 	}
 }

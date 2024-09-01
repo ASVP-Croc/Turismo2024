@@ -3,12 +3,16 @@
 <head> 
     <title>Turismo2024</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/styles/menu.css}" rel="stylesheet" />
+    <link th:href="@{/styles/list-poi.css}" rel="stylesheet" />
 </head>
 <body>
 	<div th:replace="~{fragments/header :: header}"></div>
 	<div th:replace="~{fragments/menu :: menu}"></div>
-    <div>
-		
+    <div class = "container">
+    	<div class = "card" th:each = "poi : ${listPoi}">
+    	
+    	</div>
 	</div>		
 </body>
 </html>

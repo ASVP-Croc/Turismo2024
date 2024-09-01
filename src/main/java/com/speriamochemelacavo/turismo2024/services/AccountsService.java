@@ -20,11 +20,9 @@ public class AccountsService {
 	@Autowired
 	UserRepository userRepository;
 	
-	public void saveLoggedUser(int id) {
-		if (findById(id).getId() != 0) {
-			this.loggedUser = findById(id);
-			setLogged(true);
-		}
+	public void saveLoggedUser(String userToFindUserName) {
+		this.loggedUser = findByUserName(userToFindUserName);
+		setLogged(true);
 	}
 	
 	public User getLoggedUser() {
@@ -45,6 +43,10 @@ public class AccountsService {
 	
 	public User findById(int userToFindId) {
 		return userRepository.findById(userToFindId).orElseThrow();
+	}
+	
+	public User findByUserName(String userToFindUserName) {
+		return userRepository.findByUserName(userToFindUserName);
 	}
 
 	public void addUser(User userToAdd) {

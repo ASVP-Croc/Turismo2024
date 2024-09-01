@@ -28,6 +28,7 @@ public abstract class ElementsService<T extends Element>{
 	
 	public void addElement(T element) {
 		element.setAuthor(accountService.getLoggedUser());
+		element.setCAP(accountService.getLoggedUser().getCAP());
 		repository.save(element);
 	}
 	
