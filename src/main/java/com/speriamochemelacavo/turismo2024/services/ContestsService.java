@@ -1,9 +1,57 @@
 package com.speriamochemelacavo.turismo2024.services;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.speriamochemelacavo.turismo2024.models.elements.Content;
+import com.speriamochemelacavo.turismo2024.models.elements.Contest;
+
 @Service
-public class ContestsService  {
+public class ContestsService extends ElementsService<Contest>  {
+	
+	@Autowired
+	ContentsService<Contest> contentService;
+	@Autowired
+	ValidationsService validationService;
+	@Autowired
+	ReportsService reportService;
+	
+	public void addContest(Contest contest) {
+		addElement(contest);
+	}
+	
+	public void addContests(List<Contest> contestsToAdd) {
+		addElements(contestsToAdd);
+	}
+
+	public void updateContest(Contest contestToUptade) {
+		
+		sendToValidator(repository.save(contestToUptade));
+	}
+	
+	public void deleteContestById(int contestToDeleteId) {
+		repository.deleteById(contestToDeleteId);
+	}
+	
+	public void addContentToContest(Content contentToAdd, Contest referencedElement) {
+		contentService.addContent(contentToAdd, referencedElement);
+	}
+	
+	public void deleteContentToContest(Content content) {
+		contentService.deleteContent(content);
+	}
+	
+	public void sendToValidator(Contest contest) {
+		validationService.setValidation();
+	}
+	
+	
+	public void reportContent() {
+		
+	}
+	
 //	private final static Map<Integer, Contest> contests = new HashMap<>();
 //	
 //	public static Contest getContest(Integer id) {

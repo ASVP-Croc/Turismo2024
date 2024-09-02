@@ -21,7 +21,7 @@ import jakarta.persistence.ManyToMany;
 
 @Component
 @Entity
-public class Tour extends Element{
+public class Tour extends ElementWithContents{
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<PointOfInterest> myPOIs = new ArrayList<>();

@@ -43,8 +43,6 @@ public abstract class Element {
 	private User author;
 	private int CAP;
 	private boolean isPublished;
-	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Content> myContents;
 	
 	public Element() {
 		
@@ -102,9 +100,5 @@ public abstract class Element {
 
 	public void setPublished(boolean isPublished) {
 		this.isPublished = isPublished;
-	}
-
-	public List<Content> getMyContents() {
-		return myContents;
 	}
 }

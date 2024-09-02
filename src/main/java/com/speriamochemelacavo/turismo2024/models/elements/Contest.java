@@ -18,7 +18,7 @@ import jakarta.persistence.Entity;
 
 @Component
 @Entity
-public class Contest extends Element {
+public class Contest extends ElementWithContents {
 
 	private Date starts;
 	private Date ends;

@@ -2,8 +2,6 @@ package com.speriamochemelacavo.turismo2024.models.elements;
 
 import org.springframework.stereotype.Component;
 
-import com.speriamochemelacavo.turismo2024.models.users.User;
-
 import jakarta.persistence.Entity;
 
 /**
@@ -18,7 +16,7 @@ import jakarta.persistence.Entity;
 
 @Component
 @Entity
-public class PointOfInterest extends Element{
+public class PointOfInterest extends ElementWithContents{
 
 
 	private float latitude;
