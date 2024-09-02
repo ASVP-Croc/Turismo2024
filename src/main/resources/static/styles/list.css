@@ -21,6 +21,21 @@
 	background-color: #e7e7e7;
 	cursor: pointer;
 }
+.cardLogin {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 20% ;
+	min-width:20%;
+	height: auto;
+	margin: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border: 2px solid gray;
+	border-radius: 20px;
+	background-color: #e7e7e7;
+	cursor: pointer;
+}
 /* Stile per le scritte nei bottoni */
 .scritteCard {
 	text-align: center;
