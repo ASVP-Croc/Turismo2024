@@ -7,14 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
-import com.speriamochemelacavo.turismo2024.repository.ContentRepository;
 
 
 @Service
 public class ContentsService<T extends Element> extends ElementsService<Content>{
 	
-	@Autowired
-	ContentRepository contentRepository;
+	
 	@Autowired
 	ValidationsService validationService;
 	

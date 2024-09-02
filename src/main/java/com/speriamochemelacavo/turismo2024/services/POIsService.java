@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
-import com.speriamochemelacavo.turismo2024.repository.POIRepository;
 
 @Service
 public class POIsService extends ElementsService<PointOfInterest> {
