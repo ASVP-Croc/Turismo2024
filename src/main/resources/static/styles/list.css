@@ -1,24 +1,59 @@
 /* Stile per il div che contiene le cards */
 .container {
-	max-width: calc (100% - 40px);
-	display: left;
-	justify-content: left;
+	display: flex;
+	justify-content: center;
 	flex-wrap: wrap;
 	padding: 10px;
 }
 /* Stile per i div delle cards */
 .card {
-	max-width: 40%;
-	min-width:25%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 70%; ;
+	min-width:20%;
 	height: auto;
 	margin: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	border: 2px solid gray;
 	border-radius: 20px;
+	background-color: #e7e7e7;
 	cursor: pointer;
 }
 /* Stile per le scritte nei bottoni */
 .scritteCard {
+	text-align: center;
 	font-size: 20px;
 	line-height: 10px;
   	color: #000000;
+}
+/* Stile per i bottoni della registrazione*/
+.bottoniForm{
+	width: 30%;
+	background-color: #c0c0c0;
+	color: #fff;
+	font-size: 20px;
+  	color: #000000;
+  	padding: auto;
+  	margin: auto;
+	border: none;
+	border-radius: 20px;
+	cursor: pointer;
+}
+.bottoniForm:hover {
+	background-color: #008000;
+}
+/* Stile per le scritte nei bottoni della registrazione */
+.scritteBottoniForm {
+	border: 1px #000;
+ 	color: white;
+ 	text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  }
+/* Stile per gli spazi di input */
+.input{
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
 }

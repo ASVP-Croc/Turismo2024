@@ -4,14 +4,20 @@
     <title>Turismo2024</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link th:href="@{/styles/menu.css}" rel="stylesheet" />
+    <link th:href="@{/styles/list.css}" rel="stylesheet" />
 </head>
 <body>
 	<div th:replace="~{fragments/header :: header}"></div>
 	<div th:replace="~{fragments/menu :: menu}"></div>
-    <div>
-		<form action="/login/send" method="post">
-			 <input type="text" name="userName" placeholder="Inserisci il tuo USERNAME">
-			 <button type="submit" >Invia</button>
+    <div class = "container">
+		<form class = "card" action="/login/send" method="post">
+			<h1 class = "scritteCard">LOGIN</h1>
+			<br/>
+			<input class = "input" type="text" name="userName" placeholder="USERNAME">
+			<br/>
+			<button type="submit" class = "bottoniForm">
+				<p class = "scritteBottoniForm">Invia</p>
+			</button>
 		</form>
 	</div>		
 </body>

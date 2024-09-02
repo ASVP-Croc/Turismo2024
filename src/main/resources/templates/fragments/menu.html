@@ -5,26 +5,26 @@
 </head>
 <body>
 	<div class="adattivo" th:fragment="menu">
-		<button th:unless = "${isLoadedUsers}" th:onclick = "location.href = '/startDbUsers'" class = "bottoni">
-			<h1 class = "scritteBottoni">Popola il DB Utenti</h1>
+		<button th:unless = "${isLoadedUsers}" th:onclick = "location.href = '/startDbUsers'" class = "bottoniMenu">
+			<h1 class = "scritteBottoniMenu">Popola il DB Utenti</h1>
 		</button>
-		<button th:if = "${isVisible}" th:onclick = "location.href = '/startDbPOIs'" class = "bottoni">
-			<h1 class = "scritteBottoni">Popola il DB POI</h1>
+		<button th:if = "${isVisible}" th:onclick = "location.href = '/startDbPOIs'" class = "bottoniMenu">
+			<h1 class = "scritteBottoniMenu">Popola il DB POI</h1>
 		</button>
-		<button th:onclick = "location.href = '/users'" class = "bottoni">
-			<h1 class = "scritteBottoni">Lista Utenti</h1>
+		<button th:onclick = "location.href = '/users'" class = "bottoniMenu">
+			<h1 class = "scritteBottoniMenu">Lista Utenti</h1>
 		</button>
-		<button th:onclick = "location.href = '/pois'" class = "bottoni">
-			<h1 class = "scritteBottoni">Lista POI</h1>
+		<button th:onclick = "location.href = '/pois'" class = "bottoniMenu">
+			<h1 class = "scritteBottoniMenu">Lista POI</h1>
 		</button>
-		<button th:unless = "${isLogged}" th:onclick = "location.href = '/login'" class = "bottoni">
-			<h1 class = "scritteBottoni">Login</h1>
+		<button th:unless = "${isLogged}" th:onclick = "location.href = '/login'" class = "bottoniMenu">
+			<h1 class = "scritteBottoniMenu">Login</h1>
 		</button>
-		<button th:unless = "${isLogged}" th:onclick = "location.href = '/registration'" class = "bottoni">
-			<h1 class = "scritteBottoni">Registrati</h1>
+		<button th:unless = "${isLogged}" th:onclick = "location.href = '/registration'" class = "bottoniMenu">
+			<h1 class = "scritteBottoniMenu">Registrati</h1>
 		</button>
-		<button th:if = "${isLogged}" th:onclick = "location.href = '/logout'" class = "bottoni">
-			<h1 class = "scritteBottoni">Logout</h1>
+		<button th:if = "${isLogged}" th:onclick = "location.href = '/logout'" class = "bottoniMenu">
+			<h1 class = "scritteBottoniMenu">Logout</h1>
 		</button>
 	</div>
 </body>

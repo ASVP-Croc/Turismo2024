@@ -1,14 +1,18 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.speriamochemelacavo.turismo2024.models.users.User;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -39,6 +43,8 @@ public abstract class Element {
 	private User author;
 	private int CAP;
 	private boolean isPublished;
+	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Content> myContents;
 	
 	public Element() {
 		
@@ -82,6 +88,14 @@ public abstract class Element {
 		this.author = author;
 	}
 
+	public int getCAP() {
+		return CAP;
+	}
+
+	public void setCAP(int CAP) {
+		this.CAP = CAP;
+	}
+
 	public boolean isPublished() {
 		return isPublished;
 	}
@@ -90,11 +104,7 @@ public abstract class Element {
 		this.isPublished = isPublished;
 	}
 
-	public int getCAP() {
-		return CAP;
-	}
-
-	public void setCAP(int CAP) {
-		this.CAP = CAP;
+	public List<Content> getMyContents() {
+		return myContents;
 	}
 }
