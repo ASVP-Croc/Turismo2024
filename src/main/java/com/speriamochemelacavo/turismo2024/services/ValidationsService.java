@@ -1,9 +1,25 @@
 package com.speriamochemelacavo.turismo2024.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ValidationsService {
+	
+	@Autowired
+	POIsService poiService;
+	@Autowired
+	ToursService tourService;
+	@Autowired
+	ContestsService contestService;
+	@Autowired
+	NotificationsService notificationService;
+	
+	public void setValidation() {
+		
+	}
+	
+	
 //	private final static Queue<Element> elementList = new LinkedList();
 //	private final static Queue<Contest> contestList = new LinkedList();
 //

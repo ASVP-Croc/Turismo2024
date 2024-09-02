@@ -16,7 +16,7 @@ import jakarta.persistence.Entity;
 
 @Component
 @Entity
-public class PointOfInterest extends Element{
+public class PointOfInterest extends ElementWithContents{
 
 
 	private float latitude;
