@@ -13,8 +13,6 @@ import com.speriamochemelacavo.turismo2024.repository.POIRepository;
 public class POIsService extends ElementsService<PointOfInterest> {
 	
 	@Autowired
-	POIRepository poiRepository;
-	@Autowired
 	ContentsService<PointOfInterest> contentService;
 	@Autowired
 	ValidationsService validationService;
@@ -56,27 +54,27 @@ public class POIsService extends ElementsService<PointOfInterest> {
 	}
 	
 	public List<PointOfInterest> findAll() {
-		return poiRepository.findAll();
+		return repository.findAll();
 	}
 	
 	public PointOfInterest findById(int poiToFindId) {
-		return poiRepository.findById(poiToFindId).orElseThrow();
+		return repository.findById(poiToFindId).orElseThrow();
 	}
 
 	public void addPOI(PointOfInterest poiToAdd) {
-		sendToValidator(poiRepository.save(poiToAdd));
+		sendToValidator(repository.save(poiToAdd));
 	}
 	
 	public void addPOIs(List<PointOfInterest> poisToAdd) {
-		poiRepository.saveAll(poisToAdd);
+		repository.saveAll(poisToAdd);
 	}
 
 	public void updatePOI(PointOfInterest poiToUptade) {
-		sendToValidator(poiRepository.save(poiToUptade));
+		sendToValidator(repository.save(poiToUptade));
 	}
 	
 	public void deletePOIById(int poiToDeleteId) {
-		poiRepository.deleteById(poiToDeleteId);
+		repository.deleteById(poiToDeleteId);
 	}
 	
 	public void addContent(PointOfInterest poi, Content content) {
