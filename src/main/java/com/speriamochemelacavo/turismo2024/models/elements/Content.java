@@ -2,10 +2,8 @@ package com.speriamochemelacavo.turismo2024.models.elements;
 
 import org.springframework.stereotype.Component;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 /**
@@ -21,11 +19,20 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class Content extends Element{
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Element referenced;
-	private String resource;
-
+	private String pathToResource;
 	
+	public Content() {
+		super();
+	}
+
+	public Content(String name, String description, Element referenced, String pathToResource) {
+		super(name, description);
+		this.referenced = referenced;
+		this.pathToResource = pathToResource;
+	}
+
 	public Element getReferenced() {
 		return referenced;
 	}
@@ -35,11 +42,11 @@ public class Content extends Element{
 	}
 
 	public String getResource() {
-		return resource;
+		return pathToResource;
 	}
 
 	public void setResource(String resource) {
-		this.resource = resource;
+		this.pathToResource = resource;
 	}
 }
 	

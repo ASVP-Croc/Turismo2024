@@ -9,48 +9,7 @@ import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.Contest;
 
 @Service
-public class ContestsService extends ElementsService<Contest>  {
-	
-	@Autowired
-	ContentsService<Contest> contentService;
-	@Autowired
-	ValidationsService validationService;
-	@Autowired
-	ReportsService reportService;
-	
-	public void addContest(Contest contest) {
-		addElement(contest);
-	}
-	
-	public void addContests(List<Contest> contestsToAdd) {
-		addElements(contestsToAdd);
-	}
-
-	public void updateContest(Contest contestToUptade) {
-		
-		sendToValidator(repository.save(contestToUptade));
-	}
-	
-	public void deleteContestById(int contestToDeleteId) {
-		repository.deleteById(contestToDeleteId);
-	}
-	
-	public void addContentToContest(Content contentToAdd, Contest referencedElement) {
-		contentService.addContent(contentToAdd, referencedElement);
-	}
-	
-	public void deleteContentToContest(Content content) {
-		contentService.deleteContent(content);
-	}
-	
-	public void sendToValidator(Contest contest) {
-		validationService.setValidation();
-	}
-	
-	
-	public void reportContent() {
-		
-	}
+public class ContestsService extends ElementsWithContentsService<Contest>  {
 	
 //	private final static Map<Integer, Contest> contests = new HashMap<>();
 //	

@@ -1,7 +1,5 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
 import com.speriamochemelacavo.turismo2024.models.users.User;
@@ -12,7 +10,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -39,7 +36,7 @@ public abstract class Element {
 	private int id;
 	private String name;
 	private String description;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private User author;
 	private int CAP;
 	private boolean isPublished;

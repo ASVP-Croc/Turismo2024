@@ -3,21 +3,30 @@ package com.speriamochemelacavo.turismo2024.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.speriamochemelacavo.turismo2024.models.elements.Content;
+import com.speriamochemelacavo.turismo2024.models.elements.Contest;
+import com.speriamochemelacavo.turismo2024.models.elements.Element;
+import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
+import com.speriamochemelacavo.turismo2024.models.elements.Tour;
+import com.speriamochemelacavo.turismo2024.models.users.Role;
+
 @Service
-public class ValidationsService {
+public class ValidationsService<T extends Element> {
 	
 	@Autowired
-	POIsService poiService;
-	@Autowired
-	ToursService tourService;
-	@Autowired
-	ContestsService contestService;
-	@Autowired
-	NotificationsService notificationService;
+	private NotificationsService notificationService;
 	
-	public void setValidation() {
-		
+	@Autowired
+	private AccountsService accountService;
+	
+	public void sendValidation(String message, T elementToValidate) {
+		if (elementToValidate instanceof Content
+				&& !(((Content)elementToValidate).getReferenced() instanceof Contest)) {
+			notificationService.sendToMultipleUsers("Validazione: " + elementToValidate.getName(), message, elementToValidate, accountService.findByRole(Role.Animator));
+		} else
+			notificationService.sendToMultipleUsers("Validazione: " + elementToValidate.getName(), message, elementToValidate, accountService.findByRole(Role.Curator));
 	}
+	
 	
 	
 //	private final static Queue<Element> elementList = new LinkedList();

@@ -12,10 +12,13 @@ import com.speriamochemelacavo.turismo2024.repository.ElementRepository;
 public abstract class ElementsService<T extends Element>{
 	
 	@Autowired
-	ElementRepository<T> repository;
+	private ElementRepository<T> repository;
 	
 	@Autowired
-	AccountsService accountService;
+	private AccountsService accountService;
+	
+	@Autowired
+	private ReportsService reportService;
 	
 	public T findById(int elemToFindId) {
 		return repository.findById(elemToFindId).orElseThrow();
@@ -32,8 +35,18 @@ public abstract class ElementsService<T extends Element>{
 	}
 	
 	public void addElements(List<T> elemsToAdd) {
-		elemsToAdd.stream().forEach(e -> e.setAuthor(accountService.getLoggedUser()));
+		elemsToAdd.stream().forEach(e -> {
+			e.setAuthor(accountService.getLoggedUser());
+			e.setCAP(accountService.getLoggedUser().getCAP());
+			});
 		repository.saveAll(elemsToAdd);
 	}
-
+	
+	public void updateElement(T element) {
+		repository.save(element);
+	}
+	
+	public void deleteElement(T element) {
+		repository.delete(element);
+	}
 }

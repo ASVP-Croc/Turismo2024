@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
-import com.speriamochemelacavo.turismo2024.models.elements.Notification;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
+import com.speriamochemelacavo.turismo2024.models.notifications.Notification;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -43,7 +43,8 @@ import jakarta.persistence.Table;
 @Component
 @Entity
 @Table(name = "users", indexes = {
-	    @Index(name = "idx_userName", columnList = "user_name", unique = true)})
+	    @Index(name = "idx_userName", columnList = "user_name", unique = true),
+	    @Index(name = "idx_role", columnList = "role", unique = false)})
 public class User {
 	
 	@Id

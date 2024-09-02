@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
-import com.speriamochemelacavo.turismo2024.models.elements.Notification;
+import com.speriamochemelacavo.turismo2024.models.notifications.Notification;
+import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.repository.UserRepository;
 
@@ -19,7 +20,7 @@ public class AccountsService {
 	private boolean isLoaded;
 	
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 	
 	public void saveLoggedUser(String userToFindUserName) {
 		this.loggedUser = findByUserName(userToFindUserName);
@@ -57,6 +58,10 @@ public class AccountsService {
 	public User findByUserName(String userToFindUserName) {
 		return userRepository.findByUserName(userToFindUserName);
 	}
+	
+	public List<User> findByRole(Role userToFindRole) {
+		return userRepository.findByRole(userToFindRole);
+	}
 
 	public void addUser(User userToAdd) {
 		userRepository.save(userToAdd);
@@ -74,19 +79,16 @@ public class AccountsService {
 		userRepository.deleteById(userToDeleteId);
 	}
 	
-	public List<Element> getSavedElementsByIdUser(int userToGetSavedElementsId){
-		return findById(userToGetSavedElementsId).getSavedElements();
-	}
-	
-	public List<Element> getUserLoggedSavedElements(){
+	public List<Element> getSavedElements(){
 		return getLoggedUser().getSavedElements();
 	}
 	
-	public void addNewSavedElements(Element elementToAdd) {
+	public void addNewSavedElement(Element elementToAdd) {
+		getSavedElements().add(elementToAdd);
 		updateUser(getLoggedUser());
 	}
 
-	public List<Notification> getNotifications(int userToGetNotificationId){
+	public List<Notification> getNotifications(){
 		return getLoggedUser().getNotifications();
 	}
 	
