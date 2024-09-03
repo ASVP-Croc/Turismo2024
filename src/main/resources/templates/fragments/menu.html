@@ -26,6 +26,22 @@
 		<button th:if = "${isLogged}" th:onclick = "location.href = '/logout'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Logout</h1>
 		</button>
+		<button th:if = "${isLogged}" class = "iconaNotifiche">
+			<h1 class = "scritteBottoniMenu" th:text = ${numberOfNotifications}></h1>
+		</button>
+		<div>
+			<ul id="notificatins">
+			  <li><a href="#">Voce 1</a></li>
+			  <li><a href="#">Voce 2</a></li>
+			  <li><a href="#">Voce 3</a>
+			    <ul>
+			      <li><a href="#">Sottomenu 1</a></li>
+			      <li><a href="#">Sottomenu 2</a></li>
+			    </ul>
+			  </li>
+			</ul>
+		</div>
+		
 	</div>
 </body>
 </html>
