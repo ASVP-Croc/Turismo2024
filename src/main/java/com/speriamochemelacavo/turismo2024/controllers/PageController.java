@@ -26,6 +26,7 @@ public class PageController {
 		model.addAttribute("isLoadedPois", poiService.isLoaded());
 		boolean isVisible = (!poiService.isLoaded()&(accountService.isLogged()));
 		model.addAttribute("isVisible", isVisible);
+		model.addAttribute("numberOfNotifications", accountService.getLoggedUser().getNotifications().size());
 		return "index";
 	}
 
@@ -61,6 +62,7 @@ public class PageController {
 		model.addAttribute("isLoadedPois", poiService.isLoaded());
 		boolean isVisible = (!poiService.isLoaded()&(accountService.isLogged()));
 		model.addAttribute("isVisible", isVisible);
+		model.addAttribute("numberOfNotifications", accountService.getLoggedUser().getNotifications().size());
 		return "users-list";
 	}
 	
@@ -73,6 +75,7 @@ public class PageController {
 		model.addAttribute("isLoadedUsers", accountService.isLoaded());
 		boolean isVisible = (!poiService.isLoaded()&(accountService.isLogged()));
 		model.addAttribute("isVisible", isVisible);
+		model.addAttribute("numberOfNotifications", accountService.getLoggedUser().getNotifications().size());
 		return "poi-list";
 	}
 	
