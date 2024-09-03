@@ -19,6 +19,9 @@ public class POIController {
 	@Autowired
 	private POIsService poiService;
 	
+	@Autowired
+	private ValidationsService<PointOfInterest> validationService;
+	
 	@GetMapping("/all")
 	public RedirectView getPOIs() {
 		return new RedirectView("/pois");
@@ -32,6 +35,7 @@ public class POIController {
 	@PostMapping("")
 	public void addPOI(@RequestBody PointOfInterest newPOI) {
 		poiService.addElement(newPOI);
+		validationService.checkValidation(newPOI);
 	}
 
 	

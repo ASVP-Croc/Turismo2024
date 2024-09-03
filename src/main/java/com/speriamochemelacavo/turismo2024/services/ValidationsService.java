@@ -44,15 +44,24 @@ public class ValidationsService<T extends Element> {
 	
 	public void sendValidation(String message, T elementToValidate, List<User> recipients) {
 		notificationService.sendToMultipleUsers("Validazione: " + elementToValidate.getName(), message, elementToValidate, accountService.findByRole(Role.Curator));
-		notificationService.sendToSingleUser("Validazione richiesta per: " + elementToValidate.getName(), "", elementToValidate, elementToValidate.getAuthor());
+		notificationService.sendToSingleUser("Pubblicazione richiesta per: " + elementToValidate.getName(), "", elementToValidate, elementToValidate.getAuthor());
 	}
 	
 	public void updateValidation(String message, Notification notificationToResponse){
-		notificationService.sendToSingleUser("Aggiornamento Validazione: ", message, notificationToResponse.getObject(), notificationToResponse.getObject().getAuthor());
+		Notification notificationUpdated = notificationToResponse;
+		notificationUpdated.setTitle("Aggiornamento pubblicazione: " + notificationToResponse.getObject().getName());
+		notificationUpdated.setMessage(message);
+		notificationUpdated.getRecipientUser().add(notificationToResponse.getObject().getAuthor());
+		notificationService.updateNotification(notificationUpdated);
 	}
 	
-	public void confirmValidation() {
+	public void confirmValidation(Notification notificationToConfirm) {
+		Notification notificationConfirmed = notificationToConfirm;
+		notificationConfirmed.setTitle("Pubblicazione avvenuta: " + notificationToConfirm.getObject().getName());
+		notificationConfirmed.setMessage("");
+		notificationConfirmed.getRecipientUser().add(notificationToConfirm.getObject().getAuthor());
 		
+		notificationService.updateNotification(notificationConfirmed);
 	}
 
 	
