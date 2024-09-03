@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
+import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.repository.ElementRepository;
 
 @Service
@@ -16,6 +17,9 @@ public abstract class ElementsService<T extends Element>{
 	
 	@Autowired
 	private AccountsService accountService;
+	
+	@Autowired
+	private ValidationsService<T> validationService;
 	
 	@Autowired
 	private ReportsService reportService;
@@ -32,14 +36,11 @@ public abstract class ElementsService<T extends Element>{
 		element.setAuthor(accountService.getLoggedUser());
 		element.setCAP(accountService.getLoggedUser().getCAP());
 		repository.save(element);
+		validationService.checkValidation(element);
 	}
 	
 	public void addElements(List<T> elemsToAdd) {
-		elemsToAdd.stream().forEach(e -> {
-			e.setAuthor(accountService.getLoggedUser());
-			e.setCAP(accountService.getLoggedUser().getCAP());
-			});
-		repository.saveAll(elemsToAdd);
+		elemsToAdd.stream().forEach(e -> addElement(e));
 	}
 	
 	public void updateElement(T element) {

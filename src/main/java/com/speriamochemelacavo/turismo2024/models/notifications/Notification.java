@@ -27,7 +27,7 @@ public class Notification {
 	private int id;
 	private String title;
 	private String message;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private Element object;
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<User> recipientUser;

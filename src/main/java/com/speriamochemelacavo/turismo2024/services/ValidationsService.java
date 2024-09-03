@@ -1,5 +1,8 @@
 package com.speriamochemelacavo.turismo2024.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +11,9 @@ import com.speriamochemelacavo.turismo2024.models.elements.Contest;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tour;
+import com.speriamochemelacavo.turismo2024.models.notifications.Notification;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
+import com.speriamochemelacavo.turismo2024.models.users.User;
 
 @Service
 public class ValidationsService<T extends Element> {
@@ -19,13 +24,37 @@ public class ValidationsService<T extends Element> {
 	@Autowired
 	private AccountsService accountService;
 	
-	public void sendValidation(String message, T elementToValidate) {
+	public void checkValidation(T elementToValidate) {
+		if (elementToValidate.getAuthor().getRole() == Role.AuthorizedContributor 
+				|| elementToValidate.getAuthor().getRole() == Role.Curator) {
+			elementToValidate.setPublished(true);
+		} else setValidation(elementToValidate);
+	}
+	
+	public void setValidation(T elementToValidate) {
+		List<User> recipients = new ArrayList<User>();
 		if (elementToValidate instanceof Content
 				&& !(((Content)elementToValidate).getReferenced() instanceof Contest)) {
-			notificationService.sendToMultipleUsers("Validazione: " + elementToValidate.getName(), message, elementToValidate, accountService.findByRole(Role.Animator));
-		} else
-			notificationService.sendToMultipleUsers("Validazione: " + elementToValidate.getName(), message, elementToValidate, accountService.findByRole(Role.Curator));
+			recipients.addAll(accountService.findByRole(Role.Curator));
+		} else {
+			recipients.addAll(accountService.findByRole(Role.Animator));
+		}
+		sendValidation("Hai un nuovo Elemento da validare!", elementToValidate, recipients);
 	}
+	
+	public void sendValidation(String message, T elementToValidate, List<User> recipients) {
+		notificationService.sendToMultipleUsers("Validazione: " + elementToValidate.getName(), message, elementToValidate, accountService.findByRole(Role.Curator));
+		notificationService.sendToSingleUser("Validazione richiesta per: " + elementToValidate.getName(), "", elementToValidate, elementToValidate.getAuthor());
+	}
+	
+	public void updateValidation(String message, Notification notificationToResponse){
+		notificationService.sendToSingleUser("Aggiornamento Validazione: ", message, notificationToResponse.getObject(), notificationToResponse.getObject().getAuthor());
+	}
+	
+	public void confirmValidation() {
+		
+	}
+
 	
 	
 	

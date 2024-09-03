@@ -16,6 +16,30 @@ public class NotificationsService {
 	@Autowired
 	private NotificationRepository notificationRepository;
 	
+	public Notification findById(int elemToFindId) {
+		return notificationRepository.findById(elemToFindId).orElseThrow();
+	}
+	
+	public List<Notification> findAll(){
+		return notificationRepository.findAll();
+	}
+	
+	public void addNotification(Notification notificationToAdd) {
+		notificationRepository.save(notificationToAdd);
+	}
+	
+	public void addNotifications(List<Notification> notificationsToAdd) {
+		notificationsToAdd.stream().forEach(e -> addNotification(e));
+	}
+	
+	public void updateNotification(Notification notificationToUpdate) {
+		notificationRepository.save(notificationToUpdate);
+	}
+	
+	public void deleteElement(Notification notificationToDelete) {
+		notificationRepository.delete(notificationToDelete);
+	}
+	
 	public void sendToSingleUser(String title, String message, Element object, User recipientUser) {
 		Notification toSend = new Notification(title, message, object);
 		toSend.getRecipientUser().add(recipientUser);

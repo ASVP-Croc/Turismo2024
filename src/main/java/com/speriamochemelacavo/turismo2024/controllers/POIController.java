@@ -11,15 +11,13 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.services.AccountsService;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
+import com.speriamochemelacavo.turismo2024.services.ValidationsService;
 
 @RestController("/poi")
 public class POIController {
 	
 	@Autowired
-	POIsService poiService;
-	
-	@Autowired
-	AccountsService accountService;
+	private POIsService poiService;
 	
 	@GetMapping("/all")
 	public RedirectView getPOIs() {
