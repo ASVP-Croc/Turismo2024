@@ -35,7 +35,6 @@ public class NotificationsService {
 	
 	public void addNotification(Notification notificationToAdd) {
 		notificationRepository.save(notificationToAdd);
-		accountsService.reloadLoggedUser();
 	}
 	
 	public void addNotifications(List<Notification> notificationsToAdd) {
@@ -44,22 +43,19 @@ public class NotificationsService {
 	
 	public void updateNotification(Notification notificationToUpdate) {
 		notificationRepository.save(notificationToUpdate);
-		accountsService.reloadLoggedUser();
 	}
 	
 	public void deleteElement(Notification notificationToDelete) {
 		notificationRepository.delete(notificationToDelete);
-		accountsService.reloadLoggedUser();
 	}
 	
 	public void sendToSingleUser(String title, String message, Element object, User recipientUser) {
-		Notification toSend = new Notification(title, message, object);
-		toSend.getRecipientUser().add(recipientUser);
+		Notification toSend = new Notification(title, message, recipientUser, object);
 		notificationRepository.save(toSend);
 	}
 	
 	public void sendToMultipleUsers(String title, String message, Element object, List<User> recipientUser) {
-		Notification toSend = new Notification(title, message, object);
+		Notification toSend = new Notification(title, message, accountsService.findById(accountsService.getLoggedUser()), object);
 		toSend.getRecipientUser().addAll(recipientUser);
 		notificationRepository.save(toSend);
 	}

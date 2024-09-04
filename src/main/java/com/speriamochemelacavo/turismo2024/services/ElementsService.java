@@ -17,6 +17,9 @@ public abstract class ElementsService<T extends Element>{
 	
 	@Autowired
 	private AccountsService accountService;
+	
+	@Autowired
+	private ValidationsService<T> validationService;
 
 	
 	public T findById(int elemToFindId) {
@@ -28,9 +31,10 @@ public abstract class ElementsService<T extends Element>{
 	}
 	
 	public void addElement(T element) {
-		element.setAuthor(accountService.getLoggedUser());
-		element.setCAP(accountService.getLoggedUser().getCAP());
+		element.setAuthor(accountService.findById(accountService.getLoggedUser()));
+		element.setCAP(accountService.findById(accountService.getLoggedUser()).getCAP());
 		repository.save(element);
+		validationService.checkValidation(element);
 	}
 	
 	public void addElements(List<T> elemsToAdd) {
@@ -39,6 +43,7 @@ public abstract class ElementsService<T extends Element>{
 	
 	public void updateElement(T element) {
 		repository.save(element);
+		validationService.checkValidation(element);
 	}
 	
 	public void deleteElement(T element) {

@@ -24,7 +24,7 @@ public class PageController {
 	@RequestMapping("/")
 	public String welcome(Model model) {
 		model.addAttribute("nameUser",
-				!accountService.isLogged() ? "Turista" : accountService.getLoggedUser().getName());
+				!accountService.isLogged() ? "Turista" : accountService.findById(accountService.getLoggedUser()).getName());
 		model.addAttribute("isLogged", accountService.isLogged());
 		model.addAttribute("isLoadedUsers", accountService.isLoaded());
 		model.addAttribute("isLoadedPois", poiService.isLoaded());
@@ -32,21 +32,21 @@ public class PageController {
 		model.addAttribute("isVisible", isPOILoadVisible);
 		boolean isNotifLoadVisible = (poiService.isLoaded()&accountService.isLoaded());
 		model.addAttribute("isNotifLoadVisible", isNotifLoadVisible);
-		model.addAttribute("numberOfNotifications", !accountService.isLogged() ? 54 : notificationService.findAllByRecipientId(accountService.getLoggedUser().getId()).size());
+		model.addAttribute("numberOfNotifications", !accountService.isLogged() ? 54 : accountService.findById(accountService.getLoggedUser()).getNotifications().size());
 		return "index";
 	}
 
 	@RequestMapping("/login")
 	public String login(Model model) {
 		model.addAttribute("nameUser",
-				!accountService.isLogged() ? "Turista" : accountService.getLoggedUser().getName());
+				!accountService.isLogged() ? "Turista" : accountService.findById(accountService.getLoggedUser()).getName());
 		model.addAttribute("isLoadedUsers", accountService.isLoaded());
 		model.addAttribute("isLoadedPois", poiService.isLoaded());
 		boolean isPOILoadVisible = (!poiService.isLoaded()&(accountService.isLogged()));
 		model.addAttribute("isVisible", isPOILoadVisible);
 		boolean isNotifLoadVisible = (poiService.isLoaded()&accountService.isLoaded());
 		model.addAttribute("isNotifLoadVisible", isNotifLoadVisible);
-		model.addAttribute("numberOfNotifications", !accountService.isLogged() ? 54 : notificationService.findAllByRecipientId(accountService.getLoggedUser().getId()).size());
+		model.addAttribute("numberOfNotifications", !accountService.isLogged() ? 54 : accountService.findById(accountService.getLoggedUser()).getNotifications().size());
 		return "login";
 	}
 
@@ -64,7 +64,7 @@ public class PageController {
 	@RequestMapping("/users")
 	public String getUsers(Model model) {
 		model.addAttribute("nameUser",
-			!accountService.isLogged() ? "Turista" : accountService.getLoggedUser().getName());
+			!accountService.isLogged() ? "Turista" : accountService.findById(accountService.getLoggedUser()).getName());
 		model.addAttribute("isLogged", accountService.isLogged());
 		model.addAttribute("listUser", accountService.findAll());
 		model.addAttribute("isLoadedUsers", accountService.isLoaded());
@@ -73,14 +73,14 @@ public class PageController {
 		model.addAttribute("isVisible", isPOILoadVisible);
 		boolean isNotifLoadVisible = (poiService.isLoaded()&accountService.isLoaded());
 		model.addAttribute("isNotifLoadVisible", isNotifLoadVisible);
-		model.addAttribute("numberOfNotifications", !accountService.isLogged() ? 54 : notificationService.findAllByRecipientId(accountService.getLoggedUser().getId()).size());
+		model.addAttribute("numberOfNotifications", !accountService.isLogged() ? 54 : accountService.findById(accountService.getLoggedUser()).getNotifications().size());
 		return "users-list";
 	}
 	
 	@RequestMapping("/pois")
 	public String getPois(Model model) {
 		model.addAttribute("nameUser",
-			!accountService.isLogged() ? "Turista" : accountService.getLoggedUser().getName());
+			!accountService.isLogged() ? "Turista" : accountService.findById(accountService.getLoggedUser()).getName());
 		model.addAttribute("isLogged", accountService.isLogged());
 		model.addAttribute("listPoi", poiService.findAll());
 		model.addAttribute("isLoadedUsers", accountService.isLoaded());
@@ -88,14 +88,14 @@ public class PageController {
 		model.addAttribute("isVisible", isPOILoadVisible);
 		boolean isNotifLoadVisible = (poiService.isLoaded()&accountService.isLoaded());
 		model.addAttribute("isNotifLoadVisible", isNotifLoadVisible);
-		model.addAttribute("numberOfNotifications", !accountService.isLogged() ? 54 : notificationService.findAllByRecipientId(accountService.getLoggedUser().getId()).size());
+		model.addAttribute("numberOfNotifications", !accountService.isLogged() ? 54 : accountService.findById(accountService.getLoggedUser()).getNotifications().size());
 		return "poi-list";
 	}
 	
 	@RequestMapping("/registration")
 	public String userRegistration(Model model) {
 		model.addAttribute("nameUser",
-				!accountService.isLogged() ? "Turista" : accountService.getLoggedUser().getName());
+				!accountService.isLogged() ? "Turista" :accountService.findById(accountService.getLoggedUser()).getName());
 		model.addAttribute("isLoadedUsers", accountService.isLoaded());
 		model.addAttribute("isLoadedPois", poiService.isLoaded());
 		boolean isPOILoadVisible = (!poiService.isLoaded()&(accountService.isLogged()));

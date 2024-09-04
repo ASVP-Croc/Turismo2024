@@ -34,7 +34,7 @@ public class PreparationController {
 			List<User> initialUsers = new ArrayList<>();
 			initialUsers.add(new User("Matteo", "Pallotti", "Maverick", "maverick@gmail.com", "3929217858", "C.da San Pietro Orgiano, 13", 63900, Role.Administrator));
 			initialUsers.add(new User("Lorenzo", "Crovace", "AVCP", "avcp@gmail.com", "123456789", "Via Pippo 51", 61000, Role.Curator));
-			initialUsers.add(new User("Simone", "Silver", "SimonSilver", "simon@gmail.com", "987654321", "Via Pluto", 61234, Role.Animator));
+			initialUsers.add(new User("Simone", "Silver", "SimonSilver", "simon@gmail.com", "987654321", "Via Pluto", 61234, Role.AuthenticatedTourist));
 			accountService.addUsers(initialUsers);
 			accountService.setLoaded(true);
 			}
@@ -58,11 +58,11 @@ public class PreparationController {
 	@GetMapping("/sendNotifications")
 	public RedirectView sendNotifications(){
 		if (!notificationService.isLoaded()&poiService.isLoaded()) {
-			notificationService.addNotification(new Notification("Primo Elemento: ", "proviamo il primo elemento", poiService.findById(1)));
-			notificationService.addNotification(new Notification("Secondo Elemento: ", "proviamo il secondo elemento", poiService.findById(2)));
-			notificationService.addNotification(new Notification("Terzo Elemento: ", "proviamo il terzo elemento", poiService.findById(3)));
-			notificationService.addNotification(new Notification("Quarto Elemento: ", "proviamo il quarto elemento", poiService.findById(4)));
-			notificationService.addNotification(new Notification("Quinto Elemento: ", "proviamo il quinto elemento", poiService.findById(5)));
+			notificationService.addNotification(new Notification("Primo Elemento: ", "proviamo il primo elemento", accountService.findById(accountService.getLoggedUser()), poiService.findById(1)));
+			notificationService.addNotification(new Notification("Secondo Elemento: ", "proviamo il secondo elemento", accountService.findById(accountService.getLoggedUser()), poiService.findById(2)));
+			notificationService.addNotification(new Notification("Terzo Elemento: ", "proviamo il terzo elemento", accountService.findById(accountService.getLoggedUser()), poiService.findById(3)));
+			notificationService.addNotification(new Notification("Quarto Elemento: ", "proviamo il quarto elemento", accountService.findById(accountService.getLoggedUser()), poiService.findById(4)));
+			notificationService.addNotification(new Notification("Quinto Elemento: ", "proviamo il quinto elemento", accountService.findById(accountService.getLoggedUser()), poiService.findById(5)));
 			notificationService.setLoaded(true);
 			}
 		return new RedirectView("/");

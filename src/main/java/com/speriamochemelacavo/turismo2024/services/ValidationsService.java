@@ -51,6 +51,7 @@ public class ValidationsService<T extends Element> {
 		Notification notificationUpdated = notificationToResponse;
 		notificationUpdated.setTitle("Aggiornamento pubblicazione: " + notificationToResponse.getObject().getName());
 		notificationUpdated.setMessage(message);
+		notificationUpdated.getRecipientUser().clear();
 		notificationUpdated.getRecipientUser().add(notificationToResponse.getObject().getAuthor());
 		notificationService.updateNotification(notificationUpdated);
 	}
@@ -59,8 +60,8 @@ public class ValidationsService<T extends Element> {
 		Notification notificationConfirmed = notificationToConfirm;
 		notificationConfirmed.setTitle("Pubblicazione avvenuta: " + notificationToConfirm.getObject().getName());
 		notificationConfirmed.setMessage("");
+		notificationConfirmed.getRecipientUser().clear();
 		notificationConfirmed.getRecipientUser().add(notificationToConfirm.getObject().getAuthor());
-		
 		notificationService.updateNotification(notificationConfirmed);
 	}
 

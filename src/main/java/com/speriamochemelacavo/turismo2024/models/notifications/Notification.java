@@ -14,7 +14,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -29,6 +28,8 @@ public class Notification {
 	private int id;
 	private String title;
 	private String message;
+	@ManyToOne
+	private User author;
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private Element object;
 	@ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
@@ -39,9 +40,10 @@ public class Notification {
 		
 	}
 	
-	public Notification(String title, String message, Element object) {
+	public Notification(String title, String message, User author, Element object) {
 		this.title = title;
 		this.message = message;
+		this.author = author;
 		this.object = object;
 		this.recipientUser.add(object.getAuthor());
 		setRead(false);

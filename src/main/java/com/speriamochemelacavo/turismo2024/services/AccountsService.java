@@ -14,8 +14,7 @@ import com.speriamochemelacavo.turismo2024.repository.UserRepository;
 @Service
 public class AccountsService {
 	
-	@Autowired
-	private User loggedUser;
+	private int loggedUserId;
 	private boolean isLogged = false;
 	private boolean isLoaded = false;;
 	
@@ -23,16 +22,12 @@ public class AccountsService {
 	private UserRepository userRepository;
 	
 	public void saveLoggedUser(String userToFindUserName) {
-		this.loggedUser = findByUserName(userToFindUserName);
+		this.loggedUserId = findByUserName(userToFindUserName).getId();
 		setLogged(true);
 	}
 	
-	public User getLoggedUser() {
-		return this.loggedUser;
-	}
-
-	public void reloadLoggedUser() {
-		this.loggedUser = userRepository.findById(loggedUser.getId()).get();
+	public int getLoggedUser() {
+		return this.loggedUserId;
 	}
 		
 	public boolean isLogged() {
@@ -84,16 +79,17 @@ public class AccountsService {
 	}
 	
 	public List<Element> getSavedElements(){
-		return getLoggedUser().getSavedElements();
+		return findById(loggedUserId).getSavedElements();
 	}
 	
 	public void addNewSavedElement(Element elementToAdd) {
-		getSavedElements().add(elementToAdd);
-		updateUser(getLoggedUser());
-	}
+		User userToUpdate = findById(getLoggedUser());
+		userToUpdate.getSavedElements().add(elementToAdd);
+		updateUser(userToUpdate);
+		}
 
 	public List<Notification> getNotifications(){
-		return getLoggedUser().getNotifications();
+		return findById(loggedUserId).getNotifications();
 	}
 	
 	public String userToString(User userToString) {
