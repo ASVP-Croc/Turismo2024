@@ -60,7 +60,7 @@ public class User {
 	private int CAP;
 	@Enumerated(EnumType.STRING)
 	private Role role;
-	@OneToMany(mappedBy = "recipientUser", cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
+	@ManyToMany(mappedBy = "recipientUser", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Notification> notifications;
 	@ManyToMany
 	private List<Element> savedElements;
