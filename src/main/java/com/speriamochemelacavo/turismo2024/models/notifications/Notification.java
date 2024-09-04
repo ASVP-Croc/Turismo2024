@@ -32,7 +32,7 @@ public class Notification {
 	private User author;
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private Element object;
-	@ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL)
 	private List<User> recipientUser = new ArrayList<User>();
 	private boolean isRead;
 	
