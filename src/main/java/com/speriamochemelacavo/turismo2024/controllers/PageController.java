@@ -6,16 +6,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.speriamochemelacavo.turismo2024.services.AccountsService;
+import com.speriamochemelacavo.turismo2024.services.NotificationsService;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
 
 @Controller
 public class PageController {
 
 	@Autowired
-	AccountsService accountService;
+	private AccountsService accountService;
 	
 	@Autowired
-	POIsService poiService;
+	private POIsService poiService;
+	
+	@Autowired
+	private NotificationsService notificationService;
 
 	@RequestMapping("/")
 	public String welcome(Model model) {
@@ -24,9 +28,11 @@ public class PageController {
 		model.addAttribute("isLogged", accountService.isLogged());
 		model.addAttribute("isLoadedUsers", accountService.isLoaded());
 		model.addAttribute("isLoadedPois", poiService.isLoaded());
-		boolean isVisible = (!poiService.isLoaded()&(accountService.isLogged()));
-		model.addAttribute("isVisible", isVisible);
-		model.addAttribute("numberOfNotifications", accountService.getLoggedUser().getNotifications().size());
+		boolean isPOILoadVisible = (!poiService.isLoaded()&(accountService.isLogged()));
+		model.addAttribute("isVisible", isPOILoadVisible);
+		boolean isNotifLoadVisible = (poiService.isLoaded()&accountService.isLoaded());
+		model.addAttribute("isNotifLoadVisible", isNotifLoadVisible);
+		model.addAttribute("numberOfNotifications", !accountService.isLogged() ? 54 : notificationService.findAllByRecipientId(accountService.getLoggedUser().getId()).size());
 		return "index";
 	}
 
@@ -36,8 +42,11 @@ public class PageController {
 				!accountService.isLogged() ? "Turista" : accountService.getLoggedUser().getName());
 		model.addAttribute("isLoadedUsers", accountService.isLoaded());
 		model.addAttribute("isLoadedPois", poiService.isLoaded());
-		boolean isVisible = (!poiService.isLoaded()&(accountService.isLogged()));
-		model.addAttribute("isVisible", isVisible);
+		boolean isPOILoadVisible = (!poiService.isLoaded()&(accountService.isLogged()));
+		model.addAttribute("isVisible", isPOILoadVisible);
+		boolean isNotifLoadVisible = (poiService.isLoaded()&accountService.isLoaded());
+		model.addAttribute("isNotifLoadVisible", isNotifLoadVisible);
+		model.addAttribute("numberOfNotifications", !accountService.isLogged() ? 54 : notificationService.findAllByRecipientId(accountService.getLoggedUser().getId()).size());
 		return "login";
 	}
 
@@ -47,8 +56,8 @@ public class PageController {
 		model.addAttribute("nameUser", "Turista");
 		model.addAttribute("isLoadedUsers", accountService.isLoaded());
 		model.addAttribute("isLoadedPois", poiService.isLoaded());
-		boolean isVisible = (!poiService.isLoaded()&(accountService.isLogged()));
-		model.addAttribute("isVisible", isVisible);
+		boolean isPOILoadVisible = (!poiService.isLoaded()&(accountService.isLogged()));
+		model.addAttribute("isVisible", isPOILoadVisible);
 		return "index";
 	}
 
@@ -60,9 +69,11 @@ public class PageController {
 		model.addAttribute("listUser", accountService.findAll());
 		model.addAttribute("isLoadedUsers", accountService.isLoaded());
 		model.addAttribute("isLoadedPois", poiService.isLoaded());
-		boolean isVisible = (!poiService.isLoaded()&(accountService.isLogged()));
-		model.addAttribute("isVisible", isVisible);
-		model.addAttribute("numberOfNotifications", accountService.getLoggedUser().getNotifications().size());
+		boolean isPOILoadVisible = (!poiService.isLoaded()&(accountService.isLogged()));
+		model.addAttribute("isVisible", isPOILoadVisible);
+		boolean isNotifLoadVisible = (poiService.isLoaded()&accountService.isLoaded());
+		model.addAttribute("isNotifLoadVisible", isNotifLoadVisible);
+		model.addAttribute("numberOfNotifications", !accountService.isLogged() ? 54 : notificationService.findAllByRecipientId(accountService.getLoggedUser().getId()).size());
 		return "users-list";
 	}
 	
@@ -73,9 +84,11 @@ public class PageController {
 		model.addAttribute("isLogged", accountService.isLogged());
 		model.addAttribute("listPoi", poiService.findAll());
 		model.addAttribute("isLoadedUsers", accountService.isLoaded());
-		boolean isVisible = (!poiService.isLoaded()&(accountService.isLogged()));
-		model.addAttribute("isVisible", isVisible);
-		model.addAttribute("numberOfNotifications", accountService.getLoggedUser().getNotifications().size());
+		boolean isPOILoadVisible = (!poiService.isLoaded()&(accountService.isLogged()));
+		model.addAttribute("isVisible", isPOILoadVisible);
+		boolean isNotifLoadVisible = (poiService.isLoaded()&accountService.isLoaded());
+		model.addAttribute("isNotifLoadVisible", isNotifLoadVisible);
+		model.addAttribute("numberOfNotifications", !accountService.isLogged() ? 54 : notificationService.findAllByRecipientId(accountService.getLoggedUser().getId()).size());
 		return "poi-list";
 	}
 	
@@ -85,8 +98,8 @@ public class PageController {
 				!accountService.isLogged() ? "Turista" : accountService.getLoggedUser().getName());
 		model.addAttribute("isLoadedUsers", accountService.isLoaded());
 		model.addAttribute("isLoadedPois", poiService.isLoaded());
-		boolean isVisible = (!poiService.isLoaded()&(accountService.isLogged()));
-		model.addAttribute("isVisible", isVisible);
+		boolean isPOILoadVisible = (!poiService.isLoaded()&(accountService.isLogged()));
+		model.addAttribute("isVisible", isPOILoadVisible);
 		return "registration";
 	}
 }

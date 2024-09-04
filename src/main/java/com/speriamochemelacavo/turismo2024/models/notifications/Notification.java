@@ -10,9 +10,11 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -29,8 +31,8 @@ public class Notification {
 	private String message;
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private Element object;
-	@ManyToMany(cascade = CascadeType.ALL)
-	private List<User> recipientUser;
+	@ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	private List<User> recipientUser = new ArrayList<User>();
 	private boolean isRead;
 	
 	public Notification() {
@@ -41,7 +43,7 @@ public class Notification {
 		this.title = title;
 		this.message = message;
 		this.object = object;
-		this.recipientUser = new ArrayList<User>();
+		this.recipientUser.add(object.getAuthor());
 		setRead(false);
 	}
 

@@ -16,8 +16,8 @@ public class AccountsService {
 	
 	@Autowired
 	private User loggedUser;
-	private boolean isLogged;
-	private boolean isLoaded;
+	private boolean isLogged = false;
+	private boolean isLoaded = false;;
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -30,7 +30,11 @@ public class AccountsService {
 	public User getLoggedUser() {
 		return this.loggedUser;
 	}
-	
+
+	public void reloadLoggedUser() {
+		this.loggedUser = userRepository.findById(loggedUser.getId()).get();
+	}
+		
 	public boolean isLogged() {
 		return isLogged;
 	}
@@ -102,7 +106,7 @@ public class AccountsService {
         		+ userToString.getPhoneNumber() + "\n"
         		+ userToString.getRole();
     }
-	
+
 //	public static boolean execute(Request request) {
 //		Action action = request.getAction();
 //		if(action==Action.DefineRole) {

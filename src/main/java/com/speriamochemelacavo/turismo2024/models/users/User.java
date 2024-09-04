@@ -12,6 +12,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -59,7 +60,7 @@ public class User {
 	private int CAP;
 	@Enumerated(EnumType.STRING)
 	private Role role;
-	@OneToMany(mappedBy = "recipientUser", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "recipientUser", cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
 	private List<Notification> notifications;
 	@ManyToMany
 	private List<Element> savedElements;
@@ -75,7 +76,7 @@ public class User {
 		this.address = address;
 		this.CAP = CAP;
 		this.role = role;
-		this.notifications = new LinkedList<>();
+		this.notifications = new ArrayList<>();
 		this.savedElements = new ArrayList<>();
 	}
 

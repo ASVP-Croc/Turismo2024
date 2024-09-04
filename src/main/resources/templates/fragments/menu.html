@@ -11,6 +11,9 @@
 		<button th:if = "${isVisible}" th:onclick = "location.href = '/startDbPOIs'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Popola il DB POI</h1>
 		</button>
+		<button th:if = "${isNotifLoadVisible}" th:onclick = "location.href = '/sendNotifications'" class = "bottoniMenu">
+			<h1 class = "scritteBottoniMenu">Manda Notifiche</h1>
+		</button>
 		<button th:onclick = "location.href = '/users'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Lista Utenti</h1>
 		</button>
@@ -29,7 +32,7 @@
 		<button th:if = "${isLogged}" class = "iconaNotifiche">
 			<h1 class = "scritteBottoniMenu" th:text = ${numberOfNotifications}></h1>
 		</button>
-		<div>
+		<!--<div>
 			<ul id="notificatins">
 			  <li><a href="#">Voce 1</a></li>
 			  <li><a href="#">Voce 2</a></li>
@@ -40,8 +43,7 @@
 			    </ul>
 			  </li>
 			</ul>
-		</div>
-		
+		</div>-->
 	</div>
 </body>
 </html>

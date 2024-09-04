@@ -16,6 +16,11 @@ public class NotificationsService {
 	@Autowired
 	private NotificationRepository notificationRepository;
 	
+	@Autowired
+	private AccountsService accountsService;
+	
+	private boolean isloaded = false;
+	
 	public Notification findById(int elemToFindId) {
 		return notificationRepository.findById(elemToFindId).orElseThrow();
 	}
@@ -24,8 +29,13 @@ public class NotificationsService {
 		return notificationRepository.findAll();
 	}
 	
+	public List<Notification> findAllByRecipientId(int id){
+		return notificationRepository.findAllNotificationByRecipientUserId(id);
+	}
+	
 	public void addNotification(Notification notificationToAdd) {
 		notificationRepository.save(notificationToAdd);
+		accountsService.reloadLoggedUser();
 	}
 	
 	public void addNotifications(List<Notification> notificationsToAdd) {
@@ -34,10 +44,12 @@ public class NotificationsService {
 	
 	public void updateNotification(Notification notificationToUpdate) {
 		notificationRepository.save(notificationToUpdate);
+		accountsService.reloadLoggedUser();
 	}
 	
 	public void deleteElement(Notification notificationToDelete) {
 		notificationRepository.delete(notificationToDelete);
+		accountsService.reloadLoggedUser();
 	}
 	
 	public void sendToSingleUser(String title, String message, Element object, User recipientUser) {
@@ -60,5 +72,13 @@ public class NotificationsService {
 	
 	public void deleteNotification(int notificationId) {
 		notificationRepository.deleteById(notificationId);
+	}
+
+	public boolean isLoaded() {
+		return this.isloaded;
+	}
+	
+	public void setLoaded(boolean isLoaded) {
+		isloaded = isLoaded;
 	}
 }
