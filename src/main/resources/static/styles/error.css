@@ -1,0 +1,9 @@
+/* Stile per il div che contiene la scritta error*/
+.errorDiv {
+  	width: 100%;
+}
+
+.scrittaError {
+	text-align: center;
+ 	color: #000000;
+}

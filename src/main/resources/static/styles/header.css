@@ -1,18 +1,17 @@
 /* Stile per il div che si adatta alla lunghezza del body */
-.adattivo {
+.headerAdattivo {
 	display: flex;
 	justify-content: center;
 	flex-wrap:inherit;
 	height: auto;
 	padding: 20px;
 	border-top: 5px solid black;
-  	border-bottom: 5px solid black;
 	border-left: none;
   	border-right: none;
 	border-color: #808080;
 }
 /* Stile per i bottoni */
-.bottoniMenu {
+.bottoneHeader {
 	width: calc(100%/6);
 	height: 100px;
 	background-color: #c0c0c0;
@@ -24,21 +23,15 @@
 	border-radius: 20px;
 	cursor: pointer;
 }
-.bottoniMenu:hover {
+
+.bottoneHeader:hover {
 	background-color: #008000;
 }
 
 
 /* Stile per le scritte nei bottoni */
-.scritteBottoniMenu {
+.scrittaBottoneHeader {
   border: 1px #000;
   color: white;
   text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-}
-.iconaNotifiche{
-	border: none;
-	border-radius: 50%;
-	padding: 10px 20px;
-	font-size: 16px;
-	cursor: pointer;
 }

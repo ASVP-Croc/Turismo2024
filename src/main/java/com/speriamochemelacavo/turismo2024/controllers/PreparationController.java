@@ -43,7 +43,7 @@ public class PreparationController {
 			List<User> initialUsers = new ArrayList<>();
 			initialUsers.add(new User("Matteo", "Pallotti", "Maverick", "maverick@gmail.com", "3929217858", "C.da San Pietro Orgiano, 13", 63900, Role.Administrator));
 			initialUsers.add(new User("Lorenzo", "Crovace", "AVCP", "avcp@gmail.com", "123456789", "Via Pippo 51", 61000, Role.Curator));
-			initialUsers.add(new User("Simone", "Silver", "SimonSilver", "simon@gmail.com", "987654321", "Via Pluto", 61234, Role.AuthenticatedTourist));
+			initialUsers.add(new User("Simone", "Silver", "SilverSimon", "simon@gmail.com", "987654321", "Via Pluto", 61234, Role.AuthenticatedTourist));
 			accountService.addUsers(initialUsers);
 			accountService.setLoaded(true);
 			}
