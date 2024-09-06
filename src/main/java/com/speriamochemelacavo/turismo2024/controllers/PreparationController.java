@@ -17,13 +17,13 @@ import com.speriamochemelacavo.turismo2024.services.AccountsService;
 import com.speriamochemelacavo.turismo2024.services.NominatimService;
 import com.speriamochemelacavo.turismo2024.services.NotificationsService;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
-import com.speriamochemelacavo.turismo2024.services.ResolverService;
+import com.speriamochemelacavo.turismo2024.services.POIResolverService;
 
 @RestController
 public class PreparationController {
 	
 	@Autowired
-	ResolverService resolverService;
+	POIResolverService resolverService;
 	
 	@Autowired
 	NominatimService nominatimService;

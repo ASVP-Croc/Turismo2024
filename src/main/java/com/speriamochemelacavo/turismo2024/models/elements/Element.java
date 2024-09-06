@@ -40,7 +40,7 @@ public abstract class Element {
 	private String description;
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private User author;
- @JsonProperty("postcode")
+	@JsonProperty("postcode")
 	private int CAP;
 	private boolean isPublished;
 	
