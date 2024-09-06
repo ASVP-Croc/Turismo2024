@@ -21,13 +21,13 @@ public class POIResolverService implements ResolverService<PointOfInterest>{
     private ObjectMapper mapper = new ObjectMapper();
 
     public PointOfInterest getPOI(String poi) throws JsonProcessingException {
-        LinkedHashMap<String, String> result = (LinkedHashMap<String, String>) mapper.readValue(poi, LinkedHashMap.class);
+        LinkedHashMap<String, Object> result = mapper.readValue(poi, LinkedHashMap.class);
         return POIResolver(result);
     }
 
     public List<PointOfInterest> getPOIs(String POIs) throws JsonProcessingException {
         List<PointOfInterest> poisToReturn = new ArrayList<>();
-        ArrayList<LinkedHashMap<String, String>> result = (ArrayList<LinkedHashMap<String, String>>) mapper.readValue(POIs, ArrayList.class);
+        ArrayList<LinkedHashMap<String, Object>> result = mapper.readValue(POIs, ArrayList.class);
         result.stream().forEach(l-> {
 			try {
 				poisToReturn.add(POIResolver(l));
@@ -39,21 +39,17 @@ public class POIResolverService implements ResolverService<PointOfInterest>{
         return poisToReturn;
     }
 
-    private PointOfInterest POIResolver(LinkedHashMap<String, String> linkedHashMap) throws JsonMappingException, JsonProcessingException {
+    private PointOfInterest POIResolver(LinkedHashMap<String, Object> linkedHashMap) throws JsonMappingException, JsonProcessingException {
     	PointOfInterest pointOfInterest = new PointOfInterest();
     	pointOfInterest.setName(linkedHashMap.get("name").toString());
     	pointOfInterest.setLatitude(parseFloat(linkedHashMap.get("lat").toString()));
     	pointOfInterest.setLongitude(parseFloat(linkedHashMap.get("lon").toString()));
-    	ArrayList<LinkedHashMap<String, String>> prova = linkedHashMap.get("address");
-    	if (!(linkedHashMap.get("address") instanceof String)) {
-    		
-    	}
     	System.out.println(linkedHashMap.get("address").toString());
-    	pointOfInterest.setAddress(addressResolver((LinkedHashMap<String, LinkedHashMap<String, String>>)linkedHashMap.get("address"));
+    	pointOfInterest.setAddress(addressResolver(mapper.readValue(linkedHashMap.get("address").toString(), LinkedHashMap.class)));
         return pointOfInterest;
     }
 
-    private String addressResolver(LinkedHashMap<String, LinkedHashMap<String, String>> linkedHashMap) {
+    private String addressResolver(LinkedHashMap<String, String> linkedHashMap) {
         String address = "";
         address.concat(linkedHashMap.get("amenity"));
         address.concat(linkedHashMap.get("house_number"));
