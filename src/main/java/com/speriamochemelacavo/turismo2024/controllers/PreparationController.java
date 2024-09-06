@@ -8,16 +8,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.notifications.Notification;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.services.AccountsService;
+import com.speriamochemelacavo.turismo2024.services.NominatimService;
 import com.speriamochemelacavo.turismo2024.services.NotificationsService;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
+import com.speriamochemelacavo.turismo2024.services.ResolverService;
 
 @RestController
 public class PreparationController {
+	
+	@Autowired
+	ResolverService resolverService;
 	
 	@Autowired
 	POIsService poiService;
@@ -42,14 +48,16 @@ public class PreparationController {
 	}
 	
 	@GetMapping("/startDbPOIs")
-	public RedirectView insertInitialPOIRecords(){
+	public RedirectView insertInitialPOIRecords() throws JsonProcessingException{
 		if (!poiService.isLoaded()) {
-			poiService.addElement(new PointOfInterest("passetto", "prova", "Via Passetto"));
-			poiService.addElement(new PointOfInterest("centro città", "provicchia", "È in centro"));
-			poiService.addElement(new PointOfInterest("lungomare", "provetta", "Vicino al mare"));
-			poiService.addElement(new PointOfInterest("autostrada", "provona", "fuori città"));
-			poiService.addElement(new PointOfInterest("museo", "provaccia", "vicino al centro"));
-			poiService.addElement(new PointOfInterest("museo", "provaccia", "vicino al centro"));
+			poiService.addElements(resolverService.getPOIs("passetto,pizzeria,ancona"));
+			poiService.addElements(resolverService.getPOIs("stern,pizzeria,fermo"));
+//			poiService.addElement(new PointOfInterest("passetto", "prova", "Via Passetto"));
+//			poiService.addElement(new PointOfInterest("centro città", "provicchia", "È in centro"));
+//			poiService.addElement(new PointOfInterest("lungomare", "provetta", "Vicino al mare"));
+//			poiService.addElement(new PointOfInterest("autostrada", "provona", "fuori città"));
+//			poiService.addElement(new PointOfInterest("museo", "provaccia", "vicino al centro"));
+//			poiService.addElement(new PointOfInterest("museo", "provaccia", "vicino al centro"));
 			poiService.setLoaded(true);
 			}
 		return new RedirectView("/");

@@ -2,6 +2,7 @@ package com.speriamochemelacavo.turismo2024.models.elements;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 
 import jakarta.persistence.CascadeType;
@@ -34,10 +35,12 @@ public abstract class Element {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@JsonProperty("name")
 	private String name;
 	private String description;
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private User author;
+    @JsonProperty("postcode")
 	private int CAP;
 	private boolean isPublished;
 	

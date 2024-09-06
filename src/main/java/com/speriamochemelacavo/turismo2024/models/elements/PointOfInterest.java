@@ -2,6 +2,9 @@ package com.speriamochemelacavo.turismo2024.models.elements;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
 
 /**
@@ -18,9 +21,11 @@ import jakarta.persistence.Entity;
 @Entity
 public class PointOfInterest extends ElementWithContents{
 
-
+	@JsonProperty("lat")
 	private float latitude;
+	@JsonProperty("lon")
 	private float longitude;
+	@JsonProperty("address")
 	private String address;
 	
 	public PointOfInterest() {
