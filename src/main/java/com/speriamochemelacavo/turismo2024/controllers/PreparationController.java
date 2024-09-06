@@ -26,6 +26,9 @@ public class PreparationController {
 	ResolverService resolverService;
 	
 	@Autowired
+	NominatimService nominatimService;
+	
+	@Autowired
 	POIsService poiService;
 	
 	@Autowired
@@ -50,8 +53,8 @@ public class PreparationController {
 	@GetMapping("/startDbPOIs")
 	public RedirectView insertInitialPOIRecords() throws JsonProcessingException{
 		if (!poiService.isLoaded()) {
-			poiService.addElements(resolverService.getPOIs("passetto,pizzeria,ancona"));
-			poiService.addElements(resolverService.getPOIs("stern,pizzeria,fermo"));
+			poiService.addElements(resolverService.getPOIs(nominatimService.getLocationInfoWithQuery("pizzeria,passetto,ancona")));
+			poiService.addElements(resolverService.getPOIs(nominatimService.getLocationInfoWithQuery("stadio,fermo")));
 //			poiService.addElement(new PointOfInterest("passetto", "prova", "Via Passetto"));
 //			poiService.addElement(new PointOfInterest("centro città", "provicchia", "È in centro"));
 //			poiService.addElement(new PointOfInterest("lungomare", "provetta", "Vicino al mare"));
