@@ -24,9 +24,11 @@ public class ValidationsService<T extends Element> {
 	@Autowired
 	private AccountsService accountService;
 	
+	
 	public void checkValidation(T elementToValidate) {
 		if (elementToValidate.getAuthor().getRole() == Role.AuthorizedContributor 
-				|| elementToValidate.getAuthor().getRole() == Role.Curator) {
+				|| elementToValidate.getAuthor().getRole() == Role.Curator
+				|| elementToValidate.getAuthor().getRole() == Role.Administrator) {
 			elementToValidate.setPublished(true);
 		} else setValidation(elementToValidate);
 	}

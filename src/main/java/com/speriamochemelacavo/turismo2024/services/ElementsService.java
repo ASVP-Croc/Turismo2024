@@ -33,8 +33,8 @@ public abstract class ElementsService<T extends Element>{
 	public void addElement(T element) {
 		element.setAuthor(accountService.findById(accountService.getLoggedUser()));
 		element.setCAP(accountService.findById(accountService.getLoggedUser()).getCAP());
-		repository.save(element);
 		validationService.checkValidation(element);
+		repository.save(element);
 	}
 	
 	public void addElements(List<T> elemsToAdd) {
@@ -42,8 +42,8 @@ public abstract class ElementsService<T extends Element>{
 	}
 	
 	public void updateElement(T element) {
-		repository.save(element);
 		validationService.checkValidation(element);
+		repository.save(element);
 	}
 	
 	public void deleteElement(T element) {

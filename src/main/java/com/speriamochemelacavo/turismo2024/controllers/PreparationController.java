@@ -14,16 +14,17 @@ import com.speriamochemelacavo.turismo2024.models.notifications.Notification;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.services.AccountsService;
+import com.speriamochemelacavo.turismo2024.services.ElementResolver;
 import com.speriamochemelacavo.turismo2024.services.NominatimService;
 import com.speriamochemelacavo.turismo2024.services.NotificationsService;
+import com.speriamochemelacavo.turismo2024.services.POIResolver;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
-import com.speriamochemelacavo.turismo2024.services.POIResolverService;
 
 @RestController
 public class PreparationController {
 	
 	@Autowired
-	POIResolverService resolverService;
+	ElementResolver elementResolver;
 	
 	@Autowired
 	NominatimService nominatimService;
@@ -53,8 +54,8 @@ public class PreparationController {
 	@GetMapping("/startDbPOIs")
 	public RedirectView insertInitialPOIRecords() throws JsonProcessingException{
 		if (!poiService.isLoaded()) {
-			poiService.addElements(resolverService.getPOIs(nominatimService.getLocationInfoWithQuery("pizzeria,passetto,ancona")));
-			poiService.addElements(resolverService.getPOIs(nominatimService.getLocationInfoWithQuery("stadio,fermo")));
+			poiService.addElements(elementResolver.resolveElements(nominatimService.getPOIsInfoWithQuery("pizzeria,passetto,ancona")));
+			poiService.addElements(elementResolver.resolveElements(nominatimService.getPOIsInfoWithQuery("stadio,fermo")));
 //			poiService.addElement(new PointOfInterest("passetto", "prova", "Via Passetto"));
 //			poiService.addElement(new PointOfInterest("centro città", "provicchia", "È in centro"));
 //			poiService.addElement(new PointOfInterest("lungomare", "provetta", "Vicino al mare"));

@@ -17,9 +17,6 @@ public class PageController {
 	
 	@Autowired
 	private POIsService poiService;
-	
-	@Autowired
-	private NotificationsService notificationService;
 
 	@RequestMapping("/")
 	public String welcome(Model model) {

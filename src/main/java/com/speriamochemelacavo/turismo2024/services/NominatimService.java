@@ -6,12 +6,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class NominatimService {
-    private final RestTemplate restTemplate = new RestTemplate();
+	
+    private RestTemplate restTemplate = new RestTemplate();
 
-    public String getLocationInfoWithQuery(String query) {
+    public String getPOIsInfoWithQuery(String query) {
         String url = UriComponentsBuilder.fromHttpUrl("https://nominatim.openstreetmap.org/search")
                 .queryParam("q", query)
-                //.queryParam("limit", 1)
+                .queryParam("limit", 1)
                 .queryParam("addressdetails", 1)
                 .queryParam("format", "json")
                 .toUriString();
@@ -19,7 +20,7 @@ public class NominatimService {
     }
 
 
-    public String getLocationInfo(String amenity) {
+    public String getPOIInfo(String amenity) {
         String url = UriComponentsBuilder.fromHttpUrl("https://nominatim.openstreetmap.org/search")
                 .queryParam("amenity", amenity)
                 .queryParam("street", "Passetto")
@@ -28,7 +29,6 @@ public class NominatimService {
                 .queryParam("state", "Marche")
                 .queryParam("country", "Italia")
                 .queryParam("postcode", 60100)
-                //.queryParam("limit", 1)
                 .queryParam("addressdetails", 1)
                 .queryParam("format", "json")
                 .toUriString();
