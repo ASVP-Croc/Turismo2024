@@ -1,6 +1,7 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
@@ -27,8 +28,8 @@ public class Contest extends ElementWithContents {
 		super();
 	}
 
-	public Contest(String name, String description) {
-		super(name, description);
+	public Contest(String name, String description, List<Tag> tags) {
+		super(name, description, tags);
 	}
 
 	public Date getStarts() {

@@ -33,7 +33,7 @@ public class Notification {
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private Element object;
 	@ManyToMany(cascade = CascadeType.ALL)
-	private List<User> recipientUser = new ArrayList<User>();
+	private List<User> recipientUsers = new ArrayList<User>();
 	private boolean isRead;
 	
 	public Notification() {
@@ -45,7 +45,7 @@ public class Notification {
 		this.message = message;
 		this.author = author;
 		this.object = object;
-		this.recipientUser.add(object.getAuthor());
+		this.recipientUsers.add(object.getAuthor());
 		setRead(false);
 	}
 	
@@ -54,16 +54,16 @@ public class Notification {
 		this.message = message;
 		this.author = author;
 		this.object = object;
-		this.recipientUser.add(RecipientUser);
+		this.recipientUsers.add(RecipientUser);
 		setRead(false);
 	}
 	
-	public Notification(String title, String message, User author, Element object, List<User> RecipientsUser) {
+	public Notification(String title, String message, User author, Element object, List<User> RecipientUsers) {
 		this.title = title;
 		this.message = message;
 		this.author = author;
 		this.object = object;
-		this.recipientUser.addAll(RecipientsUser);
+		this.recipientUsers.addAll(RecipientUsers);
 		setRead(false);
 	}
 
@@ -99,8 +99,8 @@ public class Notification {
 		this.object = object;
 	}
 
-	public List<User> getRecipientUser() {
-		return recipientUser;
+	public List<User> getRecipientUsers() {
+		return recipientUsers;
 	}
 
 	public boolean isRead() {

@@ -30,8 +30,8 @@ public class Tour extends ElementWithContents{
 		super();
 	}
 
-	public Tour(String name, String description) {
-		super(name, description);
+	public Tour(String name, String description, List<Tag> tags) {
+		super(name, description, tags);
 	}
 
 	public List<PointOfInterest> getMyPOIs() {

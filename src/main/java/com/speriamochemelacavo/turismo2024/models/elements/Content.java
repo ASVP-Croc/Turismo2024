@@ -1,5 +1,7 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import jakarta.persistence.CascadeType;
@@ -27,8 +29,8 @@ public class Content extends Element{
 		super();
 	}
 
-	public Content(String name, String description, Element referenced, String pathToResource) {
-		super(name, description);
+	public Content(String name, String description, Element referenced, String pathToResource, List<Tag> tags) {
+		super(name, description, tags);
 		this.referenced = referenced;
 		this.pathToResource = pathToResource;
 	}

@@ -11,5 +11,5 @@ import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 public abstract class ElementsWithContentsService<T extends ElementWithContents> extends ElementsService<T>{
 	
 	@Autowired
-	ContentsService<PointOfInterest> contentService;
+	private ContentsService<PointOfInterest> contentService;
 }

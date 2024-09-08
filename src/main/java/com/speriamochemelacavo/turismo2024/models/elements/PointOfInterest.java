@@ -1,5 +1,7 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -32,8 +34,8 @@ public class PointOfInterest extends ElementWithContents{
 		super();
 	}
 
-	public PointOfInterest(String name, String description, String address) {
-		super(name, description);
+	public PointOfInterest(String name, String description, String address, List<Tag> tags) {
+		super(name, description, tags);
 		this.address = address;
 	}
 	

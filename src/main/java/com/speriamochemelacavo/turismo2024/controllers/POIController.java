@@ -13,26 +13,19 @@ import com.speriamochemelacavo.turismo2024.services.AccountsService;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
 import com.speriamochemelacavo.turismo2024.services.ValidationsService;
 
-@RestController("/poi")
+@RestController
 public class POIController {
 	
 	@Autowired
 	private POIsService poiService;
 		
-	@GetMapping("/all")
+	@GetMapping("/poi/all")
 	public RedirectView getPOIs() {
 		return new RedirectView("/pois");
 	}
 
-	@GetMapping("/{id}")
+	@PostMapping("poi/{id}")
 	public PointOfInterest getPOIById(@PathVariable int id) {
 		return poiService.findById(id);
-	}
-
-	@PostMapping("")
-	public void addPOI(@RequestBody PointOfInterest newPOI) {
-		poiService.addElement(newPOI);
-	}
-
-	
+	}	
 }

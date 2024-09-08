@@ -20,8 +20,8 @@ public class ElementWithContents extends Element {
 		super();
 	}
 	
-	public ElementWithContents(String name, String description) {
-		super(name, description);
+	public ElementWithContents(String name, String description, List<Tag> tags) {
+		super(name, description, tags);
 		this.myContents = new ArrayList<Content>();
 	}
 	

@@ -1,5 +1,8 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +13,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -27,9 +33,10 @@ import jakarta.persistence.Table;
  * 
  */
 
-@Entity
-@Table(name = "Elements")
 @Component
+@Entity
+@Table(name = "Elements", indexes = {
+	    @Index(name = "idx_name", columnList = "name", unique = true)})
 public abstract class Element {
 	
 	@Id
@@ -38,6 +45,8 @@ public abstract class Element {
 	@JsonProperty("name")
 	private String name;
 	private String description;
+	@ManyToMany(mappedBy = "")
+	private List<Tag> tags;
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private User author;
 	@JsonProperty("postcode")
@@ -48,9 +57,10 @@ public abstract class Element {
 		
 	}
 	
-	public Element(String name, String description) {
+	public Element(String name, String description, List<Tag> tags) {
 		this.name = name;
 		this.description = description;
+		this.tags = tags;
 		this.isPublished = false;	
 	}
 
@@ -76,6 +86,18 @@ public abstract class Element {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<Tag> getTags() {
+		return tags;
+	}
+
+	public void addTag(Tag tag) {
+		this.tags.add(tag);
+	}
+	
+	public void addTags(List<Tag> tags) {
+		this.tags.addAll(tags);
 	}
 
 	public User getAuthor() {

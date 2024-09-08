@@ -9,6 +9,6 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 
 public interface NotificationRepository extends JpaRepository<Notification, Integer>{
 	
-	List<Notification> findAllNotificationByRecipientUserId(int id);
+	List<Notification> findAllNotificationByRecipientUsersId(int id);
 	
 }

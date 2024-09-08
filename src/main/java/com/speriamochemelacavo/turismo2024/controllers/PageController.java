@@ -46,6 +46,12 @@ public class PageController {
 		return "users-list";
 	}
 	
+	@RequestMapping("/elements")
+	public String getElements(Model model) {
+		setConditionModelVisibility(model);
+		return "elements-list";
+	}
+	
 	@RequestMapping("/all/elements")
 	public String getAll(Model model) {
 		model.addAttribute("listElements", elementsService.findAll());
@@ -71,11 +77,8 @@ public class PageController {
 				!accountService.isLogged() ? "Turista" : accountService.findById(accountService.getLoggedUser()).getName());
 		model.addAttribute("isLogged", accountService.isLogged());
 		model.addAttribute("isLoadedUsers", accountService.isLoaded());
-		model.addAttribute("isLoadedPois", elementsService.isLoaded());
-		boolean isPOILoadVisible = (!elementsService.isLoaded()&(accountService.isLogged()));
-		model.addAttribute("isLoadedPOIs", isPOILoadVisible);
-		boolean isNotifLoadVisible = (elementsService.isLoaded()&accountService.isLoaded());
-		model.addAttribute("isNotifLoadVisible", isNotifLoadVisible);
+		boolean isPOIButtonVisible = (accountService.isLogged() & !elementsService.isLoaded());
+		model.addAttribute("isPOIButtonVisible", isPOIButtonVisible);
 		model.addAttribute("numberOfNotifications", !accountService.isLogged() ? 54 : accountService.findById(accountService.getLoggedUser()).getNotifications().size());
 	}
 }
