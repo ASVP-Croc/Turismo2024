@@ -56,26 +56,7 @@ public class PreparationController {
 		if (!poiService.isLoaded()) {
 			poiService.addElements(elementResolver.resolveElements(nominatimService.getPOIsInfoWithQuery("pizzeria,passetto,ancona")));
 			poiService.addElements(elementResolver.resolveElements(nominatimService.getPOIsInfoWithQuery("stadio,fermo")));
-//			poiService.addElement(new PointOfInterest("passetto", "prova", "Via Passetto"));
-//			poiService.addElement(new PointOfInterest("centro città", "provicchia", "È in centro"));
-//			poiService.addElement(new PointOfInterest("lungomare", "provetta", "Vicino al mare"));
-//			poiService.addElement(new PointOfInterest("autostrada", "provona", "fuori città"));
-//			poiService.addElement(new PointOfInterest("museo", "provaccia", "vicino al centro"));
-//			poiService.addElement(new PointOfInterest("museo", "provaccia", "vicino al centro"));
 			poiService.setLoaded(true);
-			}
-		return new RedirectView("/");
-	}
-	
-	@GetMapping("/sendNotifications")
-	public RedirectView sendNotifications(){
-		if (!notificationService.isLoaded()&poiService.isLoaded()) {
-			notificationService.addNotification(new Notification("Primo Elemento: ", "proviamo il primo elemento", accountService.findById(accountService.getLoggedUser()), poiService.findById(1)));
-			notificationService.addNotification(new Notification("Secondo Elemento: ", "proviamo il secondo elemento", accountService.findById(accountService.getLoggedUser()), poiService.findById(2)));
-			notificationService.addNotification(new Notification("Terzo Elemento: ", "proviamo il terzo elemento", accountService.findById(accountService.getLoggedUser()), poiService.findById(3)));
-			notificationService.addNotification(new Notification("Quarto Elemento: ", "proviamo il quarto elemento", accountService.findById(accountService.getLoggedUser()), poiService.findById(4)));
-			notificationService.addNotification(new Notification("Quinto Elemento: ", "proviamo il quinto elemento", accountService.findById(accountService.getLoggedUser()), poiService.findById(5)));
-			notificationService.setLoaded(true);
 			}
 		return new RedirectView("/");
 	}

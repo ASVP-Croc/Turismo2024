@@ -5,9 +5,12 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link th:href="@{/styles/header.css}" rel="stylesheet" />
 	<link th:href="@{/styles/menu.css}" rel="stylesheet" />
+	<link th:href="@{/styles/list.css}" rel="stylesheet" />
+	<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/favicon.ico">
 </head>
 <body>
 	<div th:replace="~{fragments/header :: header}"></div>
 	<div th:replace="~{fragments/menu :: menu}"></div>
+	<div th:replace="~{fragments/body :: notLogged}"></div>
 </body>
 </html>

@@ -2,7 +2,7 @@
 .container {
 	display: flex;
 	justify-content: center;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	padding: 10px;
 }
 /* Stile per i div delle cards */

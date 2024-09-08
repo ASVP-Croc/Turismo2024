@@ -19,8 +19,6 @@ public class NotificationsService {
 	@Autowired
 	private AccountsService accountsService;
 	
-	private boolean isloaded = false;
-	
 	public Notification findById(int elemToFindId) {
 		return notificationRepository.findById(elemToFindId).orElseThrow();
 	}
@@ -45,36 +43,24 @@ public class NotificationsService {
 		notificationRepository.save(notificationToUpdate);
 	}
 	
-	public void deleteElement(Notification notificationToDelete) {
-		notificationRepository.delete(notificationToDelete);
-	}
-	
 	public void sendToSingleUser(String title, String message, Element object, User recipientUser) {
-		Notification toSend = new Notification(title, message, recipientUser, object);
-		notificationRepository.save(toSend);
+		Notification toSend = new Notification(title, message, accountsService.findById(accountsService.getLoggedUser()), object, recipientUser);
+		addNotification(toSend);
 	}
 	
-	public void sendToMultipleUsers(String title, String message, Element object, List<User> recipientUser) {
-		Notification toSend = new Notification(title, message, accountsService.findById(accountsService.getLoggedUser()), object);
-		toSend.getRecipientUser().addAll(recipientUser);
-		notificationRepository.save(toSend);
+	public void sendToMultipleUsers(String title, String message, Element object, List<User> recipientsUser) {
+		Notification toSend = new Notification(title, message, accountsService.findById(accountsService.getLoggedUser()), object, recipientsUser);
+		addNotification(toSend);
 	}
 	
 	public Notification readNotification(int notificationId) {
 		Notification toRead = notificationRepository.findById(notificationId).orElseThrow();
 		toRead.setRead(true);
+		updateNotification(toRead);
 		return toRead;
 	}
 	
 	public void deleteNotification(int notificationId) {
 		notificationRepository.deleteById(notificationId);
-	}
-
-	public boolean isLoaded() {
-		return this.isloaded;
-	}
-	
-	public void setLoaded(boolean isLoaded) {
-		isloaded = isLoaded;
 	}
 }

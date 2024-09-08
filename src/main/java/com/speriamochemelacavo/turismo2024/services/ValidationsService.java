@@ -25,15 +25,19 @@ public class ValidationsService<T extends Element> {
 	private AccountsService accountService;
 	
 	
-	public void checkValidation(T elementToValidate) {
+	public boolean sendValidation(T elementToValidate) {
 		if (elementToValidate.getAuthor().getRole() == Role.AuthorizedContributor 
 				|| elementToValidate.getAuthor().getRole() == Role.Curator
 				|| elementToValidate.getAuthor().getRole() == Role.Administrator) {
 			elementToValidate.setPublished(true);
-		} else setValidation(elementToValidate);
+			return true;
+		} else {
+			setValidation(elementToValidate);
+			return false;
+			}
 	}
 	
-	public void setValidation(T elementToValidate) {
+	private void setValidation(T elementToValidate) {
 		List<User> recipients = new ArrayList<User>();
 		if (elementToValidate instanceof Content
 				&& !(((Content)elementToValidate).getReferenced() instanceof Contest)) {

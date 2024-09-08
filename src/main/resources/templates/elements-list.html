@@ -12,15 +12,13 @@
 	<div th:replace="~{fragments/header :: header}"></div>
 	<div th:replace="~{fragments/menu :: menu}"></div>
     <div class = "container">
-		<form class = "cardLogin" action="/login/send" method="post">
-			<h1 class = "scritteCard">LOGIN</h1>
-			<br/>
-			<input class = "input" type="text" name="userName" placeholder="USERNAME">
-			<br/>
-			<button type="submit" class = "bottoniForm">
-				<p class = "scritteBottoniForm">Invia</p>
-			</button>
-		</form>
+    	<button class = "card" th:each = "element : ${listElements}">
+    		<h1 class = "scritteCard" th:text = "${'Titolo: '} + ${element.name}">Titolo</h1>
+    		<h1 class = "scritteCard" th:text = "${'Descrizione: '} + ${element.description}">Descrizione</h1>
+    		<h1 class = "scritteCard" th:text = "${'Autore: '} + ${element.author.userName}">Autore</h1>
+    		<h1 class = "scritteCard" th:text = "${'CAP: '} + ${element.CAP}">CAP</h1>
+    		<h1 class = "scritteCard" th:if = {$hasAddress} th:text = "${'Indirizzo: '} + ${element.address}">Indirizzo</h1>
+    	</button>
 	</div>		
 </body>
 </html>

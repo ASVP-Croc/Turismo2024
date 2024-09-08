@@ -8,11 +8,8 @@
 		<button th:unless = "${isLoadedUsers}" th:onclick = "location.href = '/startDbUsers'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Popola il DB Utenti</h1>
 		</button>
-		<button th:if = "${isVisible}" th:onclick = "location.href = '/startDbPOIs'" class = "bottoniMenu">
+		<button th:if = "${isLoadedPOIs}" th:onclick = "location.href = '/startDbPOIs'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Popola il DB POI</h1>
-		</button>
-		<button th:if = "${isNotifLoadVisible}" th:onclick = "location.href = '/sendNotifications'" class = "bottoniMenu">
-			<h1 class = "scritteBottoniMenu">Manda Notifiche</h1>
 		</button>
 		<button th:onclick = "location.href = '/users'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Lista Utenti</h1>

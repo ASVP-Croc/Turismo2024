@@ -20,6 +20,16 @@ public abstract class ElementsService<T extends Element>{
 	
 	@Autowired
 	private ValidationsService<T> validationService;
+	
+	private boolean isLoaded;
+	
+	public boolean isLoaded() {
+		return isLoaded;
+	}
+
+	public void setLoaded(boolean isLoaded) {
+		this.isLoaded = isLoaded;
+	}
 
 	
 	public T findById(int elemToFindId) {
@@ -33,8 +43,10 @@ public abstract class ElementsService<T extends Element>{
 	public void addElement(T element) {
 		element.setAuthor(accountService.findById(accountService.getLoggedUser()));
 		element.setCAP(accountService.findById(accountService.getLoggedUser()).getCAP());
-		validationService.checkValidation(element);
 		repository.save(element);
+		if (validationService.sendValidation(element)) {
+			repository.save(element);			
+		}
 	}
 	
 	public void addElements(List<T> elemsToAdd) {
@@ -42,7 +54,7 @@ public abstract class ElementsService<T extends Element>{
 	}
 	
 	public void updateElement(T element) {
-		validationService.checkValidation(element);
+		validationService.sendValidation(element);
 		repository.save(element);
 	}
 	

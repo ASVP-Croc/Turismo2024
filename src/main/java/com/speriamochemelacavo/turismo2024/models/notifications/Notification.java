@@ -48,6 +48,24 @@ public class Notification {
 		this.recipientUser.add(object.getAuthor());
 		setRead(false);
 	}
+	
+	public Notification(String title, String message, User author, Element object, User RecipientUser) {
+		this.title = title;
+		this.message = message;
+		this.author = author;
+		this.object = object;
+		this.recipientUser.add(RecipientUser);
+		setRead(false);
+	}
+	
+	public Notification(String title, String message, User author, Element object, List<User> RecipientsUser) {
+		this.title = title;
+		this.message = message;
+		this.author = author;
+		this.object = object;
+		this.recipientUser.addAll(RecipientsUser);
+		setRead(false);
+	}
 
 	public int getId() {
 		return id;
