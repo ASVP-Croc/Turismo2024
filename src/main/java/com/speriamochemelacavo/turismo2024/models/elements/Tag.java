@@ -12,26 +12,26 @@ import jakarta.persistence.Table;
 @Component
 @Entity
 @Table(name = "Tags", indexes = {
-	    @Index(name = "idx_value", columnList = "value", unique = true)})
+	    @Index(name = "idx_tag", columnList = "tag", unique = true)})
 public class Tag {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String value;
+	private String tag;
 	
 	public Tag() {
 	}
 	
 	public Tag(String value) {
-		this.value = value;
+		this.tag = value;
 	}
 	
-	public String getValue() {
-		return value;
+	public String getTag() {
+		return tag;
 	}
 	
-	public void setValue(String value) {
-		this.value = value;
+	public void setTag(String value) {
+		this.tag = value;
 	}
 }

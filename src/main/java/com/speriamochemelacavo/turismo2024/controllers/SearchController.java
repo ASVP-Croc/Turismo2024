@@ -15,16 +15,20 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
+import com.speriamochemelacavo.turismo2024.services.TagsService;
 
 @RestController
-public class SearchController {
+public class SearchController<T extends Element> {
 	
 	@Autowired
 	private ElementsService<Element> elementService;
+	
+	@Autowired
+	private TagsService tagService;
 
 	@PostMapping("/search/site")
-	public RedirectView searchElementsSite(Model model, @RequestParam Tag tag){
-		List<Tag> toFind = new ArrayList<Tag>();
+	public RedirectView searchElementsSite(Model model, @RequestParam String tag){
+		List<String> toFind = new ArrayList<String>();
 		toFind.add(tag);
 		model.addAttribute("listElements", elementService.findByTags(toFind));
 		return new RedirectView("/elements");

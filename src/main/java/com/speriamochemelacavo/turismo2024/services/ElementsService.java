@@ -17,6 +17,9 @@ public abstract class ElementsService<T extends Element>{
 	private ElementRepository<T> repository;
 	
 	@Autowired
+	private TagsService tagService;
+	
+	@Autowired
 	private AccountsService accountService;
 	
 	@Autowired
@@ -36,8 +39,8 @@ public abstract class ElementsService<T extends Element>{
 		return repository.findById(elemToFindId).orElseThrow();
 	}
 	
-	public List<T> findByTags(List<Tag> tagsToFindId) {
-		return repository.findAllElementsByTagsValue(tagsToFindId);
+	public List<T> findByTags(List<String> tagToFindId) {
+		return repository.findElementsByTagsTag(tagToFindId);
 	}
 	
 	public List<T> findAll(){
@@ -48,6 +51,7 @@ public abstract class ElementsService<T extends Element>{
 		element.setAuthor(accountService.findById(accountService.getLoggedUser()));
 		element.setCAP(accountService.findById(accountService.getLoggedUser()).getCAP());
 		element.addTags(tags);
+		element.getTags().forEach(t -> tagService.addTag(t));
 		repository.save(element);
 		if (validationService.sendValidation(element)) {
 			repository.save(element);			

@@ -12,7 +12,7 @@ import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 @Repository
 public interface ElementRepository<T extends Element> extends JpaRepository<T, Integer>{
 	
-	List<T> findAllElementsByTagsValue(List<Tag> tags);
+	List<T> findElementsByTagsId(List<Integer> tagId);
 }
 
 
