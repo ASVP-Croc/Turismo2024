@@ -49,10 +49,10 @@ public abstract class ElementsService<T extends Element>{
 	public void addElement(T element, List<Tag> tags) {
 		element.setAuthor(accountService.findById(accountService.getLoggedUser()));
 		element.setCAP(accountService.findById(accountService.getLoggedUser()).getCAP());
-		element.addTags(tags);
-		element.getTags().forEach(t -> tagService.addTag(t));
+		tags.forEach(t -> tagService.addTag(t));
+		element.setTags(tags);
 		repository.save(element);
-		if (validationService.sendValidation(element)) {
+		if (validationService.requestValidation(element)) {
 			repository.save(element);			
 		}
 	}
@@ -62,7 +62,7 @@ public abstract class ElementsService<T extends Element>{
 	}
 	
 	public void updateElement(T element) {
-		validationService.sendValidation(element);
+		validationService.requestValidation(element);
 		repository.save(element);
 	}
 	

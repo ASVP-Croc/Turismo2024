@@ -74,8 +74,8 @@ public class User {
 		this.address = address;
 		this.CAP = CAP;
 		this.role = role;
-		this.notifications = new ArrayList<>();
-		this.savedElements = new ArrayList<>();
+		this.notifications = new ArrayList<Notification>();
+		this.savedElements = new ArrayList<Element>();
 	}
 
 	public int getId() {

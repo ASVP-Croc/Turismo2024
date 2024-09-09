@@ -23,7 +23,7 @@ public class ValidationsService<T extends Element> {
 	private AccountsService accountService;
 	
 	
-	public boolean sendValidation(T elementToValidate) {
+	public boolean requestValidation(T elementToValidate) {
 		if (elementToValidate.getAuthor().getRole() == Role.AuthorizedContributor 
 				|| elementToValidate.getAuthor().getRole() == Role.Curator
 				|| elementToValidate.getAuthor().getRole() == Role.Administrator) {

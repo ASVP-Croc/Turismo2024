@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.services;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;

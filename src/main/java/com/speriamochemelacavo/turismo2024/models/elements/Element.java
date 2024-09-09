@@ -35,7 +35,7 @@ import jakarta.persistence.Table;
 
 @Component
 @Entity
-@Table(name = "Elements", indexes = {
+@Table(name = "elements", indexes = {
 	    @Index(name = "idx_name", columnList = "name", unique = true)})
 public abstract class Element {
 	
@@ -45,8 +45,8 @@ public abstract class Element {
 	@JsonProperty("name")
 	private String name;
 	private String description;
-	@OneToMany(mappedBy = "tag", cascade = CascadeType.MERGE)
-	private List<Tag> tags  = new ArrayList<Tag>();
+	@ManyToMany(mappedBy = "elementsTagged", cascade = CascadeType.ALL)
+	private List<Tag> tags;
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private User author;
 	@JsonProperty("postcode")

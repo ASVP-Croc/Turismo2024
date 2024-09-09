@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ import jakarta.persistence.Table;
 
 @Component
 @Entity
-@Table(name = "Tags", indexes = {
+@Table(name = "tags", indexes = {
 	    @Index(name = "idx_tag", columnList = "tag", unique = true)})
 public class Tag {
 	
@@ -24,7 +25,7 @@ public class Tag {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String tag;
-	@OneToMany(cascade = CascadeType.MERGE)
+	@ManyToMany
 	private List<Element> elementsTagged;
 	
 	public int getId() {
