@@ -38,16 +38,16 @@ public class ValidationsService<T extends Element> {
 	private void setValidation(T elementToValidate) {
 		List<User> recipients = new ArrayList<User>();
 		if (elementToValidate instanceof Content
-				&& !(((Content)elementToValidate).getReferenced() instanceof Contest)) {
-			recipients.addAll(accountService.findByRole(Role.Curator));
-		} else {
+				&& (((Content)elementToValidate).getReferenced() instanceof Contest)) {
 			recipients.addAll(accountService.findByRole(Role.Animator));
+		} else {
+			recipients.addAll(accountService.findByRole(Role.Curator));
 		}
 		sendValidation("Hai un nuovo Elemento da validare!", elementToValidate, recipients);
 	}
 	
 	public void sendValidation(String message, T elementToValidate, List<User> recipients) {
-		notificationService.sendToMultipleUsers("Validazione: " + elementToValidate.getName(), message, elementToValidate, accountService.findByRole(Role.Curator));
+		notificationService.sendToMultipleUsers("Validazione: " + elementToValidate.getName(), message, elementToValidate, recipients);
 		notificationService.sendToSingleUser("Pubblicazione richiesta per: " + elementToValidate.getName(), "", elementToValidate, elementToValidate.getAuthor());
 	}
 	

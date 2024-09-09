@@ -8,12 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.services.AccountsService;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
+import com.speriamochemelacavo.turismo2024.services.NotificationsService;
 
 @Controller
 public class PageController {
 	
 	@Autowired
 	private AccountsService accountService;
+	
+	@Autowired
+	private NotificationsService notificationService;
 	
 	@Autowired
 	private ElementsService<Element> elementsService;
@@ -77,6 +81,6 @@ public class PageController {
 		model.addAttribute("isLoadedUsers", accountService.isLoaded());
 		boolean isPOIButtonVisible = (accountService.isLogged() & !elementsService.isLoaded());
 		model.addAttribute("isPOIButtonVisible", isPOIButtonVisible);
-		model.addAttribute("numberOfNotifications", !accountService.isLogged() ? 54 : accountService.findById(accountService.getLoggedUser()).getNotifications().size());
+		model.addAttribute("numberOfNotifications", notificationService.findAllByRecipientId(accountService.getLoggedUser()).size());
 	}
 }

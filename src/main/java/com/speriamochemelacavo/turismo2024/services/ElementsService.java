@@ -38,8 +38,9 @@ public abstract class ElementsService<T extends Element>{
 		return repository.findById(elemToFindId).orElseThrow();
 	}
 	
-	public List<T> findByTag(String tagToFind) {
-		return repository.findAllElementByTagsTag(tagToFind);
+	public List<T> findByTag(String tagToFindString) {
+		Tag tagToFind = new Tag(tagToFindString);
+		return repository.findAllElementByTags(tagToFind);
 	}
 	
 	public List<T> findAll(){

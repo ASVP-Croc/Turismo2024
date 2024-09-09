@@ -35,8 +35,8 @@ public class Tag {
 	public Tag() {
 	}
 	
-	public Tag(String value) {
-		this.tag = value;
+	public Tag(String tag) {
+		this.tag = tag;
 	}
 	
 	public String getTag() {

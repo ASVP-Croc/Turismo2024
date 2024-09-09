@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +22,8 @@ import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import com.speriamochemelacavo.turismo2024.services.TagsService;
 
-@Controller
+@RestController
+@RequestMapping
 public class SearchController {
 	
 	@Autowired
@@ -30,13 +32,13 @@ public class SearchController {
 	@Autowired
 	private TagsService tagService;
 
-	@RequestMapping("/search/site?tag={tag}")
-	public String searchElementsSite(Model model, @RequestParam("tag") String tag){
+	@GetMapping("/search/site")
+	public RedirectView searchElementsSite(Model model, String tag){
 		List<Element> toReturn = new ArrayList<Element>();
 		String tagClean = tag.replaceAll("\\s*,\\s*", ",");
 		List<String> tagsList = Arrays.stream(tagClean.split(",")).filter(t -> !t.isEmpty()).collect(Collectors.toList());
 		tagsList.stream().forEach(t -> toReturn.addAll(elementService.findByTag(tag)));
 		model.addAttribute("listElements", toReturn);
-		return "elements-list";
+		return new RedirectView("/elements");
 	}
 }
