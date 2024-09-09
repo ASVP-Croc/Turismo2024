@@ -29,7 +29,7 @@ public class Content extends Element{
 		super();
 	}
 
-	public Content(String name, String description, Element referenced, String pathToResource, List<Tag> tags) {
+	public Content(String name, String description, Element referenced, String pathToResource, List<Integer> tags) {
 		super(name, description, tags);
 		this.referenced = referenced;
 		this.pathToResource = pathToResource;

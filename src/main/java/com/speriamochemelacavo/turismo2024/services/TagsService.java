@@ -15,4 +15,12 @@ public class TagsService {
 	public void addTag(Tag tag) {
 		tagRepository.save(tag);
 	}
+	
+	public Tag findById(int id) {
+		return tagRepository.findById(id).orElseThrow();
+	}
+	
+	public Tag findByTag(String tag) {
+		return tagRepository.findByTag(tag);
+	}
 }

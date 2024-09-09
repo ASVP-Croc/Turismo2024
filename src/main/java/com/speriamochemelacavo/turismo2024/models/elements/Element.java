@@ -34,8 +34,7 @@ import jakarta.persistence.Table;
 @Component
 @Entity
 @Table(name = "Elements", indexes = {
-	    @Index(name = "idx_name", columnList = "name", unique = true),
-	    @Index(name = "idx_tags", columnList = "tags", unique = false)})
+	    @Index(name = "idx_name", columnList = "name", unique = true)})
 public abstract class Element {
 	
 	@Id
@@ -44,8 +43,8 @@ public abstract class Element {
 	@JsonProperty("name")
 	private String name;
 	private String description;
-	@ManyToMany
-	private List<Tag> tags;
+	@OneToMany(mappedBy = "id")
+	private List<Integer> tagsId;
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private User author;
 	@JsonProperty("postcode")
@@ -56,10 +55,10 @@ public abstract class Element {
 		
 	}
 	
-	public Element(String name, String description, List<Tag> tags) {
+	public Element(String name, String description, List<Integer> tags) {
 		this.name = name;
 		this.description = description;
-		this.tags = tags;
+		this.tagsId = tags;
 		this.isPublished = false;	
 	}
 
@@ -87,20 +86,20 @@ public abstract class Element {
 		this.description = description;
 	}
 
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
+	public void setTags(List<Integer> tagsId) {
+		this.tagsId = tagsId;
 	}
 	
-	public List<Tag> getTags() {
-		return tags;
+	public List<Integer> getTags() {
+		return tagsId;
 	}
 
-	public void addTag(Tag tag) {
-		this.tags.add(tag);
+	public void addTag(int tagId) {
+		this.tagsId.add(tagId);
 	}
 	
-	public void addTags(List<Tag> tags) {
-		this.tags.addAll(tags);
+	public void addTags(List<Integer> tagsId) {
+		this.tagsId.addAll(tagsId);
 	}
 
 	public User getAuthor() {

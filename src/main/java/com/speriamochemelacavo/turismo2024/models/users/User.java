@@ -59,7 +59,7 @@ public class User {
 	private Role role;
 	@ManyToMany(mappedBy = "recipientUsers", cascade = CascadeType.ALL)
 	private List<Notification> notifications;
-	@ManyToMany
+	@OneToMany
 	private List<Element> savedElements;
 
 	public User() {}

@@ -54,16 +54,16 @@ public class PreparationController {
 	public RedirectView insertInitialPOIRecords() throws JsonProcessingException{
 		if (!poiService.isLoaded()) {
 			poiResolver.resolveElements(nominatimService.getPOIsInfoWithQuery("pizzeria,passetto,ancona")).forEach(p -> {
-				p.setTags(new ArrayList<Tag>());
-				p.getTags().add(new Tag(p.getName()));
-				p.getTags().add(new Tag("passetto"));
-				p.getTags().add(new Tag("pizzeria"));
+				List<Tag> toAdd = new ArrayList<Tag>();
+				toAdd.add(new Tag(p.getName()));
+				toAdd.add(new Tag("passetto"));
+				toAdd.add(new Tag("pizzeria"));
 				poiService.addElement(p, new ArrayList<Tag>());
 				});
 			poiResolver.resolveElements(nominatimService.getPOIsInfoWithQuery("stadio,fermo")).forEach(p -> {
-				p.setTags(new ArrayList<Tag>());
-				p.getTags().add(new Tag(p.getName()));
-				p.getTags().add(new Tag("stadio"));
+				List<Tag> toAdd = new ArrayList<Tag>();
+				toAdd.add(new Tag(p.getName()));
+				toAdd.add(new Tag("stadio"));
 				poiService.addElement(p, new ArrayList<Tag>());
 				});
 			poiService.setLoaded(true);

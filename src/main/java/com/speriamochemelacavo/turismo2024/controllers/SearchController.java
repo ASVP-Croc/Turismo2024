@@ -24,10 +24,11 @@ public class SearchController<T extends Element> {
 	private TagsService tagService;
 
 	@PostMapping("/search/site")
-	public RedirectView searchElementsSite(Model model, @RequestParam String tag){
-		List<String> toFind = new ArrayList<String>();
-		toFind.add(tag);
-		model.addAttribute("listElements", elementService.findByTags(toFind));
+	public RedirectView searchElementsSite(Model model, @RequestParam List<String> tag){
+		List<String> toFind = tag;
+		List<Element> toReturn = new ArrayList<Element>();
+		toFind.stream().forEach(t -> toReturn.addAll(elementService.findByTagId(tagService.findByTag(t).getId())));
+		model.addAttribute("listElements", toReturn);
 		return new RedirectView("/elements");
 	}
 }
