@@ -1,7 +1,6 @@
 package com.speriamochemelacavo.turismo2024.models.users;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
@@ -18,7 +17,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**

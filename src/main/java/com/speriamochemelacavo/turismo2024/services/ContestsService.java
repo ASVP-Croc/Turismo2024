@@ -1,8 +1,5 @@
 package com.speriamochemelacavo.turismo2024.services;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Content;
@@ -11,7 +8,22 @@ import com.speriamochemelacavo.turismo2024.models.elements.Contest;
 @Service
 public class ContestsService extends ElementsWithContentsService<Contest>  {
 	
-//	private final static Map<Integer, Contest> contests = new HashMap<>();
+	public void addContest(Contest contest) {
+		addElement(contest);
+	}
+	
+	public void deleteContest(Contest contest) {
+		deleteElement(contest);
+	}
+	
+	public void addContentToContest(Content content, Contest contest) {
+		contentService.addContent(content, contest);
+	}
+	
+	public void deleteContentToContest(Content content) {
+		contentService.deleteElement(content);
+	}
+	
 //	
 //	public static Contest getContest(Integer id) {
 //		return contests.get(id);

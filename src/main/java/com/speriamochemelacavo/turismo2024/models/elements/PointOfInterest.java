@@ -47,13 +47,12 @@ public class PointOfInterest extends ElementWithContents{
 		this.longitude=longitude;
 	}
 	
-	public void setLatitude(float latitude) {
-		this.latitude=latitude;
-	}
-	
-	
 	public float getLatitude() {
 		return latitude;
+	}
+	
+	public void setLatitude(float latitude) {
+		this.latitude=latitude;
 	}
 
 	public String getAddress() {
