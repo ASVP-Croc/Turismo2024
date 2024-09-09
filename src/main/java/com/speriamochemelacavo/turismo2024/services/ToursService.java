@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
+import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 
 @Service
@@ -25,14 +25,14 @@ public class ToursService extends ElementsWithContentsService<Tour>{
 		updateElement(findById(tourById));
 	}
 	
-	public void addNewPOIToTour(PointOfInterest poi, int tourById) {
-		poiService.addElement(poi);
+	public void addNewPOIToTour(PointOfInterest poi, int tourById, List<Tag> tags) {
+		poiService.addElement(poi, tags);
 		addPOIToTour(poi, tourById);
 		updateElement(findById(tourById));
 	}
 	
-	public void addNewPOIsToTour(List<PointOfInterest> poisToAdd, int tourById) {
-		poiService.addElements(poisToAdd);
+	public void addNewPOIsToTour(List<PointOfInterest> poisToAdd, int tourById, List<Tag> tags) {
+		poiService.addElements(poisToAdd, tags);
 		addPOIsToTour(poisToAdd, tourById);
 		updateElement(findById(tourById));
 	}

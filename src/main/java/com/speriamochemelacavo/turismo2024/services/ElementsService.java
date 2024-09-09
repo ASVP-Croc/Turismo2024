@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
-import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.repository.ElementRepository;
 
@@ -40,7 +39,7 @@ public abstract class ElementsService<T extends Element>{
 	}
 	
 	public List<T> findByTags(List<String> tagToFindId) {
-		return repository.findElementsByTagsTag(tagToFindId);
+		return repository.findElementsByTagsId(tagToFindId);
 	}
 	
 	public List<T> findAll(){
@@ -56,6 +55,10 @@ public abstract class ElementsService<T extends Element>{
 		if (validationService.sendValidation(element)) {
 			repository.save(element);			
 		}
+	}
+	
+	public void addElements(List<T> elements, List<Tag> tags) {
+		elements.stream().forEach(elem-> addElement(elem, tags));
 	}
 	
 	public void updateElement(T element) {

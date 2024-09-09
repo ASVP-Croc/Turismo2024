@@ -1,15 +1,18 @@
 package com.speriamochemelacavo.turismo2024.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.Contest;
+import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 
 @Service
 public class ContestsService extends ElementsWithContentsService<Contest>  {
 	
-	public void addContest(Contest contest) {
-		addElement(contest);
+	public void addContest(Contest contest, List<Tag> tags) {
+		addElement(contest, tags);
 	}
 	
 	public void deleteContest(Contest contest) {
@@ -17,11 +20,13 @@ public class ContestsService extends ElementsWithContentsService<Contest>  {
 	}
 	
 	public void addContentToContest(Content content, Contest contest) {
-		contentService.addContent(content, contest);
+		contest.getMyContents().add(content);
+		updateElement(contest);
 	}
 	
-	public void deleteContentToContest(Content content) {
-		contentService.deleteElement(content);
+	public void deleteContentToContest(Content content, Contest contest) {
+		contest.getMyContents().remove(content);
+		updateElement(contest);
 	}
 	
 //	

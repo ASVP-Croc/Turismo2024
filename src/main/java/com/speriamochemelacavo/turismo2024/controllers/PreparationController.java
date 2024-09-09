@@ -11,7 +11,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
-import com.speriamochemelacavo.turismo2024.models.notifications.Notification;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.services.AccountsService;
@@ -19,8 +18,6 @@ import com.speriamochemelacavo.turismo2024.services.ElementResolver;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import com.speriamochemelacavo.turismo2024.services.NominatimService;
 import com.speriamochemelacavo.turismo2024.services.NotificationsService;
-import com.speriamochemelacavo.turismo2024.services.POIResolver;
-import com.speriamochemelacavo.turismo2024.services.POIsService;
 
 @RestController
 public class PreparationController {
