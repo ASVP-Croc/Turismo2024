@@ -33,7 +33,7 @@ public class PointOfInterest extends ElementWithContents{
 		super();
 	}
 
-	public PointOfInterest(String name, String description, String address, List<Integer> tags) {
+	public PointOfInterest(String name, String description, String address, List<Tag> tags) {
 		super(name, description, tags);
 		this.address = address;
 	}

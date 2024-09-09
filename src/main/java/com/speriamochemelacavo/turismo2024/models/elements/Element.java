@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -43,8 +45,8 @@ public abstract class Element {
 	@JsonProperty("name")
 	private String name;
 	private String description;
-	@OneToMany(mappedBy = "id")
-	private List<Integer> tagsId;
+	@OneToMany(mappedBy = "tag", cascade = CascadeType.MERGE)
+	private List<Tag> tags  = new ArrayList<Tag>();
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private User author;
 	@JsonProperty("postcode")
@@ -55,10 +57,18 @@ public abstract class Element {
 		
 	}
 	
-	public Element(String name, String description, List<Integer> tags) {
+
+	public Element(String name, String description) {
 		this.name = name;
 		this.description = description;
-		this.tagsId = tags;
+		this.tags = new ArrayList<Tag>();
+		this.isPublished = false;	
+	}
+	
+	public Element(String name, String description, List<Tag> tags) {
+		this.name = name;
+		this.description = description;
+		this.tags = tags;
 		this.isPublished = false;	
 	}
 
@@ -86,20 +96,20 @@ public abstract class Element {
 		this.description = description;
 	}
 
-	public void setTags(List<Integer> tagsId) {
-		this.tagsId = tagsId;
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
 	}
 	
-	public List<Integer> getTags() {
-		return tagsId;
+	public List<Tag> getTags() {
+		return tags;
 	}
 
-	public void addTag(int tagId) {
-		this.tagsId.add(tagId);
+	public void addTag(Tag tagId) {
+		this.tags.add(tagId);
 	}
 	
-	public void addTags(List<Integer> tagsId) {
-		this.tagsId.addAll(tagsId);
+	public void addTags(List<Tag> tags) {
+		this.tags.addAll(tags);
 	}
 
 	public User getAuthor() {

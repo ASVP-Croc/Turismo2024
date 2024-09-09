@@ -28,7 +28,7 @@ public class Contest extends ElementWithContents {
 		super();
 	}
 
-	public Contest(String name, String description, List<Integer> tags) {
+	public Contest(String name, String description, List<Tag> tags) {
 		super(name, description, tags);
 	}
 

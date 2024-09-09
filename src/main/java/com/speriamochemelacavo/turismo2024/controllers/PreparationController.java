@@ -58,13 +58,13 @@ public class PreparationController {
 				toAdd.add(new Tag(p.getName()));
 				toAdd.add(new Tag("passetto"));
 				toAdd.add(new Tag("pizzeria"));
-				poiService.addElement(p, new ArrayList<Tag>());
+				poiService.addElement(p, toAdd);
 				});
 			poiResolver.resolveElements(nominatimService.getPOIsInfoWithQuery("stadio,fermo")).forEach(p -> {
 				List<Tag> toAdd = new ArrayList<Tag>();
 				toAdd.add(new Tag(p.getName()));
 				toAdd.add(new Tag("stadio"));
-				poiService.addElement(p, new ArrayList<Tag>());
+				poiService.addElement(p, toAdd);
 				});
 			poiService.setLoaded(true);
 			}
