@@ -25,8 +25,8 @@ public class Tag {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String tag;
-	@ManyToMany
-	private List<Element> elementsTagged;
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Element> elementsTagged = new ArrayList<Element>();
 	
 	public int getId() {
 		return id;
@@ -35,8 +35,9 @@ public class Tag {
 	public Tag() {
 	}
 	
-	public Tag(String tag) {
+	public Tag(String tag, Element elementTagged) {
 		this.tag = tag;
+		this.elementsTagged.add(elementTagged);
 	}
 	
 	public String getTag() {

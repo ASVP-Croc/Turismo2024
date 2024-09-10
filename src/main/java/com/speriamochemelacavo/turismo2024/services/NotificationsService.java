@@ -27,7 +27,7 @@ public class NotificationsService {
 		return notificationRepository.findAll();
 	}
 	
-	public List<Notification> findAllByRecipientId(int id){
+	public List<Notification> findAllByRecipientUserId(int id){
 		return notificationRepository.findAllNotificationByRecipientUsersId(id);
 	}
 	

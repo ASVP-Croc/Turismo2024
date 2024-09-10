@@ -8,6 +8,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.speriamochemelacavo.turismo2024.services.AccountsService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping
 public class AccessController {
@@ -16,8 +18,12 @@ public class AccessController {
 	AccountsService accountService;
 	
 	@PostMapping("/login/send")
-	public RedirectView loginByUserName(String userName){
-		accountService.saveLoggedUser(userName);
-        return new RedirectView("/");
+	public RedirectView loginByUserName(String userName, HttpSession session){
+		if (accountService.findByUserName(userName) != null) {
+			accountService.saveLoggedUser(userName);
+			session.setAttribute("userName", userName);
+			return new RedirectView("/");
+		}
+        return new RedirectView("/login");
 	}
 }

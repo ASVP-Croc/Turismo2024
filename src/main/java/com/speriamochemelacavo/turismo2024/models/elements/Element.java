@@ -38,7 +38,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "elements", indexes = {
 	    @Index(name = "idx_name", columnList = "name", unique = true)})
-@JsonAutoDetect
 public abstract class Element {
 	
 	@Id
@@ -47,7 +46,7 @@ public abstract class Element {
 	@JsonProperty("name")
 	private String name;
 	private String description;
-	@ManyToMany(mappedBy = "elementsTagged", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "elementsTagged",  cascade = CascadeType.ALL)
 	private List<Tag> tags;
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private User author;
@@ -63,7 +62,6 @@ public abstract class Element {
 	public Element(String name, String description) {
 		this.name = name;
 		this.description = description;
-		this.tags = new ArrayList<Tag>();
 		this.isPublished = false;	
 	}
 	
@@ -136,5 +134,16 @@ public abstract class Element {
 
 	public void setPublished(boolean isPublished) {
 		this.isPublished = isPublished;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Element) {
+			Element toCompare = (Element) obj;
+			if (toCompare.getId() == this.getId()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

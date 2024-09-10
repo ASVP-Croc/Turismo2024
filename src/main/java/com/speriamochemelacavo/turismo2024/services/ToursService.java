@@ -25,14 +25,14 @@ public class ToursService extends ElementsWithContentsService<Tour>{
 		updateElement(findById(tourById));
 	}
 	
-	public void addNewPOIToTour(PointOfInterest poi, int tourById, List<Tag> tags) {
-		poiService.addElement(poi, tags);
+	public void addNewPOIToTour(PointOfInterest poi, int tourById) {
+		poiService.addElement(poi);
 		addPOIToTour(poi, tourById);
 		updateElement(findById(tourById));
 	}
 	
-	public void addNewPOIsToTour(List<PointOfInterest> poisToAdd, int tourById, List<Tag> tags) {
-		poiService.addElements(poisToAdd, tags);
+	public void addNewPOIsToTour(List<PointOfInterest> poisToAdd, int tourById) {
+		poiService.addElements(poisToAdd);
 		addPOIsToTour(poisToAdd, tourById);
 		updateElement(findById(tourById));
 	}

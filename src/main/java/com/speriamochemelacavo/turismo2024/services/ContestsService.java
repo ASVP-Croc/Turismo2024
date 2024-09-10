@@ -11,8 +11,8 @@ import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 @Service
 public class ContestsService extends ElementsWithContentsService<Contest>  {
 	
-	public void addContest(Contest contest, List<Tag> tags) {
-		addElement(contest, tags);
+	public void addContest(Contest contest) {
+		addElement(contest);
 	}
 	
 	public void deleteContest(Contest contest) {

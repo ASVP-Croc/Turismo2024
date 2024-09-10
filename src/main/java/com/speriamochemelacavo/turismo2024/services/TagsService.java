@@ -1,5 +1,7 @@
 package com.speriamochemelacavo.turismo2024.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ public class TagsService {
 	
 	public void addTag(Tag tag) {
 		tagRepository.save(tag);
+	}
+	
+	public void addAllTag(List<Tag> tags) {
+		tagRepository.saveAll(tags);
 	}
 	
 	public Tag findById(int id) {

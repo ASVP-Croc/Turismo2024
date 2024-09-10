@@ -3,84 +3,86 @@ package com.speriamochemelacavo.turismo2024.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.services.AccountsService;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import com.speriamochemelacavo.turismo2024.services.NotificationsService;
 
 @Controller
+@RequestMapping
 public class PageController {
 	
 	@Autowired
 	private AccountsService accountService;
 	
 	@Autowired
-	private NotificationsService notificationService;
+	private ElementsService<Element> elementsService;
 	
 	@Autowired
-	private ElementsService<Element> elementsService;
+	private ModelSetter modelSetter;
 
-	@RequestMapping("/")
+	@GetMapping("/")
 	public String welcome(Model model) {
-		setConditionModelVisibility(model);
+		modelSetter.setConditionModelVisibility(model);
 		return "index";
 	}
 
-	@RequestMapping("/login")
+	@GetMapping("/login")
 	public String login(Model model) {
-		setConditionModelVisibility(model);
-		return "login";
+		modelSetter.setConditionModelVisibility(model);
+		if (!accountService.isLogged()) {
+			return "login";
+		}
+		return "index";
 	}
 
-	@RequestMapping("/logout")
+	@GetMapping("/logout")
 	public String logout(Model model) {
 		accountService.setLogged(false);
-		setConditionModelVisibility(model);
+		modelSetter.setConditionModelVisibility(model);
 		return "index";
 	}
 
-	@RequestMapping("/all/users")
+	@GetMapping("/all/users")
 	public String getUsers(Model model) {
 		model.addAttribute("listUser", accountService.findAll());
-		setConditionModelVisibility(model);
+		modelSetter.setConditionModelVisibility(model);
 		return "users-list";
 	}
 	
-	@RequestMapping("/elements")
+	@GetMapping("/elements")
 	public String getElements(Model model) {
-		setConditionModelVisibility(model);
-		return "elements-list";
+		modelSetter.setConditionModelVisibility(model);
+		return "elements-site-list";
 	}
 	
-	@RequestMapping("/all/elements")
+	@GetMapping("/all/elements")
 	public String getAll(Model model) {
 		model.addAttribute("listElements", elementsService.findAll());
-		setConditionModelVisibility(model);
-		return "elements-list";
+		modelSetter.setConditionModelVisibility(model);
+		return "elements-site-list";
 	}
 	
-	@RequestMapping("/pois")
+	@GetMapping("/pois")
 	public String getPois(Model model) {
 		model.addAttribute("listPoi", elementsService.findAll());
-		setConditionModelVisibility(model);
+		modelSetter.setConditionModelVisibility(model);
 		return "poi-list";
 	}
 	
-	@RequestMapping("/registration")
+	@GetMapping("/registration")
 	public String userRegistration(Model model) {
-		setConditionModelVisibility(model);
+		modelSetter.setConditionModelVisibility(model);
 		return "registration";
 	}
 	
-	private void setConditionModelVisibility(Model model) {
-		model.addAttribute("nameUser",
-				!accountService.isLogged() ? "Turista" : accountService.findById(accountService.getLoggedUser()).getName());
-		model.addAttribute("isLogged", accountService.isLogged());
-		model.addAttribute("isLoadedUsers", accountService.isLoaded());
-		boolean isPOIButtonVisible = (accountService.isLogged() & !elementsService.isLoaded());
-		model.addAttribute("isPOIButtonVisible", isPOIButtonVisible);
-		model.addAttribute("numberOfNotifications", notificationService.findAllByRecipientId(accountService.getLoggedUser()).size());
+	@GetMapping("/error")
+	public String error(Model model) {
+		modelSetter.setConditionModelVisibility(model);
+		return "error";
 	}
 }

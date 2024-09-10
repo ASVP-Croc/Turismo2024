@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,28 +39,26 @@ public abstract class ElementsService<T extends Element>{
 		return repository.findById(elemToFindId).orElseThrow();
 	}
 	
-	public List<T> findByTag(String tagToFindString) {
-		Tag tagToFind = new Tag(tagToFindString);
-		return repository.findAllElementByTags(tagToFind);
+	public List<T> findByTags(List<String> tagsToFind) {
+		List<Tag> toFind = new ArrayList<Tag>();
+		return repository.findAllElementByTags(toFind);
 	}
 	
 	public List<T> findAll(){
 		return repository.findAll();
 	}
 	
-	public void addElement(T element, List<Tag> tags) {
+	public void addElement(T element) {
 		element.setAuthor(accountService.findById(accountService.getLoggedUser()));
 		element.setCAP(accountService.findById(accountService.getLoggedUser()).getCAP());
-		tags.forEach(t -> tagService.addTag(t));
-		element.setTags(tags);
 		repository.save(element);
 		if (validationService.requestValidation(element)) {
 			repository.save(element);			
 		}
 	}
 	
-	public void addElements(List<T> elements, List<Tag> tags) {
-		elements.stream().forEach(elem-> addElement(elem, tags));
+	public void addElements(List<T> elements) {
+		elements.stream().forEach(elem-> addElement(elem));
 	}
 	
 	public void updateElement(T element) {

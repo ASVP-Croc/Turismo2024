@@ -11,7 +11,7 @@ import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 @Repository
 public interface ElementRepository<T extends Element> extends JpaRepository<T, Integer>{
 	
-	List<T> findAllElementByTags(Tag tags);
+	List<T> findAllElementByTags(List<Tag> tagsValues);
 }
 
 
