@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 /**
  * Rappresenta un {@link Element Elemento} contenente una risorsa multimediale di qualsiasi natura(un'immagine, un video, un file, etc.) collegato ad uno e un solo altro {@link Element Elemento} contenitore.
@@ -21,18 +22,16 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class Content extends Element{
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Element referenced;
 	private String pathToResource;
-	
+
 	public Content() {
 		super();
 	}
-
-	public Content(String name, String description, Element referenced, String pathToResource, List<Tag> tags) {
-		super(name, description, tags);
-		this.referenced = referenced;
-		this.pathToResource = pathToResource;
+	
+	public Content(String name, String description) {
+		super(name, description);
 	}
 
 	public Element getReferenced() {

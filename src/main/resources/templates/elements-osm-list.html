@@ -6,19 +6,25 @@
 	<link th:href="@{/styles/header.css}" rel="stylesheet" />
 	<link th:href="@{/styles/menu.css}" rel="stylesheet" />
     <link th:href="@{/styles/list.css}" rel="stylesheet" />
+	<link th:href="@{/styles/error.css}" rel="stylesheet" />
     <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/favicon.ico">
 </head>
 <body>
 	<div th:replace="~{fragments/header :: header}"></div>
 	<div th:replace="~{fragments/menu :: menu}"></div>
 	<div th:replace="~{fragments/body :: search}"></div>
+	<div th:if = ${listElements.isEmpty()} class = "errorDiv">
+		<h1 class = "scrittaError">Nessun risultato trovato!</h1>
+	</div>
     <div class = "containerOsm">
     	<button class = "card" th:each = "element : ${listElements}">
     		<h1 class = "scritteCard" th:text = "${'Titolo: '} + ${element.name}">Titolo</h1>
     		<h1 class = "scritteCard" th:text = "${'Descrizione: '} + ${element.description}">Descrizione</h1>
     		<h1 class = "scritteCard" th:text = "${'Indirizzo: '} + ${element.address.getRoad()}
-    		+ ${', '} + ${element.address.getHouse_number()} + ${', '} + ${element.address.getQuarter()}
-    		+ ${', '} + ${element.getCity()} + ${element.getPostcode()}">Indirizzo</h1>
+									    		+ ${', '} + ${element.address.getHouse_number()} 
+									    		+ ${', '} + ${element.address.getQuarter()}
+									    		+ ${', '} + ${element.getCity()} 
+									    		+ ${' ('} + ${element.getPostcode()} + ${') '}">Indirizzo</h1>
     	</button>
 	</div>		
 </body>

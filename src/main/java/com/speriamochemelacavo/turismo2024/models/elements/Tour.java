@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 /**
  * È un {@link Element Elemento} che rappresenta un insieme odinato di {@link PointOfInterest Punti di Interesse}, collegati tra loro da un argomento comune.
@@ -23,15 +24,15 @@ import jakarta.persistence.ManyToMany;
 @Entity
 public class Tour extends ElementWithContents{
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	private List<PointOfInterest> myPOIs = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
+	private List<PointOfInterest> myPOIs;
 	
 	public Tour() {
 		super();
 	}
 
-	public Tour(String name, String description, List<Tag> tags) {
-		super(name, description, tags);
+	public Tour(String name, String description) {
+		super(name, description);
 	}
 
 	public List<PointOfInterest> getMyPOIs() {

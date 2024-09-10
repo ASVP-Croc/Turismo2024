@@ -1,6 +1,8 @@
 package com.speriamochemelacavo.turismo2024.services;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Address;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,9 @@ import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 @Service
 public class POIsService extends ElementsWithContentsService<PointOfInterest> {
 
+	@Autowired
+	private AddressService addressService;
+	
 	public float getLatitudeById(int poiId) {
 		return findById(poiId).getLatitude();
 	}

@@ -15,11 +15,6 @@ public class POIController {
 	
 	@Autowired
 	private POIsService poiService;
-		
-	@GetMapping("/poi/all")
-	public RedirectView getPOIs() {
-		return new RedirectView("/pois");
-	}
 
 	@PostMapping("poi/{id}")
 	public PointOfInterest getPOIById(@PathVariable int id) {

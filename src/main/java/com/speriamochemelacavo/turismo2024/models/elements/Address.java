@@ -5,10 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
+@Table(name = "addresses", indexes = {
+	    @Index(name = "idx_road", columnList = "road", unique = false)})
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

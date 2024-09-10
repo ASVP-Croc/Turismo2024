@@ -8,19 +8,14 @@ import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
+import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.repository.ElementRepository;
 
 @Service
-public abstract class ElementsService<T extends Element>{
+public abstract class ElementsService<T extends Element> {
 	
 	@Autowired
 	private ElementRepository<T> repository;
-	
-	@Autowired
-	private TagsService tagService;
-	
-	@Autowired
-	private AccountsService accountService;
 	
 	@Autowired
 	private ValidationsService<T> validationService;
@@ -39,34 +34,33 @@ public abstract class ElementsService<T extends Element>{
 		return repository.findById(elemToFindId).orElseThrow();
 	}
 	
-	public List<T> findByTags(List<String> tagsToFind) {
-		List<Tag> toFind = new ArrayList<Tag>();
-		return repository.findAllElementByTags(toFind);
-	}
-	
 	public List<T> findAll(){
 		return repository.findAll();
 	}
 	
-	public void addElement(T element) {
-		element.setAuthor(accountService.findById(accountService.getLoggedUser()));
-		element.setCity(accountService.findById(accountService.getLoggedUser()).getComune());
-		repository.save(element);
-		if (validationService.requestValidation(element)) {
-			repository.save(element);			
-		}
+	public void add(T elementToAdd, User author) {
+		elementToAdd.setAuthor(author);
+		repository.save(elementToAdd);
+		if (validationService.requestValidation(elementToAdd)) {
+			update(elementToAdd);
+			}
 	}
 	
-	public void addElements(List<T> elements) {
-		elements.stream().forEach(elem-> addElement(elem));
+	public void addAll(List<T> elementsToAdd, User author) {
+		elementsToAdd.stream().forEach(elem-> add(elem, author));
 	}
 	
-	public void updateElement(T element) {
-		validationService.requestValidation(element);
-		repository.save(element);
+	public void update(T elementToUpdate) {
+		if (validationService.requestValidation(elementToUpdate)) {
+			repository.save(elementToUpdate);
+			}
 	}
 	
-	public void deleteElement(T element) {
-		repository.delete(element);
+	public void delete(T elementToDelete) {
+		repository.delete(elementToDelete);
+	}
+	
+	public void deleteAll(List<T> elementsToDelete) {
+		repository.deleteAll(elementsToDelete);
 	}
 }

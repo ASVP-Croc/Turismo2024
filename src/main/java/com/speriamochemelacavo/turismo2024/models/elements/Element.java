@@ -59,18 +59,10 @@ public abstract class Element {
 	public Element() {
 		
 	}
-	
 
 	public Element(String name, String description) {
 		this.name = name;
 		this.description = description;
-		this.isPublished = false;	
-	}
-	
-	public Element(String name, String description, List<Tag> tags) {
-		this.name = name;
-		this.description = description;
-		this.tags = tags;
 		this.isPublished = false;	
 	}
 

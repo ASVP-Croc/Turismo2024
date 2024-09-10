@@ -9,7 +9,7 @@
 /* Stile per il div che contiene le cards */
 .containerOsm {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: center;
 	flex-wrap: nowrap;
 	padding: 10px;

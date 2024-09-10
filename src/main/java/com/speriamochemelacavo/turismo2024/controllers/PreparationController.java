@@ -15,6 +15,7 @@ import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.services.AccountsService;
+import com.speriamochemelacavo.turismo2024.services.AddressService;
 import com.speriamochemelacavo.turismo2024.services.ElementResolver;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import com.speriamochemelacavo.turismo2024.services.NominatimService;
@@ -25,22 +26,25 @@ import com.speriamochemelacavo.turismo2024.services.TagsService;
 public class PreparationController {
 	
 	@Autowired
-	ElementResolver<PointOfInterest> poiResolver;
+	private ElementResolver<PointOfInterest> poiResolver;
 	
 	@Autowired
-	NominatimService nominatimService;
+	private NominatimService nominatimService;
 	
 	@Autowired
-	ElementsService<PointOfInterest> poiService;
+	private ElementsService<PointOfInterest> poiService;
 	
 	@Autowired
-	AccountsService accountService;
+	private AccountsService accountService;
 	
 	@Autowired
-	NotificationsService notificationService;
+	private NotificationsService notificationService;
 	
 	@Autowired
-	TagsService tagsService;
+	private TagsService tagsService;
+
+	@Autowired
+	private AddressService addressService;
 
 	@GetMapping("/startDbUsers")
 	public RedirectView insertInitialUserRecords(){
@@ -58,7 +62,8 @@ public class PreparationController {
 	@GetMapping("/startDbPOIs")
 	public RedirectView insertInitialPOIRecords() throws JsonProcessingException{
 		if (!poiService.isLoaded()) {
-			poiResolver.resolveElements(nominatimService.getElemntsInfoWithQuery("pizzeria,passetto,ancona")).forEach(p -> {
+			poiResolver.resolveElements(nominatimService.getPOIInfo("pizzeria,passetto,ancona")).forEach(p -> {
+				addressService.
 				List<Tag> toAdd = new ArrayList<Tag>();
 				poiService.addElement(p);
 				toAdd.add(new Tag(p.getName(), p));
@@ -66,7 +71,7 @@ public class PreparationController {
 				toAdd.add(new Tag("pizzeria", p));
 				tagsService.addAllTag(toAdd);
 				});
-			poiResolver.resolveElements(nominatimService.getElemntsInfoWithQuery("stadio,fermo")).forEach(p -> {
+			poiResolver.resolveElements(nominatimService.getPOIInfo("stadio,fermo")).forEach(p -> {
 				poiService.addElement(p);
 				List<Tag> toAdd = new ArrayList<Tag>();
 				toAdd.add(new Tag(p.getName(), p));

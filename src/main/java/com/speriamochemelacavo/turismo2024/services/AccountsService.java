@@ -87,10 +87,6 @@ public class AccountsService {
 		userToUpdate.getSavedElements().add(elementToAdd);
 		updateUser(userToUpdate);
 		}
-
-	public List<Notification> getNotifications(){
-		return findById(loggedUserId).getNotifications();
-	}
 	
 	public String userToString(User userToString) {
         return "Utente: "

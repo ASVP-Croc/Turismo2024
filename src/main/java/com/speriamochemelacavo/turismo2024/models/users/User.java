@@ -55,7 +55,7 @@ public class User {
 	private String email;
 	private String phoneNumber;
 	private String address;
-	private String comune;
+	private String city;
 	private int CAP;
 	@Enumerated(EnumType.STRING)
 	private Role role;
@@ -73,7 +73,7 @@ public class User {
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
-		this.comune = comune;
+		this.city = comune;
 		this.CAP = CAP;
 		this.role = role;
 		this.notifications = new ArrayList<Notification>();
@@ -128,10 +128,6 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public List<Notification> getNotifications() {
-		return notifications;
-	}
-
 	public List<Element> getSavedElements() {
 		return savedElements;
 	}
@@ -152,20 +148,20 @@ public class User {
 		this.address = address;
 	}
 
-	public String getComune() {
-		return comune;
+	public String getCity() {
+		return city;
 	}
 
-	public void setComune(String comune) {
-		this.comune = comune;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	public int getCAP() {
 		return CAP;
 	}
 
-	public void setCAP(int cAP) {
-		CAP = cAP;
+	public void setCAP(int CAP) {
+		this.CAP = CAP;
 	}
 }
 		

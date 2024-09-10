@@ -36,9 +36,8 @@ public class PointOfInterest extends ElementWithContents{
 		super();
 	}
 
-	public PointOfInterest(String name, String description, Address address, List<Tag> tags) {
-		super(name, description, tags);
-		this.address = address;
+	public PointOfInterest(String name, String description) {
+		super(name, description);
 	}
 	
 	public float getLongitude() {
