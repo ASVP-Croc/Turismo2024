@@ -55,6 +55,7 @@ public class User {
 	private String email;
 	private String phoneNumber;
 	private String address;
+	private String comune;
 	private int CAP;
 	@Enumerated(EnumType.STRING)
 	private Role role;
@@ -65,13 +66,14 @@ public class User {
 
 	public User() {}
 	
-	public User(String name, String surname, String userName, String email, String phoneNumber, String address, int CAP, Role role) {
+	public User(String name, String surname, String userName, String email, String phoneNumber, String address, String comune, int CAP, Role role) {
 		this.name = name;
 		this.surname = surname;
 		this.userName = userName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
+		this.comune = comune;
 		this.CAP = CAP;
 		this.role = role;
 		this.notifications = new ArrayList<Notification>();
@@ -148,6 +150,14 @@ public class User {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getComune() {
+		return comune;
+	}
+
+	public void setComune(String comune) {
+		this.comune = comune;
 	}
 
 	public int getCAP() {

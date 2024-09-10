@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 
@@ -37,6 +38,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "elements", indexes = {
 	    @Index(name = "idx_name", columnList = "name", unique = true)})
+@JsonAutoDetect
 public abstract class Element {
 	
 	@Id

@@ -9,7 +9,7 @@ public class NominatimService {
 	
     private RestTemplate restTemplate = new RestTemplate();
 
-    public String getPOIsInfoWithQuery(String query) {
+    public String getElemntsInfoWithQuery(String query) {
         String url = UriComponentsBuilder.fromHttpUrl("https://nominatim.openstreetmap.org/search")
                 .queryParam("q", query)
                 .queryParam("limit", 1)

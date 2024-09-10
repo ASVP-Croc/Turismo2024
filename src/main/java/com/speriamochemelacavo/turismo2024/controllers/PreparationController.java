@@ -41,9 +41,9 @@ public class PreparationController {
 	public RedirectView insertInitialUserRecords(){
 		if (!accountService.isLoaded()) {
 			List<User> initialUsers = new ArrayList<>();
-			initialUsers.add(new User("Matteo", "Pallotti", "Maverick", "maverick@gmail.com", "3929217858", "C.da San Pietro Orgiano, 13", 63900, Role.Administrator));
-			initialUsers.add(new User("Lorenzo", "Crovace", "AVCP", "avcp@gmail.com", "123456789", "Via Pippo 51", 61000, Role.Curator));
-			initialUsers.add(new User("Simone", "Silver", "SilverSimon", "simon@gmail.com", "987654321", "Via Pluto", 61234, Role.AuthenticatedTourist));
+			initialUsers.add(new User("Matteo", "Pallotti", "Maverick", "maverick@gmail.com", "3929217858", "C.da San Pietro Orgiano, 13", "Fermo", 63900, Role.Administrator));
+			initialUsers.add(new User("Lorenzo", "Crovace", "AVCP", "avcp@gmail.com", "123456789", "Via Ancona, 188", "Macerata", 62100, Role.Curator));
+			initialUsers.add(new User("Simone", "Silver", "SilverSimon", "simon@gmail.com", "987654321", "Via Pluto", "Ancona", 60100, Role.AuthenticatedTourist));
 			accountService.addUsers(initialUsers);
 			accountService.setLoaded(true);
 			}
@@ -53,14 +53,14 @@ public class PreparationController {
 	@GetMapping("/startDbPOIs")
 	public RedirectView insertInitialPOIRecords() throws JsonProcessingException{
 		if (!poiService.isLoaded()) {
-			poiResolver.resolveElements(nominatimService.getPOIsInfoWithQuery("pizzeria,passetto,ancona")).forEach(p -> {
+			poiResolver.resolveElements(nominatimService.getElemntsInfoWithQuery("pizzeria,passetto,ancona")).forEach(p -> {
 				List<Tag> toAdd = new ArrayList<Tag>();
 				toAdd.add(new Tag(p.getName()));
 				toAdd.add(new Tag("passetto"));
 				toAdd.add(new Tag("pizzeria"));
 				poiService.addElement(p, toAdd);
 				});
-			poiResolver.resolveElements(nominatimService.getPOIsInfoWithQuery("stadio,fermo")).forEach(p -> {
+			poiResolver.resolveElements(nominatimService.getElemntsInfoWithQuery("stadio,fermo")).forEach(p -> {
 				List<Tag> toAdd = new ArrayList<Tag>();
 				toAdd.add(new Tag(p.getName()));
 				toAdd.add(new Tag("stadio"));
