@@ -2,6 +2,8 @@ package com.speriamochemelacavo.turismo2024.models.elements;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.ManyToOne;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -27,13 +29,14 @@ public class PointOfInterest extends ElementWithContents{
 	@JsonProperty("lon")
 	private float longitude;
 	@JsonProperty("address")
-	private String address;
+	@ManyToOne(cascade = CascadeType.MERGE)
+	private Address address;
 	
 	public PointOfInterest() {
 		super();
 	}
 
-	public PointOfInterest(String name, String description, String address, List<Tag> tags) {
+	public PointOfInterest(String name, String description, Address address, List<Tag> tags) {
 		super(name, description, tags);
 		this.address = address;
 	}
@@ -54,11 +57,11 @@ public class PointOfInterest extends ElementWithContents{
 		this.latitude=latitude;
 	}
 
-	public String getAddress() {
+	public Address getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(Address address) {
 		this.address = address;
 	}
 }

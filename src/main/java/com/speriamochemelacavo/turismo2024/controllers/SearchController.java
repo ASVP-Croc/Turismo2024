@@ -66,10 +66,7 @@ public class SearchController {
 	@GetMapping("/search/osm")
 	public String searchElementsOSM(Model model, @RequestParam("tag") String tag) throws JsonProcessingException{
 		List<PointOfInterest> toReturn = new ArrayList<PointOfInterest>();
-//		String tagClean = tag.replaceAll("\\s*,\\s*", ",");
-//		List<String> tagsList = Arrays.stream(tagClean.split(",")).filter(t -> !t.isEmpty()).collect(Collectors.toList());
-//		System.out.println(tagClean);
-		toReturn.addAll(POIResolver.resolveElements(nominatimService.getElemntsInfoWithQuery(tag)));
+		toReturn.addAll(POIResolver.resolveElements(nominatimService.getPOIInfo(tag)));
 		
 //		tagsList.stream().forEach(t -> {
 //			try {

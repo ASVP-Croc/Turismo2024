@@ -35,7 +35,6 @@ public class NominatimService {
         return restTemplate.getForObject(url, String.class);
     }
 
-
     public String getReverseLocationInfo(double lat, double lon) {
         String url = UriComponentsBuilder.fromHttpUrl("https://nominatim.openstreetmap.org/reverse")
                 .queryParam("lat", lat)

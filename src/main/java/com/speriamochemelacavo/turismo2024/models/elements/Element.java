@@ -50,8 +50,10 @@ public abstract class Element {
 	private List<Tag> tags;
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private User author;
+	@JsonProperty("city")
+	private String city;
 	@JsonProperty("postcode")
-	private int CAP;
+	private Integer postcode;
 	private boolean isPublished;
 	
 	public Element() {
@@ -120,12 +122,20 @@ public abstract class Element {
 		this.author = author;
 	}
 
-	public int getCAP() {
-		return CAP;
+	public String getCity() {
+		return city;
 	}
 
-	public void setCAP(int CAP) {
-		this.CAP = CAP;
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public Integer getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(Integer postcode) {
+		this.postcode = postcode;
 	}
 
 	public boolean isPublished() {

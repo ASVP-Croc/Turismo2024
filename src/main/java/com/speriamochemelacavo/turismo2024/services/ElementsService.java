@@ -50,7 +50,7 @@ public abstract class ElementsService<T extends Element>{
 	
 	public void addElement(T element) {
 		element.setAuthor(accountService.findById(accountService.getLoggedUser()));
-		element.setCAP(accountService.findById(accountService.getLoggedUser()).getCAP());
+		element.setCity(accountService.findById(accountService.getLoggedUser()).getComune());
 		repository.save(element);
 		if (validationService.requestValidation(element)) {
 			repository.save(element);			

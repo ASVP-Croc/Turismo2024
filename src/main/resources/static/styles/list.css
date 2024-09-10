@@ -5,6 +5,16 @@
 	flex-wrap: nowrap;
 	padding: 10px;
 }
+
+/* Stile per il div che contiene le cards */
+.containerOsm {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	flex-wrap: nowrap;
+	padding: 10px;
+}
+
 /* Stile per i div delle cards */
 .card {
 	display: flex;
@@ -36,6 +46,7 @@
 	background-color: #e7e7e7;
 	cursor: pointer;
 }
+
 /* Stile per le scritte nei bottoni */
 .scritteCard {
 	text-align: center;

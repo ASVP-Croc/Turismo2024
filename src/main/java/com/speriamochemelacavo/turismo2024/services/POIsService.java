@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.services;
 
+import com.speriamochemelacavo.turismo2024.models.elements.Address;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class POIsService extends ElementsWithContentsService<PointOfInterest> {
 		return findById(poiId).getLongitude();
 	}
 	
-	public String getAddressById(int poiId) {
+	public Address getAddressById(int poiId) {
 		return findById(poiId).getAddress();
 	}
 	
@@ -28,7 +29,7 @@ public class POIsService extends ElementsWithContentsService<PointOfInterest> {
 		findById(poiId).setLongitude(longitude);
 	}
 	
-	public void setAddressById(int poiId, String address) {
+	public void setAddressById(int poiId, Address address) {
 		findById(poiId).setAddress(address);
 	}
 	
