@@ -16,7 +16,7 @@ public class POIController {
 	@Autowired
 	private POIsService poiService;
 
-	@PostMapping("poi/{id}")
+	@GetMapping("poi/{id}")
 	public PointOfInterest getPOIById(@PathVariable int id) {
 		return poiService.findById(id);
 	}	

@@ -25,7 +25,7 @@ import jakarta.persistence.Table;
  * Il {@link Role Ruolo} permette loro di utilizzare diverse funzionalità che la piattaforma offre (creazione di {@link PointOfInterest Punti di Interesse}, validazione dei vari {@link Element Elementi}, modifica delle autorizzazioni, etc.).
  * Hanno la possibilità di ricevere delle {@link Notification Notifiche} che li avvertono di ogni cambiamento che li riguardi e posso salvare gli {@link Element Elementi} che ritengono interessanti, per poi ritrovarli facilmente in seguito.
  * Devono avere un nome, un cognome, un username, una email e un numero di telefono associati.
- * Alla loro creazione, ogni {@link User Utente} avrà il {@link Role Ruolo} di {@link Role.Tourist Turista} e un Id assegnato automaticamente dalla Piattaforma.
+ * Alla loro creazione, ogni {@link User Utente} avrà il {@link Role Ruolo} di {@link Role Turista} e un Id assegnato automaticamente dalla Piattaforma.
  *
  * @field int id: l'id assegnato all'{@link User Utente} dopo l'inserimento nel Database.
  * @field String name: il nome dell'{@link User Utente}.

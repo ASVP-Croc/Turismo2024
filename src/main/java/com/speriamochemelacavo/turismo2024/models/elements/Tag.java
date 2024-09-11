@@ -2,6 +2,7 @@ package com.speriamochemelacavo.turismo2024.models.elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.stereotype.Component;
 
@@ -58,5 +59,18 @@ public class Tag {
 
 	public void setElements(List<Element> elements) {
 		this.elementsTagged = elements;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Tag tag1 = (Tag) o;
+		return id == tag1.id && Objects.equals(tag, tag1.tag) && Objects.equals(elementsTagged, tag1.elementsTagged);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, tag, elementsTagged);
 	}
 }
