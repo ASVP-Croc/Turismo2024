@@ -14,7 +14,7 @@ import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
-import com.speriamochemelacavo.turismo2024.services.AccountsService;
+import com.speriamochemelacavo.turismo2024.services.UsersService;
 import com.speriamochemelacavo.turismo2024.services.AddressService;
 import com.speriamochemelacavo.turismo2024.services.ElementResolver;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
@@ -35,10 +35,10 @@ public class PreparationController {
 	private ElementsService<PointOfInterest> poiService;
 	
 	@Autowired
-	private AccountsService accountService;
+	private UsersService userService;
 	
 	@Autowired
-	private NotificationsService notificationService;
+	private NotificationsService<PointOfInterest> notificationService;
 	
 	@Autowired
 	private TagsService tagsService;
@@ -48,13 +48,13 @@ public class PreparationController {
 
 	@GetMapping("/startDbUsers")
 	public RedirectView insertInitialUserRecords(){
-		if (!accountService.isLoaded()) {
+		if (!userService.isLoaded()) {
 			List<User> initialUsers = new ArrayList<>();
 			initialUsers.add(new User("Matteo", "Pallotti", "Maverick", "maverick@gmail.com", "3929217858", "C.da San Pietro Orgiano, 13", "Fermo", 63900, Role.Administrator));
 			initialUsers.add(new User("Lorenzo", "Crovace", "AVCP", "avcp@gmail.com", "123456789", "Via Ancona, 188", "Macerata", 62100, Role.Curator));
 			initialUsers.add(new User("Simone", "Silver", "SilverSimon", "simon@gmail.com", "987654321", "Via Pluto", "Ancona", 60100, Role.AuthenticatedTourist));
-			accountService.addUsers(initialUsers);
-			accountService.setLoaded(true);
+			initialUsers.stream().forEach(u -> userService.addUser(u));
+			userService.setLoaded(true);
 			}
 		return new RedirectView("/");
 	}
@@ -63,20 +63,21 @@ public class PreparationController {
 	public RedirectView insertInitialPOIRecords() throws JsonProcessingException{
 		if (!poiService.isLoaded()) {
 			poiResolver.resolveElements(nominatimService.getPOIInfo("pizzeria,passetto,ancona")).forEach(p -> {
-				addressService.
+				addressService.add(p.getAddress());
 				List<Tag> toAdd = new ArrayList<Tag>();
-				poiService.addElement(p);
 				toAdd.add(new Tag(p.getName(), p));
 				toAdd.add(new Tag("passetto", p));
 				toAdd.add(new Tag("pizzeria", p));
 				tagsService.addAllTag(toAdd);
+				poiService.add(p, userService.findById(userService.getLoggedUser()), toAdd);
 				});
 			poiResolver.resolveElements(nominatimService.getPOIInfo("stadio,fermo")).forEach(p -> {
-				poiService.addElement(p);
+				addressService.add(p.getAddress());
 				List<Tag> toAdd = new ArrayList<Tag>();
 				toAdd.add(new Tag(p.getName(), p));
 				toAdd.add(new Tag("stadio", p));
 				tagsService.addAllTag(toAdd);
+				poiService.add(p, userService.findById(userService.getLoggedUser()), toAdd);
 				});
 			poiService.setLoaded(true);
 			}

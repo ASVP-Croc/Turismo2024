@@ -17,10 +17,10 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 public class ValidationsService<T extends Element> {
 	
 	@Autowired
-	private NotificationsService notificationService;
+	private NotificationsService<T> notificationService;
 	
 	@Autowired
-	private AccountsService accountService;
+	private UsersService accountService;
 	
 	
 	public boolean requestValidation(T elementToValidate) {
@@ -46,26 +46,26 @@ public class ValidationsService<T extends Element> {
 		sendValidation("Hai un nuovo Elemento da validare!", elementToValidate, recipients);
 	}
 	
-	public void sendValidation(String message, T elementToValidate, List<User> recipients) {
-		notificationService.sendToMultipleUsers("Validazione: " + elementToValidate.getName(), message, elementToValidate, recipients);
-		notificationService.sendToSingleUser("Pubblicazione richiesta per: " + elementToValidate.getName(), "", elementToValidate, elementToValidate.getAuthor());
+	private void sendValidation(String message, T elementToValidate, List<User> recipients) {
+		notificationService.sendToMultipleUsers("Validazione: " + elementToValidate.getName(), message, elementToValidate, elementToValidate.getAuthor(), recipients);
+		notificationService.sendToSingleUser("Pubblicazione richiesta per: " + elementToValidate.getName(), "", elementToValidate, elementToValidate.getAuthor(), elementToValidate.getAuthor());
 	}
 	
-	public void updateValidation(String message, Notification notificationToResponse){
-		Notification notificationUpdated = notificationToResponse;
-		notificationUpdated.setTitle("Aggiornamento pubblicazione: " + notificationToResponse.getObject().getName());
+	public void updateValidation(String message, Notification<T> notificationToResponse){
+		Notification<T> notificationUpdated = notificationToResponse;
+		notificationUpdated.setTitle("Aggiornamento pubblicazione: " + notificationToResponse.getNotificationObject().getName());
 		notificationUpdated.setMessage(message);
 		notificationUpdated.getRecipientUsers().clear();
-		notificationUpdated.getRecipientUsers().add(notificationToResponse.getObject().getAuthor());
+		notificationUpdated.getRecipientUsers().add(notificationToResponse.getNotificationObject().getAuthor());
 		notificationService.updateNotification(notificationUpdated);
 	}
 	
-	public void confirmValidation(Notification notificationToConfirm) {
-		Notification notificationConfirmed = notificationToConfirm;
-		notificationConfirmed.setTitle("Pubblicazione avvenuta: " + notificationToConfirm.getObject().getName());
+	public void confirmValidation(Notification<T> notificationToConfirm) {
+		Notification<T> notificationConfirmed = notificationToConfirm;
+		notificationConfirmed.setTitle("Pubblicazione avvenuta: " + notificationToConfirm.getNotificationObject().getName());
 		notificationConfirmed.setMessage("");
 		notificationConfirmed.getRecipientUsers().clear();
-		notificationConfirmed.getRecipientUsers().add(notificationToConfirm.getObject().getAuthor());
+		notificationConfirmed.getRecipientUsers().add(notificationToConfirm.getNotificationObject().getAuthor());
 		notificationService.updateNotification(notificationConfirmed);
 	}
 

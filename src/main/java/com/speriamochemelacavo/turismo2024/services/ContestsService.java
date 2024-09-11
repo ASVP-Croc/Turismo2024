@@ -11,14 +11,8 @@ import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 @Service
 public class ContestsService extends ElementsWithContentsService<Contest>  {
 	
-	public void addContentToContest(Content content, Contest contest) {
-		contest.getMyContents().add(content);
-		updateElement(contest);
-	}
-	
-	public void deleteContentToContest(Content content, Contest contest) {
-		contest.getMyContents().remove(content);
-		updateElement(contest);
+	public ContestsService() {
+		super();
 	}
 	
 //	

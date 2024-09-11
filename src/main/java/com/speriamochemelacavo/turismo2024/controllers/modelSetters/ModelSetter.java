@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
-import com.speriamochemelacavo.turismo2024.services.AccountsService;
+import com.speriamochemelacavo.turismo2024.services.UsersService;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import com.speriamochemelacavo.turismo2024.services.NotificationsService;
 
@@ -13,7 +13,7 @@ import com.speriamochemelacavo.turismo2024.services.NotificationsService;
 public class ModelSetter {
 	
 	@Autowired
-	private AccountsService accountService;
+	private UsersService accountService;
 	
 	@Autowired
 	private NotificationsService notificationService;

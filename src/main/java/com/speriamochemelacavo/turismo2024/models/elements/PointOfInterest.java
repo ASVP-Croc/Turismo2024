@@ -35,10 +35,6 @@ public class PointOfInterest extends ElementWithContents{
 	public PointOfInterest() {
 		super();
 	}
-
-	public PointOfInterest(String name, String description) {
-		super(name, description);
-	}
 	
 	public float getLongitude() {
 		return longitude;

@@ -11,56 +11,45 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.repository.NotificationRepository;
 
 @Service
-public class NotificationsService {
+public class NotificationsService<T extends Element> {
 	
 	@Autowired
-	private NotificationRepository notificationRepository;
+	private NotificationRepository<T> notificationRepository;
 	
-	@Autowired
-	private AccountsService accountsService;
-	
-	public Notification findById(int elemToFindId) {
+	public Notification<T> findById(int elemToFindId) {
 		return notificationRepository.findById(elemToFindId).orElseThrow();
 	}
 	
-	public List<Notification> findAll(){
-		return notificationRepository.findAll();
-	}
-	
-	public List<Notification> findAllByRecipientUserId(int id){
+	public List<Notification<T>> findAllByRecipientUserId(int id){
 		return notificationRepository.findAllNotificationByRecipientUsersId(id);
 	}
 	
-	public void addNotification(Notification notificationToAdd) {
+	private void addNotification(Notification<T> notificationToAdd) {
 		notificationRepository.save(notificationToAdd);
 	}
 	
-	public void addNotifications(List<Notification> notificationsToAdd) {
-		notificationsToAdd.stream().forEach(e -> addNotification(e));
-	}
-	
-	public void updateNotification(Notification notificationToUpdate) {
+	public void updateNotification(Notification<T> notificationToUpdate) {
 		notificationRepository.save(notificationToUpdate);
 	}
 	
-	public void sendToSingleUser(String title, String message, Element object, User recipientUser) {
-		Notification toSend = new Notification(title, message, accountsService.findById(accountsService.getLoggedUser()), object, recipientUser);
+	public void sendToSingleUser(String title, String message, T object, User author, User recipientUser) {
+		Notification<T> toSend = new Notification<T>(title, message, author, object, recipientUser);
 		addNotification(toSend);
 	}
 	
-	public void sendToMultipleUsers(String title, String message, Element object, List<User> recipientsUser) {
-		Notification toSend = new Notification(title, message, accountsService.findById(accountsService.getLoggedUser()), object, recipientsUser);
+	public void sendToMultipleUsers(String title, String message, T object, User author, List<User> recipientsUser) {
+		Notification<T> toSend = new Notification<T>(title, message, author, object, recipientsUser);
 		addNotification(toSend);
 	}
 	
-	public Notification readNotification(int notificationId) {
-		Notification toRead = notificationRepository.findById(notificationId).orElseThrow();
+	public Notification<T> readNotification(int notificationId) {
+		Notification<T> toRead = findById(notificationId);
 		toRead.setRead(true);
 		updateNotification(toRead);
 		return toRead;
 	}
 	
-	public void deleteNotification(int notificationId) {
+	public void deleteNotificationById(int notificationId) {
 		notificationRepository.deleteById(notificationId);
 	}
 }

@@ -15,12 +15,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "notifications")
 @Component
-public class Notification {
+public class Notification <T extends Element> {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +30,8 @@ public class Notification {
 	private String message;
 	@ManyToOne
 	private User author;
-	@ManyToOne(cascade = CascadeType.MERGE)
-	private Element object;
+	@OneToOne(targetEntity = Element.class, cascade = CascadeType.MERGE)
+	private T notificationObject;
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<User> recipientUsers = new ArrayList<User>();
 	private boolean isRead;
@@ -39,29 +40,20 @@ public class Notification {
 		
 	}
 	
-	public Notification(String title, String message, User author, Element object) {
+	public Notification(String title, String message, User author, T notificationObject, User RecipientUser) {
 		this.title = title;
 		this.message = message;
 		this.author = author;
-		this.object = object;
-		this.recipientUsers.add(object.getAuthor());
-		setRead(false);
-	}
-	
-	public Notification(String title, String message, User author, Element object, User RecipientUser) {
-		this.title = title;
-		this.message = message;
-		this.author = author;
-		this.object = object;
+		this.notificationObject = notificationObject;
 		this.recipientUsers.add(RecipientUser);
 		setRead(false);
 	}
 	
-	public Notification(String title, String message, User author, Element object, List<User> RecipientUsers) {
+	public Notification(String title, String message, User author, T notificationObject, List<User> RecipientUsers) {
 		this.title = title;
 		this.message = message;
 		this.author = author;
-		this.object = object;
+		this.notificationObject = notificationObject;
 		this.recipientUsers.addAll(RecipientUsers);
 		setRead(false);
 	}
@@ -90,14 +82,22 @@ public class Notification {
 		this.message = message;
 	}
 
-	public Element getObject() {
-		return object;
+	public User getAuthor() {
+		return author;
 	}
 
-	public void setObject(Element object) {
-		this.object = object;
+	public void setAuthor(User author) {
+		this.author = author;
 	}
 
+	public T getNotificationObject() {
+		return notificationObject;
+	}
+	
+	public void setNotificationObject(T notificationObject) {
+		this.notificationObject = notificationObject;
+	}
+	
 	public List<User> getRecipientUsers() {
 		return recipientUsers;
 	}
@@ -110,4 +110,14 @@ public class Notification {
 		this.isRead = isRead;
 	}
 	
+	@Override
+	public boolean equals(Object notificationToEquals) {
+		if (notificationToEquals instanceof Notification) {
+			Notification<T> toEquals = (Notification<T>) notificationToEquals;
+			if (toEquals.getId() == this.getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

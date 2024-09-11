@@ -54,7 +54,7 @@ public abstract class Element {
 	private String city;
 	@JsonProperty("postcode")
 	private Integer postcode;
-	private boolean isPublished;
+	private boolean isPublished = false;
 	
 	public Element() {
 		
@@ -78,10 +78,6 @@ public abstract class Element {
 		this.name = name;
 	}
 
-	public int getAuthorId() {
-		return this.author.getId();
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -89,21 +85,9 @@ public abstract class Element {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
-	}
 	
 	public List<Tag> getTags() {
 		return tags;
-	}
-
-	public void addTag(Tag tagId) {
-		this.tags.add(tagId);
-	}
-	
-	public void addTags(List<Tag> tags) {
-		this.tags.addAll(tags);
 	}
 
 	public User getAuthor() {

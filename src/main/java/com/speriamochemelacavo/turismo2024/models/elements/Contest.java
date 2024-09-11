@@ -28,10 +28,6 @@ public class Contest extends ElementWithContents {
 		super();
 	}
 
-	public Contest(String name, String description) {
-		super(name, description);
-	}
-
 	public Date getStarts() {
 		return starts;
 	}

@@ -38,16 +38,13 @@ public abstract class ElementsService<T extends Element> {
 		return repository.findAll();
 	}
 	
-	public void add(T elementToAdd, User author) {
+	public void add(T elementToAdd, User author, List<Tag> tags) {
 		elementToAdd.setAuthor(author);
+		elementToAdd.getTags().addAll(tags);
 		repository.save(elementToAdd);
 		if (validationService.requestValidation(elementToAdd)) {
 			update(elementToAdd);
 			}
-	}
-	
-	public void addAll(List<T> elementsToAdd, User author) {
-		elementsToAdd.stream().forEach(elem-> add(elem, author));
 	}
 	
 	public void update(T elementToUpdate) {

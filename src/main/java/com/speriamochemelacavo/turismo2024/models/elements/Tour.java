@@ -31,10 +31,6 @@ public class Tour extends ElementWithContents{
 		super();
 	}
 
-	public Tour(String name, String description) {
-		super(name, description);
-	}
-
 	public List<PointOfInterest> getMyPOIs() {
 		return myPOIs;
 	}

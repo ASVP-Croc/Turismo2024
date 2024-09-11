@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.speriamochemelacavo.turismo2024.services.AccountsService;
+import com.speriamochemelacavo.turismo2024.services.UsersService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpSession;
 public class AccessController {
 	
 	@Autowired
-	AccountsService accountService;
+	UsersService accountService;
 	
 	@PostMapping("/login/send")
 	public RedirectView loginByUserName(String userName, HttpSession session){

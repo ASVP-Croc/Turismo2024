@@ -12,13 +12,13 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.models.users.User;
-import com.speriamochemelacavo.turismo2024.services.AccountsService;
+import com.speriamochemelacavo.turismo2024.services.UsersService;
 
 @RestController
 public class UserController {
 	
 	@Autowired
-	AccountsService accountService;
+	UsersService accountService;
 	
 	@Autowired
 	PageController pageController;

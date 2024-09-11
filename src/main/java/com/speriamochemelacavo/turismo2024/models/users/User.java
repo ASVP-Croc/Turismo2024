@@ -84,10 +84,6 @@ public class User {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -127,14 +123,10 @@ public class User {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-
-	public List<Element> getSavedElements() {
-		return savedElements;
-	}
 	
 	public Role getRole() {
-	return role;
-}
+		return role;
+	}
 
 	public void setRole(Role role) {
 		this.role = role;
@@ -162,6 +154,25 @@ public class User {
 
 	public void setCAP(int CAP) {
 		this.CAP = CAP;
+	}
+	
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+	
+	public List<Element> getSavedElements() {
+		return savedElements;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof User) {
+			User toCompare = (User) obj;
+			if (toCompare.getId() == this.getId()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
 		

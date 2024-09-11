@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
-import com.speriamochemelacavo.turismo2024.services.AccountsService;
+import com.speriamochemelacavo.turismo2024.services.UsersService;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import com.speriamochemelacavo.turismo2024.services.NotificationsService;
 
@@ -17,7 +17,7 @@ import com.speriamochemelacavo.turismo2024.services.NotificationsService;
 public class PageController {
 	
 	@Autowired
-	private AccountsService accountService;
+	private UsersService accountService;
 	
 	@Autowired
 	private ElementsService<Element> elementsService;
