@@ -1,46 +1,61 @@
 package com.speriamochemelacavo.turismo2024.services;
 
+import java.io.IOException;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class NominatimService {
-	
-    private RestTemplate restTemplate = new RestTemplate();
 
-    public String getElemntsInfoWithQuery(String query) {
-        String url = UriComponentsBuilder.fromHttpUrl("https://nominatim.openstreetmap.org/search")
+    public String getInfoFromQuery(String query) throws IOException {
+    	String url = UriComponentsBuilder.fromHttpUrl("https://nominatim.openstreetmap.org/search")
                 .queryParam("q", query)
-                .queryParam("limit", 1)
                 .queryParam("addressdetails", 1)
-                .queryParam("format", "json")
+                .queryParam("countrycodes", "it")
+                .queryParam("format", "jsonv2")
                 .toUriString();
-        return restTemplate.getForObject(url, String.class);
+    	System.out.println(url);
+        return getJsonFromUrl(url);
     }
-
-
-    public String getPOIInfo(String amenity) {
-        String url = UriComponentsBuilder.fromHttpUrl("https://nominatim.openstreetmap.org/search")
+    
+    public String getInfoFromParameter(String amenity, String street, String city, String county, String state, String postcode) throws IOException {
+    	String url = UriComponentsBuilder.fromHttpUrl("https://nominatim.openstreetmap.org/search")
                 .queryParam("amenity", amenity)
-                .queryParam("street", "Passetto")
-                .queryParam("city", "Ancona")
-                .queryParam("county", "Ancona")
-                .queryParam("state", "Marche")
+                .queryParam("street", street)
+                .queryParam("city", city)
+                .queryParam("county", county)
+                .queryParam("state", state)
                 .queryParam("country", "Italia")
-                .queryParam("postcode", 60100)
+                .queryParam("postcode", postcode)
                 .queryParam("addressdetails", 1)
-                .queryParam("format", "json")
+                .queryParam("format", "jsonv2")
+                .queryParam("countrycodes", "it")
                 .toUriString();
-        return restTemplate.getForObject(url, String.class);
+    	System.out.println(url);
+        return getJsonFromUrl(url);
     }
-
-    public String getReverseLocationInfo(double lat, double lon) {
+    
+    public String getReverseLocationInfo(double lat, double lon) throws IOException {
         String url = UriComponentsBuilder.fromHttpUrl("https://nominatim.openstreetmap.org/reverse")
                 .queryParam("lat", lat)
                 .queryParam("lon", lon)
                 .queryParam("format", "json")
+                .queryParam("countrycodes", "it")
                 .toUriString();
-        return restTemplate.getForObject(url, String.class);
+        return getJsonFromUrl(url);
+    }
+    
+    private String getJsonFromUrl(String url) throws IOException {
+    	CloseableHttpClient client = HttpClientBuilder.create().build();
+        HttpGet request = new HttpGet(url);
+        HttpResponse response = client.execute(request);
+        return EntityUtils.toString(response.getEntity());
     }
 }

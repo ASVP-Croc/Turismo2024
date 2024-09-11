@@ -33,7 +33,7 @@ public class Content extends Element{
 	}
 
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
-	public Content(String name, String description, User author, String city, int postcode, ElementWithContents referenced, String pathToResource) {
+	public Content(String name, String description, User author, String city, String postcode, ElementWithContents referenced, String pathToResource) {
 		super(name, description, author, city, postcode);
 		this.referenced = referenced;
 		this.pathToResource = pathToResource;

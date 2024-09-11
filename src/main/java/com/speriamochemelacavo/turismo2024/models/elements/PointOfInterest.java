@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -38,7 +39,7 @@ public class PointOfInterest extends ElementWithContents{
 	}
 	
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
-	public PointOfInterest(String name, String description, User author, String city, int postcode, List<Content> contents, float latitude, float longitude, Address address) {
+	public PointOfInterest(String name, String description, User author, String city, String postcode, List<Content> contents, float latitude, float longitude, Address address) {
 		super(name, description, author, city, postcode, contents);
 		this.latitude = latitude;
 		this.longitude = longitude;
@@ -67,5 +68,15 @@ public class PointOfInterest extends ElementWithContents{
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	
+	@Override
+	public String toString() {
+		String toReturn = "";
+		return toReturn.concat("Name: " + getName() + "\n")
+		.concat("Descrizione: " + getDescription() + "\n")
+		.concat("Indirizzo: " + getAddress().toString() + "\n")
+		.concat("Città: " + getCity() + "\n")
+		.concat("CAP: " + getPostcode() + "\n");
 	}
 }

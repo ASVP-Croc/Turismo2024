@@ -1,6 +1,7 @@
 package com.speriamochemelacavo.turismo2024.services;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Address;
+import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 
 import java.util.List;
@@ -40,9 +41,15 @@ public class POIsService extends ElementsWithContentsService<PointOfInterest> {
 		super.add(POIToAdd, author, tags);
 	}
 	
-	public void add(PointOfInterest POIToAdd, User author, List<Tag> tags, Address address) {
+	@Override
+	public void add(PointOfInterest elementsWithContentsToAdd, User author, List<Tag> tags,
+			List<Content> contentToAdd) {
+		super.add(elementsWithContentsToAdd, author, tags, contentToAdd);
+	}
+
+	public void add(PointOfInterest POIToAdd, User author, List<Tag> tags, List<Content> contentToAdd, Address address) {
 		POIToAdd.setAddress(address);
-		super.add(POIToAdd, author, tags);
+		super.add(POIToAdd, author, tags, contentToAdd);
 	}
 }
 

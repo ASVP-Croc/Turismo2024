@@ -33,7 +33,7 @@ public class UsersService {
 	}
 		
 	public boolean isLogged() {
-		return (getLoggedUser() == 0);
+		return (getLoggedUser() != 0);
 	}
 
 	public boolean isLoaded() {

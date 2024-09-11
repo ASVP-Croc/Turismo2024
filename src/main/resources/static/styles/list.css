@@ -6,11 +6,11 @@
 	padding: 10px;
 }
 
-/* Stile per il div che contiene le cards */
-.containerOsm {
+/* Stile per il div che contiene le cards risultato dell'OSM */
+.containerElement {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	align-items: center;
 	flex-wrap: nowrap;
 	padding: 10px;
 }
@@ -19,8 +19,8 @@
 .card {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	width: 70%; ;
+	align-items: center;
+	width: 40%; ;
 	min-width:30%;
 	height: auto;
 	margin: 5px;
@@ -29,12 +29,11 @@
 	border: 2px solid gray;
 	border-radius: 20px;
 	background-color: #e7e7e7;
-	cursor: pointer;
 }
 .cardLogin {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	align-items: center;
 	width: 20% ;
 	min-width:20%;
 	height: auto;
@@ -44,7 +43,6 @@
 	border: 2px solid gray;
 	border-radius: 20px;
 	background-color: #e7e7e7;
-	cursor: pointer;
 }
 
 /* Stile per le scritte nei bottoni */

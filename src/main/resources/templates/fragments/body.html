@@ -5,10 +5,31 @@
 </head>
 <body>
 	<div th:fragment = "search" class = "container">
-		<form class = "cardLogin" action="/search/osm" method="get">
+		<form class = "cardLogin" action="/search/osm/detail" method="get">
+			<h1 class = "scritteCard">Cerca in dettaglio su OSM...</h1>
+			<br/>
+			<input class = "input" type="text" name="amenity" placeholder="Pizzeria, Ristorante...">
+			<br/>
+			<input class = "input" type="text" name="street" placeholder="Via, Viale, Corso...">
+			<br/>
+			<input class = "input" type="text" name="houseNumber" placeholder="Numero Civico">
+			<br/>
+			<input class = "input" type="text" name="city" placeholder="Città">
+			<br/>
+			<input class = "input" type="text" name="postcode" placeholder="C.A.P.">
+			<br/>
+			<input class = "input" type="text" name="county" placeholder="Provincia">
+			<br/>
+			<input class = "input" type="text" name="state" placeholder="Regione">
+			<br/>
+			<button type="submit" class = "bottoniForm">
+				<p class = "scritteBottoniForm">CERCA</p>
+			</button>
+		</form>
+		<form class = "cardLogin" action="/search/osm/query" method="get">
 			<h1 class = "scritteCard">Cerca su OSM...</h1>
 			<br/>
-			<input class = "input" type="text" name="tag" placeholder="Stadio comunale, Milano,...">
+			<input class = "input" type="text" name="query" placeholder="Pizzeria, Ristorante...">
 			<br/>
 			<button type="submit" class = "bottoniForm">
 				<p class = "scritteBottoniForm">CERCA</p>

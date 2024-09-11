@@ -39,7 +39,7 @@ import jakarta.persistence.Table;
 @Table(name = "elements", indexes = {
 	    @Index(name = "idx_name", columnList = "name", unique = true)})
 public abstract class Element {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -53,7 +53,7 @@ public abstract class Element {
 	@JsonProperty("city")
 	private String city;
 	@JsonProperty("postcode")
-	private int postcode;
+	private String postcode;
 	private boolean isPublished = false;
 	
 	public Element() {
@@ -61,7 +61,7 @@ public abstract class Element {
 	}
 
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
-	public Element(String name, String description, User author, String city, int postcode) {
+	public Element(String name, String description, User author, String city, String postcode) {
 		this.name = name;
 		this.description = description;
 		this.author = author;
@@ -109,11 +109,11 @@ public abstract class Element {
 		this.city = city;
 	}
 
-	public Integer getPostcode() {
+	public String getPostcode() {
 		return postcode;
 	}
 
-	public void setPostcode(Integer postcode) {
+	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
 

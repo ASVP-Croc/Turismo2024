@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
@@ -59,10 +59,10 @@ public class PreparationController {
 	}
 	
 	@GetMapping("/startDbPOIs")
-	public RedirectView insertInitialPOIRecords() throws JsonProcessingException{
+	public RedirectView insertInitialPOIRecords() throws IOException{
 		if (!POIsService.isLoaded()) {
 			List<PointOfInterest> toCheck = new ArrayList<>();
-			poiResolver.resolveElements(nominatimService.getPOIInfo("pizzeria,passetto,ancona")).forEach(p -> {
+			poiResolver.resolveElements(nominatimService.getInfoFromQuery("stadio, Fermo")).forEach(p -> {
 				addressService.add(p.getAddress());
 				List<Tag> toAdd = new ArrayList<>();
 				List<PointOfInterest> pointToAdd = new ArrayList<>();
@@ -74,7 +74,7 @@ public class PreparationController {
 				toCheck.add(p);
 				poiService.add(p, userService.findById(userService.getLoggedUser()));
 				});
-			poiResolver.resolveElements(nominatimService.getPOIInfo("stadio,fermo")).forEach(p -> {
+			poiResolver.resolveElements(nominatimService.getInfoFromParameter("pizzeria", "", "Ancona", "", "", "")).forEach(p -> {
 				addressService.add(p.getAddress());
 				List<Tag> toAdd = new ArrayList<Tag>();
 				toAdd.add(new Tag(p.getName(), p));

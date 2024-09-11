@@ -16,16 +16,16 @@ import jakarta.persistence.OneToMany;
 public class ElementWithContents extends Element {
 	
 	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Content> myContents;
+	private List<Content> myContents = new ArrayList<>();
 	
 	public ElementWithContents() {
 		super();
 	}
 	
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
-	public ElementWithContents(String name, String description, User author, String city, int postcode, List<Content> contents) {
+	public ElementWithContents(String name, String description, User author, String city, String postcode, List<Content> contents) {
 		super(name, description, author, city, postcode);
-		this.myContents = contents;
+		this.myContents.addAll(contents);
 	}
 	
 	public List<Content> getMyContents() {

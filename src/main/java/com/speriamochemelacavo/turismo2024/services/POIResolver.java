@@ -19,6 +19,7 @@ public class POIResolver extends ElementResolver<PointOfInterest>{
     protected PointOfInterest elementResolver(LinkedHashMap<String, Object> POIToResolve){
     	PointOfInterest pointOfInterest = new PointOfInterest();
     	pointOfInterest.setName(POIToResolve.get("name").toString());
+    	pointOfInterest.setDescription(POIToResolve.get("type").toString());
     	pointOfInterest.setLatitude(parseFloat(POIToResolve.get("lat").toString()));
     	pointOfInterest.setLongitude(parseFloat(POIToResolve.get("lon").toString()));
     	LinkedHashMap<String, String> addressToResolve = (LinkedHashMap<String, String>)mapper.convertValue(POIToResolve.get("address"), LinkedHashMap.class);
@@ -45,7 +46,7 @@ public class POIResolver extends ElementResolver<PointOfInterest>{
 		address.setRoad(otherLinkedHashMap.get("road"));
 		address.setQuarter(otherLinkedHashMap.get("quarter"));
 		pointOfInterest.setCity(otherLinkedHashMap.get("city"));
-		pointOfInterest.setPostcode(parseInt(otherLinkedHashMap.get("postcode")));
+		pointOfInterest.setPostcode(otherLinkedHashMap.get("postcode"));
 		return address;
 	}
 }

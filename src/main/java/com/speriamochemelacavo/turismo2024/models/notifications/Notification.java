@@ -30,7 +30,7 @@ public class Notification {
 	private String message;
 	@ManyToOne
 	private User author;
-	@OneToOne(targetEntity = Element.class, cascade = CascadeType.MERGE)
+	@ManyToOne
 	private Element notificationObject;
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<User> recipientUsers = new ArrayList<User>();

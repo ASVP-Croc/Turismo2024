@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
@@ -63,18 +63,39 @@ public class SearchController {
 		return "elements-site-list";
 	}
 	
-	@GetMapping("/search/osm")
-	public String searchElementsOSM(Model model, @RequestParam("tag") String tag) throws JsonProcessingException{
+	@GetMapping("/search/osm/detail")
+	public String searchElementsOSMWithDetails(Model model, 
+			@RequestParam String amenity, 
+			@RequestParam String street,
+			@RequestParam String houseNumber, 
+			@RequestParam String city, 
+			@RequestParam String county, 
+			@RequestParam String state, 
+			@RequestParam String postcode) throws IOException{
 		List<PointOfInterest> toReturn = new ArrayList<>();
-		toReturn.addAll(POIResolver.resolveElements(nominatimService.getPOIInfo(tag)));
-		
-//		tagsList.stream().forEach(t -> {
-//			try {
-//				toReturn.addAll(POIResolver.resolveElements(nominatimService.getElemntsInfoWithQuery(tagClean + (accountService.findById(accountService.getLoggedUser()).getCAP()))));
-//			} catch (JsonProcessingException e) {
-//				e.printStackTrace();
-//			}
-//		});
+		toReturn.addAll(
+				POIResolver.resolveElements(
+						nominatimService.getInfoFromParameter(
+								amenity,
+								street + " " + houseNumber,
+								city,
+								county,
+								state,
+								postcode)));
+		toReturn.forEach(p -> System.out.println(p.toString()));
+		modelSetter.setConditionModelVisibility(model);
+		model.addAttribute("listElements", toReturn);
+		return "elements-osm-list";
+	}
+	
+	@GetMapping("/search/osm/query")
+	public String searchElementsOSMWithQuery(Model model, 
+			@RequestParam String query) throws IOException{
+		List<PointOfInterest> toReturn = new ArrayList<>();
+		toReturn.addAll(
+				POIResolver.resolveElements(
+						nominatimService.getInfoFromQuery(query)));
+		toReturn.forEach(p -> System.out.println(p.toString()));
 		modelSetter.setConditionModelVisibility(model);
 		model.addAttribute("listElements", toReturn);
 		return "elements-osm-list";

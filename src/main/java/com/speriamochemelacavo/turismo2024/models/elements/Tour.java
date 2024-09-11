@@ -34,7 +34,7 @@ public class Tour extends ElementWithContents{
 	}
 	
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
-	public Tour(String name, String description, User author, String city, int postcode, List<Content> contents, List<PointOfInterest> myPOIs) {
+	public Tour(String name, String description, User author, String city, String postcode, List<Content> contents, List<PointOfInterest> myPOIs) {
 		super(name, description, author, city, postcode, contents);
 		this.myPOIs = myPOIs;
 	}

@@ -16,15 +16,12 @@
 	<div th:if = ${listElements.isEmpty()} class = "errorDiv">
 		<h1 class = "scrittaError">Nessun risultato trovato!</h1>
 	</div>
-    <div class = "containerOsm">
+    <div class = "containerElement">
     	<button class = "card" th:each = "element : ${listElements}">
-    		<h1 class = "scritteCard" th:text = "${'Titolo: '} + ${element.name}">Titolo</h1>
-    		<h1 class = "scritteCard" th:text = "${'Descrizione: '} + ${element.description}">Descrizione</h1>
-    		<h1 class = "scritteCard" th:text = "${'Indirizzo: '} + ${element.address.getRoad()}
-									    		+ ${', '} + ${element.address.getHouse_number()} 
-									    		+ ${', '} + ${element.address.getQuarter()}
-									    		+ ${', '} + ${element.getCity()} 
-									    		+ ${' ('} + ${element.getPostcode()} + ${') '}">Indirizzo</h1>
+    		<h1 class = "scritteCard" th:text = "${'Titolo: '} + ${element.getName()}">Titolo</h1>
+    		<h1 class = "scritteCard" th:text = "${'Descrizione: '} + ${element.getDescription()}">Descrizione</h1>
+    		<h1 class = "scritteCard" th:text = "${'Indirizzo: '} + ${element.getAddress.toString()}">Indirizzo</h1>
+    		<h1 class = "scritteCard" th:text = "${'Città: '} + ${element.getCity()} + ${' ('} + ${element.getPostcode()} + ${')'}">Città</h1>
     	</button>
 	</div>		
 </body>

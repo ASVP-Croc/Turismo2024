@@ -28,7 +28,7 @@ public class TagsService {
 	}
 	
 	public void addAll(List<Tag> tagsToAdd) {
-		tagRepository.saveAll(tagsToAdd);
+		tagsToAdd.stream().forEach(t -> tagRepository.save(t));
 	}
 	
 	public void update(Tag tagToUpdate) {

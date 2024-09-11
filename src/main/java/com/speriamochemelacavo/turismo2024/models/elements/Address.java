@@ -15,7 +15,8 @@ import org.springframework.stereotype.Component;
 @Table(name = "addresses", indexes = {
 	    @Index(name = "idx_road", columnList = "road", unique = false)})
 public class Address {
-    @Id
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @JsonProperty("amenity")
@@ -31,8 +32,7 @@ public class Address {
 
     }
 
-    public Address(Integer id, String amenity, String house_number, String road, String quarter) {
-		this.id = id;
+    public Address(String amenity, String house_number, String road, String quarter) {
 		this.amenity = amenity;
 		this.house_number = house_number;
 		this.road = road;
@@ -70,4 +70,14 @@ public class Address {
     public void setQuarter(String quarter) {
         this.quarter = quarter;
     }
+    
+    @Override
+	public String toString() {
+    	String toReturn = 
+    			getRoad()
+    			+ ", "
+    			+ ((getHouse_number() != null && !getHouse_number().isBlank()) ? (getHouse_number()) : "snc")
+    			+ ((getQuarter() != null && !getQuarter().isBlank()) ? (", " + getQuarter()) : "");
+		return toReturn;
+	}
 }
