@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.speriamochemelacavo.turismo2024.models.users.User;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -20,8 +22,9 @@ public class ElementWithContents extends Element {
 		super();
 	}
 	
-	public ElementWithContents(String name, String description, List<Content> contents) {
-		super(name, description);
+//	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
+	public ElementWithContents(String name, String description, User author, String city, int postcode, List<Content> contents) {
+		super(name, description, author, city, postcode);
 		this.myContents = contents;
 	}
 	

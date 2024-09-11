@@ -7,6 +7,7 @@ import jakarta.persistence.ManyToOne;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.speriamochemelacavo.turismo2024.models.users.User;
 
 import jakarta.persistence.Entity;
 
@@ -36,6 +37,14 @@ public class PointOfInterest extends ElementWithContents{
 		super();
 	}
 	
+//	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
+	public PointOfInterest(String name, String description, User author, String city, int postcode, List<Content> contents, float latitude, float longitude, Address address) {
+		super(name, description, author, city, postcode, contents);
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.address = address;
+	}
+
 	public float getLongitude() {
 		return longitude;
 	}

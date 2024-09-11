@@ -31,7 +31,15 @@ public class Address {
 
     }
 
-    public String getAmenity() {
+    public Address(Integer id, String amenity, String house_number, String road, String quarter) {
+		this.id = id;
+		this.amenity = amenity;
+		this.house_number = house_number;
+		this.road = road;
+		this.quarter = quarter;
+	}
+
+	public String getAmenity() {
         return amenity;
     }
 
@@ -62,7 +70,4 @@ public class Address {
     public void setQuarter(String quarter) {
         this.quarter = quarter;
     }
-
-
-
-    }
+}

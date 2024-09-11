@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.speriamochemelacavo.turismo2024.models.users.User;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -23,22 +25,25 @@ import jakarta.persistence.OneToOne;
 public class Content extends Element{
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	private Element referenced;
+	private ElementWithContents referenced;
 	private String pathToResource;
 
 	public Content() {
 		super();
 	}
-	
-	public Content(String name, String description) {
-		super(name, description);
+
+//	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
+	public Content(String name, String description, User author, String city, int postcode, ElementWithContents referenced, String pathToResource) {
+		super(name, description, author, city, postcode);
+		this.referenced = referenced;
+		this.pathToResource = pathToResource;
 	}
 
-	public Element getReferenced() {
+	public ElementWithContents getReferenced() {
 		return referenced;
 	}
 
-	public void setReferenced(Element referenced) {
+	public void setReferenced(ElementWithContents referenced) {
 		this.referenced = referenced;
 	}
 

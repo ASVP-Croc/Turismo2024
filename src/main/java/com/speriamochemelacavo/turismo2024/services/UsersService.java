@@ -14,19 +14,18 @@ import com.speriamochemelacavo.turismo2024.repository.UserRepository;
 @Service
 public class UsersService {
 	
-	private int loggedUserId;
-	private boolean isLogged = false;
-	private boolean isLoaded = false;;
+	private int loggedUserId = 0;
+	private boolean isLoaded = false;
 	
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private NotificationsService notificationService;
-	
 	public void saveLoggedUser(String userToFindUserName) {
 		this.loggedUserId = findByUserName(userToFindUserName).getId();
-		setLogged(true);
+	}
+	
+	public void resetLoggedUser() {
+		this.loggedUserId = 0;
 	}
 	
 	public int getLoggedUser() {
@@ -34,11 +33,7 @@ public class UsersService {
 	}
 		
 	public boolean isLogged() {
-		return isLogged;
-	}
-
-	public void setLogged(boolean isLogged) {
-		this.isLogged = isLogged;
+		return (getLoggedUser() == 0);
 	}
 
 	public boolean isLoaded() {

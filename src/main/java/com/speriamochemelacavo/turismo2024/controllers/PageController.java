@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.services.UsersService;
+
+import jakarta.el.ELManager;
+
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import com.speriamochemelacavo.turismo2024.services.NotificationsService;
 
@@ -19,6 +22,7 @@ public class PageController {
 	@Autowired
 	private UsersService accountService;
 	
+//	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
 	@Autowired
 	private ElementsService<Element> elementsService;
 	
@@ -42,7 +46,7 @@ public class PageController {
 
 	@GetMapping("/logout")
 	public String logout(Model model) {
-		accountService.setLogged(false);
+		accountService.resetLoggedUser();
 		modelSetter.setConditionModelVisibility(model);
 		return "index";
 	}
@@ -60,6 +64,7 @@ public class PageController {
 		return "elements-site-list";
 	}
 	
+//	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
 	@GetMapping("/all/elements")
 	public String getAll(Model model) {
 		model.addAttribute("listElements", elementsService.findAll());
@@ -67,6 +72,7 @@ public class PageController {
 		return "elements-site-list";
 	}
 	
+//	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
 	@GetMapping("/pois")
 	public String getPois(Model model) {
 		model.addAttribute("listPoi", elementsService.findAll());

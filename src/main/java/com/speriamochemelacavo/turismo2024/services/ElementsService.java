@@ -15,49 +15,44 @@ import com.speriamochemelacavo.turismo2024.repository.ElementRepository;
 public abstract class ElementsService<T extends Element> {
 	
 	@Autowired
-	private ElementRepository<T> repository;
+	private ElementRepository<T> elementRepository;
 	
 	@Autowired
 	private ValidationsService<T> validationService;
-	
-	private static boolean isLoaded;
-	
-	public boolean isLoaded() {
-		return isLoaded;
-	}
-
-	public void setLoaded(boolean isLoaded) {
-		ElementsService.isLoaded = isLoaded;
-	}
 
 	public T findById(int elemToFindId) {
-		return repository.findById(elemToFindId).orElseThrow();
+		return elementRepository.findById(elemToFindId).orElseThrow();
 	}
 	
 	public List<T> findAll(){
-		return repository.findAll();
+		return elementRepository.findAll();
 	}
 	
-	public void add(T elementToAdd, User author, List<Tag> tags) {
+
+	public void add(T elementToAdd, User author) {
 		elementToAdd.setAuthor(author);
-		elementToAdd.getTags().addAll(tags);
-		repository.save(elementToAdd);
+		elementRepository.save(elementToAdd);
 		if (validationService.requestValidation(elementToAdd)) {
 			update(elementToAdd);
 			}
 	}
 	
+	public void add(T elementToAdd, User author, List<Tag> tags) {
+		elementToAdd.getTags().addAll(tags);
+		add(elementToAdd, author);
+	}
+	
 	public void update(T elementToUpdate) {
 		if (validationService.requestValidation(elementToUpdate)) {
-			repository.save(elementToUpdate);
+			elementRepository.save(elementToUpdate);
 			}
 	}
 	
 	public void delete(T elementToDelete) {
-		repository.delete(elementToDelete);
+		elementRepository.delete(elementToDelete);
 	}
 	
 	public void deleteAll(List<T> elementsToDelete) {
-		repository.deleteAll(elementsToDelete);
+		elementRepository.deleteAll(elementsToDelete);
 	}
 }

@@ -1,6 +1,7 @@
 package com.speriamochemelacavo.turismo2024.services;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Address;
+import com.speriamochemelacavo.turismo2024.models.elements.Element;
 
 import java.util.List;
 
@@ -15,9 +16,33 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 @Service
 public class POIsService extends ElementsWithContentsService<PointOfInterest> {
 	
+	private static boolean isLoaded;
+	
+	public static boolean isLoaded() {
+		return isLoaded;
+	}
+
+	public static void setLoaded(boolean isLoaded) {
+		POIsService.isLoaded = isLoaded;
+	}
+	
 	public POIsService(){
 		super();
 	}
+
+	@Override
+	public void add(PointOfInterest POIToAdd, User author) {
+		super.add(POIToAdd, author);
+	}
+
+	@Override
+	public void add(PointOfInterest POIToAdd, User author, List<Tag> tags) {
+		super.add(POIToAdd, author, tags);
+	}
 	
+	public void add(PointOfInterest POIToAdd, User author, List<Tag> tags, Address address) {
+		POIToAdd.setAddress(address);
+		super.add(POIToAdd, author, tags);
+	}
 }
 

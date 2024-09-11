@@ -76,7 +76,7 @@ public class User {
 		this.city = comune;
 		this.CAP = CAP;
 		this.role = role;
-		this.notifications = new ArrayList<Notification>();
+		this.notifications = new ArrayList<>();
 		this.savedElements = new ArrayList<Element>();
 	}
 
@@ -166,7 +166,8 @@ public class User {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof User) {
+		if (this == obj) return true;
+		if (obj != null && getClass() == obj.getClass()) {
 			User toCompare = (User) obj;
 			if (toCompare.getId() == this.getId()) {
 				return true;

@@ -21,7 +21,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "notifications")
 @Component
-public class Notification <T extends Element> {
+public class Notification {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class Notification <T extends Element> {
 	@ManyToOne
 	private User author;
 	@OneToOne(targetEntity = Element.class, cascade = CascadeType.MERGE)
-	private T notificationObject;
+	private Element notificationObject;
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<User> recipientUsers = new ArrayList<User>();
 	private boolean isRead;
@@ -40,7 +40,7 @@ public class Notification <T extends Element> {
 		
 	}
 	
-	public Notification(String title, String message, User author, T notificationObject, User RecipientUser) {
+	public Notification(String title, String message, User author, Element notificationObject, User RecipientUser) {
 		this.title = title;
 		this.message = message;
 		this.author = author;
@@ -49,7 +49,7 @@ public class Notification <T extends Element> {
 		setRead(false);
 	}
 	
-	public Notification(String title, String message, User author, T notificationObject, List<User> RecipientUsers) {
+	public Notification(String title, String message, User author, Element notificationObject, List<User> RecipientUsers) {
 		this.title = title;
 		this.message = message;
 		this.author = author;
@@ -90,11 +90,11 @@ public class Notification <T extends Element> {
 		this.author = author;
 	}
 
-	public T getNotificationObject() {
+	public Element getNotificationObject() {
 		return notificationObject;
 	}
 	
-	public void setNotificationObject(T notificationObject) {
+	public void setNotificationObject(Element notificationObject) {
 		this.notificationObject = notificationObject;
 	}
 	
@@ -113,7 +113,7 @@ public class Notification <T extends Element> {
 	@Override
 	public boolean equals(Object notificationToEquals) {
 		if (notificationToEquals instanceof Notification) {
-			Notification<T> toEquals = (Notification<T>) notificationToEquals;
+			Notification toEquals = (Notification) notificationToEquals;
 			if (toEquals.getId() == this.getId()) {
 				return true;
 			}

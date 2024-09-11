@@ -52,7 +52,7 @@ public class SearchController {
 
 	@GetMapping("/search/site")
 	public String searchElementsSite(Model model, String tag){
-		List<Element> toReturn = new ArrayList<Element>();
+		List<Element> toReturn = new ArrayList<>();
 		String tagClean = tag.replaceAll("\\s*,\\s*", ",");
 		List<String> tagValuesList = Arrays.stream(tagClean.split("[\\s,]+")).filter(t -> !t.isEmpty()).collect(Collectors.toList());
 		tagValuesList.stream().forEach(t ->{
@@ -65,7 +65,7 @@ public class SearchController {
 	
 	@GetMapping("/search/osm")
 	public String searchElementsOSM(Model model, @RequestParam("tag") String tag) throws JsonProcessingException{
-		List<PointOfInterest> toReturn = new ArrayList<PointOfInterest>();
+		List<PointOfInterest> toReturn = new ArrayList<>();
 		toReturn.addAll(POIResolver.resolveElements(nominatimService.getPOIInfo(tag)));
 		
 //		tagsList.stream().forEach(t -> {
@@ -85,7 +85,7 @@ public class SearchController {
         for (Element element : elemtsList) {occurrences.put(element, occurrences.getOrDefault(element, 0) + 1);}
         List<Map.Entry<Element, Integer>> entries = new ArrayList<>(occurrences.entrySet());
         Collections.sort(entries, (e1, e2) -> Integer.compare(e1.getValue(), e2.getValue()));
-        List<Element> risultato = new ArrayList<Element>();
+        List<Element> risultato = new ArrayList<>();
         for (Map.Entry<Element, Integer> entry : entries) {
             risultato.add(entry.getKey());
         }

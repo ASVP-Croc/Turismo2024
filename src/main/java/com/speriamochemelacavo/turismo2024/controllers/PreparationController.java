@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.models.users.User;
@@ -20,6 +21,7 @@ import com.speriamochemelacavo.turismo2024.services.ElementResolver;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import com.speriamochemelacavo.turismo2024.services.NominatimService;
 import com.speriamochemelacavo.turismo2024.services.NotificationsService;
+import com.speriamochemelacavo.turismo2024.services.POIsService;
 import com.speriamochemelacavo.turismo2024.services.TagsService;
 
 @RestController
@@ -36,9 +38,6 @@ public class PreparationController {
 	
 	@Autowired
 	private UsersService userService;
-	
-	@Autowired
-	private NotificationsService<PointOfInterest> notificationService;
 	
 	@Autowired
 	private TagsService tagsService;
@@ -61,25 +60,31 @@ public class PreparationController {
 	
 	@GetMapping("/startDbPOIs")
 	public RedirectView insertInitialPOIRecords() throws JsonProcessingException{
-		if (!poiService.isLoaded()) {
+		if (!POIsService.isLoaded()) {
+			List<PointOfInterest> toCheck = new ArrayList<>();
 			poiResolver.resolveElements(nominatimService.getPOIInfo("pizzeria,passetto,ancona")).forEach(p -> {
 				addressService.add(p.getAddress());
-				List<Tag> toAdd = new ArrayList<Tag>();
-				toAdd.add(new Tag(p.getName(), p));
+				List<Tag> toAdd = new ArrayList<>();
+				List<PointOfInterest> pointToAdd = new ArrayList<>();
+				pointToAdd.add(p);
+				toAdd.add(new Tag(p.getName(), pointToAdd));
 				toAdd.add(new Tag("passetto", p));
 				toAdd.add(new Tag("pizzeria", p));
-				tagsService.addAllTag(toAdd);
-				poiService.add(p, userService.findById(userService.getLoggedUser()), toAdd);
+				tagsService.addAll(toAdd);
+				toCheck.add(p);
+				poiService.add(p, userService.findById(userService.getLoggedUser()));
 				});
 			poiResolver.resolveElements(nominatimService.getPOIInfo("stadio,fermo")).forEach(p -> {
 				addressService.add(p.getAddress());
 				List<Tag> toAdd = new ArrayList<Tag>();
 				toAdd.add(new Tag(p.getName(), p));
 				toAdd.add(new Tag("stadio", p));
-				tagsService.addAllTag(toAdd);
-				poiService.add(p, userService.findById(userService.getLoggedUser()), toAdd);
+				poiService.add(p, userService.findById(userService.getLoggedUser()));
+				tagsService.addAll(toAdd);
+				toCheck.add(p);
 				});
-			poiService.setLoaded(true);
+			
+			POIsService.setLoaded(true);
 			}
 		return new RedirectView("/");
 	}

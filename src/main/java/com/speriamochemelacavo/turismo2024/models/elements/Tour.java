@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.speriamochemelacavo.turismo2024.models.users.User;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
@@ -25,10 +27,16 @@ import jakarta.persistence.OneToMany;
 public class Tour extends ElementWithContents{
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
-	private List<PointOfInterest> myPOIs;
+	private List<PointOfInterest> myPOIs = new ArrayList<>();
 	
 	public Tour() {
 		super();
+	}
+	
+//	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
+	public Tour(String name, String description, User author, String city, int postcode, List<Content> contents, List<PointOfInterest> myPOIs) {
+		super(name, description, author, city, postcode, contents);
+		this.myPOIs = myPOIs;
 	}
 
 	public List<PointOfInterest> getMyPOIs() {

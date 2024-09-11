@@ -5,43 +5,32 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.speriamochemelacavo.turismo2024.models.elements.Address;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.models.elements.Tour;
+import com.speriamochemelacavo.turismo2024.models.users.User;
 
 @Service
 public class ToursService extends ElementsWithContentsService<Tour>{
 	
-//	@Autowired
-//	POIsService poiService;
-//	
-//	public void addPOIToTour(PointOfInterest poi, int tourById) {
-//		findById(tourById).getMyPOIs().add(poi);
-//		updateElement(findById(tourById));
-//	}
-//	
-//	public void addPOIsToTour(List<PointOfInterest> poisToAdd, int tourById) {
-//		findById(tourById).getMyPOIs().addAll(poisToAdd);
-//		updateElement(findById(tourById));
-//	}
-//	
-//	public void addNewPOIToTour(PointOfInterest poi, int tourById) {
-//		poiService.addElement(poi);
-//		addPOIToTour(poi, tourById);
-//		updateElement(findById(tourById));
-//	}
-//	
-//	public void addNewPOIsToTour(List<PointOfInterest> poisToAdd, int tourById) {
-//		poiService.addElements(poisToAdd);
-//		addPOIsToTour(poisToAdd, tourById);
-//		updateElement(findById(tourById));
-//	}
-//	
-//	public void deletePOIToTour(PointOfInterest poi,  int tourById) {
-//		findById(tourById).getMyPOIs().remove(poi);
-//		if(findById(tourById).getMyPOIs().size()<2) {
-//			deleteElement(findById(tourById));
-//		}
-//		updateElement(findById(tourById));
-//	}
+	@Override
+	public void add(Tour tourToAdd, User author) {
+		super.add(tourToAdd, author);
+	}
+
+	@Override
+	public void add(Tour tourToAdd, User author, List<Tag> tags) {
+		super.add(tourToAdd, author, tags);
+	}
+	
+	public void add(Tour tourToAdd, User author, List<Tag> tags, PointOfInterest POIToAdd) {
+		tourToAdd.getMyPOIs().add(POIToAdd);
+		super.add(tourToAdd, author, tags);
+	}
+	
+	public void add(Tour tourToAdd, User author, List<Tag> tags, List<PointOfInterest> POIToAdd) {
+		tourToAdd.getMyPOIs().addAll(POIToAdd);
+		super.add(tourToAdd, author, tags);
+	}
 }

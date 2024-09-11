@@ -53,17 +53,20 @@ public abstract class Element {
 	@JsonProperty("city")
 	private String city;
 	@JsonProperty("postcode")
-	private Integer postcode;
+	private int postcode;
 	private boolean isPublished = false;
 	
 	public Element() {
 		
 	}
 
-	public Element(String name, String description) {
+//	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
+	public Element(String name, String description, User author, String city, int postcode) {
 		this.name = name;
 		this.description = description;
-		this.isPublished = false;	
+		this.author = author;
+		this.city = city;
+		this.postcode = postcode;	
 	}
 
 	public Integer getId() {
@@ -124,7 +127,8 @@ public abstract class Element {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Element) {
+		if (this == obj) return true;
+		if (obj != null && getClass() == obj.getClass()) {
 			Element toCompare = (Element) obj;
 			if (toCompare.getId() == this.getId()) {
 				return true;

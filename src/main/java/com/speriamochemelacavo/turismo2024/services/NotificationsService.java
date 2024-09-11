@@ -16,34 +16,34 @@ public class NotificationsService<T extends Element> {
 	@Autowired
 	private NotificationRepository<T> notificationRepository;
 	
-	public Notification<T> findById(int elemToFindId) {
+	public Notification findById(int elemToFindId) {
 		return notificationRepository.findById(elemToFindId).orElseThrow();
 	}
 	
-	public List<Notification<T>> findAllByRecipientUserId(int id){
+	public List<Notification> findAllByRecipientUserId(int id){
 		return notificationRepository.findAllNotificationByRecipientUsersId(id);
 	}
 	
-	private void addNotification(Notification<T> notificationToAdd) {
+	private void addNotification(Notification notificationToAdd) {
 		notificationRepository.save(notificationToAdd);
 	}
 	
-	public void updateNotification(Notification<T> notificationToUpdate) {
+	public void updateNotification(Notification notificationToUpdate) {
 		notificationRepository.save(notificationToUpdate);
 	}
 	
 	public void sendToSingleUser(String title, String message, T object, User author, User recipientUser) {
-		Notification<T> toSend = new Notification<T>(title, message, author, object, recipientUser);
+		Notification toSend = new Notification(title, message, author, object, recipientUser);
 		addNotification(toSend);
 	}
 	
 	public void sendToMultipleUsers(String title, String message, T object, User author, List<User> recipientsUser) {
-		Notification<T> toSend = new Notification<T>(title, message, author, object, recipientsUser);
+		Notification toSend = new Notification(title, message, author, object, recipientsUser);
 		addNotification(toSend);
 	}
 	
-	public Notification<T> readNotification(int notificationId) {
-		Notification<T> toRead = findById(notificationId);
+	public Notification readNotification(int notificationId) {
+		Notification toRead = findById(notificationId);
 		toRead.setRead(true);
 		updateNotification(toRead);
 		return toRead;

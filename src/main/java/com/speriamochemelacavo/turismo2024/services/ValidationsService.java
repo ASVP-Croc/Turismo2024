@@ -51,8 +51,8 @@ public class ValidationsService<T extends Element> {
 		notificationService.sendToSingleUser("Pubblicazione richiesta per: " + elementToValidate.getName(), "", elementToValidate, elementToValidate.getAuthor(), elementToValidate.getAuthor());
 	}
 	
-	public void updateValidation(String message, Notification<T> notificationToResponse){
-		Notification<T> notificationUpdated = notificationToResponse;
+	public void updateValidation(String message, Notification notificationToResponse){
+		Notification notificationUpdated = notificationToResponse;
 		notificationUpdated.setTitle("Aggiornamento pubblicazione: " + notificationToResponse.getNotificationObject().getName());
 		notificationUpdated.setMessage(message);
 		notificationUpdated.getRecipientUsers().clear();
@@ -60,8 +60,8 @@ public class ValidationsService<T extends Element> {
 		notificationService.updateNotification(notificationUpdated);
 	}
 	
-	public void confirmValidation(Notification<T> notificationToConfirm) {
-		Notification<T> notificationConfirmed = notificationToConfirm;
+	public void confirmValidation(Notification notificationToConfirm) {
+		Notification notificationConfirmed = notificationToConfirm;
 		notificationConfirmed.setTitle("Pubblicazione avvenuta: " + notificationToConfirm.getNotificationObject().getName());
 		notificationConfirmed.setMessage("");
 		notificationConfirmed.getRecipientUsers().clear();

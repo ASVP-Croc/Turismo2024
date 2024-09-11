@@ -20,9 +20,6 @@ public class UserController {
 	@Autowired
 	UsersService accountService;
 	
-	@Autowired
-	PageController pageController;
-	
 	@GetMapping("/users/{id}")
 	public User getUserById(@PathVariable int id){
 		return accountService.findById(id);

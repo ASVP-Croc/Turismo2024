@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.speriamochemelacavo.turismo2024.models.users.User;
+
 import jakarta.persistence.Entity;
 
 /**
@@ -26,6 +28,13 @@ public class Contest extends ElementWithContents {
 	
 	public Contest() {
 		super();
+	}
+	
+//	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
+	public Contest(String name, String description, User author, String city, int postcode, List<Content> contents, Date starts, Date ends) {
+		super(name, description, author, city, postcode, contents);
+		this.starts = starts;
+		this.ends = ends;
 	}
 
 	public Date getStarts() {

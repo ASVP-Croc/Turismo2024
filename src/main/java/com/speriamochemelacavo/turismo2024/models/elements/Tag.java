@@ -27,20 +27,26 @@ public class Tag {
 	private int id;
 	private String tag;
 	@ManyToMany(cascade = CascadeType.ALL)
-	private List<Element> elementsTagged = new ArrayList<Element>();
+	private List<Element> elementsTagged = new ArrayList<>();
+
+	public Tag() {
+	}
+	
+
+	public <T extends Element> Tag(String tag, T elementsTagged) {
+		this.tag = tag;
+		this.elementsTagged.add(elementsTagged);
+	}
+	
+	public <T extends Element> Tag(String tag, List<T> elementsTagged) {
+		this.tag = tag;
+		this.elementsTagged.addAll(elementsTagged);
+	}
 	
 	public int getId() {
 		return id;
 	}
 
-	public Tag() {
-	}
-	
-	public Tag(String tag, Element elementTagged) {
-		this.tag = tag;
-		this.elementsTagged.add(elementTagged);
-	}
-	
 	public String getTag() {
 		return tag;
 	}
@@ -52,21 +58,13 @@ public class Tag {
 	public List<Element> getElements() {
 		return elementsTagged;
 	}
-	
-	public void addElement(Element element) {
-		getElements().add(element);
-	}
-
-	public void setElements(List<Element> elements) {
-		this.elementsTagged = elements;
-	}
 
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Tag tag1 = (Tag) o;
-		return id == tag1.id && Objects.equals(tag, tag1.tag) && Objects.equals(elementsTagged, tag1.elementsTagged);
+		return id == tag1.id;
 	}
 
 	@Override
