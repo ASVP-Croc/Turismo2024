@@ -27,10 +27,10 @@ public class AccessController {
 	@Autowired
 	ModelSetter modelSetter;
 
-//	@PostMapping("/login")
-//	public void loginByUserName(String userName, String password){
-//
-//	}
+	@PostMapping("/login/send")
+	public void loginByUserName(@RequestParam String userName,@RequestParam String password){
+		System.out.println("prova");
+	}
 	
 //	@GetMapping("/logout")
 //	public RedirectView logout(Model model) {

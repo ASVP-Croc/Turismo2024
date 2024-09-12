@@ -24,17 +24,23 @@ public class NominatimService {
     }
     
     public String getInfoFromParameter(String amenity, String street, String postalcode) throws IOException {
-    	String url = UriComponentsBuilder.fromHttpUrl("https://nominatim.openstreetmap.org/search")
-                .queryParam("amenity", amenity)
-                .queryParam("street", street)
-                .queryParam("country", "Italia")
-                .queryParam("postalcode", postalcode)
-                .queryParam("addressdetails", 1)
-                .queryParam("format", "jsonv2")
-                .queryParam("countrycodes", "it")
-                .toUriString();
-    	System.out.println(url);
-        return getJsonFromUrl(url);
+    	UriComponentsBuilder url = UriComponentsBuilder.fromHttpUrl("https://nominatim.openstreetmap.org/search");
+    	if (amenity != "" && amenity != null) {
+    		url.queryParam("amenity", amenity);
+    	}
+    	if (street != "" && street != null) {
+    		url.queryParam("street", street);
+    	}
+    	if (postalcode != "" && postalcode != null) {
+    		url.queryParam("postalcode", postalcode);
+    	}
+    	url.queryParam("country", "Italia")
+        .queryParam("addressdetails", 1)
+        .queryParam("format", "jsonv2")
+        .queryParam("countrycodes", "it");
+    	String toReturn = url.toUriString();
+    	System.out.println(toReturn);
+        return getJsonFromUrl(toReturn);
     }
     
     public String getReverseLocationInfo(double lat, double lon) throws IOException {

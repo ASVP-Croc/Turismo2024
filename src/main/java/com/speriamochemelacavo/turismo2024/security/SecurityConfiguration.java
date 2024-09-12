@@ -28,6 +28,7 @@ import com.speriamochemelacavo.turismo2024.services.UsersService;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
+	@Autowired
 	private final AccountSecurity accountSecurity;
 
     public SecurityConfiguration(AccountSecurity accountSecurity) {
@@ -37,17 +38,17 @@ public class SecurityConfiguration {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-	        .csrf(t -> t.disable())
-	        .authorizeHttpRequests((requests) -> requests
-	                        .requestMatchers("/h2-console/**", "/", "/login", "/registration", "/startDbUsers", "/css/**").permitAll()
+        	.authorizeHttpRequests((requests) -> requests
+	                        .requestMatchers("/h2-console/**", "/", "/login", "/registration", "/startDbUsers", "/css/**", "/all/elements", "/search/**").permitAll()
 	                        .requestMatchers("/logout", "/startDbPOIs").authenticated())
 					        .formLogin(form -> form
 					                .loginPage("/login")
 					                .permitAll()
-					                .defaultSuccessUrl("/", true)  // Reindirizza a una pagina dopo il login
+					                .defaultSuccessUrl("/", false)  // Reindirizza a una pagina dopo il login
 					            )
 					        .logout(logout -> logout
 					                .permitAll()
+					                .logoutSuccessUrl("/login?logout=true")
 					            )
 					        .userDetailsService(accountSecurity)
 	                        // Permetti l'uso dei frame solo per la stessa origine

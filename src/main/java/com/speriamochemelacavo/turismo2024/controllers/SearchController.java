@@ -85,7 +85,7 @@ public class SearchController {
 				POIResolver.resolveElements(
 						nominatimService.getInfoFromParameter(
 								amenity,
-								street + " " + houseNumber,
+								(street == "" && houseNumber == "") ? "" : street + " " + houseNumber,
 								accountSecurity.isLogged() ? userService.findByUserName(accountSecurity.getLoggedUserName()).getCAP() : postalCode)
 								));
 		toReturn.forEach(p -> System.out.println(p.toString()));

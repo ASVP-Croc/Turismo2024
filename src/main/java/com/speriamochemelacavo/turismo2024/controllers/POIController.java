@@ -16,5 +16,5 @@ public class POIController {
 	@GetMapping("poi/{id}")
 	public PointOfInterest getPOIById(@PathVariable int id) {
 		return poiService.findById(id);
-	}	
+	}
 }

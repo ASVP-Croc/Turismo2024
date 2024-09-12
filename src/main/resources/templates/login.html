@@ -12,7 +12,7 @@
 	<div th:replace="~{fragments/header :: header}"></div>
 	<div th:replace="~{fragments/menu :: menu}"></div>
     <div class = "container">
-		<form class = "cardLogin" th:action="@{/login}" method="post">
+		<form class = "cardLogin" action="/login/send" method="post">
 			<h1 class = "scritteCard">LOGIN</h1>
 			<br/>
 			<input class = "input" type="text" th:name="userName" placeholder="USERNAME" required>
@@ -24,6 +24,9 @@
 			</button>
 			 <div th:if="${param.error}">
             	<p style="color:red;">Credenziali non valide, riprova.</p>
+        	</div>
+        	<div th:if="${param.logout}">
+            	<p style="color:green;">Logout avvenuto con successo.</p>
         	</div>
 		</form>
 	</div>		

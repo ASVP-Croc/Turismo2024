@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.speriamochemelacavo.turismo2024.services.UsersService;
 
@@ -49,7 +50,7 @@ public class AccountSecurity implements UserDetailsService{
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(@RequestParam String userName) throws UsernameNotFoundException {
 		com.speriamochemelacavo.turismo2024.models.users.User user = userService.findByUserName(userName);
 		if (user == null) {
             throw new UsernameNotFoundException("User not found");
