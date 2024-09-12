@@ -23,7 +23,7 @@
 		<button th:unless = "${isLogged}" th:onclick = "location.href = '/registration'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Registrati</h1>
 		</button>
-		<button th:if = "${isLogged}" th:onclick = "location.href = '/logout'" class = "bottoniMenu">
+		<button th:if = "${isLogged}" th:onclick = "location.href = '/logout'" class = "bottoniMenu" method = "post">
 			<h1 class = "scritteBottoniMenu">Logout</h1>
 		</button>
 		<button th:if = "${isLogged}" class = "iconaNotifiche">

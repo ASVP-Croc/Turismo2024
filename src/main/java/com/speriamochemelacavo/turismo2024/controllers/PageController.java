@@ -10,11 +10,7 @@ import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.services.UsersService;
 
-import jakarta.el.ELManager;
-import jakarta.servlet.http.HttpSession;
-
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
-import com.speriamochemelacavo.turismo2024.services.NotificationsService;
 
 @Controller
 @RequestMapping
@@ -31,65 +27,55 @@ public class PageController {
 	private ModelSetter modelSetter;
 
 	@GetMapping("/")
-	public String welcome(Model model, HttpSession session) {
-		modelSetter.setConditionModelVisibility(model, session);
+	public String welcome(Model model) {
+		modelSetter.setConditionModelVisibility(model);
 		return "index";
 	}
 
 	@GetMapping("/login")
-	public String login(Model model, HttpSession session) {
-		modelSetter.setConditionModelVisibility(model, session);
-		if (!accountService.isLogged()) {
-			return "login";
-		}
-		return "index";
+	public String login(Model model) {
+		modelSetter.setConditionModelVisibility(model);
+		return "login";
 	}
-
-	@GetMapping("/logout")
-	public String logout(Model model, HttpSession session) {
-		accountService.resetLoggedUser();
-		modelSetter.setConditionModelVisibility(model, session);
-		return "index";
-	}
-
+	
 	@GetMapping("/all/users")
-	public String getUsers(Model model, HttpSession session) {
+	public String getUsers(Model model) {
 		model.addAttribute("listUser", accountService.findAll());
-		modelSetter.setConditionModelVisibility(model, session);
+		modelSetter.setConditionModelVisibility(model);
 		return "users-list";
 	}
 	
 	@GetMapping("/elements")
-	public String getElements(Model model, HttpSession session) {
-		modelSetter.setConditionModelVisibility(model, session);
+	public String getElements(Model model) {
+		modelSetter.setConditionModelVisibility(model);
 		return "elements-site-list";
 	}
 	
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
 	@GetMapping("/all/elements")
-	public String getAll(Model model, HttpSession session) {
+	public String getAll(Model model) {
 		model.addAttribute("listElements", elementsService.findAll());
-		modelSetter.setConditionModelVisibility(model, session);
+		modelSetter.setConditionModelVisibility(model);
 		return "elements-site-list";
 	}
 	
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
 	@GetMapping("/pois")
-	public String getPois(Model model, HttpSession session) {
+	public String getPois(Model model) {
 		model.addAttribute("listPoi", elementsService.findAll());
-		modelSetter.setConditionModelVisibility(model, session);
+		modelSetter.setConditionModelVisibility(model);
 		return "poi-list";
 	}
 	
 	@GetMapping("/registration")
-	public String userRegistration(Model model, HttpSession session) {
-		modelSetter.setConditionModelVisibility(model, session);
+	public String userRegistration(Model model) {
+		modelSetter.setConditionModelVisibility(model);
 		return "registration";
 	}
 	
 	@GetMapping("/error")
-	public String error(Model model, HttpSession session) {
-		modelSetter.setConditionModelVisibility(model, session);
+	public String error(Model model) {
+		modelSetter.setConditionModelVisibility(model);
 		return "error";
 	}
 }

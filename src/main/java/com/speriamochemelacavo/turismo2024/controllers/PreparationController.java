@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.metrics.StartupStep.Tags;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
@@ -14,6 +15,7 @@ import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.models.users.User;
+import com.speriamochemelacavo.turismo2024.security.AccountSecurity;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.services.UsersService;
 import com.speriamochemelacavo.turismo2024.services.AddressService;
@@ -37,6 +39,9 @@ public class PreparationController {
 	private ElementsService<PointOfInterest> poiService;
 	
 	@Autowired
+	private AccountSecurity accountSecurity;
+	
+	@Autowired
 	private UsersService userService;
 	
 	@Autowired
@@ -49,9 +54,9 @@ public class PreparationController {
 	public RedirectView insertInitialUserRecords(){
 		if (!userService.isLoaded()) {
 			List<User> initialUsers = new ArrayList<>();
-			initialUsers.add(new User("Matteo", "Pallotti", "Maverick", "maverick@gmail.com", "3929217858", "C.da San Pietro Orgiano, 13", "Fermo", "63900", Role.Administrator));
-			initialUsers.add(new User("Lorenzo", "Crovace", "AVCP", "avcp@gmail.com", "123456789", "Via Ancona, 188", "Macerata", "62100", Role.Curator));
-			initialUsers.add(new User("Simone", "Silver", "SilverSimon", "simon@gmail.com", "987654321", "Via Pluto", "Ancona", "60100", Role.AuthenticatedTourist));
+			initialUsers.add(new User("Matteo", "Pallotti", "Maverick", new BCryptPasswordEncoder().encode("12345678"), "maverick@gmail.com", "3929217858", "C.da San Pietro Orgiano, 13", "Fermo", "63900", Role.Administrator));
+			initialUsers.add(new User("Lorenzo", "Crovace", "AVCP", new BCryptPasswordEncoder().encode("12345678"), "avcp@gmail.com", "369852147", "Via Ancona, 188", "Macerata", "62100", Role.Curator));
+			initialUsers.add(new User("Simone", "Silver", "SilverSimon", new BCryptPasswordEncoder().encode("12345678"), "simon@gmail.com", "987654321", "Via Pluto", "Ancona", "60100", Role.AuthenticatedTourist));
 			initialUsers.stream().forEach(u -> userService.addUser(u));
 			userService.setLoaded(true);
 			}
@@ -72,14 +77,14 @@ public class PreparationController {
 				toAdd.add(new Tag("pizzeria", p));
 				tagsService.addAll(toAdd);
 				toCheck.add(p);
-				poiService.add(p, userService.findById(userService.getLoggedUser()));
+				poiService.add(p, userService.findByUserName(accountSecurity.getLoggedUserName()));
 				});
 			poiResolver.resolveElements(nominatimService.getInfoFromParameter("pizzeria", "", "Ancona")).forEach(p -> {
 				addressService.add(p.getAddress());
 				List<Tag> toAdd = new ArrayList<Tag>();
 				toAdd.add(new Tag(p.getName(), p));
 				toAdd.add(new Tag("stadio", p));
-				poiService.add(p, userService.findById(userService.getLoggedUser()));
+				poiService.add(p, userService.findByUserName(accountSecurity.getLoggedUserName()));
 				tagsService.addAll(toAdd);
 				toCheck.add(p);
 				});

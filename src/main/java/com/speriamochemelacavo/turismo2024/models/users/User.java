@@ -2,6 +2,9 @@ package com.speriamochemelacavo.turismo2024.models.users;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
@@ -52,6 +55,7 @@ public class User {
 	private String name;
 	private String surname;
 	private String userName;
+	private String password;
 	private String email;
 	private String phoneNumber;
 	private String address;
@@ -66,10 +70,11 @@ public class User {
 
 	public User() {}
 	
-	public User(String name, String surname, String userName, String email, String phoneNumber, String address, String comune, String CAP, Role role) {
+	public User(String name, String surname, String userName, String password, String email, String phoneNumber, String address, String comune, String CAP, Role role) {
 		this.name = name;
 		this.surname = surname;
 		this.userName = userName;
+		this.password = password;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
@@ -106,6 +111,14 @@ public class User {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getEmail() {
@@ -174,6 +187,10 @@ public class User {
 			}
 		}
 		return false;
+	}
+
+	public UserDetails map(Function<User, UserDetails> function) {
+		return function.apply(this);
 	}
 }
 		

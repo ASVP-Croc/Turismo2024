@@ -2,13 +2,11 @@ package com.speriamochemelacavo.turismo2024.services;
 
 import java.io.IOException;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
@@ -25,12 +23,12 @@ public class NominatimService {
         return getJsonFromUrl(url);
     }
     
-    public String getInfoFromParameter(String amenity, String street, String postcode) throws IOException {
+    public String getInfoFromParameter(String amenity, String street, String postalcode) throws IOException {
     	String url = UriComponentsBuilder.fromHttpUrl("https://nominatim.openstreetmap.org/search")
                 .queryParam("amenity", amenity)
                 .queryParam("street", street)
                 .queryParam("country", "Italia")
-                .queryParam("postcode", postcode)
+                .queryParam("postalcode", postalcode)
                 .queryParam("addressdetails", 1)
                 .queryParam("format", "jsonv2")
                 .queryParam("countrycodes", "it")

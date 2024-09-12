@@ -1,7 +1,5 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
-import java.util.LinkedHashMap;
-
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;

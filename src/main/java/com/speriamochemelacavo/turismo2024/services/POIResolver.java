@@ -5,13 +5,8 @@ import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
-
 import static java.lang.Float.parseFloat;
-import static java.lang.Integer.parseInt;
 
 @Service
 public class POIResolver extends ElementResolver<PointOfInterest>{
@@ -27,18 +22,7 @@ public class POIResolver extends ElementResolver<PointOfInterest>{
     	pointOfInterest.setAddress(addressResolver(addressToResolve, pointOfInterest));
         return pointOfInterest;
     }
-/**
-    private String addressResolver(LinkedHashMap<String, String> linkedHashMap) {
-    	List<String> addressToForm = new ArrayList<String>();
-    	addressToForm.add(linkedHashMap.get("road"));
-    	if (linkedHashMap.containsKey("house_number"))
-    		addressToForm.add(linkedHashMap.get("house_number"));
-    	else
-    		addressToForm.add("snc");
-        String address = String.join(", ", addressToForm);
-        return address;
-    }
-*/
+
 	private Address addressResolver(LinkedHashMap<String, String> addressToResolve, PointOfInterest pointOfInterest) {
 		Address address = new Address();
 		LinkedHashMap<String, String> addressToConvert = ((LinkedHashMap<String, String>)mapper.convertValue(addressToResolve, LinkedHashMap.class));

@@ -1,14 +1,11 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
 import com.speriamochemelacavo.turismo2024.models.users.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
 /**

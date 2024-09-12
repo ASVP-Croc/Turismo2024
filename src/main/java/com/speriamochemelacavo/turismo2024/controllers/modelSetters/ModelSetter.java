@@ -1,11 +1,14 @@
 package com.speriamochemelacavo.turismo2024.controllers.modelSetters;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
+import com.speriamochemelacavo.turismo2024.security.AccountSecurity;
 import com.speriamochemelacavo.turismo2024.services.UsersService;
 
 import jakarta.servlet.http.HttpSession;
@@ -18,15 +21,18 @@ import com.speriamochemelacavo.turismo2024.services.POIsService;
 public class ModelSetter {
 	
 	@Autowired
+	private AccountSecurity accountSecurity;
+	
+	@Autowired
 	private UsersService accountService;
 	
-	public void setConditionModelVisibility(Model model, HttpSession session) {
+	public void setConditionModelVisibility(Model model) {
 		model.addAttribute("nameUser",
-				!accountService.isLogged() ? "Turista" : accountService.findById(accountService.getLoggedUser()).getName());
-		model.addAttribute("isLogged", session.getAttribute("userId") != null);
+				accountSecurity.isLogged() ? accountService.findByUserName(accountSecurity.getLoggedUserName()).getName() : "Turista");
 		model.addAttribute("isLoadedUsers", accountService.isLoaded());
-		boolean isPOIButtonVisible = (accountService.isLogged() & !POIsService.isLoaded());
+		model.addAttribute("isLogged", accountSecurity.isLogged());
+		boolean isPOIButtonVisible = (accountSecurity.isLogged() & !POIsService.isLoaded());
 		model.addAttribute("isPOIButtonVisible", isPOIButtonVisible);
-		model.addAttribute("numberOfNotifications", accountService.isLogged() ? accountService.findById(accountService.getLoggedUser()).getNotifications().size() : 56);
+		model.addAttribute("numberOfNotifications", accountSecurity.isLogged() ? accountService.findByUserName(accountSecurity.getLoggedUserName()).getNotifications().size() : 56);
 	}
 }

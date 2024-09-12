@@ -9,7 +9,6 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 /**

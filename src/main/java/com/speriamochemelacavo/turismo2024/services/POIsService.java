@@ -2,12 +2,8 @@ package com.speriamochemelacavo.turismo2024.services;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Address;
 import com.speriamochemelacavo.turismo2024.models.elements.Content;
-import com.speriamochemelacavo.turismo2024.models.elements.Element;
-
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;

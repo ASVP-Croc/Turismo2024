@@ -3,9 +3,9 @@
 <head> 
     <title>Turismo2024</title> 
     <meta http-equiv="Content-Type" content="text/html" />
-	<link th:href="@{/styles/header.css}" rel="stylesheet" />
-	<link th:href="@{/styles/menu.css}" rel="stylesheet" />
-    <link th:href="@{/styles/list.css}" rel="stylesheet" />
+	<link th:href="@{/css/header.css}" rel="stylesheet" />
+	<link th:href="@{/css/menu.css}" rel="stylesheet" />
+	<link th:href="@{/css/list.css}" rel="stylesheet" />
     <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/favicon.ico">
 </head>
 <body>
@@ -14,16 +14,19 @@
     <div class = "container">
     	<form class = "card" action="/registration" method="post">
 			<h1 class = "scritteCard">Inserisci il tuo Nome</h1>
-		    <input class = "input" type="text" name = "name"/>
+		    <input class = "input" type="text" name = "name" required/>
 		    <br />
 		    <h1 class = "scritteCard">Inserisci il tuo Cognome</h1>
-		    <input class = "input" type="text" name = "surname"/>
+		    <input class = "input" type="text" name = "surname" required/>
 		    <br />
 		    <h1 class = "scritteCard">Inserisci il tuo Username</h1>
-		    <input class = "input" type="text" name = "userName"/>
+		    <input class = "input" type="text" name = "userName" required/>
+		    <br />
+		    <h1 class = "scritteCard">Inserisci la tua password</h1>
+		    <input class = "input" type="password" name = "password" required/>
 		    <br />
 		    <h1 class = "scritteCard">Inserisci la tua email</h1>
-		    <input class = "input" type="text" name = "email"/>
+		    <input class = "input" type="text" name = "email" required/>
 		    <br />
 		    <h1 class = "scritteCard">Inserisci il tuo numero di telefono</h1>
 		    <input class = "input" type="text" name = "phoneNumber"/>
@@ -32,7 +35,7 @@
 		    <input class = "input" type="text" name = "address"/>
 		    <br />
 		    <h1 class = "scritteCard">Inserisci il tuo CAP</h1>
-		    <input class = "input" type="text" name = "CAP"/>
+		    <input class = "input" type="text" name = "CAP" required/>
 		    <br />
 		    <button type="submit" class = "bottoniForm">
 		    	<p class = "scritteBottoniForm">Invia</p>
