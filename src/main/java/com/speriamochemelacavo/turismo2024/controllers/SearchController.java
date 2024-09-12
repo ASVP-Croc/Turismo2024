@@ -27,6 +27,10 @@ import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.services.UsersService;
+
+import jakarta.servlet.http.HttpSession;
+
+import com.speriamochemelacavo.turismo2024.services.AccountsService;
 import com.speriamochemelacavo.turismo2024.services.ElementResolver;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import com.speriamochemelacavo.turismo2024.services.NominatimService;
@@ -39,6 +43,7 @@ import com.speriamochemelacavo.turismo2024.services.TagsService;
 public class SearchController {
 	
 	@Autowired
+	private AccountsService accountservice;
 	private NominatimService nominatimService;
 	
 	@Autowired
@@ -51,52 +56,51 @@ public class SearchController {
 	private ModelSetter modelSetter;
 
 	@GetMapping("/search/site")
-	public String searchElementsSite(Model model, String tag){
+	public String searchElementsSite(Model model, String tag, HttpSession session){
 		List<Element> toReturn = new ArrayList<>();
 		String tagClean = tag.replaceAll("\\s*,\\s*", ",");
 		List<String> tagValuesList = Arrays.stream(tagClean.split("[\\s,]+")).filter(t -> !t.isEmpty()).collect(Collectors.toList());
 		tagValuesList.stream().forEach(t ->{
 			if (tagService.findByTag(t) != null) toReturn.addAll(tagService.findByTag(t).getElements());
 			});
-		modelSetter.setConditionModelVisibility(model);
+		modelSetter.setConditionModelVisibility(model, session);
 		model.addAttribute("listElements", sortListByOccurrences(toReturn));
 		return "elements-site-list";
 	}
 	
 	@GetMapping("/search/osm/detail")
-	public String searchElementsOSMWithDetails(Model model, 
+	public String searchElementsOSMWithDetails(Model model,
 			@RequestParam String amenity, 
 			@RequestParam String street,
 			@RequestParam String houseNumber, 
 			@RequestParam String city, 
 			@RequestParam String county, 
 			@RequestParam String state, 
-			@RequestParam String postcode) throws IOException{
+			@RequestParam String postcode,
+			HttpSession session) throws IOException{
 		List<PointOfInterest> toReturn = new ArrayList<>();
 		toReturn.addAll(
 				POIResolver.resolveElements(
 						nominatimService.getInfoFromParameter(
 								amenity,
 								street + " " + houseNumber,
-								city,
-								county,
-								state,
-								postcode)));
+								session.getAttribute("userId") != null ? accountservice.findById(Integer.parseInt((String) session.getAttribute("userId"))).getCAP() : postcode)
+								));
 		toReturn.forEach(p -> System.out.println(p.toString()));
-		modelSetter.setConditionModelVisibility(model);
+		modelSetter.setConditionModelVisibility(model, session);
 		model.addAttribute("listElements", toReturn);
 		return "elements-osm-list";
 	}
 	
 	@GetMapping("/search/osm/query")
-	public String searchElementsOSMWithQuery(Model model, 
+	public String searchElementsOSMWithQuery(Model model, HttpSession session,
 			@RequestParam String query) throws IOException{
 		List<PointOfInterest> toReturn = new ArrayList<>();
 		toReturn.addAll(
 				POIResolver.resolveElements(
 						nominatimService.getInfoFromQuery(query)));
 		toReturn.forEach(p -> System.out.println(p.toString()));
-		modelSetter.setConditionModelVisibility(model);
+		modelSetter.setConditionModelVisibility(model, session);
 		model.addAttribute("listElements", toReturn);
 		return "elements-osm-list";
 	}

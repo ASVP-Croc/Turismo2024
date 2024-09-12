@@ -25,13 +25,10 @@ public class NominatimService {
         return getJsonFromUrl(url);
     }
     
-    public String getInfoFromParameter(String amenity, String street, String city, String county, String state, String postcode) throws IOException {
+    public String getInfoFromParameter(String amenity, String street, String postcode) throws IOException {
     	String url = UriComponentsBuilder.fromHttpUrl("https://nominatim.openstreetmap.org/search")
                 .queryParam("amenity", amenity)
                 .queryParam("street", street)
-                .queryParam("city", city)
-                .queryParam("county", county)
-                .queryParam("state", state)
                 .queryParam("country", "Italia")
                 .queryParam("postcode", postcode)
                 .queryParam("addressdetails", 1)

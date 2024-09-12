@@ -14,13 +14,7 @@
 			<br/>
 			<input class = "input" type="text" name="houseNumber" placeholder="Numero Civico">
 			<br/>
-			<input class = "input" type="text" name="city" placeholder="Città">
-			<br/>
-			<input class = "input" type="text" name="postcode" placeholder="C.A.P.">
-			<br/>
-			<input class = "input" type="text" name="county" placeholder="Provincia">
-			<br/>
-			<input class = "input" type="text" name="state" placeholder="Regione">
+			<input th:unless = "${isLogged}" class = "input" type="text" name="postCode" placeholder="C.A.P.">
 			<br/>
 			<button type="submit" class = "bottoniForm">
 				<p class = "scritteBottoniForm">CERCA</p>

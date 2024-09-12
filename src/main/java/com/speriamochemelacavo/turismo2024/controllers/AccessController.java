@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.services.UsersService;
 
 import jakarta.servlet.http.HttpSession;
@@ -19,9 +20,9 @@ public class AccessController {
 	
 	@PostMapping("/login/send")
 	public RedirectView loginByUserName(String userName, HttpSession session){
-		if (accountService.findByUserName(userName) != null) {
-			accountService.saveLoggedUser(userName);
-			session.setAttribute("userName", userName);
+		User toLogin = accountService.findByUserName(userName);
+		if (toLogin != null) {
+			session.setAttribute("userId", String.valueOf(toLogin.getId()));
 			return new RedirectView("/");
 		}
         return new RedirectView("/login");

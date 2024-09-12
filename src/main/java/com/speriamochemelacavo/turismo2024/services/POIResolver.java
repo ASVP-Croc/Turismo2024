@@ -6,6 +6,7 @@ import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -38,15 +39,56 @@ public class POIResolver extends ElementResolver<PointOfInterest>{
         return address;
     }
 */
-	private Address addressResolver(LinkedHashMap<String, String> linkedHashMap, PointOfInterest pointOfInterest) {
+	private Address addressResolver(LinkedHashMap<String, String> addressToResolve, PointOfInterest pointOfInterest) {
 		Address address = new Address();
-		LinkedHashMap<String, String> otherLinkedHashMap = ((LinkedHashMap<String, String>)mapper.convertValue(linkedHashMap, LinkedHashMap.class));
-		address.setAmenity(otherLinkedHashMap.get("amenity"));
-		address.setHouse_number(otherLinkedHashMap.get("house_number"));
-		address.setRoad(otherLinkedHashMap.get("road"));
-		address.setQuarter(otherLinkedHashMap.get("quarter"));
-		pointOfInterest.setCity(otherLinkedHashMap.get("city"));
-		pointOfInterest.setPostcode(otherLinkedHashMap.get("postcode"));
+		LinkedHashMap<String, String> addressToConvert = ((LinkedHashMap<String, String>)mapper.convertValue(addressToResolve, LinkedHashMap.class));
+		address.setAmenity(checkKey(addressToResolve, "amenity"));
+		address.setHouse_number(checkKey(addressToResolve, "house_number"));
+		address.setRoad(addressToConvert.get("road"));
+		address.setQuarter(checkKey(addressToResolve, "quarter"));
+		pointOfInterest.setCity(checkKey(addressToResolve, "city"));
+		pointOfInterest.setPostcode(addressToConvert.get("postcode") != null ? addressToConvert.get("postcode") : "------");
 		return address;
+	}
+	private String checkKey(LinkedHashMap<String, String> addressToCheck, String key) {
+		String toReturn = " ";
+		switch (key) {
+		case "amenity" -> {
+			String toSplit = "emergency, historic, military, natural, landuse, place, railway, man_made, aerialway, boundary, amenity, aeroway, club, craft, leisure, office, mountain_pass, shop, tourism, bridge, tunnel, waterway";
+			String[] splitted = toSplit.split(", ");
+			for (String toControll : splitted) {
+				toReturn = toReturn + addressToCheck.getOrDefault(toControll, "");
+			}
+			
+		}
+		case "house_number" -> {
+			String toSplit = "house_number, house_name";
+			String[] splitted = toSplit.split(", ");
+			for (String toControll : splitted) {
+				toReturn = toReturn + addressToCheck.getOrDefault(toControll, "");
+			}
+			
+		}
+		case "city" -> {
+			String toSplit = "municipality, city, town, village";
+			String[] splitted = toSplit.split(", ");
+			for (String toControll : splitted) {
+				toReturn = toReturn + addressToCheck.getOrDefault(toControll, "");
+			}
+			
+		}
+		case "quarter" -> {
+			String toSplit = "neighbourhood, allotments, quarter";
+			String[] splitted = toSplit.split(", ");
+			for (String toControll : splitted) {
+				toReturn = toReturn + addressToCheck.getOrDefault(toControll, "");
+			}
+			
+		}
+		default ->
+		throw new IllegalArgumentException("Unexpected value: " + key);
+		}
+		return toReturn;
+		
 	}
 }

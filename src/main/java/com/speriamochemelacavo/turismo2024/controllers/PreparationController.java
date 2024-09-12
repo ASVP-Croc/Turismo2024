@@ -49,9 +49,9 @@ public class PreparationController {
 	public RedirectView insertInitialUserRecords(){
 		if (!userService.isLoaded()) {
 			List<User> initialUsers = new ArrayList<>();
-			initialUsers.add(new User("Matteo", "Pallotti", "Maverick", "maverick@gmail.com", "3929217858", "C.da San Pietro Orgiano, 13", "Fermo", 63900, Role.Administrator));
-			initialUsers.add(new User("Lorenzo", "Crovace", "AVCP", "avcp@gmail.com", "123456789", "Via Ancona, 188", "Macerata", 62100, Role.Curator));
-			initialUsers.add(new User("Simone", "Silver", "SilverSimon", "simon@gmail.com", "987654321", "Via Pluto", "Ancona", 60100, Role.AuthenticatedTourist));
+			initialUsers.add(new User("Matteo", "Pallotti", "Maverick", "maverick@gmail.com", "3929217858", "C.da San Pietro Orgiano, 13", "Fermo", "63900", Role.Administrator));
+			initialUsers.add(new User("Lorenzo", "Crovace", "AVCP", "avcp@gmail.com", "123456789", "Via Ancona, 188", "Macerata", "62100", Role.Curator));
+			initialUsers.add(new User("Simone", "Silver", "SilverSimon", "simon@gmail.com", "987654321", "Via Pluto", "Ancona", "60100", Role.AuthenticatedTourist));
 			initialUsers.stream().forEach(u -> userService.addUser(u));
 			userService.setLoaded(true);
 			}
@@ -74,7 +74,7 @@ public class PreparationController {
 				toCheck.add(p);
 				poiService.add(p, userService.findById(userService.getLoggedUser()));
 				});
-			poiResolver.resolveElements(nominatimService.getInfoFromParameter("pizzeria", "", "Ancona", "", "", "")).forEach(p -> {
+			poiResolver.resolveElements(nominatimService.getInfoFromParameter("pizzeria", "", "Ancona")).forEach(p -> {
 				addressService.add(p.getAddress());
 				List<Tag> toAdd = new ArrayList<Tag>();
 				toAdd.add(new Tag(p.getName(), p));

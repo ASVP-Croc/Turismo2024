@@ -53,7 +53,7 @@ public abstract class Element {
 	@JsonProperty("city")
 	private String city;
 	@JsonProperty("postcode")
-	private String postcode;
+	private String postcode = "";
 	private boolean isPublished = false;
 	
 	public Element() {

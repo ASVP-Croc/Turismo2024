@@ -56,7 +56,7 @@ public class User {
 	private String phoneNumber;
 	private String address;
 	private String city;
-	private int CAP;
+	private String CAP;
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	@ManyToMany(mappedBy = "recipientUsers", cascade = CascadeType.ALL)
@@ -66,7 +66,7 @@ public class User {
 
 	public User() {}
 	
-	public User(String name, String surname, String userName, String email, String phoneNumber, String address, String comune, int CAP, Role role) {
+	public User(String name, String surname, String userName, String email, String phoneNumber, String address, String comune, String CAP, Role role) {
 		this.name = name;
 		this.surname = surname;
 		this.userName = userName;
@@ -148,11 +148,11 @@ public class User {
 		this.city = city;
 	}
 
-	public int getCAP() {
+	public String getCAP() {
 		return CAP;
 	}
 
-	public void setCAP(int CAP) {
+	public void setCAP(String CAP) {
 		this.CAP = CAP;
 	}
 	
