@@ -30,4 +30,24 @@ public abstract class ElementsWithContentsService<T extends ElementWithContents>
 		elementsWithContentsToAdd.getMyContents().addAll(contentToAdd);
 		super.add(elementsWithContentsToAdd, author, tags);
 	}
+
+	@Override
+	public void update(T elementsWithContentsToUpdate) {
+		super.update(elementsWithContentsToUpdate);
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		super.deleteById(id);
+	}
+
+	@Override
+	public void delete(T elementsWithContentsToDelete) {
+		super.delete(elementsWithContentsToDelete);
+	}
+
+	@Override
+	public void deleteAll(List<T> elementsWithContentsToDelete) {
+		super.deleteAll(elementsWithContentsToDelete);
+	}
 }

@@ -27,5 +27,25 @@ public class ContentsService<T extends ElementWithContents> extends ElementsServ
 		contentToAdd.setResource(pathToResource);
 		super.add(contentToAdd, author, tags);
 	}
+
+	@Override
+	public void update(Content contentToUpdate) {
+		super.update(contentToUpdate);
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		super.deleteById(id);
+	}
+
+	@Override
+	public void delete(Content contentToDelete) {
+		super.delete(contentToDelete);
+	}
+
+	@Override
+	public void deleteAll(List<Content> contentsToDelete) {
+		super.deleteAll(contentsToDelete);
+	}
 	
 }
