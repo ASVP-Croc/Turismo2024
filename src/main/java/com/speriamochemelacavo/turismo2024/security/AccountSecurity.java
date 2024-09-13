@@ -38,7 +38,7 @@ public class AccountSecurity implements UserDetailsService{
 	            UserDetails userDetails = (UserDetails) auth.getPrincipal();
 	            return userDetails.getUsername();
 		 }
-		return "Utente non autenticato!";
+		 return "Utente non autenticato!";
 	}
 
 	public boolean isLoaded() {

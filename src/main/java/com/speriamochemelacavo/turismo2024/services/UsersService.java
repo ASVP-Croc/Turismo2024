@@ -46,8 +46,8 @@ public class UsersService {
 		userRepository.save(userToAdd);
 	}
 
-	public void updateUser(User useruserToUptade) {
-		userRepository.save(useruserToUptade);
+	public void updateUser(User userToUpdate) {
+		userRepository.save(userToUpdate);
 	}
 	
 	public void deleteUserById(int userToDeleteId) {

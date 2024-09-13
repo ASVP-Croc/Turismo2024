@@ -58,13 +58,12 @@ public class PageController {
 		modelSetter.setConditionModelVisibility(model);
 		return "elements-site-list";
 	}
-	
-//	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
-	@GetMapping("/pois")
-	public String getPois(Model model) {
-		model.addAttribute("listPoi", elementsService.findAll());
+
+	//	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
+	@GetMapping("/all/poi")
+	public String getAllPoIs(Model model) {
 		modelSetter.setConditionModelVisibility(model);
-		return "poi-list";
+		return "elements-site-list";
 	}
 	
 	@GetMapping("/registration")

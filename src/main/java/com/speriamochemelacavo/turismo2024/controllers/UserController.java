@@ -34,7 +34,6 @@ public class UserController {
 		newUser.setPassword(new BCryptPasswordEncoder().encode(newUser.getPassword()));
 		newUser.setRole(Role.AuthenticatedTourist);
 		accountService.addUser(newUser);
-		System.out.println(newUser.toString());
 		return new RedirectView("/login");
 		}
 	

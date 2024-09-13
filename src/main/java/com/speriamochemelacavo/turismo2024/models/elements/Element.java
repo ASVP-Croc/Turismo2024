@@ -52,6 +52,7 @@ public abstract class Element {
 	@JsonProperty("postcode")
 	private String postcode = "";
 	private boolean isPublished = false;
+	private boolean isReported = false;
 	
 	public Element() {
 		
@@ -120,6 +121,13 @@ public abstract class Element {
 
 	public void setPublished(boolean isPublished) {
 		this.isPublished = isPublished;
+	}
+	public boolean isReported() {
+		return isReported;
+	}
+
+	public void setReported(boolean isReported) {
+		this.isReported = isReported;
 	}
 	
 	@Override

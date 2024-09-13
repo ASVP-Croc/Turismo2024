@@ -20,19 +20,21 @@ public class ReportsService<T extends Element>{
 	@Autowired
 	UsersService userService;
 	
-	public void reportElement(T elementToReport) {
-		List<User> recipients = new ArrayList<User>();
+	public void reportElement(T elementToReport, String message) {
+		List<User> recipients = new ArrayList<>();
 		if (elementToReport instanceof Content
 				&& (((Content)elementToReport).getReferenced() instanceof Contest)) {
 			recipients.addAll(userService.findByRole(Role.Animator));
 		} else {
 			recipients.addAll(userService.findByRole(Role.Curator));
 		}
-		sendNotification("Seganalazione dell' elemento", elementToReport, recipients);
+		elementToReport.setReported(true);
+		notificationService.sendToMultipleUsers("Segnalazione: " + elementToReport.getName(), message, elementToReport, recipients);
 	}
-	
+
+	/**
 	private void sendNotification(String message, T elementToValidate, List<User> recipients) {
-		notificationService.sendToMultipleUsers("Segnalazione: " + elementToValidate.getName(), message, elementToValidate,recipients);
+		notificationService.sendToMultipleUsers("Segnalazione: " + elementToValidate.getName(), message, elementToValidate, recipients);
 	}
-	
+	*/
 }

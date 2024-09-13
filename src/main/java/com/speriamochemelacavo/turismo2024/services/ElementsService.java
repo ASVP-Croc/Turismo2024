@@ -32,7 +32,7 @@ public abstract class ElementsService<T extends Element> {
 		elementToAdd.setAuthor(author);
 		elementRepository.save(elementToAdd);
 		if (validationService.requestValidation(elementToAdd)) {
-				update(elementToAdd);
+			update(elementToAdd);
 		}
 	}
 	
@@ -43,7 +43,7 @@ public abstract class ElementsService<T extends Element> {
 	
 	public void update(T elementToUpdate) {
 		if (validationService.requestValidation(elementToUpdate)) {
-				elementRepository.save(elementToUpdate);
+			elementRepository.save(elementToUpdate);
 		}
 	}
 

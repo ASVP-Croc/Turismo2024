@@ -32,7 +32,7 @@ public class ValidationsService<T extends Element> {
 		} else {
 			setValidation(elementToValidate);
 			return false;
-			}
+		}
 	}
 	
 	private void setValidation(T elementToValidate) {
@@ -44,24 +44,6 @@ public class ValidationsService<T extends Element> {
 			recipients.addAll(userService.findByRole(Role.Curator));
 		}
 		sendNotification("Hai un nuovo Elemento da validare!", elementToValidate, recipients);
-	}
-
-	public void updateValidation(String message, Notification notificationToResponse){
-		Notification notificationUpdated = notificationToResponse;
-		notificationUpdated.setTitle("Aggiornamento pubblicazione: " + notificationToResponse.getNotificationObject().getName());
-		notificationUpdated.setMessage(message);
-		notificationUpdated.getRecipientUsers().clear();
-		notificationUpdated.getRecipientUsers().add(notificationToResponse.getNotificationObject().getAuthor());
-		notificationService.updateNotification(notificationUpdated);
-	}
-
-	public void confirmValidation(Notification notificationToConfirm) {
-		Notification notificationConfirmed = notificationToConfirm;
-		notificationConfirmed.setTitle("Pubblicazione avvenuta: " + notificationToConfirm.getNotificationObject().getName());
-		notificationConfirmed.setMessage("");
-		notificationConfirmed.getRecipientUsers().clear();
-		notificationConfirmed.getRecipientUsers().add(notificationToConfirm.getNotificationObject().getAuthor());
-		notificationService.updateNotification(notificationConfirmed);
 	}
 	
 	private void sendNotification(String message, T elementToValidate, List<User> recipients) {

@@ -12,21 +12,6 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 @Service
 public class ToursService extends ElementsWithContentsService<Tour>{
 	
-	@Override
-	public void add(Tour tourToAdd, User author) {
-		super.add(tourToAdd, author);
-	}
-
-	@Override
-	public void add(Tour tourToAdd, User author, List<Tag> tags) {
-		super.add(tourToAdd, author, tags);
-	}
-	
-	public void add(Tour tourToAdd, User author, List<Tag> tags, PointOfInterest POIToAdd) {
-		tourToAdd.getMyPOIs().add(POIToAdd);
-		super.add(tourToAdd, author, tags);
-	}
-	
 	public void add(Tour tourToAdd, User author, List<Tag> tags, List<PointOfInterest> POIToAdd) {
 		tourToAdd.getMyPOIs().addAll(POIToAdd);
 		super.add(tourToAdd, author, tags);

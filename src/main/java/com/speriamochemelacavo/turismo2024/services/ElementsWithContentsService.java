@@ -16,16 +16,6 @@ public abstract class ElementsWithContentsService<T extends ElementWithContents>
 		super();
 	}
 
-	@Override
-	public void add(T elementsWithContentsToAdd, User author) {
-		super.add(elementsWithContentsToAdd, author);
-	}
-
-	@Override
-	public void add(T elementsWithContentsToAdd, User author, List<Tag> tags) {
-		super.add(elementsWithContentsToAdd, author, tags);
-	}
-	
 	public void add(T elementsWithContentsToAdd, User author, List<Tag> tags, List<Content> contentToAdd) {
 		elementsWithContentsToAdd.getMyContents().addAll(contentToAdd);
 		super.add(elementsWithContentsToAdd, author, tags);

@@ -27,22 +27,6 @@ public class POIsService extends ElementsWithContentsService<PointOfInterest> {
 		super();
 	}
 
-	@Override
-	public void add(PointOfInterest POIToAdd, User author) {
-		super.add(POIToAdd, author);
-	}
-
-	@Override
-	public void add(PointOfInterest POIToAdd, User author, List<Tag> tags) {
-		super.add(POIToAdd, author, tags);
-	}
-	
-	@Override
-	public void add(PointOfInterest elementsWithContentsToAdd, User author, List<Tag> tags,
-			List<Content> contentToAdd) {
-		super.add(elementsWithContentsToAdd, author, tags, contentToAdd);
-	}
-
 	public void add(PointOfInterest POIToAdd, User author, List<Tag> tags, List<Content> contentToAdd, Address address) {
 		POIToAdd.setAddress(address);
 		super.add(POIToAdd, author, tags, contentToAdd);
