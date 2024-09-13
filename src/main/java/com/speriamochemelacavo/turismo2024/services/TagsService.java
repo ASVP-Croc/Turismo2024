@@ -37,5 +37,4 @@ public class TagsService {
 	public void delete(Tag tagToDelete) {
 		tagRepository.delete(tagToDelete);
 	}
-	
 }

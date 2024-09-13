@@ -3,7 +3,6 @@ package com.speriamochemelacavo.turismo2024.services;
 import java.util.Date;
 import java.util.List;
 
-import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Contest;

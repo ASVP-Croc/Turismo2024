@@ -15,15 +15,12 @@ public class POIController {
 	private POIsService poiService;
 
 	@Autowired
-	private ContentsService contentsService;
+	private ContentsService<PointOfInterest> contentsService;
 
 	@GetMapping("poi/{id}")
 	public PointOfInterest getPOIById(@PathVariable int id) {
 		return poiService.findById(id);
 	}
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
 
 	@PostMapping("poi")
 	public void savePoi(PointOfInterest poiToAdd, User author) {
@@ -56,7 +53,5 @@ public class POIController {
 		contentsService.update(contentToUpdate);
 		pointOfInterest.getMyContents().add(contentToUpdate);
 	}
-=======
->>>>>>> ecd8b9d3b0402c476fcfccddbb41692504078ccc
->>>>>>> Stashed changes
+
 }

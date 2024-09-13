@@ -57,4 +57,8 @@ public abstract class ElementsService<T extends Element> {
 	public void deleteAll(List<T> elementsToDelete) {
 		elementRepository.deleteAll(elementsToDelete);
 	}
+	
+	public void setPublished(Element element) {
+		element.setPublished(true);
+	}
 }

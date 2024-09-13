@@ -32,13 +32,13 @@ public class NotificationsService<T extends Element> {
 		notificationRepository.save(notificationToUpdate);
 	}
 	
-	public void sendToSingleUser(String title, String message, T object, User author, User recipientUser) {
-		Notification toSend = new Notification(title, message, author, object, recipientUser);
+	public void sendToSingleUser(String title, String message, T object) {
+		Notification toSend = new Notification(title, message, object.getAuthor(), object, object.getAuthor());
 		addNotification(toSend);
 	}
 	
-	public void sendToMultipleUsers(String title, String message, T object, User author, List<User> recipientsUser) {
-		Notification toSend = new Notification(title, message, author, object, recipientsUser);
+	public void sendToMultipleUsers(String title, String message, T object, List<User> recipientsUser) {
+		Notification toSend = new Notification(title, message, object.getAuthor(), object, recipientsUser);
 		addNotification(toSend);
 	}
 	
@@ -51,5 +51,23 @@ public class NotificationsService<T extends Element> {
 	
 	public void deleteNotificationById(int notificationId) {
 		notificationRepository.deleteById(notificationId);
+	}
+	
+	public void updateValidation(String message, Notification notificationToResponse){
+		Notification notificationUpdated = notificationToResponse;
+		notificationUpdated.setTitle("Aggiornamento pubblicazione: " + notificationToResponse.getNotificationObject().getName());
+		notificationUpdated.setMessage(message);
+		notificationUpdated.getRecipientUsers().clear();
+		notificationUpdated.getRecipientUsers().add(notificationToResponse.getNotificationObject().getAuthor());
+		updateNotification(notificationUpdated);
+	}
+	
+	public void confirmValidation(Notification notificationToConfirm) {
+		Notification notificationConfirmed = notificationToConfirm;
+		notificationConfirmed.setTitle("Pubblicazione avvenuta: " + notificationToConfirm.getNotificationObject().getName());
+		notificationConfirmed.setMessage("");
+		notificationConfirmed.getRecipientUsers().clear();
+		notificationConfirmed.getRecipientUsers().add(notificationToConfirm.getNotificationObject().getAuthor());
+		updateNotification(notificationConfirmed);
 	}
 }

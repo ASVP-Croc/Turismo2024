@@ -37,5 +37,4 @@ public class AddressService {
 	public void deleteAll(List<Address> addressToDelete) {
 		addressRepository.deleteAll(addressToDelete);
 	}
-	
 }

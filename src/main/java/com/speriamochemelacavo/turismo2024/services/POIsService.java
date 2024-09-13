@@ -47,7 +47,5 @@ public class POIsService extends ElementsWithContentsService<PointOfInterest> {
 		POIToAdd.setAddress(address);
 		super.add(POIToAdd, author, tags, contentToAdd);
 	}
-
-
 }
 

@@ -47,5 +47,4 @@ public class ContentsService<T extends ElementWithContents> extends ElementsServ
 	public void deleteAll(List<Content> contentsToDelete) {
 		super.deleteAll(contentsToDelete);
 	}
-	
 }
