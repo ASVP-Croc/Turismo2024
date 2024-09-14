@@ -28,6 +28,7 @@ public class ValidationsService<T extends Element> {
 				|| elementToValidate.getAuthor().getRole() == Role.Curator
 				|| elementToValidate.getAuthor().getRole() == Role.Administrator) {
 			elementToValidate.setPublished(true);
+			notificationService.sendToSingleUser("Pubblicazione avvenuta per: " + elementToValidate.getName(), "", elementToValidate);
 			return true;
 		} else {
 			setValidation(elementToValidate);

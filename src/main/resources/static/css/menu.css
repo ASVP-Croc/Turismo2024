@@ -1,5 +1,5 @@
 /* Stile per il div che si adatta alla lunghezza del body */
-.adattivo {
+.menuAdattivo {
 	display: flex;
 	justify-content: center;
 	flex-wrap:inherit;

@@ -13,23 +13,16 @@
 	<div th:replace="~{fragments/header :: header}"></div>
 	<div th:replace="~{fragments/menu :: menu}"></div>
     <div class = "container">
-		<form class = "cardLogin" th:action="@{/login}" method="post">
-			<h1 class = "scritteCard">LOGIN</h1>
+		<div class = "cardLogin">
+			<h1 class = "scritteCard">Sicuro di voler uscire?</h1>
 			<br/>
-			<input class = "input" type="text" name="username" placeholder="USERNAME" required>
-			<br/>
-			<input class = "input" type="password" name="password" placeholder="PASSWORD" required>
-			<br/>
-			<button type="submit" class = "bottoniForm">
-				<p class = "scritteBottoniForm">Invia</p>
+			<button th:onclick = "location.href = '/login?logout=true'" class = "bottoniMenu">
+				<p class = "scritteBottoniForm">Sì</p>
 			</button>
-			 <div th:if="${param.error}">
-            	<p style="color:red;">Credenziali non valide, riprova.</p>
-        	</div>
-        	<div th:if="${param.logout}">
-            	<p style="color:green;">Logout avvenuto con successo.</p>
-        	</div>
-		</form>
-	</div>	
+			<button th:onclick = "location.href = '/'" class = "bottoniMenu">
+				<p class = "scritteBottoniForm">No</p>
+			</button>
+		</div>
+	</div>
 </body>
 </html>

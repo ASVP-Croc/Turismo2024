@@ -15,7 +15,7 @@
     	<button class = "card" th:each = "user : ${listUser}">
     		<h1 class = "scritteCard" th:text = "${'Nome: '} + ${user.name}">Titolo</h1>
     		<h1 class = "scritteCard" th:text = "${'Cognome: '} + ${user.surname}">Descrizione</h1>
-    		<h1 class = "scritteCard" th:text = "${'Username: '} + ${user.userName}">Autore</h1>
+    		<h1 class = "scritteCard" th:text = "${'Username: '} + ${user.username}">Autore</h1>
     		<h1 class = "scritteCard" th:text = "${'email: '} + ${user.email}">CAP</h1>
     		<h1 class = "scritteCard" th:text = "${'Ruolo: '} + ${user.role}">Indirizzo</h1>
     	</button>

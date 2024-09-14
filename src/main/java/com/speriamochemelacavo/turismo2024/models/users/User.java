@@ -1,9 +1,11 @@
 package com.speriamochemelacavo.turismo2024.models.users;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
@@ -45,7 +47,7 @@ import jakarta.persistence.Table;
 @Component
 @Entity
 @Table(name = "users", indexes = {
-	    @Index(name = "idx_userName", columnList = "user_name", unique = true),
+	    @Index(name = "idx_username", columnList = "username", unique = true),
 	    @Index(name = "idx_role", columnList = "role", unique = false)})
 public class User {
 	
@@ -54,7 +56,7 @@ public class User {
 	private int id;
 	private String name;
 	private String surname;
-	private String userName;
+	private String username = "Turist";
 	private String password;
 	private String email;
 	private String phoneNumber;
@@ -62,18 +64,25 @@ public class User {
 	private String city;
 	private String CAP;
 	@Enumerated(EnumType.STRING)
-	private Role role;
+	private Role role = Role.Tourist;
 	@ManyToMany(mappedBy = "recipientUsers", cascade = CascadeType.ALL)
 	private List<Notification> notifications;
 	@OneToMany
 	private List<Element> savedElements;
 
-	public User() {}
+	public User() {
+		
+	}
 	
-	public User(String name, String surname, String userName, String password, String email, String phoneNumber, String address, String comune, String CAP, Role role) {
+	public User(String username, Role role) {
+		this.username = username;
+		this.role = role;
+	}
+	
+	public User(String name, String surname, String username, String password, String email, String phoneNumber, String address, String comune, String CAP, Role role) {
 		this.name = name;
 		this.surname = surname;
-		this.userName = userName;
+		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
@@ -105,14 +114,14 @@ public class User {
 		this.surname = surname;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String userName) {
+		this.username = userName;
 	}
-
+	
 	public String getPassword() {
 		return password;
 	}
@@ -189,8 +198,9 @@ public class User {
 		return false;
 	}
 
-	public UserDetails map(Function<User, UserDetails> function) {
-		return function.apply(this);
+	@Override
+	public String toString() {
+		return "User [name=" + name + ", surname=" + surname + ", userName=" + username + ", password: " + password + ", role=" + role + "]";
 	}
 }
 		

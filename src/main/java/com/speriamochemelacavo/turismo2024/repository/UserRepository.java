@@ -11,7 +11,7 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
 
-	User findByUserName(String userToFindUserName);
+	User findByUsername(String userToFindUserName);
 	
 	List<User> findByRole(Role userToFindRole);
 }

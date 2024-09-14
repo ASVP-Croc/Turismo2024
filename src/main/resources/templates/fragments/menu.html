@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html" />
 </head>
 <body>
-	<div class="adattivo" th:fragment="menu">
+	<div class="menuAdattivo" th:fragment="menu">
 		<button th:unless = "${isLoadedUsers}" th:onclick = "location.href = '/startDbUsers'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Popola il DB Utenti</h1>
 		</button>
@@ -23,7 +23,7 @@
 		<button th:unless = "${isLogged}" th:onclick = "location.href = '/registration'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Registrati</h1>
 		</button>
-		<button th:if = "${isLogged}" th:onclick = "location.href = '/logout'" class = "bottoniMenu" method = "post">
+		<button th:if = "${isLogged}" th:onclick = "location.href = '/logout'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Logout</h1>
 		</button>
 		<button th:if = "${isLogged}" class = "iconaNotifiche">

@@ -12,7 +12,7 @@
 	<div th:replace="~{fragments/header :: header}"></div>
 	<div th:replace="~{fragments/menu :: menu}"></div>
     <div class = "container">
-    	<form class = "card" action="/registration" method="post">
+    	<form class = "card" th:action="@{/registration}" method="post">
 			<h1 class = "scritteCard">Inserisci il tuo Nome</h1>
 		    <input class = "input" type="text" name = "name" required/>
 		    <br />
@@ -20,7 +20,7 @@
 		    <input class = "input" type="text" name = "surname" required/>
 		    <br />
 		    <h1 class = "scritteCard">Inserisci il tuo Username</h1>
-		    <input class = "input" type="text" name = "userName" required/>
+		    <input class = "input" type="text" name = "username" required/>
 		    <br />
 		    <h1 class = "scritteCard">Inserisci la tua password</h1>
 		    <input class = "input" type="password" name = "password" required/>

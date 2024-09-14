@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
-
-import com.speriamochemelacavo.turismo2024.security.AccountSecurity;
 import com.speriamochemelacavo.turismo2024.services.UsersService;
 
 import com.speriamochemelacavo.turismo2024.services.POIsService;
@@ -14,18 +12,15 @@ import com.speriamochemelacavo.turismo2024.services.POIsService;
 public class ModelSetter {
 	
 	@Autowired
-	private AccountSecurity accountSecurity;
-	
-	@Autowired
 	private UsersService accountService;
 	
 	public void setConditionModelVisibility(Model model) {
-		model.addAttribute("nameUser",
-				accountSecurity.isLogged() ? accountService.findByUserName(accountSecurity.getLoggedUserName()).getName() : "Turista");
+		model.addAttribute("username",
+				accountService.isLogged() ? accountService.getUsername() : "Turista");
 		model.addAttribute("isLoadedUsers", accountService.isLoaded());
-		model.addAttribute("isLogged", accountSecurity.isLogged());
-		boolean isPOIButtonVisible = (accountSecurity.isLogged() & !POIsService.isLoaded());
+		model.addAttribute("isLogged", accountService.isLogged());
+		boolean isPOIButtonVisible = (accountService.isLogged() & !POIsService.isLoaded());
 		model.addAttribute("isPOIButtonVisible", isPOIButtonVisible);
-		model.addAttribute("numberOfNotifications", accountSecurity.isLogged() ? accountService.findByUserName(accountSecurity.getLoggedUserName()).getNotifications().size() : 56);
+		model.addAttribute("numberOfNotifications", accountService.isLogged() ? accountService.findByUserName(accountService.getUsername()).getNotifications().size() : 56);
 	}
 }

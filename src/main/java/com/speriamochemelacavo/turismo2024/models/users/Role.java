@@ -1,6 +1,6 @@
 package com.speriamochemelacavo.turismo2024.models.users;
 
-public enum Role {
+public enum Role{
 	Administrator,
 	Animator,
 	AuthenticatedTourist,

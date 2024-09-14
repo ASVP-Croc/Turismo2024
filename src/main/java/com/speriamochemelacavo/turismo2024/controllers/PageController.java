@@ -27,7 +27,7 @@ public class PageController {
 	private ModelSetter modelSetter;
 
 	@GetMapping("/")
-	public String welcome(Model model) {
+	public String home(Model model) {
 		modelSetter.setConditionModelVisibility(model);
 		return "index";
 	}

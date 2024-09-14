@@ -2,7 +2,6 @@ package com.speriamochemelacavo.turismo2024.services;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
-import com.speriamochemelacavo.turismo2024.security.AccountSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +13,8 @@ import java.util.stream.Collectors;
 
 public class SearchService {
 
-    @Autowired
-    private AccountSecurity accountSecurity;
-
+	
+	
     @Autowired
     private UsersService userService;
 
@@ -46,7 +44,7 @@ public class SearchService {
                         nominatimService.getInfoFromParameter(
                                 amenity,
                                 (street == "" && houseNumber == "") ? "" : street + " " + houseNumber,
-                                accountSecurity.isLogged() ? userService.findByUserName(accountSecurity.getLoggedUserName()).getCAP() : postalCode)
+                                userService.isLogged() ? userService.getCAP() : postalCode)
                 )
         );
         return toReturn;
