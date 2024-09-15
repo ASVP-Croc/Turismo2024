@@ -12,7 +12,7 @@
 	<div th:replace="~{fragments/header :: header}"></div>
 	<div th:replace="~{fragments/menu :: menu}"></div>
     <div class = "errorDiv" >
-		<h1 class = "scrittaError">Ops, qualcosa è andato storto</h1>
+		<h1 class = "scrittaError" th:text="${message}">Ops, qualcosa è andato storto</h1>
 	</div>		
 </body>
 </html>

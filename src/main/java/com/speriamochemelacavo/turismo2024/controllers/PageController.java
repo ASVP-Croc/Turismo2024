@@ -75,6 +75,8 @@ public class PageController {
 	@GetMapping("/error")
 	public String error(Model model) {
 		modelSetter.setConditionModelVisibility(model);
+//		TODO in produzione bisogna rimettere la stringa qui sotto
+//		model.addAttribute("message", "Ops, qualcosa è andato storto");
 		return "error";
 	}
 }

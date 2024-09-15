@@ -36,6 +36,7 @@ public class LoggedUserDetailService extends UsersService implements UserDetails
 	
 	public boolean isLogged() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(auth.toString());
 		
 		if (auth == null || auth instanceof AnonymousAuthenticationToken || auth.getPrincipal() == "anonymousUser") {
 			return false;
