@@ -3,7 +3,6 @@ package com.speriamochemelacavo.turismo2024.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.speriamochemelacavo.turismo2024.models.notifications.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

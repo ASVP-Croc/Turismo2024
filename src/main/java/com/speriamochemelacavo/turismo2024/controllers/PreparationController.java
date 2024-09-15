@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,8 +13,8 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.models.users.User;
+import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
-import com.speriamochemelacavo.turismo2024.services.UsersService;
 import com.speriamochemelacavo.turismo2024.services.AddressService;
 import com.speriamochemelacavo.turismo2024.services.ElementResolver;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
@@ -39,7 +38,7 @@ public class PreparationController {
 	private ElementsService<PointOfInterest> poiService;
 	
 	@Autowired
-	private UsersService userService;
+	private LoggedUserDetailService loggedUserService;
 	
 	@Autowired
 	private TagsService tagsService;
@@ -49,13 +48,13 @@ public class PreparationController {
 
 	@GetMapping("/startDbUsers")
 	public RedirectView insertInitialUserRecords(){
-		if (!userService.isLoaded()) {
+		if (!loggedUserService.isLoaded()) {
 			List<User> initialUsers = new ArrayList<>();
 			initialUsers.add(new User("Matteo", "Pallotti", "Maverick", passwordEncoder.encode("12345678"), "maverick@gmail.com", "3929217858", "C.da San Pietro Orgiano, 13", "Fermo", "63900", Role.Administrator));
 			initialUsers.add(new User("Lorenzo", "Crovace", "AVCP", passwordEncoder.encode("12345678"), "avcp@gmail.com", "369852147", "Via Ancona, 188", "Macerata", "62100", Role.Curator));
 			initialUsers.add(new User("Simone", "Silver", "SilverSimon", passwordEncoder.encode("12345678"), "simon@gmail.com", "987654321", "Via Pluto", "Ancona", "60100", Role.AuthenticatedTourist));
-			initialUsers.stream().forEach(u -> userService.addUser(u));
-			userService.setLoaded(true);
+			initialUsers.stream().forEach(u -> loggedUserService.addUser(u));
+			loggedUserService.setLoaded(true);
 			}
 		return new RedirectView("/");
 	}
@@ -74,14 +73,14 @@ public class PreparationController {
 				toAdd.add(new Tag("pizzeria", p));
 				tagsService.addAll(toAdd);
 				toCheck.add(p);
-				poiService.add(p, userService.findByUserName(userService.getUsername()));
+				poiService.add(p, loggedUserService.getLoggedUser());
 				});
 			poiResolver.resolveElements(nominatimService.getInfoFromParameter("pizzeria", "", "Ancona")).forEach(p -> {
 				addressService.add(p.getAddress());
 				List<Tag> toAdd = new ArrayList<Tag>();
 				toAdd.add(new Tag(p.getName(), p));
 				toAdd.add(new Tag("stadio", p));
-				poiService.add(p, userService.findByUserName(userService.getUsername()));
+				poiService.add(p, loggedUserService.getLoggedUser());
 				tagsService.addAll(toAdd);
 				toCheck.add(p);
 				});

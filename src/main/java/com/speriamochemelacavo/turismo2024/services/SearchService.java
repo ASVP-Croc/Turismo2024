@@ -2,6 +2,8 @@ package com.speriamochemelacavo.turismo2024.services;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
+import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +14,9 @@ import java.util.stream.Collectors;
 @Service
 
 public class SearchService {
-
 	
-	
-    @Autowired
-    private UsersService userService;
+	@Autowired
+	private LoggedUserDetailService loggedUserService;
 
     @Autowired
     private NominatimService nominatimService;
@@ -31,9 +31,12 @@ public class SearchService {
         List<Element> toReturn = new ArrayList<>();
         String tagClean = tag.replaceAll("\\s*,\\s*", ",");
         List<String> tagValuesList = Arrays.stream(tagClean.split("[\\s,]+")).filter(t -> !t.isEmpty()).collect(Collectors.toList());
+        
         tagValuesList.stream().forEach(t ->{
+        	
             if (tagService.findByTag(t) != null) toReturn.addAll(tagService.findByTag(t).getElements());
         });
+        
         sortListByOccurrences(toReturn);
         return toReturn;
     }
@@ -44,7 +47,7 @@ public class SearchService {
                         nominatimService.getInfoFromParameter(
                                 amenity,
                                 (street == "" && houseNumber == "") ? "" : street + " " + houseNumber,
-                                userService.isLogged() ? userService.getCAP() : postalCode)
+                                loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getCAP() : postalCode)
                 )
         );
         return toReturn;
@@ -58,15 +61,19 @@ public class SearchService {
 
     private List<Element> sortListByOccurrences(List<Element> elemtsList) {
         Map<Element, Integer> occurrences = new HashMap<>();
+        
         for (Element element : elemtsList) {
             occurrences.put(element, occurrences.getOrDefault(element, 0) + 1);
         }
+        
         List<Map.Entry<Element, Integer>> entries = new ArrayList<>(occurrences.entrySet());
         entries.sort(Comparator.comparingInt(Map.Entry::getValue));
         List<Element> result = new ArrayList<>();
+        
         for (Map.Entry<Element, Integer> entry : entries) {
             result.add(entry.getKey());
         }
+        
         return result;
     }
 }

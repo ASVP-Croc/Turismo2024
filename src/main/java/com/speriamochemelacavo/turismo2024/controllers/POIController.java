@@ -1,6 +1,5 @@
 package com.speriamochemelacavo.turismo2024.controllers;
 
-import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -15,9 +14,6 @@ public class POIController {
 	
 	@Autowired
 	private POIsService poiService;
-	@Autowired
-	private ModelSetter modelSetter;
-
 
 	@GetMapping("/poi")
 	public RedirectView getPOIs(Model model) {

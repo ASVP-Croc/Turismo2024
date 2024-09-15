@@ -23,8 +23,8 @@
 			<button type="submit" class = "bottoniForm">
 				<p class = "scritteBottoniForm">Invia</p>
 			</button>
-			 <div th:if="${param.error}">
-            	<p style="color:red;">Credenziali non valide, riprova.</p>
+			 <div th:if="${param.login}">
+            	<p style="color:red;">Credenziali errate, riprova.</p>
         	</div>
         	<div th:if="${param.logout}">
             	<p style="color:green;">Logout avvenuto con successo.</p>

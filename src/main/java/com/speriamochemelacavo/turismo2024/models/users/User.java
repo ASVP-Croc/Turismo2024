@@ -1,12 +1,7 @@
 package com.speriamochemelacavo.turismo2024.models.users;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
@@ -56,7 +51,7 @@ public class User {
 	private int id;
 	private String name;
 	private String surname;
-	private String username = "Turist";
+	private String username;
 	private String password;
 	private String email;
 	private String phoneNumber;
@@ -64,7 +59,7 @@ public class User {
 	private String city;
 	private String CAP;
 	@Enumerated(EnumType.STRING)
-	private Role role = Role.Tourist;
+	private Role role;
 	@ManyToMany(mappedBy = "recipientUsers", cascade = CascadeType.ALL)
 	private List<Notification> notifications;
 	@OneToMany
@@ -74,8 +69,9 @@ public class User {
 		
 	}
 	
-	public User(String username, Role role) {
+	public User(String username, String password, Role role) {
 		this.username = username;
+		this.password = password;
 		this.role = role;
 	}
 	

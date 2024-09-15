@@ -1,6 +1,8 @@
 package com.speriamochemelacavo.turismo2024.models.users;
 
-public enum Role{
+import org.springframework.security.core.GrantedAuthority;
+
+public enum Role implements GrantedAuthority{
 	Administrator,
 	Animator,
 	AuthenticatedTourist,
@@ -8,4 +10,9 @@ public enum Role{
 	Contributor,
 	Curator,
 	Tourist;
+
+	@Override
+	public String getAuthority() {
+		return this.toString().toUpperCase();
+	}
 }
