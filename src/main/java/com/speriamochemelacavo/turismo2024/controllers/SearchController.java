@@ -13,13 +13,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
+import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 @Controller
 @RequestMapping
 public class SearchController {
 	
 	@Autowired
+	private LoggedUserDetailService loggedUserService;
+	
+	@Autowired
 	private SearchService searchService;
+	
 	@Autowired
 	private ModelSetter modelSetter;
 
@@ -36,8 +41,8 @@ public class SearchController {
 			@RequestParam String amenity, 
 			@RequestParam String street,
 			@RequestParam String houseNumber,
-			@RequestParam String postalCode) throws IOException{
-		List<PointOfInterest> toReturn = searchService.searchElementsOSMWithDetails(amenity, street, houseNumber, postalCode);
+			@RequestParam(defaultValue = "loggedUser") String postalCode) throws IOException{
+		List<PointOfInterest> toReturn = searchService.searchElementsOSMWithDetails(amenity, street, houseNumber, postalCode.contains("loggedUser") ? loggedUserService.getLoggedUser().getCAP() : postalCode);
 		modelSetter.setConditionModelVisibility(model);
 		model.addAttribute("listElements", toReturn);
 		return "elements-osm-list";

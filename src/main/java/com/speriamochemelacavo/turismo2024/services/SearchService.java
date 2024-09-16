@@ -44,8 +44,8 @@ public class SearchService {
         toReturn.addAll(POIResolver.resolveElements(
                         nominatimService.getInfoFromParameter(
                                 amenity,
-                                (street == "" && houseNumber == "") ? "" : street + " " + houseNumber,
-                                loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getCAP() : postalCode)
+                                street + " " + houseNumber,
+                                postalCode)
                 )
         );
         return toReturn;
