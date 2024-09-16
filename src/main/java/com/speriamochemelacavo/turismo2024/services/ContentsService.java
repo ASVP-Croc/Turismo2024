@@ -29,11 +29,6 @@ public class ContentsService<T extends ElementWithContents> extends ElementsServ
 	}
 
 	@Override
-	public void update(Content contentToUpdate) {
-		super.update(contentToUpdate);
-	}
-
-	@Override
 	public void deleteById(Integer id) {
 		super.deleteById(id);
 	}

@@ -18,11 +18,6 @@ public class ToursService extends ElementsWithContentsService<Tour>{
 	}
 
 	@Override
-	public void update(Tour tourToUpdate) {
-		super.update(tourToUpdate);
-	}
-
-	@Override
 	public void deleteById(Integer id) {
 		super.deleteById(id);
 	}

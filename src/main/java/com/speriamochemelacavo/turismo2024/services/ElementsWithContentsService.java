@@ -22,11 +22,6 @@ public abstract class ElementsWithContentsService<T extends ElementWithContents>
 	}
 
 	@Override
-	public void update(T elementsWithContentsToUpdate) {
-		super.update(elementsWithContentsToUpdate);
-	}
-
-	@Override
 	public void deleteById(Integer id) {
 		super.deleteById(id);
 	}

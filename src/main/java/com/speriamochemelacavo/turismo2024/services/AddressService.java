@@ -23,11 +23,13 @@ public class AddressService {
 	}
 	
 	public void add(Address address) {
-		this.addressRepository.save(address);
-	}
-	
-	public void update(Address addressToUpdate) {
-		addressRepository.save(addressToUpdate);
+		Address optionalAddress;
+		try {
+			optionalAddress = findById(address.getId());
+			address.setId(optionalAddress.getId());
+		} catch (Exception e) {
+		}
+		addressRepository.save(address);
 	}
 	
 	public void delete(Address addressToDelete) {

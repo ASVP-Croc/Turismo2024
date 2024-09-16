@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -43,8 +44,8 @@ public abstract class Element {
 	@JsonProperty("name")
 	private String name;
 	private String description;
-	@ManyToMany(mappedBy = "elementsTagged",  cascade = CascadeType.ALL)
-	private List<Tag> tags;
+	@ManyToMany(mappedBy = "elementsTagged",  cascade = CascadeType.MERGE)
+	private List<Tag> tags = new ArrayList<>();
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private User author;
 	@JsonProperty("city")
@@ -69,6 +70,10 @@ public abstract class Element {
 
 	public Integer getId() {
 		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -140,5 +145,10 @@ public abstract class Element {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Element [name=" + name + "]";
 	}
 }

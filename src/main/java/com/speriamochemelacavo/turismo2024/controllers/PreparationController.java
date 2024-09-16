@@ -41,7 +41,7 @@ public class PreparationController {
 	private LoggedUserDetailService loggedUserService;
 	
 	@Autowired
-	private TagsService tagsService;
+	private TagsService tagService;
 
 	@Autowired
 	private AddressService addressService;
@@ -62,27 +62,29 @@ public class PreparationController {
 	@GetMapping("/startDbPOIs")
 	public RedirectView insertInitialPOIRecords() throws IOException{
 		if (!POIsService.isLoaded()) {
-			List<PointOfInterest> toCheck = new ArrayList<>();
 			poiResolver.resolveElements(nominatimService.getInfoFromQuery("stadio, Fermo")).forEach(p -> {
 				addressService.add(p.getAddress());
-				List<Tag> toAdd = new ArrayList<>();
-				List<PointOfInterest> pointToAdd = new ArrayList<>();
-				pointToAdd.add(p);
-				toAdd.add(new Tag(p.getName(), pointToAdd));
-				toAdd.add(new Tag("passetto", p));
-				toAdd.add(new Tag("pizzeria", p));
-				tagsService.addAll(toAdd);
-				toCheck.add(p);
 				poiService.add(p, loggedUserService.getLoggedUser());
+				List<Tag> toAdd = new ArrayList<>();
+				toAdd.addAll(tagService.createTagsFromString(p.getName(), p));
+				toAdd.addAll(tagService.createTagsFromString(p.getDescription(), p));
+				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getAmenity(), p));
+				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getRoad(), p));
+				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getAmenity(), p));
+				toAdd.addAll(tagService.createTagsFromString(p.getCity(), p));
+				toAdd.forEach(t -> tagService.add(t));
 				});
 			poiResolver.resolveElements(nominatimService.getInfoFromParameter("pizzeria", "", "Ancona")).forEach(p -> {
 				addressService.add(p.getAddress());
-				List<Tag> toAdd = new ArrayList<Tag>();
-				toAdd.add(new Tag(p.getName(), p));
-				toAdd.add(new Tag("stadio", p));
 				poiService.add(p, loggedUserService.getLoggedUser());
-				tagsService.addAll(toAdd);
-				toCheck.add(p);
+				List<Tag> toAdd = new ArrayList<>();
+				toAdd.addAll(tagService.createTagsFromString(p.getName(), p));
+				toAdd.addAll(tagService.createTagsFromString(p.getDescription(), p));
+				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getAmenity(), p));
+				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getRoad(), p));
+				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getAmenity(), p));
+				toAdd.addAll(tagService.createTagsFromString(p.getCity(), p));
+				toAdd.forEach(t -> tagService.add(t));
 				});
 			
 			POIsService.setLoaded(true);

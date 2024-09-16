@@ -33,11 +33,6 @@ public class ContestsService extends ElementsWithContentsService<Contest>  {
 	}
 
 	@Override
-	public void update(Contest contestToUpdate) {
-		super.update(contestToUpdate);
-	}
-
-	@Override
 	public void deleteById(Integer id) {
 		super.deleteById(id);
 	}

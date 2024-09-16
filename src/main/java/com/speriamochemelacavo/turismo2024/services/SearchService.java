@@ -2,6 +2,7 @@ package com.speriamochemelacavo.turismo2024.services;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
+import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +30,11 @@ public class SearchService {
 
     public List<Element> searchElementsSite(String tag){
         List<Element> toReturn = new ArrayList<>();
-        String tagClean = tag.replaceAll("\\s*,\\s*", ",");
-        List<String> tagValuesList = Arrays.stream(tagClean.split("[\\s,]+")).filter(t -> !t.isEmpty()).collect(Collectors.toList());
-        
-        tagValuesList.stream().forEach(t ->{
-        	
-            if (tagService.findByTag(t) != null) toReturn.addAll(tagService.findByTag(t).getElements());
+        List<String> firstSplit = tagService.split(tag).stream().toList();
+        firstSplit.stream()
+        	.forEach(t ->{
+        		if (tagService.findByTag(t) != null) toReturn.addAll(tagService.findByTag(t).getElements());
         });
-        
         sortListByOccurrences(toReturn);
         return toReturn;
     }

@@ -25,18 +25,23 @@ public class Address {
     private String house_number;
     @JsonProperty("road")
     private String road;
-    @JsonProperty("quarter")
-    private String quarter;
 
     public Address() {
 
     }
 
-    public Address(String amenity, String house_number, String road, String quarter) {
+    public Address(String amenity, String house_number, String road) {
 		this.amenity = amenity;
 		this.house_number = house_number;
 		this.road = road;
-		this.quarter = quarter;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getAmenity() {
@@ -62,22 +67,13 @@ public class Address {
     public void setRoad(String road) {
         this.road = road;
     }
-
-    public String getQuarter() {
-        return quarter;
-    }
-
-    public void setQuarter(String quarter) {
-        this.quarter = quarter;
-    }
     
     @Override
 	public String toString() {
     	String toReturn = 
     			getRoad()
     			+ ", "
-    			+ ((getHouse_number() != null && !getHouse_number().isBlank()) ? (getHouse_number()) : "snc")
-    			+ ((getQuarter() != null && !getQuarter().isBlank()) ? (", " + getQuarter()) : "");
+    			+ ((getHouse_number() != null && !getHouse_number().isBlank()) ? (getHouse_number()) : "snc");
 		return toReturn;
 	}
 }

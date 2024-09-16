@@ -1,6 +1,7 @@
 package com.speriamochemelacavo.turismo2024.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,22 +30,21 @@ public abstract class ElementsService<T extends Element> {
 	
 
 	public void add(T elementToAdd, User author) {
-		elementToAdd.setAuthor(author);
-		elementRepository.save(elementToAdd);
-		if (validationService.requestValidation(elementToAdd)) {
-			update(elementToAdd);
+		T optionalElement;
+		try {
+			optionalElement = findById(elementToAdd.getId());
+			elementToAdd.setId(optionalElement.getId());
+		} catch (Exception e) {
 		}
+		elementToAdd.setAuthor(author);
+        elementRepository.save(elementToAdd);
+        elementToAdd.setPublished(validationService.requestValidation(elementToAdd));
+        elementRepository.save(elementToAdd);
 	}
 	
 	public void add(T elementToAdd, User author, List<Tag> tags) {
 		elementToAdd.getTags().addAll(tags);
 		add(elementToAdd, author);
-	}
-	
-	public void update(T elementToUpdate) {
-		if (validationService.requestValidation(elementToUpdate)) {
-			elementRepository.save(elementToUpdate);
-		}
 	}
 
 	public void deleteById(Integer id) {
