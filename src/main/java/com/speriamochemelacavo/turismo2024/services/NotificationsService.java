@@ -3,6 +3,7 @@ package com.speriamochemelacavo.turismo2024.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
@@ -24,28 +25,30 @@ public class NotificationsService<T extends Element> {
 		return notificationRepository.findAllNotificationByRecipientUsersId(id);
 	}
 	
-	private void addNotification(Notification notificationToAdd) {
-		notificationRepository.save(notificationToAdd);
-	}
-	
-	public void updateNotification(Notification notificationToUpdate) {
-		notificationRepository.save(notificationToUpdate);
+	private void add(Notification notificationToAdd) {
+		try {
+			notificationRepository.save(notificationToAdd);
+		} catch (DataIntegrityViolationException e) {
+			System.out.println("La Notifica " + notificationToAdd.getTitle() + " esiste già");
+		} finally {
+			
+		}
 	}
 	
 	public void sendToSingleUser(String title, String message, T object) {
 		Notification toSend = new Notification(title, message, object.getAuthor(), object, object.getAuthor());
-		addNotification(toSend);
+		add(toSend);
 	}
 	
 	public void sendToMultipleUsers(String title, String message, T object, List<User> recipientsUser) {
 		Notification toSend = new Notification(title, message, object.getAuthor(), object, recipientsUser);
-		addNotification(toSend);
+		add(toSend);
 	}
 	
 	public Notification readNotification(int notificationId) {
 		Notification toRead = findById(notificationId);
 		toRead.setRead(true);
-		updateNotification(toRead);
+		add(toRead);
 		return toRead;
 	}
 	
@@ -59,7 +62,7 @@ public class NotificationsService<T extends Element> {
 		notificationUpdated.setMessage(message);
 		notificationUpdated.getRecipientUsers().clear();
 		notificationUpdated.getRecipientUsers().add(notificationToResponse.getNotificationObject().getAuthor());
-		updateNotification(notificationUpdated);
+		add(notificationUpdated);
 	}
 	
 	public void confirmValidation(Notification notificationToConfirm) {
@@ -68,6 +71,6 @@ public class NotificationsService<T extends Element> {
 		notificationConfirmed.setMessage("");
 		notificationConfirmed.getRecipientUsers().clear();
 		notificationConfirmed.getRecipientUsers().add(notificationToConfirm.getNotificationObject().getAuthor());
-		updateNotification(notificationConfirmed);
+		add(notificationConfirmed);
 	}
 }
