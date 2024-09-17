@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 
 @Repository
-public interface POIRepository extends JpaRepository<PointOfInterest, Integer>{
+public interface POIRepository extends ElementRepository<PointOfInterest>{
 	
 }
