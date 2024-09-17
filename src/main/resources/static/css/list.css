@@ -6,7 +6,7 @@
 	padding: 10px;
 }
 
-/* Stile per il div che contiene le cards risultato dell'OSM */
+/* Stile per il div che contiene le cards delle liste elementi */
 .containerElement {
 	display: flex;
 	flex-direction: column;

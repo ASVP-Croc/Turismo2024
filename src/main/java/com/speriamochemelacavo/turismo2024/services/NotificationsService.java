@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.services;
 
+import java.lang.System.Logger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,13 @@ import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.notifications.Notification;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.repository.NotificationRepository;
+import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 @Service
 public class NotificationsService<T extends Element> {
+	
+	@Autowired
+	private LoggedUserDetailService loggedUserDetailService;
 	
 	@Autowired
 	private NotificationRepository<T> notificationRepository;
@@ -26,22 +31,22 @@ public class NotificationsService<T extends Element> {
 	}
 	
 	private void add(Notification notificationToAdd) {
+		Notification optionalNotification;
 		try {
-			notificationRepository.save(notificationToAdd);
-		} catch (DataIntegrityViolationException e) {
-			System.out.println("La Notifica " + notificationToAdd.getTitle() + " esiste già");
-		} finally {
-			
+			optionalNotification = findById(notificationToAdd.getId());
+			notificationToAdd.setId(optionalNotification.getId());
+		} catch (Exception e) {
 		}
+		notificationRepository.save(notificationToAdd);
 	}
 	
 	public void sendToSingleUser(String title, String message, T object) {
-		Notification toSend = new Notification(title, message, object.getAuthor(), object, object.getAuthor());
+		Notification toSend = new Notification(title, message, loggedUserDetailService.getLoggedUser(), object, object.getAuthor());
 		add(toSend);
 	}
 	
 	public void sendToMultipleUsers(String title, String message, T object, List<User> recipientsUser) {
-		Notification toSend = new Notification(title, message, object.getAuthor(), object, recipientsUser);
+		Notification toSend = new Notification(title, message, loggedUserDetailService.getLoggedUser(), object, recipientsUser);
 		add(toSend);
 	}
 	

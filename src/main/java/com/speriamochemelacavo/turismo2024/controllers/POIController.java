@@ -1,32 +1,34 @@
 package com.speriamochemelacavo.turismo2024.controllers;
 
-import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
+import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
 import org.springframework.web.servlet.view.RedirectView;
 
 
 @RestController
+@RequestMapping("/pois")
 public class POIController {
 	
 	@Autowired
 	private LoggedUserDetailService loggedUserService;
 	
 	@Autowired
-	private POIsService poiService;
-
-	@GetMapping("/poi")
-	public RedirectView getPOIs(Model model) {
-		model.addAttribute("listElements", poiService.findAll());
-		return new RedirectView("/all/poi");
-
-	}
-	@GetMapping("/poi/{id}")
+	private ElementsService<PointOfInterest> poiService;
+	
+    @GetMapping("/")
+    public RedirectView getAllContests(Model model) {
+		model.addAttribute("isPOI", true);
+		model.addAttribute("toShow", poiService.findAll());
+        return new RedirectView("/elements/list");
+    }
+	
+	@GetMapping("/{id}")
 	public PointOfInterest getPOIById(@PathVariable int id) {
 		return poiService.findById(id);
 	}
@@ -34,15 +36,15 @@ public class POIController {
 	@PostMapping("/creation")
 	public RedirectView createPoI(@RequestBody PointOfInterest poiToAdd) {
 		poiService.add(poiToAdd, loggedUserService.getLoggedUser());
-		return new RedirectView("/poi");
+		return new RedirectView("/pois");
 	}
 
-	@PutMapping("/poi/{id}")
+	@PutMapping("/update")
 	public void updatePoI(@RequestBody PointOfInterest pointOfInterestToUpdate) {
 		poiService.add(pointOfInterestToUpdate, loggedUserService.getLoggedUser());
 	}
 
-	@DeleteMapping("/poi/{id}")
+	@DeleteMapping("/{id}")
 	public void deletePoIById(@PathVariable Integer id) {
 		poiService.deleteById(id);
 	}

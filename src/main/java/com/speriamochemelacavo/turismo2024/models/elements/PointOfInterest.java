@@ -43,6 +43,7 @@ public class PointOfInterest extends ElementWithContents{
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.address = address;
+		this.typology = ElementTypology.POI;
 	}
 
 	public float getLongitude() {

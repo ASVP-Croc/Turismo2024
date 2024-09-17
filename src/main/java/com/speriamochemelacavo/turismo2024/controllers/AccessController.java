@@ -26,7 +26,7 @@ public class AccessController {
 	@PostMapping("/registration")
 	public RedirectView registerUser(@ModelAttribute User newUser) {
 		newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-		newUser.setRole(Role.AUTHENTICATED_TOURIST);
+		newUser.setRole(Role.ROLE_AUTHENTICATED_TOURIST);
 		accountService.addUser(newUser);
 		return new RedirectView("/login");
 	}

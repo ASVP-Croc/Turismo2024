@@ -60,19 +60,18 @@ public class TagsService {
 	
 	public Set<Tag> createTagsFromString(String toConvert, Element element) {
 		Set<Tag> toReturn = new HashSet<>();
-		split(toConvert.toUpperCase()).stream().forEach(s -> toReturn.add(new Tag(s, element)));
+		split(toConvert).stream().forEach(s -> toReturn.add(new Tag(s, element)));
 		return toReturn;
 	}
 	
     public Set<String> split(String toSplit) {
     	Set<String> toReturn = new HashSet<>();
-        String tagClean = toSplit.replaceAll("\\s*,\\s*", ",").trim();
+        String tagClean = toSplit.toUpperCase().replaceAll("\\s*,\\s*", ",").trim();
         String tagClean2 = tagClean.replaceAll("\\s*", "-");
         
         Set<String> firstSplit = Arrays.stream(tagClean.split(","))
         		.filter(t -> !t.isEmpty())
         		.collect(Collectors.toSet());
-        
         toReturn.addAll(firstSplit);
         toReturn.addAll(secondSplit(firstSplit));
         return toReturn;

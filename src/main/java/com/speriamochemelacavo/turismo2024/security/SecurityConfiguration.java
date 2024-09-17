@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import com.speriamochemelacavo.turismo2024.models.users.Role;
 
 @Configuration
 @EnableWebSecurity
@@ -26,11 +27,16 @@ public class SecurityConfiguration {
 	        .csrf(csrf -> csrf
 	                .disable()
 	            )
-	        .sessionManagement(session -> session
-	                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
-        	.authorizeHttpRequests((requests) -> requests
-	                        .requestMatchers("/h2-console/**", "/", "/registration/**", "/startDbUsers", "/css/**", "/all/elements", "/search/**", "/all/users", "/error/**").permitAll()
-	                        .requestMatchers("/startDbPOIs").authenticated())
+        	.authorizeHttpRequests(requests -> requests
+	                        .requestMatchers("/h2-console/**", "/", "/registration/**", "/css/**", "/elements", "/pois/**", "/tours/**", "/contest/**", "/startDbUsers", "/search/**", "/error/**").permitAll()
+	                        .requestMatchers("/startDbPOIs").authenticated()
+							.requestMatchers("/startDbTours").authenticated()
+	                        .requestMatchers("/users/all").hasRole("ADMINISTRATOR")
+//							.requestMatchers("/pois", "/tour", "/poi/creation", "/tour/creation", "/content", "/content/creation").hasAnyRole("CONTRIBUTOR", "AUTHORIZED_CONTRIBUTOR", "ANIMATOR", "ADMINISTRATOR")
+//							.requestMatchers("/contests/**", "/contest/creation", "/contest/validation").hasAnyRole("ANIMATOR", "ADMINISTRATOR")
+							.requestMatchers("/elements/validation").hasAnyRole("CURATOR","ADMINISTRATOR")
+							.requestMatchers("/users/**").hasRole("ADMINISTRATOR")
+			)
 					        .formLogin(form -> form
 					                .loginPage("/login")
 					                .failureUrl("/login?login=false")
@@ -43,11 +49,9 @@ public class SecurityConfiguration {
 					                .logoutSuccessUrl("/login?logout=true")
 					                .permitAll()
 			 					)
-	                        // Permetti l'uso dei frame solo per la stessa origine
 	                        .headers(headers -> headers
 	                            .frameOptions(frameOptions -> frameOptions.sameOrigin())
 	                        )
-	                        // Disabilita CSRF per la console H2 (solo per sviluppo)
 	                        ;
         return http.build();
     }

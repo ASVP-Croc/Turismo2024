@@ -42,4 +42,14 @@ public class ContentsService extends ElementsService<Content>{
 	public void deleteAll(List<Content> contentsToDelete) {
 		super.deleteAll(contentsToDelete);
 	}
+
+	@Override
+	public boolean isLoaded() {
+		return isContentsLoaded;
+	}
+
+	@Override
+	public void setLoaded(boolean isLoaded) {
+		isContentsLoaded = isLoaded;
+	}
 }

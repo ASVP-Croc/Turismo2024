@@ -13,16 +13,6 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 @Service
 public class POIsService extends ElementsWithContentsService<PointOfInterest> {
 	
-	private static boolean isLoaded;
-	
-	public static boolean isLoaded() {
-		return isLoaded;
-	}
-
-	public static void setLoaded(boolean isLoaded) {
-		POIsService.isLoaded = isLoaded;
-	}
-	
 	public POIsService(){
 		super();
 	}
@@ -30,6 +20,16 @@ public class POIsService extends ElementsWithContentsService<PointOfInterest> {
 	public void add(PointOfInterest POIToAdd, User author, List<Tag> tags, List<Content> contentToAdd, Address address) {
 		POIToAdd.setAddress(address);
 		super.add(POIToAdd, author, tags, contentToAdd);
+	}
+
+	@Override
+	public boolean isLoaded() {
+		return isPoisLoaded;
+	}
+
+	@Override
+	public void setLoaded(boolean isLoaded) {
+		isPoisLoaded = isLoaded;
 	}
 }
 

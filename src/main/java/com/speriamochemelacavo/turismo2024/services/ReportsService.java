@@ -24,9 +24,9 @@ public class ReportsService<T extends Element>{
 		List<User> recipients = new ArrayList<>();
 		if (elementToReport instanceof Content
 				&& (((Content)elementToReport).getReferenced() instanceof Contest)) {
-			recipients.addAll(userService.findByRole(Role.ANIMATOR));
+			recipients.addAll(userService.findByRole(Role.ROLE_ANIMATOR));
 		} else {
-			recipients.addAll(userService.findByRole(Role.CURATOR));
+			recipients.addAll(userService.findByRole(Role.ROLE_CURATOR));
 		}
 		elementToReport.setReported(true);
 		notificationService.sendToMultipleUsers("Segnalazione: " + elementToReport.getName(), message, elementToReport, recipients);

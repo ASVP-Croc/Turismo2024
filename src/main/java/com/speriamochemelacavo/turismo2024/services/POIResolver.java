@@ -4,6 +4,7 @@ import com.speriamochemelacavo.turismo2024.models.elements.Address;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 
+import org.hibernate.transform.AliasToBeanConstructorResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.metrics.StartupStep.Tags;
 import org.springframework.stereotype.Service;
@@ -54,7 +55,7 @@ public class POIResolver extends ElementResolver<PointOfInterest>{
 				toSplit = "house_number, house_name";
 			}
 			case "city" -> {
-				toSplit = "municipality, city, town, village";
+				toSplit = "village, town, city, municipality";
 			}
 			default -> throw new IllegalArgumentException("Unexpected value: " + key);
 		}
@@ -62,14 +63,17 @@ public class POIResolver extends ElementResolver<PointOfInterest>{
 		String[] splitted = toSplit.split(", ");
 		
 		for (String toControll : splitted) {
-			if (!toControll.isBlank()) toReturn = toReturn + " " + addressToCheck.getOrDefault(toControll, "");
+			toReturn = toReturn + addressToCheck.getOrDefault(toControll, "");
+			if (!addressToCheck.getOrDefault(toControll, "").isBlank()) {
+				toReturn = toReturn + ", ";
+			}
 		}
 		
-		if (toReturn.endsWith(",")) {
-			toReturn = toReturn.substring(0, toReturn.length() - 1);
+		while (toReturn.endsWith(", ")) {
+			toReturn = toReturn.substring(0, toReturn.length() - 2);
         }
 		
-		return toReturn.trim();
+		return toReturn;
 		
 	}
 }

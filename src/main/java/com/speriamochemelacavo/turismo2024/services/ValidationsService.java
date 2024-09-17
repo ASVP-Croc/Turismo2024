@@ -23,9 +23,9 @@ public class ValidationsService<T extends Element> {
 	
 	
 	public boolean requestValidation(T elementToValidate) {
-		if (elementToValidate.getAuthor().getRole() == Role.AUTHORIZED_CONTRIBUTOR 
-				|| elementToValidate.getAuthor().getRole() == Role.CURATOR
-				|| elementToValidate.getAuthor().getRole() == Role.ADMINISTRATOR) {
+		if (elementToValidate.getAuthor().getRole() == Role.ROLE_AUTHORIZED_CONTRIBUTOR 
+				|| elementToValidate.getAuthor().getRole() == Role.ROLE_CURATOR
+				|| elementToValidate.getAuthor().getRole() == Role.ROLE_ADMINISTRATOR) {
 			elementToValidate.setPublished(true);
 			notificationService.sendToSingleUser("Pubblicazione avvenuta per: " + elementToValidate.getName(), "", elementToValidate);
 			return true;
@@ -39,9 +39,9 @@ public class ValidationsService<T extends Element> {
 		List<User> recipients = new ArrayList<User>();
 		if (elementToValidate instanceof Content
 				&& (((Content)elementToValidate).getReferenced() instanceof Contest)) {
-			recipients.addAll(userService.findByRole(Role.ANIMATOR));
+			recipients.addAll(userService.findByRole(Role.ROLE_ANIMATOR));
 		} else {
-			recipients.addAll(userService.findByRole(Role.CURATOR));
+			recipients.addAll(userService.findByRole(Role.ROLE_CURATOR));
 		}
 		sendNotification("Hai un nuovo Elemento da validare!", elementToValidate, recipients);
 	}

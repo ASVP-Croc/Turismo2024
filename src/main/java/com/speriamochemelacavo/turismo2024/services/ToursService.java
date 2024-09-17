@@ -31,4 +31,14 @@ public class ToursService extends ElementsWithContentsService<Tour>{
 	public void deleteAll(List<Tour> toursToDelete) {
 		super.deleteAll(toursToDelete);
 	}
+	
+	@Override
+	public boolean isLoaded() {
+		return isToursLoaded;
+	}
+
+	@Override
+	public void setLoaded(boolean isLoaded) {
+		isToursLoaded = isLoaded;
+	}
 }

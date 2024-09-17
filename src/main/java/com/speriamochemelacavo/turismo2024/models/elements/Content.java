@@ -34,6 +34,7 @@ public class Content extends Element{
 		super(name, description, author, city, postcode);
 		this.referenced = referenced;
 		this.pathToResource = pathToResource;
+		this.typology = ElementTypology.CONTENT;
 	}
 
 	public ElementWithContents getReferenced() {
