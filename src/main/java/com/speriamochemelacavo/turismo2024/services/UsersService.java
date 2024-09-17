@@ -11,7 +11,7 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.repository.UserRepository;
 
 @Service
-public class UsersService {
+public class UsersService<T extends Element> {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -44,7 +44,7 @@ public class UsersService {
 		userRepository.deleteById(userToDeleteId);
 	}
 	
-	public void addNewSavedElement(Element elementToAdd, int userToSaveElementId) {
+	public void addNewSavedElement(T elementToAdd, int userToSaveElementId) {
 		User userToUpdate = findById(userToSaveElementId);
 		userToUpdate.getSavedElements().add(elementToAdd);
 		updateUser(userToUpdate);

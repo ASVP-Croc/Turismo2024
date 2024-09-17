@@ -10,7 +10,7 @@ import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 
 @Service
-public class ContentsService<T extends ElementWithContents> extends ElementsService<Content>{
+public class ContentsService extends ElementsService<Content>{
 
 	@Override
 	public void add(Content contentToAdd, User author) {
