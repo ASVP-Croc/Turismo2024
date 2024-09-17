@@ -28,19 +28,11 @@ public class PageController {
 	private ElementsService<Element> elementsService;
 	
 	@Autowired
-	private ElementsService<PointOfInterest> poiService;
-	
-	@Autowired
-	private ElementsService<Tour> tourService;
-	
-	@Autowired
-	private ElementsService<Contest> contestService;
-	
-	@Autowired
 	private ModelSetter modelSetter;
 
 	@GetMapping("/")
 	public String home(Model model) {
+		model.addAttribute("toShow", elementsService.findAll());
 		modelSetter.setConditionModelVisibility(model);
 		return "index";
 	}
@@ -51,7 +43,7 @@ public class PageController {
 		return "login";
 	}
 	
-	@GetMapping("/all/users")
+	@GetMapping("/users")
 	public String getUsers(Model model) {
 		model.addAttribute("listUser", accountService.findAll());
 		modelSetter.setConditionModelVisibility(model);
@@ -59,32 +51,16 @@ public class PageController {
 	}
 	
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
-	@GetMapping("/elements")
+	@GetMapping("/elements/list")
 	public String getAll(Model model) {
-		model.addAttribute("listElements", elementsService.findAll());
 		modelSetter.setConditionModelVisibility(model);
-		return "elements-site-list";
-	}
-
-	@GetMapping("/pois")
-	public String getAllPoIs(Model model) {
-		model.addAttribute("listElements", poiService.findAll());
-		modelSetter.setConditionModelVisibility(model);
-		return "elements-site-list";
-	}
-
-	@GetMapping("/tours")
-	public String getAllTours(Model model) {
-		model.addAttribute("listElements", tourService.findAll());
-		modelSetter.setConditionModelVisibility(model);
-		return "elements-site-list";
+		return "elements-list";
 	}
 	
 	@GetMapping("/contest")
 	public String getAllContests(Model model) {
-		model.addAttribute("listElements", contestService.findAll());
 		modelSetter.setConditionModelVisibility(model);
-		return "elements-site-list";
+		return "elements-list";
 	}
 	
 	@GetMapping("/registration")

@@ -52,6 +52,7 @@ public abstract class Element {
 	private String city;
 	@JsonProperty("postcode")
 	private String postcode = "";
+	protected ElementTypology typology;
 	private boolean isPublished = false;
 	private boolean isReported = false;
 	
@@ -118,6 +119,10 @@ public abstract class Element {
 
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
+	}
+
+	public ElementTypology getTypology() {
+		return typology;
 	}
 
 	public boolean isPublished() {

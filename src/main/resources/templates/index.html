@@ -12,6 +12,10 @@
 <body>
 	<div th:replace="~{fragments/header :: header}"></div>
 	<div th:replace="~{fragments/menu :: menu}"></div>
-	<div th:replace="~{fragments/body-search :: search}"></div>
+	<div th:replace="~{fragments/search :: search}"></div>
+	<div th:if = ${toShow.isEmpty()} class = "errorDiv">
+		<h1 class = "scrittaError">Nessun risultato trovato!</h1>
+	</div>
+	<div th:replace="~{fragments/body-result :: elementsList}"></div>
 </body>
 </html>

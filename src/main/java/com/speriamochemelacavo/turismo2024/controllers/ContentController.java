@@ -18,7 +18,14 @@ public class ContentController {
 
     @Autowired
     private ElementsService<Content> contentService;
-
+    
+    @GetMapping("/")
+    public RedirectView getAllContents(Model model) {
+		model.addAttribute("isContent", true);
+		model.addAttribute("toShow", contentService.findAll());
+        return new RedirectView("/elements/list");
+    }
+    
     @GetMapping("/{id}")
     public Content getContentById(@PathVariable int id) {
         return contentService.findById(id);

@@ -16,7 +16,7 @@ import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 @Controller
-@RequestMapping
+@RequestMapping("/search")
 public class SearchController {
 	
 	@Autowired
@@ -28,32 +28,39 @@ public class SearchController {
 	@Autowired
 	private ModelSetter modelSetter;
 
-	@GetMapping("/search/site")
+	@GetMapping("/site")
 	public String searchElementsSite(Model model,@RequestParam String tag){
 		List<Element> toReturn = searchService.searchElementsSite(tag);
 		modelSetter.setConditionModelVisibility(model);
 		model.addAttribute("listElements", toReturn);
-		return "elements-site-list";
+		return "elements-list";
 	}
 	
-	@GetMapping("/search/osm/detail")
+	@GetMapping("/osm/detail")
 	public String searchElementsOSMWithDetails(Model model,
 			@RequestParam String amenity, 
 			@RequestParam String street,
 			@RequestParam String houseNumber,
 			@RequestParam(defaultValue = "loggedUser") String postalCode) throws IOException{
-		List<PointOfInterest> toReturn = searchService.searchElementsOSMWithDetails(amenity, street, houseNumber, postalCode.contains("loggedUser") ? loggedUserService.getLoggedUser().getCAP() : postalCode);
+		List<PointOfInterest> toReturn = searchService.searchElementsOSMWithDetails(
+				amenity,
+				street,
+				houseNumber,
+				postalCode.contains("loggedUser") ? loggedUserService.getLoggedUser().getCAP() : postalCode
+						);
 		modelSetter.setConditionModelVisibility(model);
+		model.addAttribute("isPOI", true);
 		model.addAttribute("listElements", toReturn);
-		return "elements-osm-list";
+		return "elements-list";
 	}
 	
-	@GetMapping("/search/osm/query")
+	@GetMapping("/osm/query")
 	public String searchElementsOSMWithQuery(Model model, @RequestParam String query) throws IOException{
 		List<PointOfInterest> toReturn = searchService.searchElementsOSMWithQuery(query);
 		modelSetter.setConditionModelVisibility(model);
+		model.addAttribute("isPOI", true);
 		model.addAttribute("listElements", toReturn);
-		return "elements-osm-list";
+		return "elements-list";
 	}
 
 

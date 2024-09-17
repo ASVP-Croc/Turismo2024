@@ -35,6 +35,7 @@ public class Contest extends ElementWithContents {
 		super(name, description, author, city, postcode, contents);
 		this.starts = starts;
 		this.ends = ends;
+		this.typology = ElementTypology.CONTEST;
 	}
 
 	public Date getStarts() {

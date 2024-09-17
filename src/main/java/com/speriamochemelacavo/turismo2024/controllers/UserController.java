@@ -7,13 +7,13 @@ import com.speriamochemelacavo.turismo2024.services.UsersService;
 import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
-@RequestMapping
+@RequestMapping("/users")
 public class UserController {
 
 	@Autowired
 	private UsersService usersService;
 	
-	@GetMapping("/users/{id}")
+	@GetMapping("/{id}")
 	public User getUserById(@PathVariable int id){
 		return usersService.findById(id);
 	}
@@ -24,12 +24,12 @@ public class UserController {
 		return new RedirectView("/users");
 	}
 	
-	@PutMapping("/users/update")
+	@PutMapping("/update")
 	public void updateUser(@RequestBody User userToUpdate) {
 		usersService.updateUser(userToUpdate);
 	}
 	
-	@DeleteMapping("/users/{id}")
+	@DeleteMapping("/{id}")
 	public void deleteUserById(@PathVariable int id) {
 		usersService.deleteUserById(id);
 	}

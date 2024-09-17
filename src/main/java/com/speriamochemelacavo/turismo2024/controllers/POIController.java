@@ -21,6 +21,13 @@ public class POIController {
 	@Autowired
 	private ElementsService<PointOfInterest> poiService;
 	
+    @GetMapping("/")
+    public RedirectView getAllContests(Model model) {
+		model.addAttribute("isPOI", true);
+		model.addAttribute("toShow", poiService.findAll());
+        return new RedirectView("/elements/list");
+    }
+	
 	@GetMapping("/{id}")
 	public PointOfInterest getPOIById(@PathVariable int id) {
 		return poiService.findById(id);

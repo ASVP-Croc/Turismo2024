@@ -21,6 +21,13 @@ public class ContestController {
     @Autowired
     private ElementsService<Contest> contestService;
 
+    @GetMapping("/")
+    public RedirectView getAllContests(Model model) {
+		model.addAttribute("isContest", true);
+		model.addAttribute("toShow", contestService.findAll());
+        return new RedirectView("/elements/list");
+    }
+    
     @GetMapping("/{id}")
     public Contest getContestById(@PathVariable int id) {
         return contestService.findById(id);

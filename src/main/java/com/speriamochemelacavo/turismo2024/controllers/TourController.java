@@ -22,6 +22,13 @@ public class TourController {
     @Autowired
     private ElementsService<Tour> tourService;
 
+    @GetMapping("/")
+    public RedirectView getAllContests(Model model) {
+		model.addAttribute("isTour", true);
+		model.addAttribute("toShow", tourService.findAll());
+        return new RedirectView("/elements/list");
+    }
+    
     @GetMapping("/{id}")
     public Tour getTourById(@PathVariable int id) {
         return tourService.findById(id);
