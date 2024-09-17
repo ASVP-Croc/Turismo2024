@@ -1,6 +1,5 @@
 package com.speriamochemelacavo.turismo2024.controllers;
 
-import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +19,13 @@ public class POIController {
 	@Autowired
 	private POIsService poiService;
 
-	@GetMapping("/poi")
+	@GetMapping("/pois")
 	public RedirectView getPOIs(Model model) {
 		model.addAttribute("listElements", poiService.findAll());
 		return new RedirectView("/all/poi");
 
 	}
-	@GetMapping("/poi/{id}")
+	@GetMapping("/pois/{id}")
 	public PointOfInterest getPOIById(@PathVariable int id) {
 		return poiService.findById(id);
 	}
@@ -34,15 +33,15 @@ public class POIController {
 	@PostMapping("/creation")
 	public RedirectView createPoI(@RequestBody PointOfInterest poiToAdd) {
 		poiService.add(poiToAdd, loggedUserService.getLoggedUser());
-		return new RedirectView("/poi");
+		return new RedirectView("/pois");
 	}
 
-	@PutMapping("/poi/{id}")
+	@PutMapping("/pois/update")
 	public void updatePoI(@RequestBody PointOfInterest pointOfInterestToUpdate) {
 		poiService.add(pointOfInterestToUpdate, loggedUserService.getLoggedUser());
 	}
 
-	@DeleteMapping("/poi/{id}")
+	@DeleteMapping("/pois/{id}")
 	public void deletePoIById(@PathVariable Integer id) {
 		poiService.deleteById(id);
 	}

@@ -19,6 +19,15 @@ public abstract class ElementsService<T extends Element> {
 	
 	@Autowired
 	private ValidationsService<T> validationService;
+	private boolean isLoaded;
+
+	public boolean isLoaded() {
+		return isLoaded;
+	}
+
+	public void setLoaded(boolean isLoaded) {
+		this.isLoaded = isLoaded;
+	}
 
 	public T findById(int elemToFindId) {
 		return elementRepository.findById(elemToFindId).orElseThrow();

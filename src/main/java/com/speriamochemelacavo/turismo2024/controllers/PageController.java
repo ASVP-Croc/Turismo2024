@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.controllers;
 
+import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +22,7 @@ public class PageController {
 	
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
 	@Autowired
-	private ElementsService<Element> elementsService;
+	private ElementsService<Tour> elementsService;
 	
 	@Autowired
 	private ModelSetter modelSetter;

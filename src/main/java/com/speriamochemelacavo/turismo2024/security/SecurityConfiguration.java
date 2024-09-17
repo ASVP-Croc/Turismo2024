@@ -30,7 +30,13 @@ public class SecurityConfiguration {
         	.authorizeHttpRequests(requests -> requests
 	                        .requestMatchers("/h2-console/**", "/", "/registration/**", "/css/**", "/all/elements", "/startDbUsers", "/search/**", "/error/**").permitAll()
 	                        .requestMatchers("/startDbPOIs").authenticated()
-	                        .requestMatchers("/all/users").hasRole("ADMINISTRATOR"))
+							.requestMatchers("/startDbTours").authenticated()
+	                        .requestMatchers("/all/users").hasRole("ADMINISTRATOR")
+							//.requestMatchers("/pois", "/tour", "/poi/creation", "/tour/creation", "/content", "/content/creation").hasAnyRole("CONTRIBUTOR", "AUTHORIZED_CONTRIBUTOR", "ADMINISTRATOR")
+							//.requestMatchers("/contests/**", "/contest/creation", "/contest/validation").hasAnyRole("ANIMATOR", "ADMINISTRATOR")
+							//.requestMatchers("/elements/validation").hasAnyRole("CURATOR","ADMINISTRATOR")
+							//.requestMatchers("/users/**").hasRole("ADMINISTRATOR")
+			)
 					        .formLogin(form -> form
 					                .loginPage("/login")
 					                .failureUrl("/login?login=false")
