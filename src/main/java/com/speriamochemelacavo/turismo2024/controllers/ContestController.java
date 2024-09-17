@@ -3,7 +3,10 @@ package com.speriamochemelacavo.turismo2024.controllers;
 import com.speriamochemelacavo.turismo2024.models.elements.Contest;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import com.speriamochemelacavo.turismo2024.services.ContestsService;
+import com.speriamochemelacavo.turismo2024.services.ElementsService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -16,31 +19,26 @@ public class ContestController {
     private LoggedUserDetailService loggedUserService;
 
     @Autowired
-    private ContestsService contestsService;
+    private ElementsService<Contest> contestService;
 
     @GetMapping("/{id}")
     public Contest getContestById(@PathVariable int id) {
-        return contestsService.findById(id);
-    }
-
-    @GetMapping("/all")
-    public List<Contest> getAllContest() {
-        return contestsService.findAll();
+        return contestService.findById(id);
     }
 
     @PostMapping("/creation")
     public RedirectView createContest(Contest contest) {
-        contestsService.add(contest, loggedUserService.getLoggedUser());
+        contestService.add(contest, loggedUserService.getLoggedUser());
         return new RedirectView("/contests");
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update")
     public void updateContest(@RequestBody Contest contestToUpdate) {
-        contestsService.add(contestToUpdate, loggedUserService.getLoggedUser());
+        contestService.add(contestToUpdate, loggedUserService.getLoggedUser());
     }
 
     @DeleteMapping("/{id}")
     public void deleteContestById(@PathVariable Integer id) {
-        contestsService.deleteById(id);
+        contestService.deleteById(id);
     }
 }

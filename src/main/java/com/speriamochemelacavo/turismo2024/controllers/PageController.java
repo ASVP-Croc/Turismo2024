@@ -8,10 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
+import com.speriamochemelacavo.turismo2024.models.elements.Contest;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
+import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.services.UsersService;
 
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
+import com.speriamochemelacavo.turismo2024.services.POIsService;
 
 @Controller
 @RequestMapping
@@ -22,7 +25,16 @@ public class PageController {
 	
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
 	@Autowired
-	private ElementsService<Tour> elementsService;
+	private ElementsService<Element> elementsService;
+	
+	@Autowired
+	private ElementsService<PointOfInterest> poiService;
+	
+	@Autowired
+	private ElementsService<Tour> tourService;
+	
+	@Autowired
+	private ElementsService<Contest> contestService;
 	
 	@Autowired
 	private ModelSetter modelSetter;
@@ -46,23 +58,31 @@ public class PageController {
 		return "users-list";
 	}
 	
-	@GetMapping("/elements")
-	public String getElements(Model model) {
-		modelSetter.setConditionModelVisibility(model);
-		return "elements-site-list";
-	}
-	
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
-	@GetMapping("/all/elements")
+	@GetMapping("/elements")
 	public String getAll(Model model) {
 		model.addAttribute("listElements", elementsService.findAll());
 		modelSetter.setConditionModelVisibility(model);
 		return "elements-site-list";
 	}
 
-	//	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
-	@GetMapping("/all/poi")
+	@GetMapping("/pois")
 	public String getAllPoIs(Model model) {
+		model.addAttribute("listElements", poiService.findAll());
+		modelSetter.setConditionModelVisibility(model);
+		return "elements-site-list";
+	}
+
+	@GetMapping("/tours")
+	public String getAllTours(Model model) {
+		model.addAttribute("listElements", tourService.findAll());
+		modelSetter.setConditionModelVisibility(model);
+		return "elements-site-list";
+	}
+	
+	@GetMapping("/contest")
+	public String getAllContests(Model model) {
+		model.addAttribute("listElements", contestService.findAll());
 		modelSetter.setConditionModelVisibility(model);
 		return "elements-site-list";
 	}

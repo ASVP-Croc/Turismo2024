@@ -46,4 +46,14 @@ public class ContestsService extends ElementsWithContentsService<Contest>  {
 	public void deleteAll(List<Contest> contestsToDelete) {
 		super.deleteAll(contestsToDelete);
 	}
+
+	@Override
+	public boolean isLoaded() {
+		return isToursLoaded;
+	}
+
+	@Override
+	public void setLoaded(boolean isLoaded) {
+		isToursLoaded = isLoaded;
+	}
 }

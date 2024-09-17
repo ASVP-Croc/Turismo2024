@@ -4,7 +4,9 @@ import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import com.speriamochemelacavo.turismo2024.services.ToursService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -18,31 +20,26 @@ public class TourController {
     private LoggedUserDetailService loggedUserService;
 
     @Autowired
-    private ElementsService<Tour> toursService;
+    private ElementsService<Tour> tourService;
 
     @GetMapping("/{id}")
     public Tour getTourById(@PathVariable int id) {
-        return toursService.findById(id);
-    }
-
-    @GetMapping("/all")
-    public List<Tour> getAllTours() {
-        return toursService.findAll();
+        return tourService.findById(id);
     }
 
     @PostMapping("/creation")
     public RedirectView createTour(Tour tour) {
-        toursService.add(tour, loggedUserService.getLoggedUser());
+        tourService.add(tour, loggedUserService.getLoggedUser());
         return new RedirectView("/tours");
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update")
     public void updatePoI(@RequestBody Tour tourToUpdate) {
-        toursService.add(tourToUpdate, loggedUserService.getLoggedUser());
+        tourService.add(tourToUpdate, loggedUserService.getLoggedUser());
     }
 
     @DeleteMapping("/{id}")
     public void deleteTourById(@PathVariable Integer id) {
-        toursService.deleteById(id);
+        tourService.deleteById(id);
     }
 }

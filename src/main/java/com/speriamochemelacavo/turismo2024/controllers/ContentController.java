@@ -4,6 +4,7 @@ import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -16,32 +17,27 @@ public class ContentController {
     private LoggedUserDetailService loggedUserService;
 
     @Autowired
-    private ElementsService<Content> contentsService;
+    private ElementsService<Content> contentService;
 
     @GetMapping("/{id}")
     public Content getContentById(@PathVariable int id) {
-        return contentsService.findById(id);
-    }
-
-    @GetMapping("/all")
-    public List<Content> getAllContent() {
-        return contentsService.findAll();
+        return contentService.findById(id);
     }
 
     @PostMapping("/creation")
     public RedirectView createContent(Content content) {
-        contentsService.add(content, loggedUserService.getLoggedUser());
+        contentService.add(content, loggedUserService.getLoggedUser());
         return new RedirectView("/contents");
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update")
     public void updateContent(@RequestBody Content contentToUpdate) {
-        contentsService.add(contentToUpdate, loggedUserService.getLoggedUser());
+        contentService.add(contentToUpdate, loggedUserService.getLoggedUser());
     }
 
     @DeleteMapping("/{id}")
     public void deleteContentById(@PathVariable Integer id) {
-        contentsService.deleteById(id);
+        contentService.deleteById(id);
     }
 
 

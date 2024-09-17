@@ -29,7 +29,7 @@ public class SearchController {
 	private ModelSetter modelSetter;
 
 	@GetMapping("/search/site")
-	public String searchElementsSite(Model model, String tag){
+	public String searchElementsSite(Model model,@RequestParam String tag){
 		List<Element> toReturn = searchService.searchElementsSite(tag);
 		modelSetter.setConditionModelVisibility(model);
 		model.addAttribute("listElements", toReturn);

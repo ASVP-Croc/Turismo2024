@@ -19,15 +19,14 @@ public abstract class ElementsService<T extends Element> {
 	
 	@Autowired
 	private ValidationsService<T> validationService;
-	private boolean isLoaded;
+	protected static boolean isPoisLoaded;
+	protected static boolean isToursLoaded;
+	protected static boolean isContestsLoaded;
+	protected static boolean isContentsLoaded;
 
-	public boolean isLoaded() {
-		return isLoaded;
-	}
+	public abstract boolean isLoaded();
 
-	public void setLoaded(boolean isLoaded) {
-		this.isLoaded = isLoaded;
-	}
+	public abstract void setLoaded(boolean isLoaded);
 
 	public T findById(int elemToFindId) {
 		return elementRepository.findById(elemToFindId).orElseThrow();
@@ -44,11 +43,10 @@ public abstract class ElementsService<T extends Element> {
 			optionalElement = findById(elementToAdd.getId());
 			elementToAdd.setId(optionalElement.getId());
 		} catch (Exception e) {
+			elementToAdd.setAuthor(author);
 		}
-		elementToAdd.setAuthor(author);
         elementRepository.save(elementToAdd);
-        elementToAdd.setPublished(validationService.requestValidation(elementToAdd));
-        elementRepository.save(elementToAdd);
+        validationService.requestValidation(elementToAdd);
 	}
 	
 	public void add(T elementToAdd, User author, List<Tag> tags) {

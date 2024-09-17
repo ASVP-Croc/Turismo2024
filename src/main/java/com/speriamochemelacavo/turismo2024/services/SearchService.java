@@ -30,7 +30,7 @@ public class SearchService {
 
     public List<Element> searchElementsSite(String tag){
         List<Element> toReturn = new ArrayList<>();
-        List<String> firstSplit = tagService.split(tag).stream().toList();
+        Set<String> firstSplit = tagService.split(tag.toUpperCase()).stream().collect(Collectors.toSet());
         firstSplit.stream()
         	.forEach(t ->{
         		if (tagService.findByTag(t) != null) toReturn.addAll(tagService.findByTag(t).getElements());

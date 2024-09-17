@@ -21,5 +21,15 @@ public class POIsService extends ElementsWithContentsService<PointOfInterest> {
 		POIToAdd.setAddress(address);
 		super.add(POIToAdd, author, tags, contentToAdd);
 	}
+
+	@Override
+	public boolean isLoaded() {
+		return isPoisLoaded;
+	}
+
+	@Override
+	public void setLoaded(boolean isLoaded) {
+		isPoisLoaded = isLoaded;
+	}
 }
 

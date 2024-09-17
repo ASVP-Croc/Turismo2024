@@ -21,7 +21,7 @@
     		<h1 class = "scritteCard" th:text = "${'Titolo: '} + ${element.getName()}">Titolo</h1>
     		<h1 class = "scritteCard" th:text = "${'Descrizione: '} + ${element.getDescription()}">Descrizione</h1>
     		<h1 class = "scritteCard" th:text = "${'Autore: '} + ${element.getAuthor().getUsername()}">Autore</h1>
-    		<h1 class = "scritteCard" th:text = "${'Indirizzo: '} + ${element.getAddress.toString()}">Indirizzo</h1>
+<!--     		<h1 th:if = ${isPOI} class = "scritteCard" th:text = "${'Indirizzo: '} + ${element.getAddress.toString()}">Indirizzo</h1>-->
     		<h1 class = "scritteCard" th:text = "${'Città: '} + ${element.getCity()} + ${' ('} + ${element.getPostcode()} + ${')'}">Città</h1>
     	</button>
 	</div>		

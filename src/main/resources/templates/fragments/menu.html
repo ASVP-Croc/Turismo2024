@@ -11,11 +11,20 @@
 		<button th:if = "${isPOIButtonVisible}" th:onclick = "location.href = '/startDbPOIs'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Popola il DB POI</h1>
 		</button>
-		<button th:onclick = "location.href = '/all/users'" class = "bottoniMenu">
+		<button th:if = "${isTourButtonVisible}" th:onclick = "location.href = '/startDbTours'" class = "bottoniMenu">
+			<h1 class = "scritteBottoniMenu">Popola il DB Tour</h1>
+		</button>
+		<button th:onclick = "location.href = '/users/all'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Lista Utenti</h1>
 		</button>
-		<button th:onclick = "location.href = '/all/elements'" class = "bottoniMenu">
+		<button th:onclick = "location.href = '/elements'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Lista Elementi</h1>
+		</button>
+		<button th:onclick = "location.href = '/pois'" class = "bottoniMenu">
+			<h1 class = "scritteBottoniMenu">Lista POI</h1>
+		</button>
+		<button th:onclick = "location.href = '/tours'" class = "bottoniMenu">
+			<h1 class = "scritteBottoniMenu">Lista Tour</h1>
 		</button>
 		<button th:unless = "${isLogged}" th:onclick = "location.href = '/login'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Login</h1>

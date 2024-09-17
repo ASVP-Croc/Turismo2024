@@ -12,18 +12,6 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 @Service
 public class ContentsService<T extends ElementWithContents> extends ElementsService<Content>{
 
-	/**
-
-	public Content findById(int elemToFindId) {
-		return super.findById(elemToFindId);
-	}
-
-	public List<Content> findAll(){
-		return super.findAll();
-	}
-
-	 */
-
 	@Override
 	public void add(Content contentToAdd, User author) {
 		super.add(contentToAdd, author);
@@ -53,5 +41,15 @@ public class ContentsService<T extends ElementWithContents> extends ElementsServ
 	@Override
 	public void deleteAll(List<Content> contentsToDelete) {
 		super.deleteAll(contentsToDelete);
+	}
+
+	@Override
+	public boolean isLoaded() {
+		return isContentsLoaded;
+	}
+
+	@Override
+	public void setLoaded(boolean isLoaded) {
+		isContentsLoaded = isLoaded;
 	}
 }
