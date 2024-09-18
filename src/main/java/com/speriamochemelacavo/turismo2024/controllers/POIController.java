@@ -27,16 +27,23 @@ public class POIController {
 	private ElementsService<PointOfInterest> poiService;
 	
 	@Autowired
-	private PageController pageController;
+	private ModelSetter modelSetter;
 	
-    @GetMapping("/")
-    public RedirectView getAllPOIs(Model model) {
-    	
-    	HashMap<String, ?> toAdd = (HashMap<String, ?>) Map.ofEntries(
-    			Map.entry("isPoi", true), 
-    			Map.entry("toShow", poiService.findAll()));
-    	
-    	pageController.addAllAttributesToModel(model, toAdd);
+//    @GetMapping("")
+//    public RedirectView getAllPOIs(Model model) {
+//		modelSetter.setBaseVisibility(model);
+//		model.addAttribute("toShow", poiService.findAll());
+//		model.addAttribute("isPoi", true);
+//		modelSetter.setModel(model);
+//        return new RedirectView("/elements/list");
+//    }
+	
+    @GetMapping("")
+    public RedirectView getAllPOIs() {
+		modelSetter.clearAllAttributes();
+		modelSetter.setBaseVisibility();
+		modelSetter.getAttributes().put("toShow", poiService.findAll());
+		modelSetter.getAttributes().put("isPoi", true);
         return new RedirectView("/elements/list");
     }
 	

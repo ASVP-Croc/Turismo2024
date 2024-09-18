@@ -29,6 +29,7 @@ public class Contest extends ElementWithContents {
 	
 	public Contest() {
 		super();
+		this.typology = ElementTypology.CONTEST.toString();
 	}
 	
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
@@ -36,7 +37,7 @@ public class Contest extends ElementWithContents {
 		super(name, description, author, city, postcode, contents);
 		this.starts = starts;
 		this.ends = ends;
-		this.typology = ElementTypology.CONTEST;
+		this.typology = ElementTypology.CONTEST.toString();
 	}
 
 	public Date getStarts() {

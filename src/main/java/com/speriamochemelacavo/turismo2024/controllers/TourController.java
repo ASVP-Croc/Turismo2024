@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.controllers;
 
+import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
@@ -25,16 +26,14 @@ public class TourController {
     private ElementsService<Tour> tourService;
     
 	@Autowired
-	private PageController pageController;
+	private ModelSetter modelSetter;
 
-    @GetMapping("/")
-    public RedirectView getAllTours(Model model) {
-    	
-    	HashMap<String, ?> toAdd = (HashMap<String, ?>) Map.ofEntries(
-    			Map.entry("isTour", true), 
-    			Map.entry("toShow", tourService.findAll()));
-    	
-    	pageController.addAllAttributesToModel(model, toAdd);
+    @GetMapping("")
+    public RedirectView getAllTours() {
+		modelSetter.clearAllAttributes();
+		modelSetter.setBaseVisibility();
+		modelSetter.getAttributes().put("toShow", tourService.findAll());
+		modelSetter.getAttributes().put("isTour", true);
         return new RedirectView("/elements/list");
     }
     

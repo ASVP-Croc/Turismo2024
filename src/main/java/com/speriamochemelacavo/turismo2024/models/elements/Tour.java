@@ -31,12 +31,13 @@ public class Tour extends ElementWithContents{
 	
 	public Tour() {
 		super();
+		this.typology = ElementTypology.TOUR.toString();
 	}
 
 	public Tour(String name, String description, User author, String city, String postcode, List<Content> contents, List<PointOfInterest> myPOIs) {
 		super(name, description, author, city, postcode, contents);
 		this.myPOIs = myPOIs;
-		this.typology = ElementTypology.TOUR;
+		this.typology = ElementTypology.TOUR.toString();
 	}
 
 	public List<PointOfInterest> getMyPOIs() {

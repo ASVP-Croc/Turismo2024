@@ -2,6 +2,7 @@ package com.speriamochemelacavo.turismo2024.controllers;
 
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Contest;
+import com.speriamochemelacavo.turismo2024.models.elements.category.ElementTypology;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import com.speriamochemelacavo.turismo2024.services.ContestsService;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
@@ -25,16 +26,14 @@ public class ContestController {
     private ElementsService<Contest> contestService;
     
 	@Autowired
-	private PageController pageController;
+	private ModelSetter modelSetter;
 
-    @GetMapping("/")
-    public RedirectView getAllContests(Model model) {
-    	
-    	HashMap<String, ?> toAdd = (HashMap<String, ?>) Map.ofEntries(
-    			Map.entry("isContest", true), 
-    			Map.entry("toShow", contestService.findAll()));
-    	
-    	pageController.addAllAttributesToModel(model, toAdd);
+    @GetMapping("")
+    public RedirectView getAllContests() {
+		modelSetter.clearAllAttributes();
+		modelSetter.setBaseVisibility();
+		modelSetter.getAttributes().put("toShow", contestService.findAll());
+		modelSetter.getAttributes().put("isContest", true);
         return new RedirectView("/elements/list");
     }
     

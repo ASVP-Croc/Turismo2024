@@ -23,16 +23,14 @@ public class ContentController {
     private ElementsService<Content> contentService;
     
 	@Autowired
-	private PageController pageController;
+	private ModelSetter modelSetter;
     
-    @GetMapping("/")
-    public RedirectView getAllContents(Model model) {
-    	
-    	HashMap<String, ?> toAdd = (HashMap<String, ?>) Map.ofEntries(
-    			Map.entry("isContent", true), 
-    			Map.entry("toShow", contentService.findAll()));
-    	
-    	pageController.addAllAttributesToModel(model, toAdd);
+    @GetMapping("")
+    public RedirectView getAllContents() {
+		modelSetter.clearAllAttributes();
+		modelSetter.setBaseVisibility();
+		modelSetter.getAttributes().put("toShow", contentService.findAll());
+		modelSetter.getAttributes().put("isContent", true);
         return new RedirectView("/elements/list");
     }
     

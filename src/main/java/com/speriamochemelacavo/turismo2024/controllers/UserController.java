@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.controllers;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
+import com.speriamochemelacavo.turismo2024.models.elements.category.ElementTypology;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.services.UsersService;
 import org.springframework.web.servlet.view.RedirectView;
@@ -19,12 +21,14 @@ public class UserController {
 	private UsersService usersService;
 	
 	@Autowired
-	private PageController pageController;
+	private ModelSetter modelSetter;
 	
-	@GetMapping("/")
-	public RedirectView getAllUsers(Model model){
-		pageController.addAllAttributesToModel(model, Map.of("listUsers", usersService.findAll()));
-		return new RedirectView("/users");
+	@GetMapping("")
+	public RedirectView getAllUsers(){
+		modelSetter.clearAllAttributes();
+		modelSetter.setBaseVisibility();
+		modelSetter.getAttributes().put("listUsers", usersService.findAll());
+		return new RedirectView("/users/list");
 	}
 	
 	@GetMapping("/{id}")

@@ -28,6 +28,7 @@ public class Content extends Element{
 
 	public Content() {
 		super();
+		this.typology = ElementTypology.CONTENT.toString();
 	}
 
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
@@ -35,7 +36,7 @@ public class Content extends Element{
 		super(name, description, author, city, postcode);
 		this.referenced = referenced;
 		this.pathToResource = pathToResource;
-		this.typology = ElementTypology.CONTENT;
+		this.typology = ElementTypology.CONTENT.toString();
 	}
 
 	public ElementWithContents getReferenced() {

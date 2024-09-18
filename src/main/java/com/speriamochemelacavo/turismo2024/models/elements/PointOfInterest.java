@@ -36,6 +36,7 @@ public class PointOfInterest extends ElementWithContents{
 	
 	public PointOfInterest() {
 		super();
+		this.typology = ElementTypology.POI.toString();
 	}
 	
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
@@ -44,7 +45,7 @@ public class PointOfInterest extends ElementWithContents{
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.address = address;
-		this.typology = ElementTypology.POI;
+		this.typology = ElementTypology.POI.toString();
 	}
 
 	public float getLongitude() {

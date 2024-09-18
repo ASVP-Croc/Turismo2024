@@ -52,7 +52,7 @@ public class Element {
 	private String city;
 	@JsonProperty("postcode")
 	private String postcode = "";
-	protected ElementTypology typology;
+	protected String typology;
 	@ManyToMany(mappedBy = "elementsTagged",  cascade = CascadeType.MERGE)
 	private List<Tag> tags = new ArrayList<>();	
 	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -121,7 +121,7 @@ public class Element {
 		this.postcode = postcode;
 	}
 
-	public ElementTypology getTypology() {
+	public String getTypology() {
 		return typology;
 	}
 	

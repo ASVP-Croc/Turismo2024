@@ -26,20 +26,19 @@ public class SearchController {
 	private SearchService searchService;
 	
 	@Autowired
-	private PageController pageController;
+	private ModelSetter modelSetter;;
 
 	@GetMapping("/site")
 	public String searchElementsSite(Model model, @RequestParam String tag){
-		
-    	HashMap<String, ?> toAdd = (HashMap<String, ?>) Map.ofEntries(
-    			Map.entry("listElements", searchService.searchElementsSite(tag)));
-    	
-    	pageController.addAllAttributesToModel(model, toAdd);
+		modelSetter.clearAllAttributes();
+		modelSetter.setBaseVisibility();
+		modelSetter.setAttributesInModel(model);
+		model.addAttribute("listElements", searchService.searchElementsSite(tag));
 		return "elements-list";
 	}
 	
 	@GetMapping("/osm/detail")
-	public String searchElementsOSMWithDetails(Model model,
+	public String searchElementsOSMWithDetails(Model model, 
 			@RequestParam String amenity, 
 			@RequestParam String street,
 			@RequestParam String houseNumber,
@@ -51,22 +50,21 @@ public class SearchController {
 				houseNumber,
 				postalCode.contains("loggedUser") ? loggedUserService.getLoggedUser().getCAP() : postalCode);
 		
-    	HashMap<String, ?> toAdd = (HashMap<String, ?>) Map.ofEntries(
-    			Map.entry("listElements", toReturn), 
-    			Map.entry("isPOI", true));
-    	
-    	pageController.addAllAttributesToModel(model, toAdd);
+		modelSetter.clearAllAttributes();
+		modelSetter.setBaseVisibility();
+		modelSetter.setAttributesInModel(model);
+		model.addAttribute("listElements", toReturn);
+		model.addAttribute("isPOI", true);
 		return "elements-list";
 	}
 	
 	@GetMapping("/osm/query")
-	public String searchElementsOSMWithQuery(Model model, @RequestParam String query) throws IOException{
-		
-    	HashMap<String, ?> toAdd = (HashMap<String, ?>) Map.ofEntries(
-    			Map.entry("listElements", searchService.searchElementsOSMWithQuery(query)),
-    			Map.entry("isPOI", true));
-    	
-    	pageController.addAllAttributesToModel(model, toAdd);
+	public String searchElementsOSMWithQuery(Model model, @RequestParam String query) throws IOException {    	
+		modelSetter.clearAllAttributes();
+		modelSetter.setBaseVisibility();
+		modelSetter.setAttributesInModel(model);
+		model.addAttribute("listElements", searchService.searchElementsOSMWithQuery(query));
+		model.addAttribute("isPOI", true);
 		return "elements-list";
 	}
 
