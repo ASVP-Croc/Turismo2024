@@ -7,14 +7,15 @@
 	<link th:href="@{/css/menu.css}" rel="stylesheet" />
 	<link th:href="@{/css/list.css}" rel="stylesheet" />
 	<link th:href="@{/css/body.css}" rel="stylesheet" />
+	<link th:href="@{/css/error.css}" rel="stylesheet" />
 	<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/favicon.ico">
 </head>
 <body>
 	<div th:replace="~{fragments/header :: header}"></div>
 	<div th:replace="~{fragments/menu :: menu}"></div>
 	<div th:replace="~{fragments/search :: search}"></div>
-	<div th:if = ${toShow.isEmpty()} class = "errorDiv">
-		<h1 class = "scrittaError">Nessun risultato trovato!</h1>
+	<div th:if = "${toShow.isEmpty()}" class = "errorDiv">
+		<h1 class = "scrittaError">Ancora nessun elemento caricato!</h1>
 	</div>
 	<div th:replace="~{fragments/body-result :: elementsList}"></div>
 </body>

@@ -13,8 +13,8 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 @Service
 public abstract class ElementsWithContentsService<T extends ElementWithContents> extends ElementsService<T>{
 	
-	@Autowired
-	ContentsService contentService;
+//	@Autowired
+//	ContentsService contentService;
 	
 	public ElementsWithContentsService(){
 		super();
@@ -39,12 +39,16 @@ public abstract class ElementsWithContentsService<T extends ElementWithContents>
 	public void deleteAll(List<T> elementsWithContentsToDelete) {
 		super.deleteAll(elementsWithContentsToDelete);
 	}
-	
-	public void deleteMyContent(T elementWithContent, Content content) {
-		elementWithContent.getMyContents().remove(content);
-		//update
-		contentService.delete(content);
-	}
+
+	public abstract boolean isLoaded();
+
+	public abstract void setLoaded(boolean isLoaded);
 	
 	
+//	
+//	public void deleteMyContent(T elementWithContent, Content content) {
+//		elementWithContent.getMyContents().remove(content);
+//		//update
+//		contentService.delete(content);
+//	}
 }

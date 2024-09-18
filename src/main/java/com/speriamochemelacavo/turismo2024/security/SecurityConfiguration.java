@@ -28,7 +28,7 @@ public class SecurityConfiguration {
 	                .disable()
 	            )
         	.authorizeHttpRequests(requests -> requests
-	                        .requestMatchers("/h2-console/**", "/", "/registration/**", "/css/**", "/elements", "/pois/**", "/tours/**", "/contest/**", "/startDbUsers", "/search/**", "/error/**").permitAll()
+	                        .requestMatchers("/h2-console/**", "/", "/registration/**", "/css/**", "/elements", "/elements/list", "/pois/**", "/tours/**", "/contest/**", "/startDbUsers", "/search/**", "/error/**").permitAll()
 	                        .requestMatchers("/startDbPOIs").authenticated()
 							.requestMatchers("/startDbTours").authenticated()
 	                        .requestMatchers("/users/all").hasRole("ADMINISTRATOR")

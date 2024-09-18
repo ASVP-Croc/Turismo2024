@@ -12,6 +12,8 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 @Service
 public class ContestsService extends ElementsWithContentsService<Contest>  {
 	
+	private boolean isContestsLoaded;
+
 	public ContestsService() {
 		super();
 	}
@@ -49,11 +51,11 @@ public class ContestsService extends ElementsWithContentsService<Contest>  {
 
 	@Override
 	public boolean isLoaded() {
-		return isToursLoaded;
+		return isContestsLoaded;
 	}
 
 	@Override
 	public void setLoaded(boolean isLoaded) {
-		isToursLoaded = isLoaded;
+		isContestsLoaded = isLoaded;
 	}
 }

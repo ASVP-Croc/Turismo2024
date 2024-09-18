@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.speriamochemelacavo.turismo2024.models.elements.category.ElementTypology;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 
 import jakarta.persistence.CascadeType;
@@ -16,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -36,7 +38,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "elements", indexes = {
 	    @Index(name = "idx_name", columnList = "name", unique = true)})
-public abstract class Element {
+public class Element {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,8 +46,6 @@ public abstract class Element {
 	@JsonProperty("name")
 	private String name;
 	private String description;
-	@ManyToMany(mappedBy = "elementsTagged",  cascade = CascadeType.MERGE)
-	private List<Tag> tags = new ArrayList<>();
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private User author;
 	@JsonProperty("city")
@@ -53,7 +53,11 @@ public abstract class Element {
 	@JsonProperty("postcode")
 	private String postcode = "";
 	protected ElementTypology typology;
-	private boolean isPublished = false;
+	@ManyToMany(mappedBy = "elementsTagged",  cascade = CascadeType.MERGE)
+	private List<Tag> tags = new ArrayList<>();	
+	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Content> myContents = new ArrayList<>();
+	private boolean isValidated = false;
 	private boolean isReported = false;
 	
 	public Element() {
@@ -92,10 +96,6 @@ public abstract class Element {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	public List<Tag> getTags() {
-		return tags;
-	}
 
 	public User getAuthor() {
 		return author;
@@ -124,13 +124,21 @@ public abstract class Element {
 	public ElementTypology getTypology() {
 		return typology;
 	}
-
-	public boolean isPublished() {
-		return isPublished;
+	
+	public List<Tag> getTags() {
+		return tags;
+	}
+	
+	public List<Content> getMyContents() {
+		return myContents;
 	}
 
-	public void setPublished(boolean isPublished) {
-		this.isPublished = isPublished;
+	public boolean isValidated() {
+		return isValidated;
+	}
+
+	public void setValidation(boolean isValidated) {
+		this.isValidated = isValidated;
 	}
 	public boolean isReported() {
 		return isReported;

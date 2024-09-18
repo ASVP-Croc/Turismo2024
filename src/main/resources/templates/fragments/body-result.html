@@ -9,9 +9,11 @@
     		<h1 class = "scritteCard" th:text = "${'Titolo: '} + ${element.getName()}">Titolo</h1>
     		<h1 class = "scritteCard" th:text = "${'Descrizione: '} + ${element.getDescription()}">Descrizione</h1>
     		<h1 class = "scritteCard" th:text = "${'Autore: '} + ${element.getAuthor().getUsername()}">Autore</h1>
-    		<h1 th:if = ${element.getTypology().equals(ElementTypology.POI)} class = "scritteCard" th:text = "${'Indirizzo: '} + ${element.getAddress.toString()}">Indirizzo</h1>
-    		<div th:if = ${element.getTypology().equals(ElementTypology.TOUR)} th:replace="~{fragments/body-result :: toursList}"></div>
-    		<h1 th:if = ${isContest} class = "scritteCard" th:text = "${'Periodo: '} + ${element.getStarts()} + ${' - '} + ${element.getEnds()}">Periodo</h1>
+    		<h1 th:if = "${element.getTypology()==ElementTypology.POI}" class = "scritteCard" th:text = "${'Indirizzo: '} + ${element.getAddress.toString()}">Indirizzo</h1>
+    		<div th:if = "${element.getTypology()==ElementTypology.TOUR&element.getMyPOIs()!=null&!element.getMyPOIs().isEmpty}">
+	    		<div th:replace="~{fragments/body-result :: toursList(element=${element})}"></div>
+    		</div>
+    		<h1 th:if = "${isContest}" class = "scritteCard" th:text = "${'Periodo: '} + ${element.getStarts()} + ${' - '} + ${element.getEnds()}">Periodo</h1>
     		<h1 class = "scritteCard" th:text = "${'Città: '} + ${element.getCity()} + ${' ('} + ${element.getPostcode()} + ${')'}">Città</h1>
     	</div>
 	</div>

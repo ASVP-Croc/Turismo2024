@@ -2,9 +2,14 @@ package com.speriamochemelacavo.turismo2024.controllers;
 
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
@@ -21,10 +26,17 @@ public class POIController {
 	@Autowired
 	private ElementsService<PointOfInterest> poiService;
 	
+	@Autowired
+	private PageController pageController;
+	
     @GetMapping("/")
-    public RedirectView getAllContests(Model model) {
-		model.addAttribute("isPOI", true);
-		model.addAttribute("toShow", poiService.findAll());
+    public RedirectView getAllPOIs(Model model) {
+    	
+    	HashMap<String, ?> toAdd = (HashMap<String, ?>) Map.ofEntries(
+    			Map.entry("isPoi", true), 
+    			Map.entry("toShow", poiService.findAll()));
+    	
+    	pageController.addAllAttributesToModel(model, toAdd);
         return new RedirectView("/elements/list");
     }
 	

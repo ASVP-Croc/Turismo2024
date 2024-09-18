@@ -2,6 +2,7 @@ package com.speriamochemelacavo.turismo2024.models.elements;
 
 import org.springframework.stereotype.Component;
 
+import com.speriamochemelacavo.turismo2024.models.elements.category.ElementTypology;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 
 import jakarta.persistence.CascadeType;
@@ -45,12 +46,12 @@ public class Content extends Element{
 		this.referenced = referenced;
 	}
 
-	public String getResource() {
+	public String getPathToResource() {
 		return pathToResource;
 	}
 
-	public void setResource(String resource) {
-		this.pathToResource = resource;
+	public void setPathToResource(String pathToResource) {
+		this.pathToResource = pathToResource;
 	}
 }
 	

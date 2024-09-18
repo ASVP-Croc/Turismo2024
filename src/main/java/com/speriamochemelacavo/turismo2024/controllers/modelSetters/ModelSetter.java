@@ -6,6 +6,8 @@ import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
+import com.speriamochemelacavo.turismo2024.services.ElementsWithContentsService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.buffer.TouchableDataBuffer;
 import org.springframework.stereotype.Component;
@@ -17,25 +19,31 @@ import com.speriamochemelacavo.turismo2024.services.POIsService;
 @Component
 public class ModelSetter {
 	
+	private static Model model;
+	
+	
 	@Autowired
 	private LoggedUserDetailService loggedUserService;
 	
-	@Autowired
-	private ElementsService<Element> elementService;
+//	@Autowired
+//	private ElementsService<Element> elementService;
 	
 	@Autowired
-	private ElementsService<PointOfInterest> poiService;
+	private ElementsWithContentsService<PointOfInterest> poiService;
 	
 	@Autowired
-	private ElementsService<Tour> tourService;
+	private ElementsWithContentsService<Tour> tourService;
 	
-	@Autowired
-	private ElementsService<Contest> contestService;
+//	@Autowired
+//	private ElementsWithContentsService<Contest> contestService;
+//	
+//	@Autowired
+//	private ElementsService<Content> contentService;
 	
-	@Autowired
-	private ElementsService<Content> contentService;
-	
-	public void setConditionModelVisibility(Model model) {
+	public ModelSetter() {
+	}
+
+	public void setBaseVisibility(Model model) {
 		model.addAttribute("username",
 				loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getUsername() : "Turista");
 		model.addAttribute("isLoadedUsers", loggedUserService.isLoaded());
@@ -45,5 +53,11 @@ public class ModelSetter {
 		boolean isTourButtonVisible = (loggedUserService.isLogged() & !tourService.isLoaded());
 		model.addAttribute("isTourButtonVisible", isTourButtonVisible);
 		model.addAttribute("numberOfNotifications", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getNotifications().size() : 56);
+		ModelSetter.model = model;
 	}
+	
+	public Model getModel() {
+		return model;
+	}
+
 }

@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/tours")
@@ -21,11 +23,18 @@ public class TourController {
 
     @Autowired
     private ElementsService<Tour> tourService;
+    
+	@Autowired
+	private PageController pageController;
 
     @GetMapping("/")
-    public RedirectView getAllContests(Model model) {
-		model.addAttribute("isTour", true);
-		model.addAttribute("toShow", tourService.findAll());
+    public RedirectView getAllTours(Model model) {
+    	
+    	HashMap<String, ?> toAdd = (HashMap<String, ?>) Map.ofEntries(
+    			Map.entry("isTour", true), 
+    			Map.entry("toShow", tourService.findAll()));
+    	
+    	pageController.addAllAttributesToModel(model, toAdd);
         return new RedirectView("/elements/list");
     }
     
@@ -41,7 +50,7 @@ public class TourController {
     }
 
     @PutMapping("/update")
-    public void updatePoI(@RequestBody Tour tourToUpdate) {
+    public void updateTour(@RequestBody Tour tourToUpdate) {
         tourService.add(tourToUpdate, loggedUserService.getLoggedUser());
     }
 

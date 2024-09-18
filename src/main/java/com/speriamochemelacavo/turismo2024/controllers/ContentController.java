@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.controllers;
 
+import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
@@ -8,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/contents")
@@ -19,10 +22,17 @@ public class ContentController {
     @Autowired
     private ElementsService<Content> contentService;
     
+	@Autowired
+	private PageController pageController;
+    
     @GetMapping("/")
     public RedirectView getAllContents(Model model) {
-		model.addAttribute("isContent", true);
-		model.addAttribute("toShow", contentService.findAll());
+    	
+    	HashMap<String, ?> toAdd = (HashMap<String, ?>) Map.ofEntries(
+    			Map.entry("isContent", true), 
+    			Map.entry("toShow", contentService.findAll()));
+    	
+    	pageController.addAllAttributesToModel(model, toAdd);
         return new RedirectView("/elements/list");
     }
     

@@ -16,7 +16,7 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 public class ValidationsService<T extends Element> {
 	
 	@Autowired
-	private NotificationsService<T> notificationService;
+	private NotificationsService notificationService;
 	
 	@Autowired
 	private UsersService userService;
@@ -26,16 +26,16 @@ public class ValidationsService<T extends Element> {
 		if (elementToValidate.getAuthor().getRole() == Role.ROLE_AUTHORIZED_CONTRIBUTOR 
 				|| elementToValidate.getAuthor().getRole() == Role.ROLE_CURATOR
 				|| elementToValidate.getAuthor().getRole() == Role.ROLE_ADMINISTRATOR) {
-			elementToValidate.setPublished(true);
+			elementToValidate.setValidation(true);
 			notificationService.sendToSingleUser("Pubblicazione avvenuta per: " + elementToValidate.getName(), "", elementToValidate);
 			return true;
 		} else {
-			setValidation(elementToValidate);
+			setRecipientsOfValidation(elementToValidate);
 			return false;
 		}
 	}
 	
-	private void setValidation(T elementToValidate) {
+	private void setRecipientsOfValidation(T elementToValidate) {
 		List<User> recipients = new ArrayList<User>();
 		if (elementToValidate instanceof Content
 				&& (((Content)elementToValidate).getReferenced() instanceof Contest)) {
@@ -43,10 +43,10 @@ public class ValidationsService<T extends Element> {
 		} else {
 			recipients.addAll(userService.findByRole(Role.ROLE_CURATOR));
 		}
-		sendNotification("Hai un nuovo Elemento da validare!", elementToValidate, recipients);
+		sendNotifications("Hai un nuovo Elemento da validare!", elementToValidate, recipients);
 	}
 	
-	private void sendNotification(String message, T elementToValidate, List<User> recipients) {
+	private void sendNotifications(String message, T elementToValidate, List<User> recipients) {
 		notificationService.sendToMultipleUsers("Validazione: " + elementToValidate.getName(), message, elementToValidate, recipients);
 		notificationService.sendToSingleUser("Pubblicazione richiesta per: " + elementToValidate.getName(), "", elementToValidate);
 	}

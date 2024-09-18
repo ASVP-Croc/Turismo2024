@@ -13,6 +13,8 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 @Service
 public class POIsService extends ElementsWithContentsService<PointOfInterest> {
 	
+	private boolean isPoisLoaded;
+
 	public POIsService(){
 		super();
 	}

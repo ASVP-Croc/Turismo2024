@@ -12,6 +12,8 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 @Service
 public class ContentsService extends ElementsService<Content>{
 
+	private boolean isContentsLoaded;
+
 	@Override
 	public void add(Content contentToAdd, User author) {
 		super.add(contentToAdd, author);
@@ -24,7 +26,7 @@ public class ContentsService extends ElementsService<Content>{
 	
 	public void add(Content contentToAdd, User author, List<Tag> tags, ElementWithContents referenced, String pathToResource) {
 		contentToAdd.setReferenced(referenced);
-		contentToAdd.setResource(pathToResource);
+		contentToAdd.setPathToResource(pathToResource);
 		super.add(contentToAdd, author, tags);
 	}
 
@@ -43,12 +45,10 @@ public class ContentsService extends ElementsService<Content>{
 		super.deleteAll(contentsToDelete);
 	}
 
-	@Override
 	public boolean isLoaded() {
 		return isContentsLoaded;
 	}
 
-	@Override
 	public void setLoaded(boolean isLoaded) {
 		isContentsLoaded = isLoaded;
 	}

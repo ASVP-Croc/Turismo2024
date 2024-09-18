@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.controllers;
 
+import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Contest;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import com.speriamochemelacavo.turismo2024.services.ContestsService;
@@ -10,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/contests")
@@ -20,11 +23,18 @@ public class ContestController {
 
     @Autowired
     private ElementsService<Contest> contestService;
+    
+	@Autowired
+	private PageController pageController;
 
     @GetMapping("/")
     public RedirectView getAllContests(Model model) {
-		model.addAttribute("isContest", true);
-		model.addAttribute("toShow", contestService.findAll());
+    	
+    	HashMap<String, ?> toAdd = (HashMap<String, ?>) Map.ofEntries(
+    			Map.entry("isContest", true), 
+    			Map.entry("toShow", contestService.findAll()));
+    	
+    	pageController.addAllAttributesToModel(model, toAdd);
         return new RedirectView("/elements/list");
     }
     

@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.services;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.repository.UserRepository;
 
 @Service
-public class UsersService<T extends Element> {
+public class UsersService {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -44,9 +45,9 @@ public class UsersService<T extends Element> {
 		userRepository.deleteById(userToDeleteId);
 	}
 	
-	public void addNewSavedElement(T elementToAdd, int userToSaveElementId) {
-		User userToUpdate = findById(userToSaveElementId);
-		userToUpdate.getSavedElements().add(elementToAdd);
-		updateUser(userToUpdate);
-	}
+//	public void addNewSavedElement(Element elementToAdd, int userToSaveElementId) {
+//		User userToUpdate = findById(userToSaveElementId);
+//		userToUpdate.getSavedElements().add(elementToAdd);
+//		updateUser(userToUpdate);
+//	}
 }

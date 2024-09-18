@@ -14,13 +14,13 @@ import com.speriamochemelacavo.turismo2024.repository.NotificationRepository;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 @Service
-public class NotificationsService<T extends Element> {
+public class NotificationsService {
 	
 	@Autowired
 	private LoggedUserDetailService loggedUserDetailService;
 	
 	@Autowired
-	private NotificationRepository<T> notificationRepository;
+	private NotificationRepository notificationRepository;
 	
 	public Notification findById(int elemToFindId) {
 		return notificationRepository.findById(elemToFindId).orElseThrow();
@@ -40,12 +40,12 @@ public class NotificationsService<T extends Element> {
 		notificationRepository.save(notificationToAdd);
 	}
 	
-	public void sendToSingleUser(String title, String message, T object) {
+	public void sendToSingleUser(String title, String message, Element object) {
 		Notification toSend = new Notification(title, message, loggedUserDetailService.getLoggedUser(), object, object.getAuthor());
 		add(toSend);
 	}
 	
-	public void sendToMultipleUsers(String title, String message, T object, List<User> recipientsUser) {
+	public void sendToMultipleUsers(String title, String message, Element object, List<User> recipientsUser) {
 		Notification toSend = new Notification(title, message, loggedUserDetailService.getLoggedUser(), object, recipientsUser);
 		add(toSend);
 	}

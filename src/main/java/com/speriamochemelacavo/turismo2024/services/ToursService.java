@@ -12,6 +12,8 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 @Service
 public class ToursService extends ElementsWithContentsService<Tour>{
 	
+	private boolean isToursLoaded;
+
 	public void add(Tour tourToAdd, User author, List<Tag> tags, List<PointOfInterest> POIToAdd) {
 		tourToAdd.getMyPOIs().addAll(POIToAdd);
 		super.add(tourToAdd, author, tags);

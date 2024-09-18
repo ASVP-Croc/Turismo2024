@@ -15,7 +15,7 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 @Service
 public class ReportsService<T extends Element>{
 	@Autowired
-	NotificationsService<T> notificationService;
+	NotificationsService notificationService;
 	
 	@Autowired
 	UsersService userService;

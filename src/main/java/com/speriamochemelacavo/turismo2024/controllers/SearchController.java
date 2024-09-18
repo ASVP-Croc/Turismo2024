@@ -26,13 +26,15 @@ public class SearchController {
 	private SearchService searchService;
 	
 	@Autowired
-	private ModelSetter modelSetter;
+	private PageController pageController;
 
 	@GetMapping("/site")
-	public String searchElementsSite(Model model,@RequestParam String tag){
-		List<Element> toReturn = searchService.searchElementsSite(tag);
-		modelSetter.setConditionModelVisibility(model);
-		model.addAttribute("listElements", toReturn);
+	public String searchElementsSite(Model model, @RequestParam String tag){
+		
+    	HashMap<String, ?> toAdd = (HashMap<String, ?>) Map.ofEntries(
+    			Map.entry("listElements", searchService.searchElementsSite(tag)));
+    	
+    	pageController.addAllAttributesToModel(model, toAdd);
 		return "elements-list";
 	}
 	
@@ -42,24 +44,29 @@ public class SearchController {
 			@RequestParam String street,
 			@RequestParam String houseNumber,
 			@RequestParam(defaultValue = "loggedUser") String postalCode) throws IOException{
+		
 		List<PointOfInterest> toReturn = searchService.searchElementsOSMWithDetails(
 				amenity,
 				street,
 				houseNumber,
-				postalCode.contains("loggedUser") ? loggedUserService.getLoggedUser().getCAP() : postalCode
-						);
-		modelSetter.setConditionModelVisibility(model);
-		model.addAttribute("isPOI", true);
-		model.addAttribute("listElements", toReturn);
+				postalCode.contains("loggedUser") ? loggedUserService.getLoggedUser().getCAP() : postalCode);
+		
+    	HashMap<String, ?> toAdd = (HashMap<String, ?>) Map.ofEntries(
+    			Map.entry("listElements", toReturn), 
+    			Map.entry("isPOI", true));
+    	
+    	pageController.addAllAttributesToModel(model, toAdd);
 		return "elements-list";
 	}
 	
 	@GetMapping("/osm/query")
 	public String searchElementsOSMWithQuery(Model model, @RequestParam String query) throws IOException{
-		List<PointOfInterest> toReturn = searchService.searchElementsOSMWithQuery(query);
-		modelSetter.setConditionModelVisibility(model);
-		model.addAttribute("isPOI", true);
-		model.addAttribute("listElements", toReturn);
+		
+    	HashMap<String, ?> toAdd = (HashMap<String, ?>) Map.ofEntries(
+    			Map.entry("listElements", searchService.searchElementsOSMWithQuery(query)),
+    			Map.entry("isPOI", true));
+    	
+    	pageController.addAllAttributesToModel(model, toAdd);
 		return "elements-list";
 	}
 

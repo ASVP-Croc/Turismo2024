@@ -32,7 +32,7 @@ public class PreparationController {
 	private NominatimService nominatimService;
 	
 	@Autowired
-	private ElementsService<PointOfInterest> poiService;
+	private ElementsWithContentsService<PointOfInterest> poiService;
 
 	@Autowired
 	private LoggedUserDetailService loggedUserService;
@@ -44,7 +44,7 @@ public class PreparationController {
 	private AddressService addressService;
 
 	@Autowired
-	private ElementsService<Tour> tourService;
+	private ElementsWithContentsService<Tour> tourService;
 
 	@GetMapping("/startDbUsers")
 	public RedirectView insertInitialUserRecords(){
