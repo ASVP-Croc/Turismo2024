@@ -63,7 +63,7 @@ public class PreparationController {
 		if (!poiService.isLoaded()) {
 			poiResolver.resolveElements(nominatimService.getInfoFromQuery("stadio, Fermo")).forEach(p -> {
 				addressService.add(p.getAddress());
-				poiService.add(p, loggedUserService.getLoggedUser());
+				poiService.add(p);
 				List<Tag> toAdd = new ArrayList<>();
 				toAdd.addAll(tagService.createTagsFromString(p.getName(), p));
 				toAdd.addAll(tagService.createTagsFromString(p.getDescription(), p));
@@ -75,7 +75,7 @@ public class PreparationController {
 				});
 			poiResolver.resolveElements(nominatimService.getInfoFromParameter("pizzeria", "", "Ancona")).forEach(p -> {
 				addressService.add(p.getAddress());
-				poiService.add(p, loggedUserService.getLoggedUser());
+				poiService.add(p);
 				List<Tag> toAdd = new ArrayList<>();
 				toAdd.addAll(tagService.createTagsFromString(p.getName(), p));
 				toAdd.addAll(tagService.createTagsFromString(p.getDescription(), p));
@@ -94,8 +94,8 @@ public class PreparationController {
 	@GetMapping("/startDbTours")
 	public RedirectView insertInitialToursRecords() throws IOException{
 		if (!tourService.isLoaded()) {
-			tourService.add(new Tour("tour1", "tour della porchetta", loggedUserService.getLoggedUser(), "Ancona", "60100", new ArrayList<>(), new ArrayList<>()), loggedUserService.getLoggedUser());
-			tourService.add(new Tour("tour2", "tour della fontana", loggedUserService.getLoggedUser(), "Fermo", "63900", new ArrayList<>(), new ArrayList<>()), loggedUserService.getLoggedUser());
+			tourService.add(new Tour("tour1", "tour della porchetta", loggedUserService.getLoggedUser(), "Ancona", "60100", new ArrayList<>(), new ArrayList<>()));
+			tourService.add(new Tour("tour2", "tour della fontana", loggedUserService.getLoggedUser(), "Fermo", "63900", new ArrayList<>(), new ArrayList<>()));
 
 		}
 		tourService.setLoaded(true);

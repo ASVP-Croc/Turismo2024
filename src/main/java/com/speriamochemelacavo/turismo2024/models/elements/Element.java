@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.speriamochemelacavo.turismo2024.models.elements.category.ElementTypology;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 
 import jakarta.persistence.CascadeType;
@@ -17,7 +16,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -48,16 +46,18 @@ public class Element {
 	private String description;
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private User author;
+	
+	//per tutti gli elementi o solo per POIs?
 	@JsonProperty("city")
 	private String city;
 	@JsonProperty("postcode")
 	private String postcode = "";
 	protected String typology;
 	@ManyToMany(mappedBy = "elementsTagged",  cascade = CascadeType.MERGE)
-	private List<Tag> tags = new ArrayList<>();	
-	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Content> myContents = new ArrayList<>();
+	private List<Tag> tags = new ArrayList<>();
+	//
 	private boolean isValidated = false;
+	//utile? il report lo vedo solo con la notifica, non modifica la visibilità
 	private boolean isReported = false;
 	
 	public Element() {
@@ -127,10 +127,6 @@ public class Element {
 	
 	public List<Tag> getTags() {
 		return tags;
-	}
-	
-	public List<Content> getMyContents() {
-		return myContents;
 	}
 
 	public boolean isValidated() {

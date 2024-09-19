@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
+import com.speriamochemelacavo.turismo2024.services.POIsService;
+
 import org.springframework.web.servlet.view.RedirectView;
 
 
@@ -19,7 +21,7 @@ public class POIController {
 	private LoggedUserDetailService loggedUserService;
 	
 	@Autowired
-	private ElementsService<PointOfInterest> poiService;
+	private POIsService poiService;
 	
 	@Autowired
 	private ModelSetter modelSetter;
@@ -48,7 +50,7 @@ public class POIController {
 
 	@PutMapping("/update")
 	public void updatePoI(@RequestBody PointOfInterest pointOfInterestToUpdate) {
-		poiService.add(pointOfInterestToUpdate, loggedUserService.getLoggedUser());
+		poiService.add(pointOfInterestToUpdate);
 	}
 
 	@DeleteMapping("/{id}")

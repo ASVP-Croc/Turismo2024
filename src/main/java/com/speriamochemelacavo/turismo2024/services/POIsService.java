@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
-import com.speriamochemelacavo.turismo2024.models.users.User;
 
 @Service
 public class POIsService extends ElementsWithContentsService<PointOfInterest> {
@@ -19,9 +18,11 @@ public class POIsService extends ElementsWithContentsService<PointOfInterest> {
 		super();
 	}
 
-	public void add(PointOfInterest POIToAdd, User author, List<Tag> tags, List<Content> contentToAdd, Address address) {
+	public void addPOI(PointOfInterest POIToAdd, List<Tag> tags, List<Content> contentToAdd, Address address) {
+		//lo faccio qui o sopra?
 		POIToAdd.setAddress(address);
-		super.add(POIToAdd, author, tags, contentToAdd);
+		
+		super.add(POIToAdd, tags, contentToAdd);
 	}
 
 	@Override
@@ -34,4 +35,6 @@ public class POIsService extends ElementsWithContentsService<PointOfInterest> {
 		isPoisLoaded = isLoaded;
 	}
 }
+
+
 

@@ -15,10 +15,10 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 @Service
 public class ReportsService<T extends Element>{
 	@Autowired
-	NotificationsService notificationService;
+	NotificationsService<T> notificationService;
 	
 	@Autowired
-	UsersService userService;
+	UsersService<T> userService;
 	
 	public void reportElement(T elementToReport, String message) {
 		List<User> recipients = new ArrayList<>();
@@ -31,10 +31,4 @@ public class ReportsService<T extends Element>{
 		elementToReport.setReported(true);
 		notificationService.sendToMultipleUsers("Segnalazione: " + elementToReport.getName(), message, elementToReport, recipients);
 	}
-
-	/**
-	private void sendNotification(String message, T elementToValidate, List<User> recipients) {
-		notificationService.sendToMultipleUsers("Segnalazione: " + elementToValidate.getName(), message, elementToValidate, recipients);
-	}
-	*/
 }

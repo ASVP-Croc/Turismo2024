@@ -3,6 +3,7 @@ package com.speriamochemelacavo.turismo2024.controllers;
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
+import com.speriamochemelacavo.turismo2024.services.ContentsService;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -20,7 +21,7 @@ public class ContentController {
     private LoggedUserDetailService loggedUserService;
 
     @Autowired
-    private ElementsService<Content> contentService;
+    private ContentsService contentService;
     
 	@Autowired
 	private ModelSetter modelSetter;
@@ -41,13 +42,13 @@ public class ContentController {
 
     @PostMapping("/creation")
     public RedirectView createContent(Content content) {
-        contentService.add(content, loggedUserService.getLoggedUser());
+        contentService.add(content);
         return new RedirectView("/contents");
     }
 
     @PutMapping("/update")
     public void updateContent(@RequestBody Content contentToUpdate) {
-        contentService.add(contentToUpdate, loggedUserService.getLoggedUser());
+        contentService.add(contentToUpdate);
     }
 
     @DeleteMapping("/{id}")

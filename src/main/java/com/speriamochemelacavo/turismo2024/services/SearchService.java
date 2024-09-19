@@ -22,7 +22,7 @@ public class SearchService {
     private NominatimService nominatimService;
 
     @Autowired
-    private ElementResolver<PointOfInterest> POIResolver;
+    private POIResolver POIResolver;
 
     @Autowired
     private TagsService tagService;

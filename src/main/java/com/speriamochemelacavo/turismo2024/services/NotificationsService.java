@@ -1,10 +1,8 @@
 package com.speriamochemelacavo.turismo2024.services;
 
-import java.lang.System.Logger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
@@ -14,7 +12,7 @@ import com.speriamochemelacavo.turismo2024.repository.NotificationRepository;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 @Service
-public class NotificationsService {
+public class NotificationsService<T extends Element> {
 	
 	@Autowired
 	private LoggedUserDetailService loggedUserDetailService;
@@ -40,12 +38,12 @@ public class NotificationsService {
 		notificationRepository.save(notificationToAdd);
 	}
 	
-	public void sendToSingleUser(String title, String message, Element object) {
+	public void sendToSingleUser(String title, String message, T object) {
 		Notification toSend = new Notification(title, message, loggedUserDetailService.getLoggedUser(), object, object.getAuthor());
 		add(toSend);
 	}
 	
-	public void sendToMultipleUsers(String title, String message, Element object, List<User> recipientsUser) {
+	public void sendToMultipleUsers(String title, String message, T object, List<User> recipientsUser) {
 		Notification toSend = new Notification(title, message, loggedUserDetailService.getLoggedUser(), object, recipientsUser);
 		add(toSend);
 	}

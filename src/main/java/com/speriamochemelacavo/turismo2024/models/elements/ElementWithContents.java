@@ -31,4 +31,8 @@ public class ElementWithContents extends Element {
 	public List<Content> getMyContents() {
 		return myContents;
 	}
+	
+	public void setMyContent(List<Content> contents) {
+		myContents.addAll(contents);
+	}
 }

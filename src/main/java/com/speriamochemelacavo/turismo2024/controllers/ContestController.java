@@ -23,7 +23,7 @@ public class ContestController {
     private LoggedUserDetailService loggedUserService;
 
     @Autowired
-    private ElementsService<Contest> contestService;
+    private ContestsService contestService;
     
 	@Autowired
 	private ModelSetter modelSetter;
@@ -52,7 +52,7 @@ public class ContestController {
 
     @PutMapping("/update")
     public void updateContest(@RequestBody Contest contestToUpdate) {
-        contestService.add(contestToUpdate, loggedUserService.getLoggedUser());
+        contestService.add(contestToUpdate);
     }
 
     @DeleteMapping("/{id}")

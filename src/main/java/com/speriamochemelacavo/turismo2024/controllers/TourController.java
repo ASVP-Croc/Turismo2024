@@ -3,17 +3,12 @@ package com.speriamochemelacavo.turismo2024.controllers;
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
-import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import com.speriamochemelacavo.turismo2024.services.ToursService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/tours")
@@ -23,7 +18,7 @@ public class TourController {
     private LoggedUserDetailService loggedUserService;
 
     @Autowired
-    private ElementsService<Tour> tourService;
+    private ToursService tourService;
     
 	@Autowired
 	private ModelSetter modelSetter;
@@ -52,7 +47,7 @@ public class TourController {
 
     @PutMapping("/update")
     public void updateTour(@RequestBody Tour tourToUpdate) {
-        tourService.add(tourToUpdate, loggedUserService.getLoggedUser());
+        tourService.add(tourToUpdate);
     }
 
     @DeleteMapping("/{id}")

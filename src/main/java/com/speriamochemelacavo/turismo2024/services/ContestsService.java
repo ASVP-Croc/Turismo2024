@@ -3,59 +3,35 @@ package com.speriamochemelacavo.turismo2024.services;
 import java.util.Date;
 import java.util.List;
 
-import com.speriamochemelacavo.turismo2024.repository.ContentRepository;
-import com.speriamochemelacavo.turismo2024.repository.ContestRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.Contest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
-import com.speriamochemelacavo.turismo2024.models.users.User;
 
 @Service
 public class ContestsService extends ElementsWithContentsService<Contest>  {
 	
 	private boolean isContestsLoaded;
 
-	@Autowired
-	private ContestRepository contestRepository;
-
-	@Autowired
-	private ContentRepository contentRepository;
-
 	public ContestsService() {
 		super();
 	}
 
 	@Override
-	public void add(Contest contestToAdd, User author) {
-		super.add(contestToAdd, author);
+	public void add(Contest contestToAdd) {
+		super.add(contestToAdd);
 	}
 
 	@Override
-	public void add(Contest contestToAdd, User author, List<Tag> tags) {
-		super.add(contestToAdd, author, tags);
+	public void add(Contest contestToAdd, List<Tag> tags) {
+		super.add(contestToAdd, tags);
 	}
 	
-	public void add(Contest contestToAdd, User author, List<Tag> tags, Date starts, Date ends) {
+	public void add(Contest contestToAdd, List<Tag> tags, Date starts, Date ends) {
 		contestToAdd.setStarts(starts);
 		contestToAdd.setEnds(ends);
-		super.add(contestToAdd, author, tags);
-	}
-
-	@Override
-	public void deleteById(Integer id) {
-		super.deleteById(id);
-	}
-
-	@Override
-	public void delete(Contest contestToDelete) {
-		super.delete(contestToDelete);
-	}
-
-	@Override
-	public void deleteAll(List<Contest> contestsToDelete) {
-		super.deleteAll(contestsToDelete);
+		super.add(contestToAdd, tags);
 	}
 
 	@Override
@@ -67,4 +43,14 @@ public class ContestsService extends ElementsWithContentsService<Contest>  {
 	public void setLoaded(boolean isLoaded) {
 		isContestsLoaded = isLoaded;
 	}
+	
+	@Override
+	public void addContentToElement(Contest contest, Content content) {
+		Date date = new Date();
+		if(date.before(contest.getEnds())) {
+			super.addContentToElement(contest, content);
+		}
+	}
+	
+	
 }

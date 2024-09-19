@@ -16,10 +16,10 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 public class ValidationsService<T extends Element> {
 	
 	@Autowired
-	private NotificationsService notificationService;
+	private NotificationsService<T> notificationService;
 	
 	@Autowired
-	private UsersService userService;
+	private UsersService<T> userService;
 	
 	
 	public boolean requestValidation(T elementToValidate) {
