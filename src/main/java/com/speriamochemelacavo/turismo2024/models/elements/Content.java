@@ -50,8 +50,8 @@ public class Content extends Element{
 	}
 
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
-	public Content(String name, String description, User author, String city, String postcode, String title, String url, String note, LocalDateTime createdAt, LocalDateTime updatedAt, ElementWithContents referenced, String pathToResource) {
-		super(name, description, author, city, postcode);
+	public Content(String name, String description, User author, String title, String url, String note, LocalDateTime createdAt, LocalDateTime updatedAt, ElementWithContents referenced, String pathToResource) {
+		super(name, description, author);
 		this.title = title;
 		this.url = url;
 		this.note = note;

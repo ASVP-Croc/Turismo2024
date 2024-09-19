@@ -16,7 +16,7 @@ public class ContentsService extends ElementsService<Content>{
 	public void add(Content contentToAdd, List<Tag> tags, ElementWithContents referenced, String pathToResource) {
 		contentToAdd.setReferenced(referenced);
 		contentToAdd.setPathToResource(pathToResource);
-		super.add(contentToAdd, tags);
+		super.add(contentToAdd);
 	}
 
 	//lo fa l'elementWithContentsSevice

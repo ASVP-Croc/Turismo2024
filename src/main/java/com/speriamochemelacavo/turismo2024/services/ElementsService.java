@@ -28,26 +28,8 @@ public class ElementsService<T extends Element> {
 	}
 	
 	public void add(T elementToAdd) {
-		//il nuovo elemento ha id?
-		//altrimenti devo controllare se esiste un elemento uguale con altri parametri
-		//es. nome, autore o altro
-//		T optionalElement;
-//		try {
-//			optionalElement = findById(elementToAdd.getId());
-//			elementToAdd.setId(optionalElement.getId());
-//		} catch (Exception e) {
-//			
-//		}
-		if(!elementRepository.findAll().contains(elementToAdd)){
-			 elementRepository.save(elementToAdd);
-		     validationService.requestValidation(elementToAdd);
-		}
-	}
-	
-	//i tag appartengono anche ai Content o solo agli ElementWithContent o solo ai POI?
-	public void add(T elementToAdd, List<Tag> tags) {
-		elementToAdd.getTags().addAll(tags);
-		add(elementToAdd);
+		elementRepository.save(elementToAdd);
+		validationService.requestValidation(elementToAdd);
 	}
 
 	public void deleteById(Integer id) {
@@ -59,17 +41,6 @@ public class ElementsService<T extends Element> {
 	
 	public void deleteAll(List<T> elementsToDelete) {
 		elementRepository.deleteAll(elementsToDelete);
-	}
-	
-	public void updateElement(T element) {
-		Optional<T> optionalElement = elementRepository.findById(element.getId());
-		if(optionalElement.isPresent()) {
-			 T findElement  = optionalElement.get();
-			    findElement.setName(element.getName());
-			    findElement.setDescription(element.getDescription());
-			    findElement.setValidation(false);
-			    elementRepository.save(findElement);
-		}
 	}
 
 }

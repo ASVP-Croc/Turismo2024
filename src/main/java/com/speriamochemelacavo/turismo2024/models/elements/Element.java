@@ -47,14 +47,7 @@ public class Element {
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private User author;
 	
-	//per tutti gli elementi o solo per POIs?
-	@JsonProperty("city")
-	private String city;
-	@JsonProperty("postcode")
-	private String postcode = "";
 	protected String typology;
-	@ManyToMany(mappedBy = "elementsTagged",  cascade = CascadeType.MERGE)
-	private List<Tag> tags = new ArrayList<>();
 	//
 	private boolean isValidated = false;
 	//utile? il report lo vedo solo con la notifica, non modifica la visibilità
@@ -65,12 +58,10 @@ public class Element {
 	}
 
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
-	public Element(String name, String description, User author, String city, String postcode) {
+	public Element(String name, String description, User author) {
 		this.name = name;
 		this.description = description;
-		this.author = author;
-		this.city = city;
-		this.postcode = postcode;	
+		this.author = author;	
 	}
 
 	public Integer getId() {
@@ -105,29 +96,10 @@ public class Element {
 		this.author = author;
 	}
 
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getPostcode() {
-		return postcode;
-	}
-
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
-	}
-
 	public String getTypology() {
 		return typology;
 	}
 	
-	public List<Tag> getTags() {
-		return tags;
-	}
 
 	public boolean isValidated() {
 		return isValidated;

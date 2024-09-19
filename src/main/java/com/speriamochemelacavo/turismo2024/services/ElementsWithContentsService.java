@@ -21,7 +21,7 @@ public abstract class ElementsWithContentsService<T extends ElementWithContents>
 
 	public void add(T elementsWithContentsToAdd, List<Tag> tags, List<Content> contentToAdd) {
 		elementsWithContentsToAdd.getMyContents().addAll(contentToAdd);
-		super.add(elementsWithContentsToAdd, tags);
+		add(elementsWithContentsToAdd, tags);
 	}
 
 	public abstract boolean isLoaded();
@@ -43,5 +43,10 @@ public abstract class ElementsWithContentsService<T extends ElementWithContents>
 		elementRepository.save(elementWithContent);
 		
 		contentService.delete(content);
+	}
+	
+	public void add(T elementToAdd, List<Tag> tags) {
+		elementToAdd.getTags().addAll(tags);
+		add(elementToAdd);
 	}
 }

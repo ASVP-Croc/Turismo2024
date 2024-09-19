@@ -42,7 +42,7 @@ public class Contest extends ElementWithContents {
 	
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
 	public Contest(String name, String description, User author, String city, String postcode, List<Content> contents, String theme, boolean isOpen, String linkInvite, Date starts, Date ends) {
-		super(name, description, author, city, postcode, contents);
+		super(name, description, author, contents, city, postcode);
 		this.theme = theme;
 		this.isOpen = isOpen;
 		this.linkInvite = linkInvite;

@@ -45,7 +45,7 @@ public class PointOfInterest extends ElementWithContents {
 	
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
 	public PointOfInterest(String name, String description, User author, String city, String postcode, List<Content> contents, float latitude, float longitude, Address address) {
-		super(name, description, author, city, postcode, contents);
+		super(name, description, author, contents, city, postcode);
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.address = address;
