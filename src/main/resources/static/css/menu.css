@@ -42,3 +42,29 @@
 	font-size: 16px;
 	cursor: pointer;
 }
+/* Stile per il div che si adatta alla lunghezza dei bottoni creazione poi/tour/contest */
+.menuAdattivoCreazione {
+    display: flex;
+	flex-wrap:inherit;
+	justify-content: center;
+	gap: 10px;
+	align-items: center;
+	padding: 10px;
+}
+/* Stile per i bottoni di scelta poi/tour/contest */
+.bottoniCreazione{
+	width: calc(100% / 6);
+	background-color: #c0c0c0;
+	color: #fff;
+	font-size: 20px;
+  	color: #000000;
+  	padding: 10px 20px;
+	margin-left: 5px;
+    margin-right: 5px;
+	border: none;
+	border-radius: 20px;
+	cursor: pointer;
+}
+.bottoniForm:hover {
+	background-color: #008000;
+}

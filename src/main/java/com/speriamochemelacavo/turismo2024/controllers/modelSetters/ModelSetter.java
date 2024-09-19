@@ -2,6 +2,7 @@ package com.speriamochemelacavo.turismo2024.controllers.modelSetters;
 
 import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tour;
+import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.services.ElementsWithContentsService;
 
 import java.util.HashMap;
@@ -43,8 +44,13 @@ public class ModelSetter {
 	public void setBaseVisibility() {
 		attributes.put("username",
 				loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getUsername() : "Turista");
+		attributes.put("isAdmin", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole()==Role.ROLE_ADMINISTRATOR : false);
+		attributes.put("isCurator", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole()==Role.ROLE_CURATOR : false);
+		attributes.put("isAnimator", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole()==Role.ROLE_ANIMATOR : false);
+		attributes.put("isContributor", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole()==Role.ROLE_CONTRIBUTOR : false);
+		attributes.put("isAuthTourist", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole()==Role.ROLE_AUTHENTICATED_TOURIST : false);
+		attributes.put("isTourist", !loggedUserService.isLogged());
 		attributes.put("isLoadedUsers", loggedUserService.isLoaded());
-		attributes.put("isLogged", loggedUserService.isLogged());
 		boolean isPOIButtonVisible = (loggedUserService.isLogged() & !poiService.isLoaded());
 		attributes.put("isPOIButtonVisible", isPOIButtonVisible);
 		boolean isTourButtonVisible = (loggedUserService.isLogged() & !tourService.isLoaded());

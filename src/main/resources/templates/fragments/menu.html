@@ -14,7 +14,7 @@
 		<button th:if = "${isTourButtonVisible}" th:onclick = "location.href = '/startDbTours'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Popola il DB Tour</h1>
 		</button>
-		<button th:onclick = "location.href = '/users'" class = "bottoniMenu">
+		<button th:if = "${isAdmin}" th:onclick = "location.href = '/users'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Lista Utenti</h1>
 		</button>
 		<button th:onclick = "location.href = '/pois'" class = "bottoniMenu">
@@ -23,10 +23,13 @@
 		<button th:onclick = "location.href = '/tours'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Lista Tour</h1>
 		</button>
-		<button th:unless = "${isLogged}" th:onclick = "location.href = '/login'" class = "bottoniMenu">
+		<button th:unless = "${isAuthTourist||isTourist}" th:onclick = "location.href = '/pois/creation'" class = "bottoniMenu">
+			<h1 class = "scritteBottoniMenu">Creami</h1>
+		</button>
+		<button th:if = "${isTourist}" th:onclick = "location.href = '/login'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Login</h1>
 		</button>
-		<button th:unless = "${isLogged}" th:onclick = "location.href = '/registration'" class = "bottoniMenu">
+		<button th:if = "${isTourist}" th:onclick = "location.href = '/registration'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Registrati</h1>
 		</button>
 		<button th:onclick = "location.href = '/logout'" class = "bottoniMenu">

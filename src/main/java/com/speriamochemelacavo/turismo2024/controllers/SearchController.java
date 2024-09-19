@@ -33,7 +33,7 @@ public class SearchController {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
 		modelSetter.setAttributesInModel(model);
-		model.addAttribute("listElements", searchService.searchElementsSite(tag));
+		model.addAttribute("toShow", searchService.searchElementsSite(tag));
 		return "elements-list";
 	}
 	

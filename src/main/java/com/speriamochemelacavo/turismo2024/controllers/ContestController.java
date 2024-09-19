@@ -42,10 +42,12 @@ public class ContestController {
         return contestService.findById(id);
     }
 
-    @PostMapping("/creation")
+    @GetMapping("/creation")
     public RedirectView createContest(Contest contest) {
-        contestService.add(contest, loggedUserService.getLoggedUser());
-        return new RedirectView("/contests");
+		modelSetter.clearAllAttributes();
+		modelSetter.setBaseVisibility();
+		modelSetter.getAttributes().put("isContest", true);
+        return new RedirectView("/creation");
     }
 
     @PutMapping("/update")

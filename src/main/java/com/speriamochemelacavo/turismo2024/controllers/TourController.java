@@ -42,10 +42,12 @@ public class TourController {
         return tourService.findById(id);
     }
 
-    @PostMapping("/creation")
+    @GetMapping("/creation")
     public RedirectView createTour(Tour tour) {
-        tourService.add(tour, loggedUserService.getLoggedUser());
-        return new RedirectView("/tours");
+    	modelSetter.clearAllAttributes();
+    	modelSetter.setBaseVisibility();
+    	modelSetter.getAttributes().put("isTour", true);
+        return new RedirectView("/creation");
     }
 
     @PutMapping("/update")

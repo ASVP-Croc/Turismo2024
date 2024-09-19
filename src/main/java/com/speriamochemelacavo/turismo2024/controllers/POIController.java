@@ -29,15 +29,6 @@ public class POIController {
 	@Autowired
 	private ModelSetter modelSetter;
 	
-//    @GetMapping("")
-//    public RedirectView getAllPOIs(Model model) {
-//		modelSetter.setBaseVisibility(model);
-//		model.addAttribute("toShow", poiService.findAll());
-//		model.addAttribute("isPoi", true);
-//		modelSetter.setModel(model);
-//        return new RedirectView("/elements/list");
-//    }
-	
     @GetMapping("")
     public RedirectView getAllPOIs() {
 		modelSetter.clearAllAttributes();
@@ -52,10 +43,12 @@ public class POIController {
 		return poiService.findById(id);
 	}
 
-	@PostMapping("/creation")
-	public RedirectView createPoI(@RequestBody PointOfInterest poiToAdd) {
-		poiService.add(poiToAdd, loggedUserService.getLoggedUser());
-		return new RedirectView("/pois");
+	@GetMapping("/creation")
+	public RedirectView setElement() {
+		modelSetter.clearAllAttributes();
+		modelSetter.setBaseVisibility();
+		modelSetter.getAttributes().put("isPoi", true);
+		return new RedirectView("/creation");
 	}
 
 	@PutMapping("/update")
