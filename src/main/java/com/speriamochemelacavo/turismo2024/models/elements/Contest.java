@@ -3,6 +3,8 @@ package com.speriamochemelacavo.turismo2024.models.elements;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.ManyToMany;
 import org.springframework.stereotype.Component;
 
 import com.speriamochemelacavo.turismo2024.models.elements.category.ElementTypology;
@@ -24,6 +26,12 @@ import jakarta.persistence.Entity;
 @Entity
 public class Contest extends ElementWithContents {
 
+	private String theme;
+	private boolean isOpen;
+
+	private String linkInvite;
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<User> participants;
 	private Date starts;
 	private Date ends;
 	
@@ -33,8 +41,11 @@ public class Contest extends ElementWithContents {
 	}
 	
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
-	public Contest(String name, String description, User author, String city, String postcode, List<Content> contents, Date starts, Date ends) {
+	public Contest(String name, String description, User author, String city, String postcode, List<Content> contents, String theme, boolean isOpen, String linkInvite, Date starts, Date ends) {
 		super(name, description, author, city, postcode, contents);
+		this.theme = theme;
+		this.isOpen = isOpen;
+		this.linkInvite = linkInvite;
 		this.starts = starts;
 		this.ends = ends;
 		this.typology = ElementTypology.CONTEST.toString();

@@ -2,17 +2,12 @@ package com.speriamochemelacavo.turismo2024.controllers;
 
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
-import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
+import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
-import com.speriamochemelacavo.turismo2024.services.POIsService;
 import org.springframework.web.servlet.view.RedirectView;
 
 

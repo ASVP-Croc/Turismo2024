@@ -1,13 +1,14 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
+import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.stereotype.Component;
 
 import com.speriamochemelacavo.turismo2024.models.elements.category.ElementTypology;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+import java.time.LocalDateTime;
 
 /**
  * Rappresenta un {@link Element Elemento} contenente una risorsa multimediale di qualsiasi natura(un'immagine, un video, un file, etc.) collegato ad uno e un solo altro {@link Element Elemento} contenitore.
@@ -21,6 +22,23 @@ import jakarta.persistence.OneToOne;
 @Component
 @Entity
 public class Content extends Element{
+
+	/*
+	Questo commento dovrà essere cancellato, sono le modifiche per il modello
+	 */
+	private String title;
+
+	private String url;
+
+	private String note;
+
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime createdAt;
+
+	@UpdateTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime updatedAt;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private ElementWithContents referenced;
@@ -32,8 +50,13 @@ public class Content extends Element{
 	}
 
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
-	public Content(String name, String description, User author, String city, String postcode, ElementWithContents referenced, String pathToResource) {
+	public Content(String name, String description, User author, String city, String postcode, String title, String url, String note, LocalDateTime createdAt, LocalDateTime updatedAt, ElementWithContents referenced, String pathToResource) {
 		super(name, description, author, city, postcode);
+		this.title = title;
+		this.url = url;
+		this.note = note;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 		this.referenced = referenced;
 		this.pathToResource = pathToResource;
 		this.typology = ElementTypology.CONTENT.toString();

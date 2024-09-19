@@ -3,6 +3,9 @@ package com.speriamochemelacavo.turismo2024.services;
 import java.util.Date;
 import java.util.List;
 
+import com.speriamochemelacavo.turismo2024.repository.ContentRepository;
+import com.speriamochemelacavo.turismo2024.repository.ContestRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Contest;
@@ -13,6 +16,12 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 public class ContestsService extends ElementsWithContentsService<Contest>  {
 	
 	private boolean isContestsLoaded;
+
+	@Autowired
+	private ContestRepository contestRepository;
+
+	@Autowired
+	private ContentRepository contentRepository;
 
 	public ContestsService() {
 		super();

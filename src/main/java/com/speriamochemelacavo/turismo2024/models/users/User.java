@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
-import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
+import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.notifications.Notification;
 
 import jakarta.persistence.CascadeType;

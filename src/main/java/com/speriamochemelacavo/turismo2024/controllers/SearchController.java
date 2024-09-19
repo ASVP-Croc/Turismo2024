@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
-import com.speriamochemelacavo.turismo2024.models.elements.Element;
-import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
+import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 @Controller

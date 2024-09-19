@@ -1,7 +1,11 @@
-package com.speriamochemelacavo.turismo2024.models.elements;
+package com.speriamochemelacavo.turismo2024.models.elements.poi;
 
 import java.util.List;
 
+import com.speriamochemelacavo.turismo2024.models.elements.Address;
+import com.speriamochemelacavo.turismo2024.models.elements.Content;
+import com.speriamochemelacavo.turismo2024.models.elements.Element;
+import com.speriamochemelacavo.turismo2024.models.elements.ElementWithContents;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ManyToOne;
 import org.springframework.stereotype.Component;
@@ -24,7 +28,7 @@ import jakarta.persistence.Entity;
 
 @Component
 @Entity
-public class PointOfInterest extends ElementWithContents{
+public class PointOfInterest extends ElementWithContents {
 
 	@JsonProperty("lat")
 	private float latitude;

@@ -1,7 +1,6 @@
 package com.speriamochemelacavo.turismo2024.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,8 +54,5 @@ public class ElementsService<T extends Element> {
 	public void deleteAll(List<T> elementsToDelete) {
 		elementRepository.deleteAll(elementsToDelete);
 	}
-	
-//	public void setPublished(Element element) {
-//		element.setPublished(true);
-//	}
+
 }

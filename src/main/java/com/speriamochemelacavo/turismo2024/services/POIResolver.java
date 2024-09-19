@@ -1,19 +1,11 @@
 package com.speriamochemelacavo.turismo2024.services;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Address;
-import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
-import com.speriamochemelacavo.turismo2024.models.elements.Tag;
+import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 
-import org.hibernate.transform.AliasToBeanConstructorResultTransformer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.metrics.StartupStep.Tags;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.Set;
-
-import javax.print.attribute.HashAttributeSet;
 
 import static java.lang.Float.parseFloat;
 

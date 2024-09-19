@@ -1,6 +1,6 @@
 package com.speriamochemelacavo.turismo2024.controllers.modelSetters;
 
-import com.speriamochemelacavo.turismo2024.models.elements.PointOfInterest;
+import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.services.ElementsWithContentsService;

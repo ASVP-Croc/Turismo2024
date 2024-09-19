@@ -3,6 +3,7 @@ package com.speriamochemelacavo.turismo2024.models.elements;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import org.springframework.stereotype.Component;
 
 import com.speriamochemelacavo.turismo2024.models.elements.category.ElementTypology;
