@@ -10,6 +10,8 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
@@ -21,7 +23,8 @@ public class ElementWithContents extends Element {
 	private String city;
 	@JsonProperty("postcode")
 	private String postcode = "";
-	@ManyToMany(mappedBy = "elementsTagged",  cascade = CascadeType.ALL)
+	@ManyToMany()
+	@JoinTable
 	private List<Tag> tags = new ArrayList<>();
 	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Content> myContents = new ArrayList<>();
@@ -38,14 +41,6 @@ public class ElementWithContents extends Element {
 		this.myContents.addAll(contents);
 	}
 	
-	public List<Content> getMyContents() {
-		return myContents;
-	}
-	
-	public void setMyContent(List<Content> contents) {
-		myContents.addAll(contents);
-	}
-	
 	public String getCity() {
 		return city;
 	}
@@ -60,5 +55,17 @@ public class ElementWithContents extends Element {
 
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
+	}
+	
+	public List<Tag> getTags() {
+		return tags;
+	}
+
+	public List<Content> getMyContents() {
+		return myContents;
+	}
+	
+	public void setMyContents(List<Content> contents) {
+		myContents.addAll(contents);
 	}
 }

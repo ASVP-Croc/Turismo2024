@@ -26,9 +26,9 @@ public class Tag {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(unique = true)
+	@Column(nullable = false, unique = true)
 	private String tag;
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "tags")
 	private List<ElementWithContents> elementsTagged = new ArrayList<>();
 
 	public Tag() {
@@ -70,7 +70,7 @@ public class Tag {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Tag tag1 = (Tag) o;
-		return tag == tag1.getTag();
+		return tag.equals(tag1.getTag());
 	}
 
 	@Override

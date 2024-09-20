@@ -8,8 +8,10 @@ import java.util.Set;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import com.speriamochemelacavo.turismo2024.services.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
@@ -61,8 +63,10 @@ public class PreparationController {
 	}
 	
 	@GetMapping("/startDbPOIs")
+	@Transactional
 	public RedirectView insertInitialPOIRecords() throws IOException{
 		if (!poiService.isLoaded()) {
+			
 			poiResolver.resolveElements(nominatimService.getInfoFromQuery("stadio, Fermo")).forEach(p -> {
 				addressService.add(p.getAddress());
 				p.setAuthor(loggedUserService.getLoggedUser());
@@ -74,8 +78,12 @@ public class PreparationController {
 				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getRoad(), p));
 				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getAmenity(), p));
 				toAdd.addAll(tagService.createTagsFromString(p.getCity(), p));
-				toAdd.forEach(t -> tagService.add(t));
+				toAdd.forEach(t -> {
+					tagService.add(t);
+					p.getTags().add(t);
+					poiService.add(p);});
 				});
+			
 			poiResolver.resolveElements(nominatimService.getInfoFromParameter("pizzeria", "", "Ancona")).forEach(p -> {
 				addressService.add(p.getAddress());
 				p.setAuthor(loggedUserService.getLoggedUser());
@@ -87,7 +95,10 @@ public class PreparationController {
 				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getRoad(), p));
 				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getAmenity(), p));
 				toAdd.addAll(tagService.createTagsFromString(p.getCity(), p));
-				toAdd.forEach(t -> tagService.add(t));
+				toAdd.forEach(t -> {
+					tagService.add(t);
+					p.getTags().add(t);
+					poiService.add(p);});
 				});
 			
 			poiService.setLoaded(true);

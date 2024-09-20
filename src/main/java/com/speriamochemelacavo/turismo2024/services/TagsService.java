@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -24,22 +26,22 @@ public class TagsService {
 	private TagRepository tagRepository;
 	
 	public Tag findById(int id) {
-		return tagRepository.findById(id).orElseThrow();
+		Optional<Tag> tagToReturn = tagRepository.findById(id);
+		if(tagRepository.findById(id).isPresent()) {;
+			return tagToReturn.get();
+		} else throw new NoSuchElementException("Il Tag non è stato trovato");
 	}
 	
 	public Tag findByTag(String tag) {
-		return tagRepository.findByTag(tag);
+		Optional<Tag> tagToReturn = tagRepository.findByTag(tag);
+		if(tagRepository.findByTag(tag).isPresent()) {
+			return tagToReturn.get();
+		} else throw new NoSuchElementException("Il Tag " + tag + " non è stato trovato");
 	}
 	
 	public void add(Tag tagToAdd) {
 //		TODO togliere il try una volta completato il progetto
-		try {
-			tagRepository.save(tagToAdd);
-		} catch (Exception e) {
-			System.out.println("il tag " + tagToAdd.getTag() + " esiste già: " + e.getMessage());
-		} finally {
-			
-		}
+		tagRepository.save(tagToAdd);
 	}
 	
 	public void add(Tag tagToAdd, ElementWithContents element) {
