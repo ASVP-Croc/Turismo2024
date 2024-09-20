@@ -28,25 +28,29 @@ public class Tag {
 	private int id;
 	@Column(unique = true)
 	private String tag;
-	@ManyToMany(cascade = CascadeType.MERGE)
-	private List<Element> elementsTagged = new ArrayList<>();
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<ElementWithContents> elementsTagged = new ArrayList<>();
 
 	public Tag() {
 		
 	}
 
-	public <T extends Element> Tag(String tag, T elementsTagged) {
+	public <T extends ElementWithContents> Tag(String tag, T elementsTagged) {
 		this.tag = tag;
 		this.elementsTagged.add(elementsTagged);
 	}
 	
-	public <T extends Element> Tag(String tag, List<T> elementsTagged) {
+	public <T extends ElementWithContents> Tag(String tag, List<T> elementsTagged) {
 		this.tag = tag;
 		this.elementsTagged.addAll(elementsTagged);
 	}
 	
 	public int getId() {
 		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getTag() {
@@ -57,7 +61,7 @@ public class Tag {
 		this.tag = value;
 	}
 
-	public List<Element> getElements() {
+	public List<ElementWithContents> getElements() {
 		return elementsTagged;
 	}
 

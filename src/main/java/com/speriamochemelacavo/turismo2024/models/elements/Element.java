@@ -44,7 +44,7 @@ public class Element {
 	@JsonProperty("name")
 	private String name;
 	private String description;
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private User author;
 	
 	protected String typology;

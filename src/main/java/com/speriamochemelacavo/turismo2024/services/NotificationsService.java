@@ -3,6 +3,7 @@ package com.speriamochemelacavo.turismo2024.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
@@ -12,40 +13,35 @@ import com.speriamochemelacavo.turismo2024.repository.NotificationRepository;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 @Service
-public class NotificationsService<T extends Element> {
+public class NotificationsService {
 	
 	@Autowired
 	private LoggedUserDetailService loggedUserDetailService;
 	
 	@Autowired
 	private NotificationRepository notificationRepository;
+
+	@Autowired
+	private UsersService userService;
 	
 	public Notification findById(int elemToFindId) {
 		return notificationRepository.findById(elemToFindId).orElseThrow();
 	}
 	
-	public List<Notification> findAllByRecipientUserId(int id){
-		return notificationRepository.findAllNotificationByRecipientUsersId(id);
-	}
-	
 	private void add(Notification notificationToAdd) {
-		Notification optionalNotification;
-		try {
-			optionalNotification = findById(notificationToAdd.getId());
-			notificationToAdd.setId(optionalNotification.getId());
-		} catch (Exception e) {
-		}
 		notificationRepository.save(notificationToAdd);
 	}
 	
-	public void sendToSingleUser(String title, String message, T object) {
-		Notification toSend = new Notification(title, message, loggedUserDetailService.getLoggedUser(), object, object.getAuthor());
+	public <T extends Element> void sendToSingleUser(String title, String message, T object, User recipient) {
+		Notification toSend = new Notification(title, message, loggedUserDetailService.getLoggedUser(), object, recipient);
 		add(toSend);
+//		userService.addUser(loggedUserDetailService.getLoggedUser());
 	}
 	
-	public void sendToMultipleUsers(String title, String message, T object, List<User> recipientsUser) {
-		Notification toSend = new Notification(title, message, loggedUserDetailService.getLoggedUser(), object, recipientsUser);
+	public <T extends Element> void sendToMultipleUsers(String title, String message, T object, List<User> recipients) {
+		Notification toSend = new Notification(title, message, loggedUserDetailService.getLoggedUser(), object, recipients);
 		add(toSend);
+//		userService.addUser(loggedUserDetailService.getLoggedUser());
 	}
 	
 	public Notification readNotification(int notificationId) {
@@ -63,8 +59,6 @@ public class NotificationsService<T extends Element> {
 		Notification notificationUpdated = notificationToResponse;
 		notificationUpdated.setTitle("Aggiornamento pubblicazione: " + notificationToResponse.getNotificationObject().getName());
 		notificationUpdated.setMessage(message);
-		notificationUpdated.getRecipientUsers().clear();
-		notificationUpdated.getRecipientUsers().add(notificationToResponse.getNotificationObject().getAuthor());
 		add(notificationUpdated);
 	}
 	
@@ -72,8 +66,6 @@ public class NotificationsService<T extends Element> {
 		Notification notificationConfirmed = notificationToConfirm;
 		notificationConfirmed.setTitle("Pubblicazione avvenuta: " + notificationToConfirm.getNotificationObject().getName());
 		notificationConfirmed.setMessage("");
-		notificationConfirmed.getRecipientUsers().clear();
-		notificationConfirmed.getRecipientUsers().add(notificationToConfirm.getNotificationObject().getAuthor());
 		add(notificationConfirmed);
 	}
 }

@@ -14,11 +14,12 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 
 @Service
 public class ReportsService<T extends Element>{
-	@Autowired
-	NotificationsService<T> notificationService;
 	
 	@Autowired
-	UsersService<T> userService;
+	NotificationsService notificationService;
+	
+	@Autowired
+	UsersService userService;
 	
 	public void reportElement(T elementToReport, String message) {
 		List<User> recipients = new ArrayList<>();

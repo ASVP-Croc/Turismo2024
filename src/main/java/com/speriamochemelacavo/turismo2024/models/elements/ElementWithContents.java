@@ -21,12 +21,10 @@ public class ElementWithContents extends Element {
 	private String city;
 	@JsonProperty("postcode")
 	private String postcode = "";
-	
+	@ManyToMany(mappedBy = "elementsTagged",  cascade = CascadeType.ALL)
+	private List<Tag> tags = new ArrayList<>();
 	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Content> myContents = new ArrayList<>();
-	
-	@ManyToMany(mappedBy = "elementsTagged",  cascade = CascadeType.MERGE)
-	private List<Tag> tags = new ArrayList<>();
 	
 	public ElementWithContents() {
 		super();
@@ -63,15 +61,4 @@ public class ElementWithContents extends Element {
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
-	
-	public List<Tag> getTags() {
-		return tags;
-	}
-
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
-	}
-	
-	
-	
 }

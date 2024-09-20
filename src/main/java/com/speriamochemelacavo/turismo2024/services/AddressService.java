@@ -23,12 +23,6 @@ public class AddressService {
 	}
 	
 	public void add(Address address) {
-		Address optionalAddress;
-		try {
-			optionalAddress = findById(address.getId());
-			address.setId(optionalAddress.getId());
-		} catch (Exception e) {
-		}
 		addressRepository.save(address);
 	}
 	

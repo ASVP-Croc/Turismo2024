@@ -13,6 +13,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
+import com.speriamochemelacavo.turismo2024.models.elements.ElementWithContents;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.repository.TagRepository;
 
@@ -34,23 +35,23 @@ public class TagsService {
 //		TODO togliere il try una volta completato il progetto
 		try {
 			tagRepository.save(tagToAdd);
-		} catch (DataIntegrityViolationException e) {
-			System.out.println("il tag " + tagToAdd.getTag() + " esiste già");
+		} catch (Exception e) {
+			System.out.println("il tag " + tagToAdd.getTag() + " esiste già: " + e.getMessage());
 		} finally {
 			
 		}
 	}
 	
-	public void add(Tag tagToAdd, Element element) {
+	public void add(Tag tagToAdd, ElementWithContents element) {
 		tagToAdd.getElements().add(element);
-		tagRepository.save(tagToAdd);
+		add(tagToAdd);
 	}
 	
 	public void addAll(List<Tag> tagsToAdd) {
 		tagsToAdd.stream().forEach(t -> add(t));
 	}
 	
-	public void addAll(List<Tag> tagsToAdd, Element element) {
+	public void addAll(List<Tag> tagsToAdd, ElementWithContents element) {
 		tagsToAdd.stream().forEach(t -> add(t, element));
 	}
 	
@@ -58,7 +59,7 @@ public class TagsService {
 		tagRepository.delete(tagToDelete);
 	}
 	
-	public Set<Tag> createTagsFromString(String toConvert, Element element) {
+	public Set<Tag> createTagsFromString(String toConvert, ElementWithContents element) {
 		Set<Tag> toReturn = new HashSet<>();
 		split(toConvert).stream().forEach(s -> toReturn.add(new Tag(s, element)));
 		return toReturn;

@@ -1,6 +1,7 @@
 package com.speriamochemelacavo.turismo2024.services;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.repository.UserRepository;
 
 @Service
-public class UsersService<T extends Element> {
+public class UsersService {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -33,20 +34,16 @@ public class UsersService<T extends Element> {
 	}
 
 	public void addUser(User userToAdd) {
-		userRepository.save(userToAdd);
-	}
-
-	public void updateUser(User userToUpdate) {
-		userRepository.save(userToUpdate);
+        userRepository.save(userToAdd);
 	}
 	
 	public void deleteUserById(int userToDeleteId) {
 		userRepository.deleteById(userToDeleteId);
 	}
-	
-	public void addNewSavedElement(T elementToAdd, int userToSaveElementId) {
-		User userToUpdate = findById(userToSaveElementId);
-		userToUpdate.getSavedElements().add(elementToAdd);
-		updateUser(userToUpdate);
-	}
+//	
+//	public <T extends Element> void addNewSavedElement(T elementToAdd, int userToSaveElementId) {
+//		User userToUpdate = findById(userToSaveElementId);
+//		userToUpdate.getSavedElements().add(elementToAdd);
+//		updateUser(userToUpdate);
+//	}
 }

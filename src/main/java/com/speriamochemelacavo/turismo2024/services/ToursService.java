@@ -16,9 +16,9 @@ public class ToursService extends ElementsWithContentsService<Tour>{
 //	@Autowired
 //	private MultimediaMaterialRepository multimediaMaterialRepository;
 
-	public void add(Tour tourToAdd, List<Tag> tags, List<PointOfInterest> POIToAdd) {
-		tourToAdd.getMyPOIs().addAll(POIToAdd);
-		super.add(tourToAdd, tags);
+	public void add(Tour tourToAdd, List<PointOfInterest> poisToAdd) {
+		tourToAdd.getMyPOIs().addAll(poisToAdd);
+		super.add(tourToAdd);
 	}
 	
 	@Override
@@ -30,14 +30,14 @@ public class ToursService extends ElementsWithContentsService<Tour>{
 	public void setLoaded(boolean isLoaded) {
 		isToursLoaded = isLoaded;
 	}
-	
-	public void addPOIToTour(Tour tour, PointOfInterest poi) {
-		tour.getMyPOIs().add(poi);
-		elementRepository.save(tour);
-	}
-	
-	public void removePOIToTour(Tour tour, PointOfInterest poi) {
-		tour.getMyPOIs().remove(poi);
-		elementRepository.save(tour);
-	}
+//	
+//	public void addPOIToTour(Tour tour, PointOfInterest poi) {
+//		tour.getMyPOIs().add(poi);
+//		elementRepository.save(tour);
+//	}
+//	
+//	public void removePOIToTour(Tour tour, PointOfInterest poi) {
+//		tour.getMyPOIs().remove(poi);
+//		elementRepository.save(tour);
+//	}
 }

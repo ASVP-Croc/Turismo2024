@@ -22,16 +22,11 @@ public class ContestsService extends ElementsWithContentsService<Contest>  {
 	public void add(Contest contestToAdd) {
 		super.add(contestToAdd);
 	}
-
-	@Override
-	public void add(Contest contestToAdd, List<Tag> tags) {
-		super.add(contestToAdd, tags);
-	}
 	
-	public void add(Contest contestToAdd, List<Tag> tags, Date starts, Date ends) {
+	public void add(Contest contestToAdd, Date starts, Date ends) {
 		contestToAdd.setStarts(starts);
 		contestToAdd.setEnds(ends);
-		super.add(contestToAdd, tags);
+		super.add(contestToAdd);
 	}
 
 	@Override

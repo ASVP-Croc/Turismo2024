@@ -2,7 +2,9 @@ package com.speriamochemelacavo.turismo2024.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import com.speriamochemelacavo.turismo2024.services.*;
@@ -51,7 +53,7 @@ public class PreparationController {
 			List<User> initialUsers = new ArrayList<>();
 			initialUsers.add(new User("Matteo", "Pallotti", "Maverick", passwordEncoder.encode("12345678"), "maverick@gmail.com", "3929217858", "C.da San Pietro Orgiano, 13", "Fermo", "63900", Role.ROLE_ADMINISTRATOR));
 			initialUsers.add(new User("Lorenzo", "Crovace", "AVCP", passwordEncoder.encode("12345678"), "avcp@gmail.com", "369852147", "Via Ancona, 188", "Macerata", "62100", Role.ROLE_CURATOR));
-			initialUsers.add(new User("Simone", "Silver", "SilverSimon", passwordEncoder.encode("12345678"), "simon@gmail.com", "987654321", "Via Pluto", "Ancona", "60100", Role.ROLE_AUTHENTICATED_TOURIST));
+			initialUsers.add(new User("Simone", "Silver", "SilverSimon", passwordEncoder.encode("12345678"), "simon@gmail.com", "987654321", "Via Pluto", "Ancona", "60100", Role.ROLE_ANIMATOR));
 			initialUsers.stream().forEach(u -> loggedUserService.addUser(u));
 			loggedUserService.setLoaded(true);
 			}
@@ -63,8 +65,9 @@ public class PreparationController {
 		if (!poiService.isLoaded()) {
 			poiResolver.resolveElements(nominatimService.getInfoFromQuery("stadio, Fermo")).forEach(p -> {
 				addressService.add(p.getAddress());
+				p.setAuthor(loggedUserService.getLoggedUser());
 				poiService.add(p);
-				List<Tag> toAdd = new ArrayList<>();
+				Set<Tag> toAdd = new HashSet<>();
 				toAdd.addAll(tagService.createTagsFromString(p.getName(), p));
 				toAdd.addAll(tagService.createTagsFromString(p.getDescription(), p));
 				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getAmenity(), p));
@@ -75,8 +78,9 @@ public class PreparationController {
 				});
 			poiResolver.resolveElements(nominatimService.getInfoFromParameter("pizzeria", "", "Ancona")).forEach(p -> {
 				addressService.add(p.getAddress());
+				p.setAuthor(loggedUserService.getLoggedUser());
 				poiService.add(p);
-				List<Tag> toAdd = new ArrayList<>();
+				Set<Tag> toAdd = new HashSet<>();
 				toAdd.addAll(tagService.createTagsFromString(p.getName(), p));
 				toAdd.addAll(tagService.createTagsFromString(p.getDescription(), p));
 				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getAmenity(), p));

@@ -16,10 +16,10 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 public class ValidationsService<T extends Element> {
 	
 	@Autowired
-	private NotificationsService<T> notificationService;
+	private NotificationsService notificationService;
 	
 	@Autowired
-	private UsersService<T> userService;
+	private UsersService userService;
 	
 	
 	public boolean requestValidation(T elementToValidate) {
@@ -27,7 +27,7 @@ public class ValidationsService<T extends Element> {
 				|| elementToValidate.getAuthor().getRole() == Role.ROLE_CURATOR
 				|| elementToValidate.getAuthor().getRole() == Role.ROLE_ADMINISTRATOR) {
 			elementToValidate.setValidation(true);
-			notificationService.sendToSingleUser("Pubblicazione avvenuta per: " + elementToValidate.getName(), "", elementToValidate);
+			notificationService.sendToSingleUser("Pubblicazione avvenuta per: " + elementToValidate.getName(), "", elementToValidate, elementToValidate.getAuthor());
 			return true;
 		} else {
 			setRecipientsOfValidation(elementToValidate);
@@ -48,6 +48,6 @@ public class ValidationsService<T extends Element> {
 	
 	private void sendNotifications(String message, T elementToValidate, List<User> recipients) {
 		notificationService.sendToMultipleUsers("Validazione: " + elementToValidate.getName(), message, elementToValidate, recipients);
-		notificationService.sendToSingleUser("Pubblicazione richiesta per: " + elementToValidate.getName(), "", elementToValidate);
+		notificationService.sendToSingleUser("Pubblicazione richiesta per: " + elementToValidate.getName(), "", elementToValidate, elementToValidate.getAuthor());
 	}
 }
