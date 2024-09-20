@@ -78,10 +78,12 @@ public class PreparationController {
 				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getRoad(), p));
 				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getAmenity(), p));
 				toAdd.addAll(tagService.createTagsFromString(p.getCity(), p));
-				toAdd.forEach(t -> {
-					tagService.add(t);
-					p.getTags().add(t);
-					poiService.add(p);});
+//				toAdd.forEach(t -> {
+//					tagService.add(t);
+//					p.getTags().add(t);
+//					poiService.add(p);});
+				p.getTags().addAll(toAdd);
+				poiService.add(p);
 				});
 			
 			poiResolver.resolveElements(nominatimService.getInfoFromParameter("pizzeria", "", "Ancona")).forEach(p -> {
@@ -95,10 +97,12 @@ public class PreparationController {
 				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getRoad(), p));
 				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getAmenity(), p));
 				toAdd.addAll(tagService.createTagsFromString(p.getCity(), p));
-				toAdd.forEach(t -> {
-					tagService.add(t);
-					p.getTags().add(t);
-					poiService.add(p);});
+//				toAdd.forEach(t -> {
+//					tagService.add(t);
+//					p.getTags().add(t);
+//					poiService.add(p);});
+				p.getTags().addAll(toAdd);
+				poiService.add(p);
 				});
 			
 			poiService.setLoaded(true);

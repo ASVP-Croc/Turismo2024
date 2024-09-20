@@ -1,7 +1,9 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
@@ -24,10 +26,13 @@ public class ElementWithContents extends Element {
 	@JsonProperty("postcode")
 	private String postcode = "";
 	@ManyToMany()
-	@JoinTable
-	private List<Tag> tags = new ArrayList<>();
+	@JoinTable(
+	        name = "element_tags",
+	        joinColumns = @JoinColumn(name = "element_id"),
+	        inverseJoinColumns = @JoinColumn(name = "tag_id"))
+	private Set<Tag> tags = new HashSet<>();
 	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Content> myContents = new ArrayList<>();
+	private Set<Content> myContents = new HashSet<>();
 	
 	public ElementWithContents() {
 		super();
@@ -57,15 +62,15 @@ public class ElementWithContents extends Element {
 		this.postcode = postcode;
 	}
 	
-	public List<Tag> getTags() {
+	public Set<Tag> getTags() {
 		return tags;
 	}
 
-	public List<Content> getMyContents() {
+	public Set<Content> getMyContents() {
 		return myContents;
 	}
 	
-	public void setMyContents(List<Content> contents) {
+	public void setMyContents(Set<Content> contents) {
 		myContents.addAll(contents);
 	}
 }

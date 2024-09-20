@@ -1,18 +1,17 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Index;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -26,10 +25,11 @@ public class Tag {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(nullable = false, unique = true)
+	@Column(name = "tag", nullable = false, unique = true)
 	private String tag;
-	@ManyToMany(mappedBy = "tags")
-	private List<ElementWithContents> elementsTagged = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "tags")
+    private Set<ElementWithContents> elementsTagged = new HashSet<>();
 
 	public Tag() {
 		
@@ -61,7 +61,7 @@ public class Tag {
 		this.tag = value;
 	}
 
-	public List<ElementWithContents> getElements() {
+	public Set<ElementWithContents> getElements() {
 		return elementsTagged;
 	}
 
@@ -70,7 +70,7 @@ public class Tag {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Tag tag1 = (Tag) o;
-		return tag.equals(tag1.getTag());
+		return this.getTag().equals(tag1.getTag());
 	}
 
 	@Override
