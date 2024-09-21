@@ -1,7 +1,14 @@
 package com.speriamochemelacavo.turismo2024.services;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.Set;
 
+import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +20,32 @@ import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 public abstract class ElementsWithContentsService<T extends ElementWithContents> extends ElementsService<T>{
 	
 	@Autowired
-	ContentsService contentService;
+	private ContentsService contentService;
+	
+	@Autowired
+	private TagsService tagService;
 	
 	public ElementsWithContentsService(){
 		super();
 	}
-
-	public void add(T elementsWithContentsToAdd, List<Content> contentToAdd) {
-		elementsWithContentsToAdd.getMyContents().addAll(contentToAdd);
-		add(elementsWithContentsToAdd);
-	}
+	
+//	public void add(T elementsWithContentsToAdd) {
+//		Set<Tag> tagToUpdate = new HashSet<>();
+//		
+//        for (Tag tag : elementsWithContentsToAdd.getTags()) {
+//        	try {
+//                Tag toCheck = tagService.findByTag(tag.getTagName());
+//                tagToUpdate.add(toCheck);
+//			} catch (JDBCException e) {
+//			}
+//        }
+//        for (Tag tag : tagToUpdate) {
+//			elementsWithContentsToAdd.getTags().remove(tag);
+//			elementsWithContentsToAdd.getTags().add(tag);
+//		}
+//        
+//		super.add(elementsWithContentsToAdd);
+//	}
 
 	public abstract boolean isLoaded();
 

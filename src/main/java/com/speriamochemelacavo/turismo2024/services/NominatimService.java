@@ -19,6 +19,7 @@ public class NominatimService {
                 .queryParam("countrycodes", "it")
                 .queryParam("format", "jsonv2")
                 .toUriString();
+//    	TODO togliere prima della produzione
     	System.out.println(url);
         return getJsonFromUrl(url);
     }
@@ -38,6 +39,7 @@ public class NominatimService {
         .queryParam("addressdetails", 1)
         .queryParam("format", "jsonv2")
         .queryParam("countrycodes", "it");
+//    	TODO togliere prima della produzione
     	String toReturn = url.toUriString();
     	System.out.println(toReturn);
         return getJsonFromUrl(toReturn);

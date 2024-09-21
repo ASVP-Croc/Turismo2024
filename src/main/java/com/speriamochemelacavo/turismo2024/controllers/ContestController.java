@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,8 +39,15 @@ public class ContestController {
     }
     
     @GetMapping("/{id}")
-    public Contest getContestById(@PathVariable int id) {
-        return contestService.findById(id);
+    public RedirectView getContestById(@PathVariable int id) {
+//    	TODO da ricontrollare, è stato fatto così il metodo per gestire temporaneamente l'eccezione
+        try {
+			contestService.findById(id);
+			return new RedirectView("element");
+		} catch (SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+			return new RedirectView("element");
+		}
     }
 
     @GetMapping("/creation")

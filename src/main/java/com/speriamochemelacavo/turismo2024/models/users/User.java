@@ -61,9 +61,9 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	@ManyToMany(mappedBy = "recipientUsers", cascade = CascadeType.ALL)
-	private List<Notification> notifications;
+	private List<Notification> notifications = new ArrayList<>();
 	@OneToMany
-	private List<Element> savedElements;
+	private List<Element> savedElements = new ArrayList<>();
 
 	public User() {
 		
@@ -86,8 +86,6 @@ public class User {
 		this.city = comune;
 		this.CAP = CAP;
 		this.role = role;
-		this.notifications = new ArrayList<>();
-		this.savedElements = new ArrayList<Element>();
 	}
 
 	public int getId() {

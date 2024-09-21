@@ -11,7 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -25,13 +27,14 @@ public class ElementWithContents extends Element {
 	private String city;
 	@JsonProperty("postcode")
 	private String postcode = "";
-	@ManyToMany()
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(
 	        name = "element_tags",
 	        joinColumns = @JoinColumn(name = "element_id"),
 	        inverseJoinColumns = @JoinColumn(name = "tag_id"))
 	private Set<Tag> tags = new HashSet<>();
-	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
+
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Content> myContents = new HashSet<>();
 	
 	public ElementWithContents() {
@@ -72,5 +75,11 @@ public class ElementWithContents extends Element {
 	
 	public void setMyContents(Set<Content> contents) {
 		myContents.addAll(contents);
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
 	}
 }

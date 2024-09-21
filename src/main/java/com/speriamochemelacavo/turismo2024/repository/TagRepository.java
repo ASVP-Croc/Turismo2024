@@ -10,5 +10,5 @@ import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Integer>{
 	
-	Optional<Tag> findByTag(String tag);
+	Optional<Tag> findByTagName(String tag);
 }

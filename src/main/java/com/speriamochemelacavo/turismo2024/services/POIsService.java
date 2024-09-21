@@ -18,10 +18,10 @@ public class POIsService extends ElementsWithContentsService<PointOfInterest> {
 		super();
 	}
 
-	public void addPOI(PointOfInterest POIToAdd, List<Content> contentToAdd, Address address) {
+	public void addPOI(PointOfInterest POIToAdd, Address address) {
 		//lo faccio qui o sopra?
 		POIToAdd.setAddress(address);
-		super.add(POIToAdd, contentToAdd);
+		super.add(POIToAdd);
 	}
 
 	@Override

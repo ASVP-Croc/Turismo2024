@@ -34,13 +34,12 @@ import jakarta.persistence.Table;
 
 @Component
 @Entity
-@Table(name = "elements", indexes = {
-	    @Index(name = "idx_name", columnList = "name", unique = true)})
+@Table(name = "elements")
 public class Element {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id = 0;
 	@JsonProperty("name")
 	private String name;
 	private String description;
@@ -64,7 +63,7 @@ public class Element {
 		this.author = author;	
 	}
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 	

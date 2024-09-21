@@ -63,7 +63,6 @@ public class PreparationController {
 	}
 	
 	@GetMapping("/startDbPOIs")
-	@Transactional
 	public RedirectView insertInitialPOIRecords() throws IOException{
 		if (!poiService.isLoaded()) {
 			
@@ -72,16 +71,16 @@ public class PreparationController {
 				p.setAuthor(loggedUserService.getLoggedUser());
 				poiService.add(p);
 				Set<Tag> toAdd = new HashSet<>();
-				toAdd.addAll(tagService.createTagsFromString(p.getName(), p));
-				toAdd.addAll(tagService.createTagsFromString(p.getDescription(), p));
-				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getAmenity(), p));
-				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getRoad(), p));
-				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getAmenity(), p));
-				toAdd.addAll(tagService.createTagsFromString(p.getCity(), p));
-//				toAdd.forEach(t -> {
-//					tagService.add(t);
+				toAdd.addAll(tagService.createTagsFromString(p.getName()));
+				toAdd.addAll(tagService.createTagsFromString(p.getDescription()));
+				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getAmenity()));
+				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getRoad()));
+				toAdd.addAll(tagService.createTagsFromString(p.getCity()));
+				toAdd.forEach(t -> {
+					tagService.add(t);
 //					p.getTags().add(t);
-//					poiService.add(p);});
+//					poiService.add(p);
+					});
 				p.getTags().addAll(toAdd);
 				poiService.add(p);
 				});
@@ -91,16 +90,16 @@ public class PreparationController {
 				p.setAuthor(loggedUserService.getLoggedUser());
 				poiService.add(p);
 				Set<Tag> toAdd = new HashSet<>();
-				toAdd.addAll(tagService.createTagsFromString(p.getName(), p));
-				toAdd.addAll(tagService.createTagsFromString(p.getDescription(), p));
-				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getAmenity(), p));
-				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getRoad(), p));
-				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getAmenity(), p));
-				toAdd.addAll(tagService.createTagsFromString(p.getCity(), p));
-//				toAdd.forEach(t -> {
-//					tagService.add(t);
+				toAdd.addAll(tagService.createTagsFromString(p.getName()));
+				toAdd.addAll(tagService.createTagsFromString(p.getDescription()));
+				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getAmenity()));
+				toAdd.addAll(tagService.createTagsFromString(p.getAddress().getRoad()));
+				toAdd.addAll(tagService.createTagsFromString(p.getCity()));
+				toAdd.forEach(t -> {
+					tagService.add(t);
 //					p.getTags().add(t);
-//					poiService.add(p);});
+//					poiService.add(p);
+					});
 				p.getTags().addAll(toAdd);
 				poiService.add(p);
 				});

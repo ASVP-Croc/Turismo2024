@@ -1,13 +1,17 @@
 package com.speriamochemelacavo.turismo2024.services;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
+import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
+import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -32,7 +36,12 @@ public class SearchService {
         Set<String> firstSplit = tagService.split(tag.toUpperCase()).stream().collect(Collectors.toSet());
         firstSplit.stream()
         	.forEach(t ->{
-        		if (tagService.findByTag(t) != null) toReturn.addAll(tagService.findByTag(t).getElements());
+        		try {
+					toReturn.addAll(tagService.findByTag(t).getElements());
+				} catch (SQLIntegrityConstraintViolationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
         });
         sortListByOccurrences(toReturn);
         return toReturn;

@@ -5,6 +5,8 @@ import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import com.speriamochemelacavo.turismo2024.services.ToursService;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +35,15 @@ public class TourController {
     }
     
     @GetMapping("/{id}")
-    public Tour getTourById(@PathVariable int id) {
-        return tourService.findById(id);
+    public RedirectView getTourById(@PathVariable int id) {
+//    	TODO da ricontrollare, è stato fatto così il metodo per gestire temporaneamente l'eccezione
+        try {
+			tourService.findById(id);
+			return new RedirectView("element");
+		} catch (SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+			return new RedirectView("element");
+		}
     }
 
     @GetMapping("/creation")

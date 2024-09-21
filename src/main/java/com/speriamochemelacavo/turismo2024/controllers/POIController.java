@@ -2,6 +2,8 @@ package com.speriamochemelacavo.turismo2024.controllers;
 
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,8 +38,15 @@ public class POIController {
     }
 	
 	@GetMapping("/{id}")
-	public PointOfInterest getPOIById(@PathVariable int id) {
-		return poiService.findById(id);
+	public RedirectView getPOIById(@PathVariable int id) {
+		//    	TODO da ricontrollare, è stato fatto così il metodo per gestire temporaneamente l'eccezione
+        try {
+			poiService.findById(id);
+			return new RedirectView("element");
+		} catch (SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+			return new RedirectView("element");
+		}
 	}
 
 	@GetMapping("/creation")

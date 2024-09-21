@@ -20,9 +20,6 @@ public class NotificationsService {
 	
 	@Autowired
 	private NotificationRepository notificationRepository;
-
-	@Autowired
-	private UsersService userService;
 	
 	public Notification findById(int elemToFindId) {
 		return notificationRepository.findById(elemToFindId).orElseThrow();

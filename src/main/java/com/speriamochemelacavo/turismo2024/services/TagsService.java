@@ -1,5 +1,7 @@
 package com.speriamochemelacavo.turismo2024.services;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -10,9 +12,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.ElementWithContents;
@@ -25,52 +29,69 @@ public class TagsService {
 	@Autowired
 	private TagRepository tagRepository;
 	
-	public Tag findById(int id) {
-		Optional<Tag> tagToReturn = tagRepository.findById(id);
-		if(tagRepository.findById(id).isPresent()) {;
+	public Tag findById(int tagId) throws SQLIntegrityConstraintViolationException{
+		Optional<Tag> tagToReturn = tagRepository.findById(tagId);
+		if(tagToReturn.isPresent()) {
+//	    	TODO togliere prima della produzione
+			System.out.println("Il Tag " + tagToReturn.get().getTagName() + " è stato trovato");
 			return tagToReturn.get();
-		} else throw new NoSuchElementException("Il Tag non è stato trovato");
+		} else {
+//	    	TODO togliere prima della produzione
+			throw new SQLIntegrityConstraintViolationException("Il Tag con ID " + tagId + " non è stato trovato");
+		}
 	}
 	
-	public Tag findByTag(String tag) {
-		Optional<Tag> tagToReturn = tagRepository.findByTag(tag);
-		if(tagRepository.findByTag(tag).isPresent()) {
+	public Tag findByTag(String tagName) throws SQLIntegrityConstraintViolationException{
+		Optional<Tag> tagToReturn = tagRepository.findByTagName(tagName);
+		if(tagToReturn.isPresent()) {
+//	    	TODO togliere prima della produzione
+			System.out.println("Il Tag " + tagToReturn.get().getTagName() + " è stato trovato");
 			return tagToReturn.get();
-		} else throw new NoSuchElementException("Il Tag " + tag + " non è stato trovato");
+		} else {
+//	    	TODO togliere prima della produzione
+			throw new SQLIntegrityConstraintViolationException("Il Tag " + tagName + " non è stato trovato");
+		}
 	}
 	
 	public void add(Tag tagToAdd) {
 //		TODO togliere il try una volta completato il progetto
+		try {
+			Tag toCheck = findByTag(tagToAdd.getTagName());
+			tagToAdd.setId(toCheck.getId());
+			System.out.println("Il Tag " + tagToAdd.getTagName() + " è stato aggiornato");
+		} catch (SQLIntegrityConstraintViolationException e) {
+			// TODO Auto-generated catch block
+			System.out.println(tagToAdd.getTagName() + " - " + e.getLocalizedMessage() + ", quindi è stato aggiunto");
+		}
 		tagRepository.save(tagToAdd);
 	}
 	
-	public void add(Tag tagToAdd, ElementWithContents element) {
-		tagToAdd.getElements().add(element);
-		add(tagToAdd);
-	}
-	
-	public void addAll(List<Tag> tagsToAdd) {
-		tagsToAdd.stream().forEach(t -> add(t));
-	}
-	
-	public void addAll(List<Tag> tagsToAdd, ElementWithContents element) {
-		tagsToAdd.stream().forEach(t -> add(t, element));
-	}
+//	public void add(Tag tagToAdd, ElementWithContents element) {
+//		tagToAdd.getElements().add(element);
+//		add(tagToAdd);
+//	}
+//	
+//	public void addAll(List<Tag> tagsToAdd) {
+//		tagsToAdd.stream().forEach(t -> add(t));
+//	}
+//	
+//	public void addAll(List<Tag> tagsToAdd, ElementWithContents element) {
+//		tagsToAdd.stream().forEach(t -> add(t, element));
+//	}
 	
 	public void delete(Tag tagToDelete) {
 		tagRepository.delete(tagToDelete);
 	}
 	
-	public Set<Tag> createTagsFromString(String toConvert, ElementWithContents element) {
+	public Set<Tag> createTagsFromString(String toConvert) {
 		Set<Tag> toReturn = new HashSet<>();
-		split(toConvert).stream().forEach(s -> toReturn.add(new Tag(s, element)));
+		split(toConvert).stream().forEach(s -> toReturn.add(new Tag(s)));
 		return toReturn;
 	}
 	
     public Set<String> split(String toSplit) {
     	Set<String> toReturn = new HashSet<>();
         String tagClean = toSplit.toUpperCase().replaceAll("\\s*,\\s*", ",").trim();
-        String tagClean2 = tagClean.replaceAll("\\s*", "-");
         
         Set<String> firstSplit = Arrays.stream(tagClean.split(","))
         		.filter(t -> !t.isEmpty())
