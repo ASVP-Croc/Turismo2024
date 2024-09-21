@@ -3,6 +3,7 @@ package com.speriamochemelacavo.turismo2024.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class ValidationsService<T extends Element> {
 		if (elementToValidate.getAuthor().getRole() == Role.ROLE_AUTHORIZED_CONTRIBUTOR 
 				|| elementToValidate.getAuthor().getRole() == Role.ROLE_CURATOR
 				|| elementToValidate.getAuthor().getRole() == Role.ROLE_ADMINISTRATOR) {
-			elementToValidate.setValidation(true);
+			elementToValidate.setValidation(ElementStatus.APPROVED);
 			notificationService.sendToSingleUser("Pubblicazione avvenuta per: " + elementToValidate.getName(), "", elementToValidate, elementToValidate.getAuthor());
 			return true;
 		} else {

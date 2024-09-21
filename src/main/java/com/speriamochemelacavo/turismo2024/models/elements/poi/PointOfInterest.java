@@ -28,7 +28,7 @@ import jakarta.persistence.Entity;
 
 @Component
 @Entity
-public class PointOfInterest extends ElementWithContents {
+public abstract class PointOfInterest extends ElementWithContents {
 
 	@JsonProperty("lat")
 	private float latitude;
@@ -85,4 +85,6 @@ public class PointOfInterest extends ElementWithContents {
 		.concat("Città: " + getCity() + "\n")
 		.concat("CAP: " + getPostcode() + "\n");
 	}
+
+	public abstract PoIType getType();
 }

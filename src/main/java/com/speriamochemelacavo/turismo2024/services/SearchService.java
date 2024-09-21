@@ -50,11 +50,7 @@ public class SearchService {
     public List<PointOfInterest> searchElementsOSMWithDetails(String amenity, String street, String houseNumber, String postalCode) throws IOException {
         List<PointOfInterest> toReturn = new ArrayList<>();
         toReturn.addAll(POIResolver.resolveElements(
-                        nominatimService.getInfoFromParameter(
-                                amenity,
-                                street + " " + houseNumber,
-                                postalCode)
-                )
+                        nominatimService.getInfoFromParameter(amenity, street + " " + houseNumber, postalCode))
         );
         return toReturn;
     }

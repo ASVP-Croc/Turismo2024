@@ -84,7 +84,7 @@ public class PreparationController {
 				p.getTags().addAll(toAdd);
 				poiService.add(p);
 				});
-			
+			/**
 			poiResolver.resolveElements(nominatimService.getInfoFromParameter("pizzeria", "", "Ancona")).forEach(p -> {
 				addressService.add(p.getAddress());
 				p.setAuthor(loggedUserService.getLoggedUser());
@@ -103,7 +103,7 @@ public class PreparationController {
 				p.getTags().addAll(toAdd);
 				poiService.add(p);
 				});
-			
+			*/
 			poiService.setLoaded(true);
 			}
 		return new RedirectView("/");

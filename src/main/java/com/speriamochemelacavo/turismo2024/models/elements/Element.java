@@ -3,20 +3,11 @@ package com.speriamochemelacavo.turismo2024.models.elements;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.speriamochemelacavo.turismo2024.models.users.User;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Index;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
 /**
  * Rappresenta la base di ogni oggetto che può essere creato da un {@link User Utente}.
@@ -48,7 +39,9 @@ public class Element {
 	
 	protected String typology;
 	//
-	private boolean isValidated = false;
+	@Enumerated(EnumType.STRING)
+	private ElementStatus validated = ElementStatus.PENDING;
+
 	//utile? il report lo vedo solo con la notifica, non modifica la visibilità
 	private boolean isReported = false;
 	
@@ -60,7 +53,7 @@ public class Element {
 	public Element(String name, String description, User author) {
 		this.name = name;
 		this.description = description;
-		this.author = author;	
+		this.author = author;
 	}
 
 	public int getId() {
@@ -98,14 +91,13 @@ public class Element {
 	public String getTypology() {
 		return typology;
 	}
-	
 
 	public boolean isValidated() {
-		return isValidated;
+		return validated == ElementStatus.APPROVED;
 	}
 
-	public void setValidation(boolean isValidated) {
-		this.isValidated = isValidated;
+	public void setValidation(ElementStatus validated) {
+		this.validated = validated;
 	}
 	public boolean isReported() {
 		return isReported;
