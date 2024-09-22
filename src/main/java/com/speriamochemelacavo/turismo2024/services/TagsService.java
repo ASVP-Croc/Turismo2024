@@ -59,6 +59,7 @@ public class TagsService {
 		try {
 			Tag toCheck = findByTag(tagToAdd.getTagName());
 			tagToAdd.setId(toCheck.getId());
+			tagToAdd.getElements().addAll(toCheck.getElements());
 			System.out.println("Il Tag " + tagToAdd.getTagName() + " è stato trovato e aggiornato");
 		} catch (SQLIntegrityConstraintViolationException e) {
 			// TODO Auto-generated catch block

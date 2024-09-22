@@ -25,17 +25,15 @@ public class ValidationsService<T extends Element> {
 	private UsersService userService;
 	
 	
-	public boolean requestValidation(T elementToValidate) {
+	public void requestValidation(T elementToValidate) {
 		if (elementToValidate.getAuthor().getRole() == Role.ROLE_AUTHORIZED_CONTRIBUTOR 
 				|| elementToValidate.getAuthor().getRole() == Role.ROLE_ANIMATOR
 				|| elementToValidate.getAuthor().getRole() == Role.ROLE_CURATOR
 				|| elementToValidate.getAuthor().getRole() == Role.ROLE_ADMINISTRATOR) {
 			elementToValidate.setValidation(ElementStatus.APPROVED);
 			notificationService.sendToSingleUser("Pubblicazione avvenuta per: " + elementToValidate.getName(), "", elementToValidate, elementToValidate.getAuthor());
-			return true;
 		} else {
 			setRecipientsOfValidation(elementToValidate);
-			return false;
 		}
 	}
 	
@@ -51,7 +49,6 @@ public class ValidationsService<T extends Element> {
 			}
 			sendNotifications("Hai un nuovo Elemento da validare!", elementToValidate, recipients);
 		} catch (SQLIntegrityConstraintViolationException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e.getLocalizedMessage());
 		}
 	}
@@ -61,11 +58,11 @@ public class ValidationsService<T extends Element> {
 		notificationService.sendToSingleUser("Pubblicazione richiesta per: " + elementToValidate.getName(), "", elementToValidate, elementToValidate.getAuthor());
 	}
 	
-	public void updateValidation(String message, Notification notificationToResponse){
-		notificationService.sendToSingleUser("Aggiornamento pubblicazione: " + notificationToResponse.getNotificationObject().getName(), message, notificationToResponse.getNotificationObject(), notificationToResponse.getNotificationObject().getAuthor());
+	public void updateValidation(String message, T elementToValidate){
+		notificationService.sendToSingleUser("Aggiornamento pubblicazione: " + elementToValidate.getName(), message, elementToValidate, elementToValidate.getAuthor());
 	}
 	
-	public void confirmValidation(Notification notificationToConfirm) {
-		notificationService.sendToSingleUser("Pubblicazione avvenuta: " + notificationToConfirm.getNotificationObject().getName(), "", notificationToConfirm.getNotificationObject(), notificationToConfirm.getNotificationObject().getAuthor());
+	public void confirmValidation(T elementToValidate) {
+		notificationService.sendToSingleUser("Pubblicazione avvenuta: " + elementToValidate.getName(), "", elementToValidate, elementToValidate.getAuthor());
 	}
 }

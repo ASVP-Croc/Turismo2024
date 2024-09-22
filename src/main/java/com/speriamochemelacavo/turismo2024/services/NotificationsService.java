@@ -32,13 +32,11 @@ public class NotificationsService {
 	public <T extends Element> void sendToSingleUser(String title, String message, T object, User recipient) {
 		Notification toSend = new Notification(title, message, loggedUserDetailService.getLoggedUser(), object, recipient);
 		add(toSend);
-//		userService.addUser(loggedUserDetailService.getLoggedUser());
 	}
 	
 	public <T extends Element> void sendToMultipleUsers(String title, String message, T object, List<User> recipients) {
 		Notification toSend = new Notification(title, message, loggedUserDetailService.getLoggedUser(), object, recipients);
 		add(toSend);
-//		userService.addUser(loggedUserDetailService.getLoggedUser());
 	}
 	
 	public Notification readNotification(int notificationId) {

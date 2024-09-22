@@ -23,8 +23,8 @@ public class POIForTour extends PointOfInterest {
 	}
 
 	@Override
-	public PoIType getType() {
-		return null;
+	public PoIType getPoiType() {
+		return PoIType.PHYSICS;
 	}
 	
 	

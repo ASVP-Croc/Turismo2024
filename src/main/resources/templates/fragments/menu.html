@@ -12,7 +12,7 @@
 			<h1 class = "scritteBottoniMenu">Popola il DB POI</h1>
 		</button>
 		<button th:if = "${isTourButtonVisible}" th:onclick = "location.href = '/startDbTours'" class = "bottoniMenu">
-			<h1 class = "scritteBottoniMenu">Popola il DB Tour</h1>
+			<h1 class = "scritteBottoniMenu">Popola il DB Itinerari</h1>
 		</button>
 		<button th:if = "${isAdmin}" th:onclick = "location.href = '/users'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Lista Utenti</h1>
@@ -22,6 +22,9 @@
 		</button>
 		<button th:onclick = "location.href = '/tours'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Lista Itinerari</h1>
+		</button>
+		<button th:onclick = "location.href = '/contests'" class = "bottoniMenu">
+			<h1 class = "scritteBottoniMenu">Lista Eventi</h1>
 		</button>
 		<button th:unless = "${isAuthTourist||isTourist}" th:onclick = "location.href = '/pois/creation'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Creami</h1>

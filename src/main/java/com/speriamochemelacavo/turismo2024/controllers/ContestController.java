@@ -3,9 +3,12 @@ package com.speriamochemelacavo.turismo2024.controllers;
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Contest;
 import com.speriamochemelacavo.turismo2024.models.elements.category.ElementTypology;
+import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import com.speriamochemelacavo.turismo2024.services.ContestsService;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
+import com.speriamochemelacavo.turismo2024.services.TagsService;
+import com.speriamochemelacavo.turismo2024.services.ValidationsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -30,12 +33,18 @@ public class ContestController {
 	@Autowired
 	private LoggedUserDetailService loggedUserService;
 
+	@Autowired
+	private ValidationsService<Contest> validationService;
+
+	@Autowired
+	private TagsService tagService;
+
     @GetMapping("")
     public RedirectView getAllContests() {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
 		modelSetter.getAttributes().put("toShow", contestService.findAll());
-		modelSetter.getAttributes().put("isContest", true);
+		contestService.findAll().forEach(c -> System.out.println(c.toString()));
         return new RedirectView("/elements/list");
     }
     
@@ -69,7 +78,15 @@ public class ContestController {
     @PostMapping("/add")
     public RedirectView addContest(@ModelAttribute Contest element) {
 		element.setAuthor(loggedUserService.getLoggedUser());
-		return new RedirectView("/pois/" + contestService.add(element));    
+		Contest toValidate = contestService.add(element);
+		tagService.addAll(tagService.createTagsFromString(
+				element.getName() + "," +
+				element.getDescription() + "," +
+				element.getTheme() + "," +
+				element.getCity(), element));
+		validationService.requestValidation(toValidate);
+		contestService.add(toValidate);
+		return new RedirectView("/pois/" + toValidate.getId());    
     }
 
     @DeleteMapping("/{id}")

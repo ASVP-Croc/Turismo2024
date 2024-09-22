@@ -1,6 +1,7 @@
 package com.speriamochemelacavo.turismo2024.services;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
+import com.speriamochemelacavo.turismo2024.models.elements.ElementWithContents;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
@@ -18,9 +19,6 @@ import java.util.stream.Collectors;
 @Service
 
 public class SearchService {
-	
-	@Autowired
-	private LoggedUserDetailService loggedUserService;
 
     @Autowired
     private NominatimService nominatimService;
@@ -31,8 +29,8 @@ public class SearchService {
     @Autowired
     private TagsService tagService;
 
-    public List<Element> searchElementsSite(String tag){
-        List<Element> toReturn = new ArrayList<>();
+    public List<ElementWithContents> searchElementsSite(String tag){
+        List<ElementWithContents> toReturn = new ArrayList<>();
         Set<String> firstSplit = tagService.split(tag.toUpperCase()).stream().collect(Collectors.toSet());
         firstSplit.stream()
         	.forEach(t ->{
@@ -61,18 +59,18 @@ public class SearchService {
         return toReturn;
     }
 
-    private List<Element> sortListByOccurrences(List<Element> elemtsList) {
-        Map<Element, Integer> occurrences = new HashMap<>();
+    private List<ElementWithContents> sortListByOccurrences(List<ElementWithContents> elemtsList) {
+        Map<ElementWithContents, Integer> occurrences = new HashMap<>();
         
-        for (Element element : elemtsList) {
+        for (ElementWithContents element : elemtsList) {
             occurrences.put(element, occurrences.getOrDefault(element, 0) + 1);
         }
         
-        List<Map.Entry<Element, Integer>> entries = new ArrayList<>(occurrences.entrySet());
+        List<Map.Entry<ElementWithContents, Integer>> entries = new ArrayList<>(occurrences.entrySet());
         entries.sort(Comparator.comparingInt(Map.Entry::getValue));
-        List<Element> result = new ArrayList<>();
+        List<ElementWithContents> result = new ArrayList<>();
         
-        for (Map.Entry<Element, Integer> entry : entries) {
+        for (Map.Entry<ElementWithContents, Integer> entry : entries) {
             result.add(entry.getKey());
         }
         

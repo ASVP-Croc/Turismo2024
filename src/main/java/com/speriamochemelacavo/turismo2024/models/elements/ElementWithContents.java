@@ -26,7 +26,7 @@ public class ElementWithContents extends Element {
 	@JsonProperty("city")
 	private String city;
 	@JsonProperty("postcode")
-	private String postcode = "";
+	private String postalcode = "";
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Content> myContents = new HashSet<>();
 	
@@ -35,10 +35,10 @@ public class ElementWithContents extends Element {
 	}
 	
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
-	public ElementWithContents(String name, String description, User author, List<Content> contents, String city, String postcode) {
+	public ElementWithContents(String name, String description, User author, List<Content> contents, String city, String postalcode) {
 		super(name, description, author);
 		this.city = city;
-		this.postcode = postcode;
+		this.postalcode = postalcode;
 		this.myContents.addAll(contents);
 	}
 	
@@ -50,12 +50,12 @@ public class ElementWithContents extends Element {
 		this.city = city;
 	}
 
-	public String getPostcode() {
-		return postcode;
+	public String getPostalcode() {
+		return postalcode;
 	}
 
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
+	public void setPostalcode(String postalcode) {
+		this.postalcode = postalcode;
 	}
 
 	public Set<Content> getMyContents() {

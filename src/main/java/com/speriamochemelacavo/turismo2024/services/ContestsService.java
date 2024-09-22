@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.services;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class ContestsService extends ElementsWithContentsService<Contest>  {
 		super();
 	}
 	
-	public void add(Contest contestToAdd, Date starts, Date ends) {
+	public void add(Contest contestToAdd, LocalDate starts, LocalDate ends) {
 		contestToAdd.setStarts(starts);
 		contestToAdd.setEnds(ends);
 		super.add(contestToAdd);
@@ -36,8 +37,8 @@ public class ContestsService extends ElementsWithContentsService<Contest>  {
 	
 	@Override
 	public void addContentToElement(Contest contest, Content content) {
-		Date date = new Date();
-		if(date.before(contest.getEnds())) {
+		LocalDate date = LocalDate.now();
+		if(date.isBefore(contest.getEnds())) {
 			super.addContentToElement(contest, content);
 		}
 	}

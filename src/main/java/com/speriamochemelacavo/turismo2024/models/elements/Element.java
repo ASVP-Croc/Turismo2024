@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.speriamochemelacavo.turismo2024.models.elements.category.ElementTypology;
 import com.speriamochemelacavo.turismo2024.models.notifications.Notification;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 
@@ -37,8 +38,8 @@ public class Element {
 	private String description;
 	@ManyToOne(cascade = CascadeType.ALL)
 	private User author;
-	
-	protected String typology;
+	@Enumerated(EnumType.STRING)
+	protected ElementTypology typology;
 	//
 	@Enumerated(EnumType.STRING)
 	private ElementStatus validated = ElementStatus.PENDING;
@@ -59,6 +60,10 @@ public class Element {
 
 	public int getId() {
 		return id;
+	}
+	
+	public String getIdToString() {
+		return String.valueOf(getId());
 	}
 	
 	public void setId(int id) {
@@ -89,16 +94,17 @@ public class Element {
 		this.author = author;
 	}
 
-	public String getTypology() {
+	public ElementTypology getTypology() {
 		return typology;
 	}
 
-	public boolean isValidated() {
-		return validated == ElementStatus.APPROVED;
+	public ElementStatus isValidated() {
+		return validated;
 	}
 
-	public void setValidation(ElementStatus validated) {
+	public ElementStatus setValidation(ElementStatus validated) {
 		this.validated = validated;
+		return validated;
 	}
 	public boolean isReported() {
 		return isReported;

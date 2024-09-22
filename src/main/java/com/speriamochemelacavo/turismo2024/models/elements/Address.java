@@ -21,7 +21,7 @@ public class Address {
     @JsonProperty("amenity")
     private String amenity;
     @JsonProperty("house_number")
-    private String houseNumber;
+    private int houseNumber = 0;
     @JsonProperty("road")
     private String road;
 
@@ -29,7 +29,7 @@ public class Address {
 
     }
 
-    public Address(String amenity, String houseNumber, String road) {
+    public Address(String amenity, int houseNumber, String road) {
 		this.amenity = amenity;
 		this.houseNumber = houseNumber;
 		this.road = road;
@@ -51,11 +51,11 @@ public class Address {
         this.amenity = amenity;
     }
 
-    public String getHouseNumber() {
+    public int getHouseNumber() {
         return houseNumber;
     }
 
-    public void setHouseNumber(String house_number) {
+    public void setHouseNumber(int house_number) {
         this.houseNumber = house_number;
     }
 
@@ -72,7 +72,7 @@ public class Address {
     	String toReturn = 
     			getRoad()
     			+ ", "
-    			+ ((getHouseNumber() != null && !getHouseNumber().isBlank()) ? (getHouseNumber()) : "snc");
+    			+ (getHouseNumber() != 0 ? (getHouseNumber()) : "snc");
 		return toReturn;
 	}
 }

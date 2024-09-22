@@ -18,6 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
+import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.ElementWithContents;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.models.users.User;
@@ -55,7 +56,10 @@ public class PreparationController {
 	private ElementsWithContentsService<Tour> tourService;
 	
 	@Autowired
-	private ModelSetter modelSetter;
+	private ModelSetter modelSetter;	
+	
+	@Autowired
+	private ValidationsService<Element> valisationService;
 
 	@GetMapping("/startDbUsers")
 	public RedirectView insertInitialUserRecords(){
@@ -74,11 +78,10 @@ public class PreparationController {
 	public RedirectView insertInitialPOIRecords() throws IOException{
 		
 		if (!poiService.isLoaded()) {
-			savePoiFromNominatim(poiResolver.resolveElements(nominatimService.getInfoFromQuery("stadio, Fermo")));
-			savePoiFromNominatim(poiResolver.resolveElements(nominatimService.getInfoFromParameter("pizzeria", "", "Ancona")));
+			savePoi(poiResolver.resolveElements(nominatimService.getInfoFromQuery("stadio, Fermo")));
+			savePoi(poiResolver.resolveElements(nominatimService.getInfoFromParameter("pizzeria", "", "Ancona")));
 			poiService.setLoaded(true);
 			}
-		
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
 		modelSetter.getAttributes().put("toShow", poiService.findAll());
@@ -88,8 +91,8 @@ public class PreparationController {
 	@GetMapping("/startDbTours")
 	public RedirectView insertInitialToursRecords() throws IOException{
 		if (!tourService.isLoaded()) {
-			tourService.add(new Tour("tour1", "tour della porchetta", loggedUserService.getLoggedUser(), "Ancona", "60100", new ArrayList<>(), new ArrayList<>()));
-			tourService.add(new Tour("tour2", "tour della fontana", loggedUserService.getLoggedUser(), "Fermo", "63900", new ArrayList<>(), new ArrayList<>()));
+			saveTour(List.of(new Tour("tour1", "tour della porchetta", loggedUserService.getLoggedUser(), "Ancona", "60100", new ArrayList<>(), new ArrayList<>())));
+			saveTour(List.of(new Tour("tour2", "tour della fontana", loggedUserService.getLoggedUser(), "Fermo", "63900", new ArrayList<>(), new ArrayList<>())));
 			tourService.setLoaded(true);
 		}
 		modelSetter.clearAllAttributes();
@@ -98,12 +101,12 @@ public class PreparationController {
 		return new RedirectView("/");
 	}
 	
-	private void savePoiFromNominatim(List<PointOfInterest> poisToSave) {
+	private void savePoi(List<PointOfInterest> poisToSave) {
 		poisToSave.stream().forEach(p -> {
 			p.setAuthor(loggedUserService.getLoggedUser());
 			p.setAddress(addressService.findById(addressService.add(p.getAddress()).getId()));
+			valisationService.requestValidation(poiService.add(p));
 			poiService.add(p);
-			System.out.println(p.toString());
 			tagService.addAll(
 					tagService.createTagsFromString(
 							p.getName() + "," +
@@ -111,6 +114,20 @@ public class PreparationController {
 							p.getAddress().getAmenity() + "," +
 							p.getAddress().getRoad() + "," +
 							p.getCity(), p));
+			});
+	}
+	
+
+	private void saveTour(List<Tour> tourToSave) {
+		tourToSave.stream().forEach(t -> {
+			t.setAuthor(loggedUserService.getLoggedUser());
+			valisationService.requestValidation(tourService.add(t));
+			tourService.add(t);
+			tagService.addAll(
+					tagService.createTagsFromString(
+							t.getName() + "," +
+							t.getDescription() + "," +
+							t.getCity(), t));
 			});
 	}
 }

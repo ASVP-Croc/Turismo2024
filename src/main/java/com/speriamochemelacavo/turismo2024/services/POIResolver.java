@@ -18,12 +18,7 @@ public class POIResolver extends ElementResolver<PointOfInterest>{
 
     @Override
     protected PointOfInterest elementResolver(LinkedHashMap<String, Object> POIToResolve){
-    	PointOfInterest pointOfInterest = new PointOfInterest() {
-			@Override
-			public PoIType getType() {
-				return null;
-			}
-		};
+    	PointOfInterest pointOfInterest = new PointOfInterest();
     	pointOfInterest.setName(POIToResolve.get("name").toString());
     	pointOfInterest.setDescription(POIToResolve.get("type").toString());
     	pointOfInterest.setLatitude(parseFloat(POIToResolve.get("lat").toString()));
@@ -38,10 +33,10 @@ public class POIResolver extends ElementResolver<PointOfInterest>{
 		Address address = new Address();
 		LinkedHashMap<String, String> addressToConvert = ((LinkedHashMap<String, String>)mapper.convertValue(addressToResolve, LinkedHashMap.class));
 		address.setAmenity(checkKey(addressToConvert, "amenity"));
-		address.setHouseNumber(checkKey(addressToConvert, "house_number"));
+		address.setHouseNumber(Integer.parseInt(checkKey(addressToConvert, "house_number").isBlank() ? "0" : checkKey(addressToConvert, "house_number")));
 		address.setRoad(addressToConvert.get("road"));
 		pointOfInterest.setCity(checkKey(addressToConvert, "city"));
-		pointOfInterest.setPostcode(addressToConvert.get("postcode") != null ? addressToConvert.get("postcode") : "------");
+		pointOfInterest.setPostalcode(addressToConvert.get("postcode") != null ? addressToConvert.get("postcode") : "------");
 		return address;
 	}
 	private String checkKey(LinkedHashMap<String, String> addressToCheck, String key) {

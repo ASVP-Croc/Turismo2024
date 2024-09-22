@@ -2,8 +2,11 @@ package com.speriamochemelacavo.turismo2024.controllers;
 
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Tour;
+import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
+import com.speriamochemelacavo.turismo2024.services.TagsService;
 import com.speriamochemelacavo.turismo2024.services.ToursService;
+import com.speriamochemelacavo.turismo2024.services.ValidationsService;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 
@@ -25,12 +28,17 @@ public class TourController {
 	@Autowired
 	private ModelSetter modelSetter;
 
+	@Autowired
+	private ValidationsService<Tour> validationService;
+
+	@Autowired
+	private TagsService tagService;
+
     @GetMapping("")
     public RedirectView getAllTours() {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
 		modelSetter.getAttributes().put("toShow", tourService.findAll());
-		modelSetter.getAttributes().put("isTour", true);
         return new RedirectView("/elements/list");
     }
     
@@ -63,7 +71,14 @@ public class TourController {
     @PostMapping("/add")
     public RedirectView addTour(@ModelAttribute Tour element) {
 		element.setAuthor(loggedUserService.getLoggedUser());
-		return new RedirectView("/tours/" + tourService.add(element));    
+		Tour toValidate = tourService.add(element);
+		tagService.addAll(tagService.createTagsFromString(
+				element.getName() + "," +
+				element.getDescription() + "," +
+				element.getCity(), element));
+		validationService.requestValidation(toValidate);
+		tourService.add(toValidate);
+		return new RedirectView("/tours/" + toValidate.getId());    
 	}
 
     @DeleteMapping("/{id}")

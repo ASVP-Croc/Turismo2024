@@ -33,7 +33,8 @@ public class PoILogic extends PointOfInterest {
     }
 
     @Override
-    public PoIType getType() {
-        return PoIType.POI_LOGIC;
+    public PoIType getPoiType() {
+    	super.setPoiType(PoIType.LOGIC);
+        return super.getPoiType();
     }
 }

@@ -13,6 +13,7 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 
 /**
@@ -29,18 +30,18 @@ import jakarta.persistence.OneToMany;
 @Entity
 public class Tour extends ElementWithContents{
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
 	private List<POIForTour> myPOIs = new ArrayList<>();
 	
 	public Tour() {
 		super();
-		this.typology = ElementTypology.TOUR.toString();
+		this.typology = ElementTypology.TOUR;
 	}
 
 	public Tour(String name, String description, User author, String city, String postcode, List<Content> contents, List<POIForTour> myPOIs) {
 		super(name, description, author, contents, city, postcode);
 		this.myPOIs = myPOIs;
-		this.typology = ElementTypology.TOUR.toString();
+		this.typology = ElementTypology.TOUR;
 	}
 
 	public List<POIForTour> getMyPOIs() {

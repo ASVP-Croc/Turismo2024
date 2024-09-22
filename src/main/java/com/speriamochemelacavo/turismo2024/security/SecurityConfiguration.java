@@ -29,17 +29,16 @@ public class SecurityConfiguration {
 	            )
         	.authorizeHttpRequests(requests -> requests
 	                        .requestMatchers("/h2-console/**", "/", "/registration/**", 
-	                        		"/css/**", "/favicon.ico", "/elements", "/element", 
-	                        		"/elements/list", "/pois", "/tours", 
-	                        		"/contest", "/startDbUsers", "/search/**", 
-	                        		"/error/**").permitAll()
+	                        		"/css/**", "/favicon.ico", "/element/**", "/elements/**", 
+	                        		"/pois", "/tours", "/contests",
+	                        		"/startDbUsers", "/search/**", "/error/**").permitAll()
 	                        .requestMatchers("/pois/**", "/tours/**", 
-	                        		"/contest/**", "/content/**").hasAnyRole("AUTHENTICATED_TOURIST", "CONTRIBUTOR", "AUTHORIZED_CONTRIBUTOR", "CURATOR", "ANIMATOR", "ADMINISTRATOR")
+	                        		"/contests/**", "/contents/**").hasAnyRole("AUTHENTICATED_TOURIST", "CONTRIBUTOR", "AUTHORIZED_CONTRIBUTOR", "CURATOR", "ANIMATOR", "ADMINISTRATOR")
 	                        .requestMatchers("/users/all").hasRole("ADMINISTRATOR")
 							.requestMatchers("/startDbPOIs", "/startDbTours", "/creation", 
-									"/pois/creation", "/tours/creation", "/contests/creation", 
-									"/contests/add", "/pois/add", "/tours/add", 
-									"/contents/add").hasAnyRole("CONTRIBUTOR", "AUTHORIZED_CONTRIBUTOR", "CURATOR", "ANIMATOR", "ADMINISTRATOR")
+									"/pois/creation", "/tours/creation", 
+									"/pois/add", "/tours/add", "/contents/add").hasAnyRole("CONTRIBUTOR", "AUTHORIZED_CONTRIBUTOR", "CURATOR", "ANIMATOR", "ADMINISTRATOR")
+							.requestMatchers("/contests/creation", "/contests/add").hasAnyRole("ANIMATOR", "ADMINISTRATOR")
 							.requestMatchers("/elements/validation").hasAnyRole("CURATOR","ADMINISTRATOR")
 							.requestMatchers("/users/**").hasRole("ADMINISTRATOR")
         		)

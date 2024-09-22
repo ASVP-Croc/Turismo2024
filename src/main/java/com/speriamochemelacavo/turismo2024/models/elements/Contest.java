@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -26,8 +27,8 @@ import jakarta.persistence.Entity;
 @Entity
 public class Contest extends ElementWithContents {
 
-	private Date starts;
-	private Date ends;
+	private LocalDate starts;
+	private LocalDate ends;
 	private String theme;
 	private boolean isClosed;
 	private String linkInvite;
@@ -37,33 +38,33 @@ public class Contest extends ElementWithContents {
 	
 	public Contest() {
 		super();
-		this.typology = ElementTypology.CONTEST.toString();
+		this.typology = ElementTypology.CONTEST;
 	}
 	
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
-	public Contest(String name, String description, User author, String city, String postcode, List<Content> contents, String theme, boolean isOpen, String linkInvite, Date starts, Date ends) {
+	public Contest(String name, String description, User author, String city, String postcode, List<Content> contents, String theme, boolean isOpen, String linkInvite, LocalDate starts, LocalDate ends) {
 		super(name, description, author, contents, city, postcode);
 		this.theme = theme;
 		this.isClosed = isOpen;
 		this.linkInvite = linkInvite;
 		this.starts = starts;
 		this.ends = ends;
-		this.typology = ElementTypology.CONTEST.toString();
+		this.typology = ElementTypology.CONTEST;
 	}
 
-	public Date getStarts() {
+	public LocalDate getStarts() {
 		return starts;
 	}
 
-	public void setStarts(Date starts) {
+	public void setStarts(LocalDate starts) {
 		this.starts = starts;
 	}
 
-	public Date getEnds() {
+	public LocalDate getEnds() {
 		return ends;
 	}
 
-	public void setEnds(Date ends) {
+	public void setEnds(LocalDate ends) {
 		this.ends = ends;
 	}
 

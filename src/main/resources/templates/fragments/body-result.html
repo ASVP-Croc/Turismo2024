@@ -6,16 +6,16 @@
 <body>
 
 	<div th:fragment = "elementsList" class = "containerElement">
-		<div class = "card" th:each = "element : ${toShow.subList(0, toShow.size() > 5 ? 5 : toShow.size())}">
+		<div class = "card" th:each = "element : ${toShow.subList(0, toShow.size() > 5 ? 5 : toShow.size())}" th:onclick="'location.href=\'' + @{/element(id=${element.getId()})} + '\''">
     		<h1 class = "scritteCard" th:text = "${'Titolo: '} + ${element.getName()}">Titolo</h1>
     		<h1 class = "scritteCard" th:text = "${'Descrizione: '} + ${element.getDescription()}">Descrizione</h1>
     		<h1 class = "scritteCard" th:text = "${'Autore: '} + ${element.getAuthor().getUsername()}">Autore</h1>
-    		<h1 th:if = "${element.getTypology()==typologyPOI}" class = "scritteCard" th:text = "${'Indirizzo: '} + ${element.getAddress.toString()}">Indirizzo</h1>
-    		<div th:if = "${element.getTypology()==typologyTOUR&&element.getMyPOIs()!=null&&!element.getMyPOIs().isEmpty}">
+    		<h1 th:if = "${element.getTypology().toString() == 'POI'}" class = "scritteCard" th:text = "${'Indirizzo: '} + ${element.getAddress().toString()}">Indirizzo</h1>
+    		<div th:if = "${element.getTypology().toString() == 'TOUR' && element.getMyPOIs()!=null && !element.getMyPOIs().isEmpty}">
 	    		<div th:replace="~{fragments/body-result :: toursList(element=${element})}"></div>
     		</div>
-    		<h1 th:if = "${isContest}" class = "scritteCard" th:text = "${'Periodo: '} + ${element.getStarts()} + ${' - '} + ${element.getEnds()}">Periodo</h1>
-    		<h1 class = "scritteCard" th:text = "${'Città: '} + ${element.getCity()} + ${' ('} + ${element.getPostcode()} + ${')'}">Città</h1>
+    		<h1 th:if = "${element.getTypology().toString() == 'CONTEST'}" class = "scritteCard" th:text = "${'Periodo: '} + ${element.getStarts()} + ${' - '} + ${element.getEnds()}">Periodo</h1>
+    		<h1 class = "scritteCard" th:text = "${'Città: '} + ${element.getCity()} + ${' ('} + ${element.getPostalcode()} + ${')'}">Città</h1>
     	</div>
 	</div>
 	
@@ -24,8 +24,8 @@
     		<h1 class = "scritteCard" th:text = "${'Titolo: '} + ${poi.getName()}">Titolo</h1>
     		<h1 class = "scritteCard" th:text = "${'Descrizione: '} + ${poi.getDescription()}">Descrizione</h1>
     		<h1 class = "scritteCard" th:text = "${'Autore: '} + ${poi.getAuthor().getUsername()}">Autore</h1>
-    		<h1 class = "scritteCard" th:text = "${'Indirizzo: '} + ${poi.getAddress.toString()}">Indirizzo</h1>
-    		<h1 class = "scritteCard" th:text = "${'Città: '} + ${poi.getCity()} + ${' ('} + ${poi.getPostcode()} + ${')'}">Città</h1>
+    		<h1 class = "scritteCard" th:text = "${'Indirizzo: '} + ${poi.getAddress().toString()}">Indirizzo</h1>
+    		<h1 class = "scritteCard" th:text = "${'Città: '} + ${poi.getCity()} + ${' ('} + ${poi.getPostalcode()} + ${')'}">Città</h1>
     	</div>
 	</div>
 	
@@ -33,43 +33,36 @@
 		<div class = "card" th:object = "${element}">
 			<h1 class = "scritteCard">Titolo</h1>
 			<h2 class = "scritteCard" th:text = "${element.getName()}"></h2>
-		    <br />
 		    <h1 class = "scritteCard">Descrizione</h1>
-		    <textarea class = "scritteCard" th:textarea = "${element.getDescription()}" rows="10" cols="50" maxlength="200" style="width: 200px; height: 100px;"></textarea>
-		    <br />
+		    <textarea class = "scritteCard" th:text = "${element.getDescription()}" rows="10" cols="50" maxlength="200" style="width: 200px; height: 100px;"></textarea>
 		    <h1 class = "scritteCard">Città</h1>
 		    <h2 class = "scritteCard" th:text = "${element.getCity()}"></h2>
-		    <br />
 		    <h1 class = "scritteCard">C.A.P.</h1>
-		    <h2 class = "scritteCard" th:text = "${element.getPostcode()}"></h2>
-		    <br />
-		    <div th:if = "${isPoi}" class = "containerElement">
-		    	<h1 class = "scritteCard">Address</h1>
-				<h2 class = "scritteCard" th:text = "${element.getAddress().getRoad()} + ${element.Address().getHouseNumber()}"></h2>
+		    <h2 class = "scritteCard" th:text = "${element.getPostalcode()}"></h2>
+		    <div th:if = "${element.getTypology().toString() == 'POI'}" class = "containerElement">
+		    	<h1 class = "scritteCard">Indirizzo</h1>
+				<h2 class = "scritteCard" th:text = "${element.getAddress().getRoad()} + ${element.getAddress().getHouseNumber()}"></h2>
 		    </div>
-		    <div th:if = "${isContest}" class = "containerElement">
+		    <div th:if = "${element.getTypology().toString() == 'CONTEST'}" class = "containerElement">
 		    	<div class = "containerInputRow">
 				    <div class = "containerElement">
 				   		<h1  class = "scritteCard">Inizia il:</h1>
-				   		<h2 class = "scritteCard" th:type = "date" th:text = "${element.getStarts}"></h2>
-					    <br />
+				   		<h2 class = "scritteCard" th:type = "date" th:text = "${element.getStarts()}"></h2>
 				    </div>
 				    <div class = "containerElement">	    	
 					    <h1 class = "scritteCard">Termina il:</h1>
-				   		<h2 class = "scritteCard" th:type = "date" th:text = "${element.getEnds}"></h2>
-					    <br />
+				   		<h2 class = "scritteCard" th:type = "date" th:text = "${element.getEnds()}"></h2>
 				    </div>
 			    </div>
 			    <h1 class = "scritteCard">Tema</h1>
 			    <h2 class = "scritteCard" th:text = "${element.getThema()}"></h2>
-		    	<br />
 		    	<h1 class = "scritteCard">Solo su invito</h1>
 		    	<div class = "containerInputRow">
 		    		<div class = "containerElement">
 		    			<h2 class = "scritteCard">Si</h2>
-				    	<label><input type="checkbox" th:checked="${element.isClosed}" disabled='disabled' /></label>
+				    	<label><input type="checkbox" th:checked="${element.isClosed()}" disabled='disabled' /></label>
 				    	<h2 class = "scritteCard">No</h2>
-				    	<label><input type="checkbox" th:checked="${!element.isClosed}" disabled='disabled' /></label>
+				    	<label><input type="checkbox" th:checked="${!element.isClosed()}" disabled='disabled' /></label>
 				    	<br />
 			    	</div>
 		    	</div>

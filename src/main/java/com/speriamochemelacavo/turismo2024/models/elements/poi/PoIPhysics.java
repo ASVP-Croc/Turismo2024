@@ -70,7 +70,8 @@ public class PoIPhysics extends PointOfInterest {
     }
 
     @Override
-    public PoIType getType() {
-        return PoIType.POI_PHYSICS;
+    public PoIType getPoiType() {
+    	super.setPoiType(PoIType.PHYSICS);
+        return super.getPoiType();
     }
 }

@@ -15,6 +15,8 @@ import com.speriamochemelacavo.turismo2024.models.elements.category.ElementTypol
 import com.speriamochemelacavo.turismo2024.models.users.User;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 /**
  * È un {@link Element Elemento} associato ad un indirizzo del comune di riferimento, assieme alla coppia latitudine - longitudione.
@@ -28,7 +30,7 @@ import jakarta.persistence.Entity;
 
 @Component
 @Entity
-public abstract class PointOfInterest extends ElementWithContents {
+public class PointOfInterest extends ElementWithContents {
 
 	@JsonProperty("lat")
 	private float latitude;
@@ -37,10 +39,12 @@ public abstract class PointOfInterest extends ElementWithContents {
 	@JsonProperty("address")
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Address address;
+	@Enumerated(EnumType.STRING)
+	private PoIType poiType;
 	
 	public PointOfInterest() {
 		super();
-		this.typology = ElementTypology.POI.toString();
+		this.typology = ElementTypology.POI;
 	}
 	
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
@@ -49,7 +53,7 @@ public abstract class PointOfInterest extends ElementWithContents {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.address = address;
-		this.typology = ElementTypology.POI.toString();
+		this.typology = ElementTypology.POI;
 	}
 
 	public float getLongitude() {
@@ -76,6 +80,14 @@ public abstract class PointOfInterest extends ElementWithContents {
 		this.address = address;
 	}
 	
+	public PoIType getPoiType() {
+		return poiType;
+	}
+
+	public void setPoiType(PoIType poiType) {
+		this.poiType = poiType;
+	}
+
 	@Override
 	public String toString() {
 		String toReturn = "";
@@ -84,8 +96,6 @@ public abstract class PointOfInterest extends ElementWithContents {
 				+ ("Descrizione: " + getDescription() + "\n")
 				+ ("Indirizzo: " + getAddress().toString() + "\n")
 				+ ("Città: " + getCity() + "\n")
-				+ ("CAP: " + getPostcode() + "\n");
+				+ ("CAP: " + getPostalcode() + "\n");
 	}
-
-	public abstract PoIType getType();
 }

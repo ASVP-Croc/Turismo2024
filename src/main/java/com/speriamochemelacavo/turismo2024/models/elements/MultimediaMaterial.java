@@ -17,6 +17,7 @@ public class MultimediaMaterial {
     private String type;
 
     private boolean isValidate;
+    
     @ManyToOne
     private Tour tour;
 

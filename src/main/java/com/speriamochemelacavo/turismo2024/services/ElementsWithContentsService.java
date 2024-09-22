@@ -22,30 +22,10 @@ public abstract class ElementsWithContentsService<T extends ElementWithContents>
 	@Autowired
 	private ContentsService contentService;
 	
-	@Autowired
-	private TagsService tagService;
 	
 	public ElementsWithContentsService(){
 		super();
 	}
-	
-//	public void add(T elementsWithContentsToAdd) {
-//		Set<Tag> tagToUpdate = new HashSet<>();
-//		
-//        for (Tag tag : elementsWithContentsToAdd.getTags()) {
-//        	try {
-//                Tag toCheck = tagService.findByTag(tag.getTagName());
-//                tagToUpdate.add(toCheck);
-//			} catch (JDBCException e) {
-//			}
-//        }
-//        for (Tag tag : tagToUpdate) {
-//			elementsWithContentsToAdd.getTags().remove(tag);
-//			elementsWithContentsToAdd.getTags().add(tag);
-//		}
-//        
-//		super.add(elementsWithContentsToAdd);
-//	}
 
 	public abstract boolean isLoaded();
 

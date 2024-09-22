@@ -49,7 +49,6 @@ public class ElementsService<T extends Element> {
 		}
 		
 		T toReturn = elementRepository.save(elementToAdd);
-		validationService.requestValidation(elementToAdd);
 		return toReturn;
 	}
 	

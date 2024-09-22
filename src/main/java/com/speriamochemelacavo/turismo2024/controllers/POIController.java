@@ -4,7 +4,9 @@ import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 
+import org.hibernate.cfg.ValidationSettings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.metrics.StartupStep.Tags;
 import org.springframework.web.bind.annotation.*;
 
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
@@ -13,7 +15,9 @@ import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.services.AddressService;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
+import com.speriamochemelacavo.turismo2024.services.TagsService;
 import com.speriamochemelacavo.turismo2024.services.UsersService;
+import com.speriamochemelacavo.turismo2024.services.ValidationsService;
 
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -33,13 +37,18 @@ public class POIController {
 	
 	@Autowired
 	private ModelSetter modelSetter;
+
+	@Autowired
+	private ValidationsService<PointOfInterest> validationService;
+
+	@Autowired
+	private TagsService tagService;
 	
     @GetMapping("")
     public RedirectView getAllPOIs() {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
 		modelSetter.getAttributes().put("toShow", poiService.findAll());
-		modelSetter.getAttributes().put("isPoi", true);
         return new RedirectView("/elements/list");
     }
 	
@@ -70,10 +79,17 @@ public class POIController {
 
 	@PostMapping("/add")
 	public RedirectView addPoI(@ModelAttribute PointOfInterest element, @ModelAttribute Address address) {
-		System.out.println(address.toString());
 		element.setAuthor(loggedUserService.getLoggedUser());
 		element.setAddress(addressService.add(address));
-		return new RedirectView("/pois/" + poiService.add(element));
+		PointOfInterest toValidate = poiService.add(element);
+		tagService.addAll(tagService.createTagsFromString(
+				element.getName() + "," +
+				element.getDescription() + "," +
+				address.getRoad() + "," +
+				element.getCity(), element));
+		validationService.requestValidation(toValidate);
+		poiService.add(toValidate);
+		return new RedirectView("/pois/" + toValidate.getId());
 	}
 
 	@DeleteMapping("/{id}")
