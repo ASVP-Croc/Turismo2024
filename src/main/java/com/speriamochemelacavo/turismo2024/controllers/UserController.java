@@ -31,24 +31,24 @@ public class UserController {
 		return new RedirectView("/users/list");
 	}
 	
-	@GetMapping("/{id}")
-	public User getUserById(@PathVariable int id){
-		return usersService.findById(id);
-	}
+//	@GetMapping("/{id}")
+//	public User getUserById(@PathVariable int id){
+//		return usersService.findById(id);
+//	}
 
 	@PostMapping("/add")
 	public RedirectView addUser(User userToAdd){
-		usersService.addUser(userToAdd);
+		usersService.add(userToAdd);
 		return new RedirectView("/users");
 	}
 	
 	@PutMapping("/update")
 	public void updateUser(@RequestBody User userToUpdate) {
-		usersService.addUser(userToUpdate);
+		usersService.add(userToUpdate);
 	}
 	
 	@DeleteMapping("/{id}")
 	public void deleteUserById(@PathVariable int id) {
-		usersService.deleteUserById(id);
+		usersService.delete(id);
 	}
 }

@@ -1,6 +1,7 @@
 package com.speriamochemelacavo.turismo2024.services;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -25,28 +26,51 @@ public class ElementsService<T extends Element> {
 
 	public T findById(int elemToFindId) throws SQLIntegrityConstraintViolationException {
 		Optional<T> toCheck = elementRepository.findById(elemToFindId);
+		
 		if (toCheck.isPresent()) {
 //	    	TODO togliere prima della produzione
-			System.out.println("L'elemento " + toCheck.get().getName() + " è stato trovato");
 			return toCheck.get();
 		} else 
-			throw new SQLIntegrityConstraintViolationException("L'elemento con ID " + elemToFindId + " non è stato trovato");
+			throw new SQLIntegrityConstraintViolationException("L'elemento non è stato trovato");
 	}
 	
 	public List<T> findAll(){
 		return elementRepository.findAll();
 	}
 	
-	public void add(T elementToAdd) {
+	public T add(T elementToAdd) {
+		
 		try {
 			findById(elementToAdd.getId());
-			System.out.println("L'elemento " + elementToAdd.getName() + " è stato aggiornato");
+			System.out.println("L'elemento " + elementToAdd.getName() + " è stato trovato e aggiornato");
 		} catch (SQLIntegrityConstraintViolationException e) {
 //	    	TODO togliere prima della produzione
 			System.out.println(elementToAdd.getName() + " - " + e.getLocalizedMessage() + ", quindi è stato aggiunto");
 		}
-		elementRepository.save(elementToAdd);
+		
+		T toReturn = elementRepository.save(elementToAdd);
 		validationService.requestValidation(elementToAdd);
+		return toReturn;
+	}
+	
+	public List<T> addAll(List<T> elementsToAdd) {
+		List<T> toReturn = new ArrayList<>();
+		elementsToAdd.stream().forEach(p -> toReturn.add(add(p)));
+		return toReturn;
+	}
+	
+	public void update(T elementToAdd) {
+		try {
+			findById(elementToAdd.getId());
+//	    	TODO togliere prima della produzione
+
+			System.out.println("L'elemento " + elementToAdd.getName() + " è stato trovato e aggiornato");
+		} catch (SQLIntegrityConstraintViolationException e) {
+//	    	TODO togliere prima della produzione
+			System.out.println(elementToAdd.getName() + " - " + e.getLocalizedMessage() + ", quindi è stato aggiunto");
+		}
+		
+		elementRepository.save(elementToAdd);
 	}
 
 	public void deleteById(Integer id) {

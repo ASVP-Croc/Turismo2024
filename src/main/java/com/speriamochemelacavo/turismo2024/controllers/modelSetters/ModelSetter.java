@@ -44,18 +44,22 @@ public class ModelSetter {
 	public void setBaseVisibility() {
 		attributes.put("username",
 				loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getUsername() : "Turista");
-		attributes.put("isAdmin", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole()==Role.ROLE_ADMINISTRATOR : false);
-		attributes.put("isCurator", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole()==Role.ROLE_CURATOR : false);
-		attributes.put("isAnimator", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole()==Role.ROLE_ANIMATOR : false);
-		attributes.put("isContributor", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole()==Role.ROLE_CONTRIBUTOR : false);
-		attributes.put("isAuthTourist", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole()==Role.ROLE_AUTHENTICATED_TOURIST : false);
+		attributes.put("isAdmin", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole() == Role.ROLE_ADMINISTRATOR : false);
+		attributes.put("isCurator", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole() == Role.ROLE_CURATOR : false);
+		attributes.put("isAnimator", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole() == Role.ROLE_ANIMATOR : false);
+		attributes.put("isContributor", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole() == Role.ROLE_CONTRIBUTOR : false);
+		attributes.put("isAuthTourist", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole() == Role.ROLE_AUTHENTICATED_TOURIST : false);
 		attributes.put("isTourist", !loggedUserService.isLogged());
 		attributes.put("isLoadedUsers", loggedUserService.isLoaded());
-		boolean isPOIButtonVisible = (loggedUserService.isLogged() & !poiService.isLoaded());
+		boolean isPOIButtonVisible = (loggedUserService.isLogged() && loggedUserService.getLoggedUser().getRole() != Role.ROLE_AUTHENTICATED_TOURIST && !poiService.isLoaded());
 		attributes.put("isPOIButtonVisible", isPOIButtonVisible);
-		boolean isTourButtonVisible = (loggedUserService.isLogged() & !tourService.isLoaded());
+		boolean isTourButtonVisible = (loggedUserService.isLogged() && loggedUserService.getLoggedUser().getRole() != Role.ROLE_AUTHENTICATED_TOURIST && !tourService.isLoaded());
 		attributes.put("isTourButtonVisible", isTourButtonVisible);
 		attributes.put("numberOfNotifications", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getNotifications().size() : 56);
+	}
+	
+	public Object getAttribute(String attribute) {
+		return attributes.get(attribute);
 	}
 	
 	public Map<String, Object> getAttributes() {

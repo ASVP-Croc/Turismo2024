@@ -7,6 +7,8 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
+import com.speriamochemelacavo.turismo2024.models.users.User;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,6 +18,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -34,8 +37,7 @@ public class Tag {
 	private int id = 0;
 	@Column(name = "tagName", nullable = false, unique = true)
 	private String tagName;
-
-	@ManyToMany(mappedBy = "tags", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<ElementWithContents> elementsTagged = new HashSet<>();
 
 	public Tag() {
@@ -77,11 +79,13 @@ public class Tag {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj == null || getClass() != obj.getClass()) return false;
-		Tag tag1 = (Tag) obj;
-		return (this.getTagName().equals(tag1.getTagName()) && this.getId()==tag1.getId());
+	public boolean equals(Object tagToEquals) {
+		if (this == tagToEquals) return true;
+		if (tagToEquals != null && getClass() == tagToEquals.getClass()) {
+			Tag toEquals = (Tag) tagToEquals;
+			return (this.getTagName().equals(toEquals.getTagName()) && this.getId()==toEquals.getId());
+		}
+		return false;
 	}
 
 	@Override

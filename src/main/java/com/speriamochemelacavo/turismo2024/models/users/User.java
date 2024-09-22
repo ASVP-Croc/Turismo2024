@@ -1,13 +1,17 @@
 package com.speriamochemelacavo.turismo2024.models.users;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.stereotype.Component;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.notifications.Notification;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -15,6 +19,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -51,6 +57,7 @@ public class User {
 	private int id;
 	private String name;
 	private String surname;
+	@Column(name = "username", nullable = false, unique = true)
 	private String username;
 	private String password;
 	private String email;
@@ -61,9 +68,9 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	@ManyToMany(mappedBy = "recipientUsers", cascade = CascadeType.ALL)
-	private List<Notification> notifications = new ArrayList<>();
+	private Set<Notification> notifications = new HashSet<>();
 	@OneToMany
-	private List<Element> savedElements = new ArrayList<>();
+	private Set<Element> savedElements = new HashSet<>();
 
 	public User() {
 		
@@ -176,22 +183,20 @@ public class User {
 		this.CAP = CAP;
 	}
 	
-	public List<Notification> getNotifications() {
+	public Set<Notification> getNotifications() {
 		return notifications;
 	}
 	
-	public List<Element> getSavedElements() {
+	public Set<Element> getSavedElements() {
 		return savedElements;
 	}
 	
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj != null && getClass() == obj.getClass()) {
-			User toCompare = (User) obj;
-			if (toCompare.getId() == this.getId()) {
-				return true;
-			}
+	public boolean equals(Object userToEquals) {
+		if (this == userToEquals) return true;
+		if (userToEquals != null && getClass() == userToEquals.getClass()) {
+			User toEquals = (User) userToEquals;
+			return(toEquals.getId() == this.getId());
 		}
 		return false;
 	}

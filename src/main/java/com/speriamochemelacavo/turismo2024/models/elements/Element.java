@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.speriamochemelacavo.turismo2024.models.notifications.Notification;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 
 /**
@@ -108,13 +109,11 @@ public class Element {
 	}
 	
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj != null && getClass() == obj.getClass()) {
-			Element toCompare = (Element) obj;
-			if (toCompare.getId() == this.getId()) {
-				return true;
-			}
+	public boolean equals(Object elementToEquals) {
+		if (this == elementToEquals) return true;
+		if (elementToEquals != null && getClass() == elementToEquals.getClass()) {
+			Element toEquals = (Element) elementToEquals;
+			return (toEquals.getId() == this.getId());
 		}
 		return false;
 	}

@@ -51,18 +51,5 @@ public class NotificationsService {
 	public void deleteNotificationById(int notificationId) {
 		notificationRepository.deleteById(notificationId);
 	}
-	
-	public void updateValidation(String message, Notification notificationToResponse){
-		Notification notificationUpdated = notificationToResponse;
-		notificationUpdated.setTitle("Aggiornamento pubblicazione: " + notificationToResponse.getNotificationObject().getName());
-		notificationUpdated.setMessage(message);
-		add(notificationUpdated);
-	}
-	
-	public void confirmValidation(Notification notificationToConfirm) {
-		Notification notificationConfirmed = notificationToConfirm;
-		notificationConfirmed.setTitle("Pubblicazione avvenuta: " + notificationToConfirm.getNotificationObject().getName());
-		notificationConfirmed.setMessage("");
-		add(notificationConfirmed);
-	}
+
 }

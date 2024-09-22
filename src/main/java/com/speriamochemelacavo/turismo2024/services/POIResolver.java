@@ -38,7 +38,7 @@ public class POIResolver extends ElementResolver<PointOfInterest>{
 		Address address = new Address();
 		LinkedHashMap<String, String> addressToConvert = ((LinkedHashMap<String, String>)mapper.convertValue(addressToResolve, LinkedHashMap.class));
 		address.setAmenity(checkKey(addressToConvert, "amenity"));
-		address.setHouse_number(checkKey(addressToConvert, "house_number"));
+		address.setHouseNumber(checkKey(addressToConvert, "house_number"));
 		address.setRoad(addressToConvert.get("road"));
 		pointOfInterest.setCity(checkKey(addressToConvert, "city"));
 		pointOfInterest.setPostcode(addressToConvert.get("postcode") != null ? addressToConvert.get("postcode") : "------");

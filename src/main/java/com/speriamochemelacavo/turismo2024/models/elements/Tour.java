@@ -2,7 +2,9 @@ package com.speriamochemelacavo.turismo2024.models.elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
+import com.speriamochemelacavo.turismo2024.models.elements.poi.POIForTour;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import org.springframework.stereotype.Component;
 
@@ -28,20 +30,20 @@ import jakarta.persistence.OneToMany;
 public class Tour extends ElementWithContents{
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
-	private List<PointOfInterest> myPOIs = new ArrayList<>();
+	private List<POIForTour> myPOIs = new ArrayList<>();
 	
 	public Tour() {
 		super();
 		this.typology = ElementTypology.TOUR.toString();
 	}
 
-	public Tour(String name, String description, User author, String city, String postcode, List<Content> contents, List<PointOfInterest> myPOIs) {
+	public Tour(String name, String description, User author, String city, String postcode, List<Content> contents, List<POIForTour> myPOIs) {
 		super(name, description, author, contents, city, postcode);
 		this.myPOIs = myPOIs;
 		this.typology = ElementTypology.TOUR.toString();
 	}
 
-	public List<PointOfInterest> getMyPOIs() {
+	public List<POIForTour> getMyPOIs() {
 		return myPOIs;
 	}
 }

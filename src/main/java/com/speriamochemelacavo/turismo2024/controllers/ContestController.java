@@ -20,14 +20,15 @@ import java.util.Map;
 @RestController
 @RequestMapping("/contests")
 public class ContestController {
-    @Autowired
-    private LoggedUserDetailService loggedUserService;
 
     @Autowired
     private ContestsService contestService;
     
 	@Autowired
 	private ModelSetter modelSetter;
+
+	@Autowired
+	private LoggedUserDetailService loggedUserService;
 
     @GetMapping("")
     public RedirectView getAllContests() {
@@ -41,12 +42,17 @@ public class ContestController {
     @GetMapping("/{id}")
     public RedirectView getContestById(@PathVariable int id) {
 //    	TODO da ricontrollare, è stato fatto così il metodo per gestire temporaneamente l'eccezione
+		modelSetter.clearAllAttributes();
+		modelSetter.setBaseVisibility();
+		//    	TODO da ricontrollare, è stato fatto così il metodo per gestire temporaneamente l'eccezione
         try {
-			contestService.findById(id);
-			return new RedirectView("element");
+    		modelSetter.getAttributes().put("element", contestService.findById(id));
+    		modelSetter.getAttributes().put("isContest", true);
+			return new RedirectView("/element");
 		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
-			return new RedirectView("element");
+			modelSetter.getAttributes().put("alertMessage", "Contest non trovato!");
+			return new RedirectView("/");
 		}
     }
 
@@ -55,12 +61,15 @@ public class ContestController {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
 		modelSetter.getAttributes().put("isContest", true);
+		modelSetter.getAttributes().put("urlCreationElement", "/contests/add");
+		modelSetter.getAttributes().put("element", new Contest());
         return new RedirectView("/creation");
     }
 
-    @PutMapping("/update")
-    public void updateContest(@RequestBody Contest contestToUpdate) {
-        contestService.add(contestToUpdate);
+    @PostMapping("/add")
+    public RedirectView addContest(@ModelAttribute Contest element) {
+		element.setAuthor(loggedUserService.getLoggedUser());
+		return new RedirectView("/pois/" + contestService.add(element));    
     }
 
     @DeleteMapping("/{id}")

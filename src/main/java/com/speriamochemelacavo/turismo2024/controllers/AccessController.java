@@ -27,7 +27,7 @@ public class AccessController {
 	public RedirectView registerUser(@ModelAttribute User newUser) {
 		newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 		newUser.setRole(Role.ROLE_AUTHENTICATED_TOURIST);
-		accountService.addUser(newUser);
+		accountService.add(newUser);
 		return new RedirectView("/login");
 	}
 }

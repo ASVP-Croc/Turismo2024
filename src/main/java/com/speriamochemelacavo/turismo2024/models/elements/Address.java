@@ -12,8 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-@Table(name = "addresses", indexes = {
-	    @Index(name = "idx_road", columnList = "road", unique = false)})
+@Table(name = "addresses")
 public class Address {
 
 	@Id
@@ -22,7 +21,7 @@ public class Address {
     @JsonProperty("amenity")
     private String amenity;
     @JsonProperty("house_number")
-    private String house_number;
+    private String houseNumber;
     @JsonProperty("road")
     private String road;
 
@@ -30,9 +29,9 @@ public class Address {
 
     }
 
-    public Address(String amenity, String house_number, String road) {
+    public Address(String amenity, String houseNumber, String road) {
 		this.amenity = amenity;
-		this.house_number = house_number;
+		this.houseNumber = houseNumber;
 		this.road = road;
 	}
 
@@ -52,12 +51,12 @@ public class Address {
         this.amenity = amenity;
     }
 
-    public String getHouse_number() {
-        return house_number;
+    public String getHouseNumber() {
+        return houseNumber;
     }
 
-    public void setHouse_number(String house_number) {
-        this.house_number = house_number;
+    public void setHouseNumber(String house_number) {
+        this.houseNumber = house_number;
     }
 
     public String getRoad() {
@@ -73,7 +72,7 @@ public class Address {
     	String toReturn = 
     			getRoad()
     			+ ", "
-    			+ ((getHouse_number() != null && !getHouse_number().isBlank()) ? (getHouse_number()) : "snc");
+    			+ ((getHouseNumber() != null && !getHouseNumber().isBlank()) ? (getHouseNumber()) : "snc");
 		return toReturn;
 	}
 }

@@ -4,6 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html" />
 </head>
 <body>
+
 	<div th:fragment = "elementsList" class = "containerElement">
 		<div class = "card" th:each = "element : ${toShow.subList(0, toShow.size() > 5 ? 5 : toShow.size())}">
     		<h1 class = "scritteCard" th:text = "${'Titolo: '} + ${element.getName()}">Titolo</h1>
@@ -17,6 +18,7 @@
     		<h1 class = "scritteCard" th:text = "${'Città: '} + ${element.getCity()} + ${' ('} + ${element.getPostcode()} + ${')'}">Città</h1>
     	</div>
 	</div>
+	
 	<div th:fragment = "toursList" class = "Card">
 		<div class = "card" th:each = "poi : ${element.getMyPOIs().subList(0, element.getMyPOIs().size() > 5 ? 5 : element.getMyPOIs().size())}">
     		<h1 class = "scritteCard" th:text = "${'Titolo: '} + ${poi.getName()}">Titolo</h1>
@@ -25,6 +27,54 @@
     		<h1 class = "scritteCard" th:text = "${'Indirizzo: '} + ${poi.getAddress.toString()}">Indirizzo</h1>
     		<h1 class = "scritteCard" th:text = "${'Città: '} + ${poi.getCity()} + ${' ('} + ${poi.getPostcode()} + ${')'}">Città</h1>
     	</div>
+	</div>
+	
+	<div th:fragment = "elementView" class = "containerElement">
+		<div class = "card" th:object = "${element}">
+			<h1 class = "scritteCard">Titolo</h1>
+			<h2 class = "scritteCard" th:text = "${element.getName()}"></h2>
+		    <br />
+		    <h1 class = "scritteCard">Descrizione</h1>
+		    <textarea class = "scritteCard" th:textarea = "${element.getDescription()}" rows="10" cols="50" maxlength="200" style="width: 200px; height: 100px;"></textarea>
+		    <br />
+		    <h1 class = "scritteCard">Città</h1>
+		    <h2 class = "scritteCard" th:text = "${element.getCity()}"></h2>
+		    <br />
+		    <h1 class = "scritteCard">C.A.P.</h1>
+		    <h2 class = "scritteCard" th:text = "${element.getPostcode()}"></h2>
+		    <br />
+		    <div th:if = "${isPoi}" class = "containerElement">
+		    	<h1 class = "scritteCard">Address</h1>
+				<h2 class = "scritteCard" th:text = "${element.getAddress().getRoad()} + ${element.Address().getHouseNumber()}"></h2>
+		    </div>
+		    <div th:if = "${isContest}" class = "containerElement">
+		    	<div class = "containerInputRow">
+				    <div class = "containerElement">
+				   		<h1  class = "scritteCard">Inizia il:</h1>
+				   		<h2 class = "scritteCard" th:type = "date" th:text = "${element.getStarts}"></h2>
+					    <br />
+				    </div>
+				    <div class = "containerElement">	    	
+					    <h1 class = "scritteCard">Termina il:</h1>
+				   		<h2 class = "scritteCard" th:type = "date" th:text = "${element.getEnds}"></h2>
+					    <br />
+				    </div>
+			    </div>
+			    <h1 class = "scritteCard">Tema</h1>
+			    <h2 class = "scritteCard" th:text = "${element.getThema()}"></h2>
+		    	<br />
+		    	<h1 class = "scritteCard">Solo su invito</h1>
+		    	<div class = "containerInputRow">
+		    		<div class = "containerElement">
+		    			<h2 class = "scritteCard">Si</h2>
+				    	<label><input type="checkbox" th:checked="${element.isClosed}" disabled='disabled' /></label>
+				    	<h2 class = "scritteCard">No</h2>
+				    	<label><input type="checkbox" th:checked="${!element.isClosed}" disabled='disabled' /></label>
+				    	<br />
+			    	</div>
+		    	</div>
+		    </div>
+		</div>		
 	</div>
 </body>
 </html>

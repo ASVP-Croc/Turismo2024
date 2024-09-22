@@ -17,11 +17,6 @@ public class ContestsService extends ElementsWithContentsService<Contest>  {
 	public ContestsService() {
 		super();
 	}
-
-	@Override
-	public void add(Contest contestToAdd) {
-		super.add(contestToAdd);
-	}
 	
 	public void add(Contest contestToAdd, Date starts, Date ends) {
 		contestToAdd.setStarts(starts);

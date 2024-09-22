@@ -72,3 +72,11 @@
 	margin-right: auto;
 	width: 80%;
 }
+/* Stile per gli spazi di input per le descrizioni */
+.inputDescrizione{
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	height: 100px;
+	width: 200px;
+}

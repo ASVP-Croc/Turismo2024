@@ -1,7 +1,9 @@
 package com.speriamochemelacavo.turismo2024.services;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,23 +23,42 @@ public class UsersService {
 		return userRepository.findAll();
 	}
 	
-	public User findById(int userToFindId) {
-		return userRepository.findById(userToFindId).orElseThrow();
+	public User findById(int userToFindId) throws SQLIntegrityConstraintViolationException {
+		Optional<User> toCheck = userRepository.findById(userToFindId);
+		
+		if (toCheck.isPresent()) {
+			return toCheck.get();
+		} else 
+			throw new SQLIntegrityConstraintViolationException("L'Utente non è stato trovato");
 	}
 	
-	public User findByUserName(String userToFindUserName) {
-		return userRepository.findByUsername(userToFindUserName);
+	public User findByUserName(String userToFindUserName) throws SQLIntegrityConstraintViolationException {
+		Optional<User> toCheck = userRepository.findByUsername(userToFindUserName);
+		
+		if (toCheck.isPresent()) {
+			return toCheck.get();
+		} else 
+			throw new SQLIntegrityConstraintViolationException("L'Utente non è stato trovato");
 	}
 	
-	public List<User> findByRole(Role userToFindRole) {
-		return userRepository.findByRole(userToFindRole);
+	public List<User> findByRole(Role userToFindRole) throws SQLIntegrityConstraintViolationException {
+		Optional<List<User>> toCheck = userRepository.findByRole(userToFindRole);
+		
+		if (toCheck.isPresent()) {
+			return toCheck.get();
+		} else 
+			throw new SQLIntegrityConstraintViolationException("L'Utente/gliutenti non sono stati trovati");
 	}
 
-	public void addUser(User userToAdd) {
+	public void add(User userToAdd) {
         userRepository.save(userToAdd);
 	}
 	
-	public void deleteUserById(int userToDeleteId) {
+	public void addAll(List<User> userToAdd) {
+        userRepository.saveAll(userToAdd);
+	}
+	
+	public void delete(int userToDeleteId) {
 		userRepository.deleteById(userToDeleteId);
 	}
 //	

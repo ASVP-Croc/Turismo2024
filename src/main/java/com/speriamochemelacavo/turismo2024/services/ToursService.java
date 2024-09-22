@@ -1,9 +1,11 @@
 package com.speriamochemelacavo.turismo2024.services;
 
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.springframework.stereotype.Service;
 
+import com.speriamochemelacavo.turismo2024.models.elements.poi.POIForTour;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.models.elements.Tour;
@@ -15,11 +17,6 @@ public class ToursService extends ElementsWithContentsService<Tour>{
 	
 //	@Autowired
 //	private MultimediaMaterialRepository multimediaMaterialRepository;
-
-	public void add(Tour tourToAdd, List<PointOfInterest> poisToAdd) {
-		tourToAdd.getMyPOIs().addAll(poisToAdd);
-		super.add(tourToAdd);
-	}
 	
 	@Override
 	public boolean isLoaded() {

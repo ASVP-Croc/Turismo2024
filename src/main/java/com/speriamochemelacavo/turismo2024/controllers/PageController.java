@@ -60,7 +60,7 @@ public class PageController {
 	@GetMapping("/element")
 	public String getElement(Model model) {
 		modelSetter.setAttributesInModel(model);
-		return "element";
+		return "elementView";
 	}
 	
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test

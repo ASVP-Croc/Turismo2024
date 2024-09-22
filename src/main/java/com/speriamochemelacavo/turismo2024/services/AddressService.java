@@ -22,8 +22,8 @@ public class AddressService {
 		return addressRepository.findAll();
 	}
 	
-	public void add(Address address) {
-		addressRepository.save(address);
+	public Address add(Address address) {
+		return addressRepository.save(address);
 	}
 	
 	public void delete(Address addressToDelete) {

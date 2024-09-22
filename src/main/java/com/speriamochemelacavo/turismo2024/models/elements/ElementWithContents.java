@@ -27,13 +27,6 @@ public class ElementWithContents extends Element {
 	private String city;
 	@JsonProperty("postcode")
 	private String postcode = "";
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(
-	        name = "element_tags",
-	        joinColumns = @JoinColumn(name = "element_id"),
-	        inverseJoinColumns = @JoinColumn(name = "tag_id"))
-	private Set<Tag> tags = new HashSet<>();
-
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Content> myContents = new HashSet<>();
 	
@@ -64,10 +57,6 @@ public class ElementWithContents extends Element {
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
 	}
-	
-	public Set<Tag> getTags() {
-		return tags;
-	}
 
 	public Set<Content> getMyContents() {
 		return myContents;
@@ -79,7 +68,6 @@ public class ElementWithContents extends Element {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return super.toString();
 	}
 }

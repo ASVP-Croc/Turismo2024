@@ -13,10 +13,10 @@ public class ContentsService extends ElementsService<Content>{
 
 	private boolean isContentsLoaded;
 
-	public void add(Content contentToAdd, List<Tag> tags, ElementWithContents referenced, String pathToResource) {
+	public Content add(Content contentToAdd, ElementWithContents referenced, String pathToResource) {
 		contentToAdd.setReferenced(referenced);
 		contentToAdd.setPathToResource(pathToResource);
-		super.add(contentToAdd);
+		return super.add(contentToAdd);
 	}
 
 	//lo fa l'elementWithContentsSevice

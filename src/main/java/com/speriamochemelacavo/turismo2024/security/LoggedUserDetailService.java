@@ -1,5 +1,7 @@
 package com.speriamochemelacavo.turismo2024.security;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -31,7 +33,13 @@ public class LoggedUserDetailService extends UsersService implements UserDetails
 	}
 	
 	public User getLoggedUser() {
-		return findByUserName(((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+		try {
+			return findByUserName(((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+		} catch (SQLIntegrityConstraintViolationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public boolean isLogged() {
@@ -45,9 +53,12 @@ public class LoggedUserDetailService extends UsersService implements UserDetails
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = findByUserName(username);
-		
-		if (user == null) {
+		User user;
+		try {
+			user = findByUserName(username);
+		} catch (SQLIntegrityConstraintViolationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			throw new UsernameNotFoundException("utente non trovato");
 		}
 		

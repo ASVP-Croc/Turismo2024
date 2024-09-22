@@ -31,9 +31,9 @@ public class TagsService {
 	
 	public Tag findById(int tagId) throws SQLIntegrityConstraintViolationException{
 		Optional<Tag> tagToReturn = tagRepository.findById(tagId);
+		
 		if(tagToReturn.isPresent()) {
 //	    	TODO togliere prima della produzione
-			System.out.println("Il Tag " + tagToReturn.get().getTagName() + " è stato trovato");
 			return tagToReturn.get();
 		} else {
 //	    	TODO togliere prima della produzione
@@ -43,9 +43,9 @@ public class TagsService {
 	
 	public Tag findByTag(String tagName) throws SQLIntegrityConstraintViolationException{
 		Optional<Tag> tagToReturn = tagRepository.findByTagName(tagName);
+		
 		if(tagToReturn.isPresent()) {
 //	    	TODO togliere prima della produzione
-			System.out.println("Il Tag " + tagToReturn.get().getTagName() + " è stato trovato");
 			return tagToReturn.get();
 		} else {
 //	    	TODO togliere prima della produzione
@@ -53,17 +53,19 @@ public class TagsService {
 		}
 	}
 	
-	public void add(Tag tagToAdd) {
+	public Tag add(Tag tagToAdd) {
 //		TODO togliere il try una volta completato il progetto
+		
 		try {
 			Tag toCheck = findByTag(tagToAdd.getTagName());
 			tagToAdd.setId(toCheck.getId());
-			System.out.println("Il Tag " + tagToAdd.getTagName() + " è stato aggiornato");
+			System.out.println("Il Tag " + tagToAdd.getTagName() + " è stato trovato e aggiornato");
 		} catch (SQLIntegrityConstraintViolationException e) {
 			// TODO Auto-generated catch block
-			System.out.println(tagToAdd.getTagName() + " - " + e.getLocalizedMessage() + ", quindi è stato aggiunto");
+			System.out.println(e.getLocalizedMessage() + ", quindi è stato aggiunto");
 		}
-		tagRepository.save(tagToAdd);
+		
+		return tagRepository.save(tagToAdd);
 	}
 	
 //	public void add(Tag tagToAdd, ElementWithContents element) {
@@ -71,9 +73,11 @@ public class TagsService {
 //		add(tagToAdd);
 //	}
 //	
-//	public void addAll(List<Tag> tagsToAdd) {
-//		tagsToAdd.stream().forEach(t -> add(t));
-//	}
+	public Set<Tag> addAll(Set<Tag> tagsToAdd) {
+		Set<Tag>  toReturn = new HashSet<>();
+		tagsToAdd.stream().forEach(t -> toReturn.add(add(t)));
+		return toReturn;
+	}
 //	
 //	public void addAll(List<Tag> tagsToAdd, ElementWithContents element) {
 //		tagsToAdd.stream().forEach(t -> add(t, element));
@@ -83,9 +87,9 @@ public class TagsService {
 		tagRepository.delete(tagToDelete);
 	}
 	
-	public Set<Tag> createTagsFromString(String toConvert) {
+	public <T extends ElementWithContents> Set<Tag> createTagsFromString(String toConvert, T elementWithContentToTag) {
 		Set<Tag> toReturn = new HashSet<>();
-		split(toConvert).stream().forEach(s -> toReturn.add(new Tag(s)));
+		split(toConvert).stream().forEach(s -> toReturn.add(new Tag(s, elementWithContentToTag)));
 		return toReturn;
 	}
 	

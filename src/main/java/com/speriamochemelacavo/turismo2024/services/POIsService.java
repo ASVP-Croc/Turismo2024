@@ -18,12 +18,6 @@ public class POIsService extends ElementsWithContentsService<PointOfInterest> {
 		super();
 	}
 
-	public void addPOI(PointOfInterest POIToAdd, Address address) {
-		//lo faccio qui o sopra?
-		POIToAdd.setAddress(address);
-		super.add(POIToAdd);
-	}
-
 	@Override
 	public boolean isLoaded() {
 		return isPoisLoaded;

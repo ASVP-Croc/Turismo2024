@@ -35,7 +35,7 @@ public abstract class PointOfInterest extends ElementWithContents {
 	@JsonProperty("lon")
 	private float longitude;
 	@JsonProperty("address")
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Address address;
 	
 	public PointOfInterest() {
@@ -79,11 +79,12 @@ public abstract class PointOfInterest extends ElementWithContents {
 	@Override
 	public String toString() {
 		String toReturn = "";
-		return toReturn.concat("Name: " + getName() + "\n")
-		.concat("Descrizione: " + getDescription() + "\n")
-		.concat("Indirizzo: " + getAddress().toString() + "\n")
-		.concat("Città: " + getCity() + "\n")
-		.concat("CAP: " + getPostcode() + "\n");
+		return toReturn 
+				+ ("Name: " + getName() + "\n") 
+				+ ("Descrizione: " + getDescription() + "\n")
+				+ ("Indirizzo: " + getAddress().toString() + "\n")
+				+ ("Città: " + getCity() + "\n")
+				+ ("CAP: " + getPostcode() + "\n");
 	}
 
 	public abstract PoIType getType();

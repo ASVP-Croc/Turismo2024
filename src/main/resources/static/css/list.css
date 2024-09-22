@@ -14,7 +14,14 @@
 	flex-wrap: nowrap;
 	padding: 10px;
 }
-
+/* Stile per il div che contiene gli input in riga */
+.containerInputRow {
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	flex-wrap: nowrap;
+	padding: 10px;
+}
 /* Stile per i div delle cards */
 .card {
 	display: flex;
@@ -79,5 +86,4 @@
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
-	width: 80%;
 }

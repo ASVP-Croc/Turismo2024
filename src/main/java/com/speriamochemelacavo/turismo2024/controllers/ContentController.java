@@ -39,24 +39,31 @@ public class ContentController {
     @GetMapping("/{id}")
     public RedirectView getContentById(@PathVariable int id) {
 //    	TODO da ricontrollare, è stato fatto così il metodo per gestire temporaneamente l'eccezione
+		modelSetter.clearAllAttributes();
+		modelSetter.setBaseVisibility();
+		//    	TODO da ricontrollare, è stato fatto così il metodo per gestire temporaneamente l'eccezione
         try {
-			contentService.findById(id);
-			return new RedirectView("element");
+    		modelSetter.getAttributes().put("element", contentService.findById(id));
+    		modelSetter.getAttributes().put("isContent", true);
+			return new RedirectView("/element");
 		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
-			return new RedirectView("element");
+			modelSetter.getAttributes().put("alertMessage", "Contenuto non trovato!");
+			return new RedirectView("/");
 		}
     }
 
-    @PostMapping("/creation")
+    @GetMapping("/creation")
     public RedirectView createContent(Content content) {
+		modelSetter.getAttributes().put("urlCreationElement", "/pois/add");
         contentService.add(content);
         return new RedirectView("/contents");
     }
 
-    @PutMapping("/update")
-    public void updateContent(@RequestBody Content contentToUpdate) {
-        contentService.add(contentToUpdate);
+    @PostMapping("/add")
+    public void updateContent(@ModelAttribute Content element) {
+		element.setAuthor(loggedUserService.getLoggedUser());
+        contentService.add(element);
     }
 
     @DeleteMapping("/{id}")

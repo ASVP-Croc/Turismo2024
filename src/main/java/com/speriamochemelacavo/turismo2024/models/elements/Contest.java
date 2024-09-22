@@ -26,14 +26,14 @@ import jakarta.persistence.Entity;
 @Entity
 public class Contest extends ElementWithContents {
 
+	private Date starts;
+	private Date ends;
 	private String theme;
-	private boolean isOpen;
-
+	private boolean isClosed;
 	private String linkInvite;
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<User> participants;
-	private Date starts;
-	private Date ends;
+
 	
 	public Contest() {
 		super();
@@ -44,7 +44,7 @@ public class Contest extends ElementWithContents {
 	public Contest(String name, String description, User author, String city, String postcode, List<Content> contents, String theme, boolean isOpen, String linkInvite, Date starts, Date ends) {
 		super(name, description, author, contents, city, postcode);
 		this.theme = theme;
-		this.isOpen = isOpen;
+		this.isClosed = isOpen;
 		this.linkInvite = linkInvite;
 		this.starts = starts;
 		this.ends = ends;
@@ -65,6 +65,34 @@ public class Contest extends ElementWithContents {
 
 	public void setEnds(Date ends) {
 		this.ends = ends;
+	}
+
+	public String getTheme() {
+		return theme;
+	}
+
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+
+	public boolean getIsClosed() {
+		return isClosed;
+	}
+
+	public void setIsClosed(boolean isClosed) {
+		this.isClosed = isClosed;
+	}
+
+	public String getLinkInvite() {
+		return linkInvite;
+	}
+
+	public void setLinkInvite(String linkInvite) {
+		this.linkInvite = linkInvite;
+	}
+
+	public List<User> getParticipants() {
+		return participants;
 	}
 	
 }
