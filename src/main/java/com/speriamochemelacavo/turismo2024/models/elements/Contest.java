@@ -1,7 +1,6 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -34,7 +33,6 @@ public class Contest extends ElementWithContents {
 	private String linkInvite;
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<User> participants;
-
 	
 	public Contest() {
 		super();

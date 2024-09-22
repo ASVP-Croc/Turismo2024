@@ -100,6 +100,8 @@ public class PreparationController {
 		modelSetter.getAttributes().put("toShow", tourService.findAll());
 		return new RedirectView("/");
 	}
+
+
 	
 	private void savePoi(List<PointOfInterest> poisToSave) {
 		poisToSave.stream().forEach(p -> {

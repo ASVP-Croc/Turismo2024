@@ -1,6 +1,10 @@
 package com.speriamochemelacavo.turismo2024.services;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -61,4 +65,10 @@ public class NominatimService {
         HttpResponse response = client.execute(request);
         return EntityUtils.toString(response.getEntity());
     }
+
+	public List<PointOfInterest> filterPoIByType(List<PointOfInterest> pois, String type) {
+		return pois.stream()
+				.filter(p -> p.getPoiType().equals(type))
+				.collect(Collectors.toList());
+	}
 }

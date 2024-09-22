@@ -67,10 +67,10 @@ public class ContentController {
 
     @PostMapping("/add")
     public RedirectView updateContent(@ModelAttribute Content element) {
-		element.setAuthor(loggedUserService.getLoggedUser());
-		Content toValidate = contentService.add(element);
-		validationService.requestValidation(toValidate);
-		contentService.add(toValidate);
+        element.setAuthor(loggedUserService.getLoggedUser());
+        Content toValidate = contentService.add(element);
+        validationService.requestValidation(toValidate);
+        contentService.add(toValidate);
         return new RedirectView("/contents/" + toValidate.getId());
     }
 

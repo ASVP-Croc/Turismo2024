@@ -55,14 +55,14 @@
 				    </div>
 			    </div>
 			    <h1 class = "scritteCard">Tema</h1>
-			    <h2 class = "scritteCard" th:text = "${element.getThema()}"></h2>
+			    <h2 class = "scritteCard" th:text = "${element.getTheme()}"></h2>
 		    	<h1 class = "scritteCard">Solo su invito</h1>
 		    	<div class = "containerInputRow">
 		    		<div class = "containerElement">
 		    			<h2 class = "scritteCard">Si</h2>
-				    	<label><input type="checkbox" th:checked="${element.isClosed()}" disabled='disabled' /></label>
+				    	<label><input type="checkbox" th:checked="${element.getIsClosed()}" disabled='disabled' /></label>
 				    	<h2 class = "scritteCard">No</h2>
-				    	<label><input type="checkbox" th:checked="${!element.isClosed()}" disabled='disabled' /></label>
+				    	<label><input type="checkbox" th:checked="${!element.getIsClosed()}" disabled='disabled' /></label>
 				    	<br />
 			    	</div>
 		    	</div>

@@ -48,6 +48,7 @@ public class TourController {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
 		//    	TODO da ricontrollare, è stato fatto così il metodo per gestire temporaneamente l'eccezione
+
         try {
     		modelSetter.getAttributes().put("element", tourService.findById(id));
     		modelSetter.getAttributes().put("isTour", true);
@@ -57,7 +58,7 @@ public class TourController {
 			modelSetter.getAttributes().put("alertMessage", "Itinerario non trovato!");
 			return new RedirectView("/");
 		}
-    }
+	}
 
     @GetMapping("/creation")
     public RedirectView createTour(Tour tour) {

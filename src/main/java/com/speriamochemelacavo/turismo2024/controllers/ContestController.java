@@ -2,23 +2,14 @@ package com.speriamochemelacavo.turismo2024.controllers;
 
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Contest;
-import com.speriamochemelacavo.turismo2024.models.elements.category.ElementTypology;
-import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
-import com.speriamochemelacavo.turismo2024.services.ContestsService;
-import com.speriamochemelacavo.turismo2024.services.ElementsService;
-import com.speriamochemelacavo.turismo2024.services.TagsService;
-import com.speriamochemelacavo.turismo2024.services.ValidationsService;
+import com.speriamochemelacavo.turismo2024.services.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/contests")
@@ -63,7 +54,8 @@ public class ContestController {
 			modelSetter.getAttributes().put("alertMessage", "Contest non trovato!");
 			return new RedirectView("/");
 		}
-    }
+
+	}
 
     @GetMapping("/creation")
     public RedirectView createContest(Contest contest) {
@@ -86,7 +78,7 @@ public class ContestController {
 				element.getCity(), element));
 		validationService.requestValidation(toValidate);
 		contestService.add(toValidate);
-		return new RedirectView("/pois/" + toValidate.getId());    
+		return new RedirectView("/contests/" + toValidate.getId());
     }
 
     @DeleteMapping("/{id}")

@@ -2,17 +2,14 @@ package com.speriamochemelacavo.turismo2024.services;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
-import org.hibernate.JDBCException;
+import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
-import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.repository.ElementRepository;
 
 @Service
@@ -36,6 +33,10 @@ public class ElementsService<T extends Element> {
 	
 	public List<T> findAll(){
 		return elementRepository.findAll();
+	}
+
+	public List<T> findAllByValidated(ElementStatus elementStatus) {
+		return elementRepository.findAllByValidated(elementStatus.toString());
 	}
 	
 	public T add(T elementToAdd) {

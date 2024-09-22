@@ -21,8 +21,7 @@ public abstract class ElementsWithContentsService<T extends ElementWithContents>
 	
 	@Autowired
 	private ContentsService contentService;
-	
-	
+
 	public ElementsWithContentsService(){
 		super();
 	}

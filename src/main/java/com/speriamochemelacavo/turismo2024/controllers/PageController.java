@@ -1,5 +1,6 @@
 package com.speriamochemelacavo.turismo2024.controllers;
 
+import com.speriamochemelacavo.turismo2024.models.elements.ElementWithContents;
 import com.speriamochemelacavo.turismo2024.models.elements.category.ElementTypology;
 
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -37,8 +38,6 @@ public class PageController {
 	public String home(Model model) {
 		modelSetter.setBaseVisibility();
 		model.addAttribute("toShow", elementService.findAll());
-		model.addAttribute("typologyTOUR", ElementTypology.TOUR);
-		model.addAttribute("typologyPOI", ElementTypology.POI);
 		modelSetter.setAttributesInModel(model);
 		return "index";
 	}
@@ -60,6 +59,12 @@ public class PageController {
 	public String setGenericElement(Model model) {
 		modelSetter.setAttributesInModel(model);
 		return "creation";
+	}
+
+	@GetMapping("/validations")
+	public String getValidations(Model model) {
+		modelSetter.setAttributesInModel(model);
+		return "validation";
 	}
 	
 	@GetMapping("/element")

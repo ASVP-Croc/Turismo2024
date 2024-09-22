@@ -4,19 +4,15 @@ import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 
-import org.hibernate.cfg.ValidationSettings;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.metrics.StartupStep.Tags;
 import org.springframework.web.bind.annotation.*;
 
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Address;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.services.AddressService;
-import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
 import com.speriamochemelacavo.turismo2024.services.TagsService;
-import com.speriamochemelacavo.turismo2024.services.UsersService;
 import com.speriamochemelacavo.turismo2024.services.ValidationsService;
 
 import org.springframework.web.servlet.view.RedirectView;
