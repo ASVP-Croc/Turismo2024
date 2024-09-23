@@ -88,9 +88,24 @@ public class POIController {
 		return new RedirectView("/pois/" + toValidate.getId());
 	}
 
-	@DeleteMapping("/{id}")
-	public void deletePoIById(@PathVariable Integer id) {
+	@PutMapping("/update")
+	public RedirectView updatePoI(@ModelAttribute PointOfInterest element, @ModelAttribute Address address) {
+		element.setAddress(addressService.add(address));
+		PointOfInterest toValidate = poiService.update(element);
+		tagService.addAll(tagService.createTagsFromString(
+				element.getName() + "," +
+						element.getDescription() + "," +
+						address.getRoad() + "," +
+						element.getCity(), element));
+		validationService.requestValidation(toValidate);
+		poiService.add(toValidate);
+		return new RedirectView("/pois/" + toValidate.getId());
+	}
+
+	@DeleteMapping("/delete/{id}")
+	public RedirectView deletePoIById(@PathVariable int id) {
 		poiService.deleteById(id);
+		return new RedirectView("/");
 	}
 
 

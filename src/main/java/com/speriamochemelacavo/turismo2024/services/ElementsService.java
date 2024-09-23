@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
+import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +61,7 @@ public class ElementsService<T extends Element> {
 		return toReturn;
 	}
 	
-	public void update(T elementToAdd) {
+	public T update(T elementToAdd) {
 		try {
 			findById(elementToAdd.getId());
 //	    	TODO togliere prima della produzione
@@ -70,9 +71,9 @@ public class ElementsService<T extends Element> {
 //	    	TODO togliere prima della produzione
 			System.out.println(elementToAdd.getName() + " - " + e.getLocalizedMessage() + ", quindi è stato aggiunto");
 		}
-		
-		elementRepository.save(elementToAdd);
-	}
+
+		return elementRepository.save(elementToAdd);
+    }
 
 	public void deleteById(Integer id) {
 		elementRepository.deleteById(id);

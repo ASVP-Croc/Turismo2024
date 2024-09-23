@@ -74,9 +74,10 @@ public class ContentController {
         return new RedirectView("/contents/" + toValidate.getId());
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteContentById(@PathVariable Integer id) {
+    @DeleteMapping("/delete/{id}")
+    public RedirectView deleteContentById(@PathVariable Integer id) {
         contentService.deleteById(id);
+        return new RedirectView("/");
     }
 
 

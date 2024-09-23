@@ -1,13 +1,8 @@
 package com.speriamochemelacavo.turismo2024.models.elements.poi;
 
-import java.sql.SQLIntegrityConstraintViolationException;
-
-import org.springframework.data.geo.format.PointFormatter;
 import org.springframework.stereotype.Component;
 
-import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
 import com.speriamochemelacavo.turismo2024.models.users.User;
-import com.speriamochemelacavo.turismo2024.services.POIsService;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

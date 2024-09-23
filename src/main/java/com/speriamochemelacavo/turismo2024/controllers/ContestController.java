@@ -80,8 +80,22 @@ public class ContestController {
 		return new RedirectView("/contests/" + toValidate.getId());
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteContestById(@PathVariable Integer id) {
+	@PutMapping("/update")
+	public RedirectView updateContest(@ModelAttribute Contest element) {
+		Contest toValidate = contestService.add(element);
+		tagService.addAll(tagService.createTagsFromString(
+				element.getName() + "," +
+						element.getDescription() + "," +
+						element.getTheme() + "," +
+						element.getCity(), element));
+		validationService.requestValidation(toValidate);
+		contestService.add(toValidate);
+		return new RedirectView("/contests/" + toValidate.getId());
+	}
+
+    @DeleteMapping("/delete/{id}")
+    public RedirectView deleteContestById(@PathVariable Integer id) {
         contestService.deleteById(id);
+		return new RedirectView("/");
     }
 }

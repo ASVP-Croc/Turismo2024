@@ -95,6 +95,18 @@ public class TourController {
 		tourService.add(toValidate);
 		return new RedirectView("/tours/" + toValidate.getId());    
 	}
+
+	@PutMapping("/update")
+	public RedirectView updateTour(@ModelAttribute Tour element) {
+		Tour toValidate = tourService.update(element);
+		tagService.addAll(tagService.createTagsFromString(
+				element.getName() + "," +
+						element.getDescription() + "," +
+						element.getCity(), element));
+		tourValidationService.requestValidation(toValidate);
+		tourService.add(toValidate);
+		return new RedirectView("/tours/" + toValidate.getId());
+	}
     
     @PostMapping("/add/pois")
     public RedirectView addPoisToTour(@ModelAttribute Tour element, @ModelAttribute PointOfInterest... pois) {
@@ -118,8 +130,9 @@ public class TourController {
 		return new RedirectView("/tours/" + element.getId());    
 	}
 
-    @DeleteMapping("/{id}")
-    public void deleteTourById(@PathVariable Integer id) {
+    @DeleteMapping("/delete/{id}")
+    public RedirectView deleteTourById(@PathVariable Integer id) {
         tourService.deleteById(id);
+		return new RedirectView("/");
     }
 }
