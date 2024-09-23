@@ -1,20 +1,10 @@
 package com.speriamochemelacavo.turismo2024.services;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.Set;
-
-import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.ElementWithContents;
-import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 
 @Service
 public abstract class ElementsWithContentsService<T extends ElementWithContents> extends ElementsService<T>{

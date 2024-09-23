@@ -1,6 +1,5 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

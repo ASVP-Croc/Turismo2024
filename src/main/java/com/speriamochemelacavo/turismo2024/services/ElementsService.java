@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
-import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,7 +2,6 @@ package com.speriamochemelacavo.turismo2024.security;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;

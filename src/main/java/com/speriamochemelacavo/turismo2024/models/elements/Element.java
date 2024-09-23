@@ -1,14 +1,11 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.speriamochemelacavo.turismo2024.models.elements.category.ElementTypology;
-import com.speriamochemelacavo.turismo2024.models.notifications.Notification;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 
 /**

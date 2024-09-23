@@ -1,9 +1,6 @@
 package com.speriamochemelacavo.turismo2024.controllers.modelSetters;
 
-import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
-import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
-import com.speriamochemelacavo.turismo2024.services.ElementsWithContentsService;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
 import com.speriamochemelacavo.turismo2024.services.ToursService;
 
@@ -25,21 +22,12 @@ public class ModelSetter {
 	@Autowired
 	private LoggedUserDetailService loggedUserService;
 	
-//	@Autowired
-//	private ElementsService<Element> elementService;
-	
 	@Autowired
 	private POIsService poiService;
 	
 	@Autowired
 	private ToursService tourService;
-	
-//	@Autowired
-//	private ElementsWithContentsService<Contest> contestService;
-//	
-//	@Autowired
-//	private ElementsService<Content> contentService;
-	
+
 	public ModelSetter() {
 	}
 

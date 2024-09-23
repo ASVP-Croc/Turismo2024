@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
-import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.POIForTour;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +13,8 @@ import org.springframework.stereotype.Service;
 import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.Contest;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
-import com.speriamochemelacavo.turismo2024.models.notifications.Notification;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.models.users.User;
-import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 @Service
 public class ValidationsService<T extends Element> {

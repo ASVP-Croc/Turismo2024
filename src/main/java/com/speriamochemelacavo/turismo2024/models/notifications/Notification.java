@@ -1,6 +1,5 @@
 package com.speriamochemelacavo.turismo2024.models.notifications;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

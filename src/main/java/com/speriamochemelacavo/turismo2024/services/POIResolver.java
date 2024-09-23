@@ -1,15 +1,11 @@
 package com.speriamochemelacavo.turismo2024.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.speriamochemelacavo.turismo2024.models.elements.Address;
-import com.speriamochemelacavo.turismo2024.models.elements.poi.PoIType;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 
-import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterestFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 
 import static java.lang.Float.parseFloat;
 

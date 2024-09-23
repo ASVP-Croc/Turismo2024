@@ -17,7 +17,6 @@ import com.speriamochemelacavo.turismo2024.services.ValidationsService;
 
 import org.springframework.web.servlet.view.RedirectView;
 
-
 @RestController
 @RequestMapping("/pois")
 public class POIController {

@@ -1,17 +1,17 @@
 package com.speriamochemelacavo.turismo2024.controllers;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.speriamochemelacavo.turismo2024.exception.UserNotFoundException;
+import com.speriamochemelacavo.turismo2024.models.users.Role;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
-import com.speriamochemelacavo.turismo2024.models.elements.category.ElementTypology;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.services.UsersService;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.nio.file.AccessDeniedException;
 
 @RestController
 @RequestMapping("/users")
@@ -42,11 +42,17 @@ public class UserController {
 		return new RedirectView("/users");
 	}
 	
-	@PutMapping("/update")
-	public void updateUser(@RequestBody User userToUpdate) {
-		usersService.add(userToUpdate);
+	@PutMapping("/update/{id}")
+	public User updateUser(@PathVariable int id, @RequestBody User userToUpdate) throws UserNotFoundException {
+		return usersService.update(id, userToUpdate);
 	}
-	
+
+	@PutMapping("/update/{id}/role")
+	public RedirectView updateUserRole(@PathVariable int id, @AuthenticationPrincipal User admin, @RequestBody Role newRole) throws UserNotFoundException, AccessDeniedException {
+		User updateUser = usersService.updateUserRole(id, admin, newRole);
+		return new RedirectView("/");
+	}
+
 	@DeleteMapping("/{id}")
 	public void deleteUserById(@PathVariable int id) {
 		usersService.delete(id);
