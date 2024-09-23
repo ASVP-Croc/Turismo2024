@@ -6,14 +6,15 @@
   <link th:href="@{/css/header.css}" rel="stylesheet" />
   <link th:href="@{/css/menu.css}" rel="stylesheet" />
   <link th:href="@{/css/list.css}" rel="stylesheet" />
+<link th:href="@{/css/body.css}" rel="stylesheet" />
   <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/favicon.ico">
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
 <div th:replace="~{fragments/menu :: menu}"></div>
 
-<div class = "container">
-  <div class = "card" th:object="${element}" th:action="@{${urlValidationElement}}" method="post">
+<div class = "containerForm">
+  <div class = "cardForm" th:object="${element}" th:action="@{${urlValidationElement}}" method="post">
     <h1 class = "scritteCard">Titolo</h1>
     <input class = "input" type="text" name = "name" placeholder="Inserisci il titolo" required/>
     <br />

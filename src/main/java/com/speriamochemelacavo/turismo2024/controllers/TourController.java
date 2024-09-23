@@ -52,7 +52,7 @@ public class TourController {
         try {
     		modelSetter.getAttributes().put("element", tourService.findById(id));
     		modelSetter.getAttributes().put("isTour", true);
-			return new RedirectView("/element");
+			return new RedirectView("/element?id=" + id);
 		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
 			modelSetter.getAttributes().put("alertMessage", "Itinerario non trovato!");

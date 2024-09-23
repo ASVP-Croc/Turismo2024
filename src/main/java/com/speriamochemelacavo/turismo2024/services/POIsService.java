@@ -23,6 +23,13 @@ public class POIsService extends ElementsWithContentsService<PointOfInterest> {
 		super();
 	}
 
+	
+	@Override
+	public List<PointOfInterest> findAll() {
+		return poiRepository.findAll();
+	}
+
+
 	@Override
 	public boolean isLoaded() {
 		return isPoisLoaded;

@@ -6,13 +6,13 @@
 <body>
 
 	<div th:fragment = "elementsList" class = "containerElement">
-		<div class = "card" th:each = "element : ${toShow.subList(0, toShow.size() > 5 ? 5 : toShow.size())}" th:onclick="'location.href=\'' + @{/element(id=${element.getId()})} + '\''">
+		<div class = "cardList" th:each = "element : ${toShow.subList(0, toShow.size() > 5 ? 5 : toShow.size())}" th:onclick="'location.href=\'' + @{/element(id=${element.getId()})} + '\''">
     		<h1 class = "scritteCard" th:text = "${'Titolo: '} + ${element.getName()}">Titolo</h1>
     		<h1 class = "scritteCard" th:text = "${'Descrizione: '} + ${element.getDescription()}">Descrizione</h1>
     		<h1 class = "scritteCard" th:text = "${'Autore: '} + ${element.getAuthor().getUsername()}">Autore</h1>
     		<h1 th:if = "${element.getTypology().toString() == 'POI'}" class = "scritteCard" th:text = "${'Indirizzo: '} + ${element.getAddress().toString()}">Indirizzo</h1>
-    		<div th:if = "${element.getTypology().toString() == 'TOUR' && element.getMyPOIs()!=null && !element.getMyPOIs().isEmpty}">
-	    		<div th:replace="~{fragments/body-result :: toursList(element=${element})}"></div>
+    		<div th:if = "${element.getTypology().toString() == 'TOUR' && element.getMyPOIsForTour()!=null && !element.getMyPOIsForTour().isEmpty}">
+	    		<div th:replace="~{fragments/body-result :: toursList(list=${element.getMyPOIsForTour()})}"></div>
     		</div>
     		<h1 th:if = "${element.getTypology().toString() == 'CONTEST'}" class = "scritteCard" th:text = "${'Periodo: '} + ${element.getStarts()} + ${' - '} + ${element.getEnds()}">Periodo</h1>
     		<h1 class = "scritteCard" th:text = "${'Città: '} + ${element.getCity()} + ${' ('} + ${element.getPostalcode()} + ${')'}">Città</h1>
@@ -20,7 +20,7 @@
 	</div>
 	
 	<div th:fragment = "toursList" class = "Card">
-		<div class = "card" th:each = "poi : ${element.getMyPOIs().subList(0, element.getMyPOIs().size() > 5 ? 5 : element.getMyPOIs().size())}">
+		<div class = "cardList" th:each = "poi : ${list.subList(0, list.size() > 5 ? 5 : list.size())}">
     		<h1 class = "scritteCard" th:text = "${'Titolo: '} + ${poi.getName()}">Titolo</h1>
     		<h1 class = "scritteCard" th:text = "${'Descrizione: '} + ${poi.getDescription()}">Descrizione</h1>
     		<h1 class = "scritteCard" th:text = "${'Autore: '} + ${poi.getAuthor().getUsername()}">Autore</h1>
@@ -30,32 +30,40 @@
 	</div>
 	
 	<div th:fragment = "elementView" class = "containerElement">
-		<div class = "card" th:object = "${element}">
+		<div class = "cardList" th:object = "${element}">
 			<h1 class = "scritteCard">Titolo</h1>
 			<h2 class = "scritteCard" th:text = "${element.getName()}"></h2>
+			<h1>______________</h1>
 		    <h1 class = "scritteCard">Descrizione</h1>
-		    <textarea class = "scritteCard" th:text = "${element.getDescription()}" rows="10" cols="50" maxlength="200" style="width: 200px; height: 100px;"></textarea>
+		    <h2 class = "scritteCard" th:text = "${element.getDescription()}"></h2>
+			<h1>______________</h1>
 		    <h1 class = "scritteCard">Città</h1>
 		    <h2 class = "scritteCard" th:text = "${element.getCity()}"></h2>
+			<h1>______________</h1>
 		    <h1 class = "scritteCard">C.A.P.</h1>
 		    <h2 class = "scritteCard" th:text = "${element.getPostalcode()}"></h2>
+			<h1>______________</h1>
 		    <div th:if = "${element.getTypology().toString() == 'POI'}" class = "containerElement">
 		    	<h1 class = "scritteCard">Indirizzo</h1>
 				<h2 class = "scritteCard" th:text = "${element.getAddress().getRoad()} + ${element.getAddress().getHouseNumber()}"></h2>
+			<h1>______________</h1>
 		    </div>
 		    <div th:if = "${element.getTypology().toString() == 'CONTEST'}" class = "containerElement">
 		    	<div class = "containerInputRow">
 				    <div class = "containerElement">
 				   		<h1  class = "scritteCard">Inizia il:</h1>
 				   		<h2 class = "scritteCard" th:type = "date" th:text = "${element.getStarts()}"></h2>
+			<h1>______________</h1>
 				    </div>
 				    <div class = "containerElement">	    	
 					    <h1 class = "scritteCard">Termina il:</h1>
 				   		<h2 class = "scritteCard" th:type = "date" th:text = "${element.getEnds()}"></h2>
+			<h1>______________</h1>
 				    </div>
 			    </div>
 			    <h1 class = "scritteCard">Tema</h1>
 			    <h2 class = "scritteCard" th:text = "${element.getTheme()}"></h2>
+			<h1>______________</h1>
 		    	<h1 class = "scritteCard">Solo su invito</h1>
 		    	<div class = "containerInputRow">
 		    		<div class = "containerElement">
@@ -67,6 +75,68 @@
 			    	</div>
 		    	</div>
 		    </div>
+		</div>		
+	</div>
+	<div th:fragment = "elementCreation" class = "containerElement">
+		<div class = "menuAdattivoCreazione">
+	   		<button th:onclick = "location.href = '/pois/creation'" class = "bottoniCreazione">
+		    	<p class = "scritteBottoniForm">Punto di Interesse</p>
+		    </button>
+		    <button th:onclick = "location.href = '/tours/creation'" class = "bottoniCreazione">
+		    	<p class = "scritteBottoniForm">Itinerario</p>
+		    </button>
+		    <button  th:if = "${isAnimator||isAdmin}" th:onclick = "location.href = '/contests/creation'" class = "bottoniCreazione">
+		    	<p class = "scritteBottoniForm">Evento</p>
+		    </button>
+	   	</div>
+	    <div class = "container">
+	    	<form th:id = "creationForm" class = "cardForm" th:object="${element}" th:action="@{${urlCreationElement}}" method="post">
+				<h1 class = "scritteCard">Titolo</h1>
+			    <input class = "input" type="text" name = "name" placeholder="Inserisci il titolo" required/>
+			    <br />
+			    <h1 class = "scritteCard">Descrizione</h1>
+			    <textarea class = "inputDescrizione" rows="10" cols="50" maxlength="200" style="width: 200px; height: 100px;" name = "description" placeholder="Descrivimi!"/></textarea>
+			    <br />
+			    <h1 class = "scritteCard">Città</h1>
+			    <input class = "input" type="text" name = "city" placeholder="Inserisci la città" required/>
+			    <br />
+			    <h1 class = "scritteCard">C.A.P.</h1>
+			    <input class = "input" type="text" name = "postalcode" placeholder="Inserisci il C.A.P." required/>
+			    <br />
+			    <div th:if = "${isPoi}" class = "containerElement" th:object = "${address}">
+			    	<h1 class = "scritteCard">Address</h1>
+			    	<div class = "containerInputRow">
+					    <input class = "input" type="text" name = "road" placeholder="Inserisci la via" required/>
+					    <br />
+					    <input class = "input" type="number" name = "house_number" placeholder="Inserisci il civico" required/>
+					    <br />
+			    	</div>
+			    </div>
+			    <div th:if = "${isContest}" class = "containerElement">
+			    	<div class = "containerInputRow">
+					    <div class = "containerElement">
+					   		<h1  class = "scritteCard">Inizia il:</h1>
+						    <input class = "input" type="date" name = "starts" placeholder="Inserisci la data di inizio" required/>
+						    <br />
+					    </div>
+					    <div class = "containerElement">	    	
+						    <h1 class = "scritteCard">Termina il:</h1>
+						    <input class = "input" type="date" name = "ends" placeholder="Inserisci la data di termine" required/>
+						    <br />
+					    </div>
+				    </div>
+				    <h1 class = "scritteCard">Tema</h1>
+				   	<input class = "input" type="text" name = "theme" placeholder="Inserisci il Tema" required/>
+			    	<br />
+			    	<h1 class = "scritteCard">Solo su invito</h1>
+			    	<label><input type="checkbox" name="isClosed" required/></label>
+			    	<br />
+			    </div>		    
+			    
+			    <button type="submit" class = "bottoniForm">
+			    	<p class = "scritteBottoniForm">Creami!</p>
+			    </button>
+			</form>
 		</div>		
 	</div>
 </body>

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
-@RequestMapping("/validations")
+@RequestMapping("/validation")
 public class ValidationController<T extends Element> {
 
     @Autowired
@@ -35,7 +35,7 @@ public class ValidationController<T extends Element> {
         modelSetter.clearAllAttributes();
         modelSetter.setBaseVisibility();
         modelSetter.getAttributes().put("toShow", elementsService.findAllByValidated(ElementStatus.PENDING));
-        return new RedirectView("/validation");
+        return new RedirectView("/validations");
     }
 
     @DeleteMapping

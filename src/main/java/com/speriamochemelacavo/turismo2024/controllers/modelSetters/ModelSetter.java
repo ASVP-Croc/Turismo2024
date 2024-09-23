@@ -4,6 +4,8 @@ import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.services.ElementsWithContentsService;
+import com.speriamochemelacavo.turismo2024.services.POIsService;
+import com.speriamochemelacavo.turismo2024.services.ToursService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,10 +29,10 @@ public class ModelSetter {
 //	private ElementsService<Element> elementService;
 	
 	@Autowired
-	private ElementsWithContentsService<PointOfInterest> poiService;
+	private POIsService poiService;
 	
 	@Autowired
-	private ElementsWithContentsService<Tour> tourService;
+	private ToursService tourService;
 	
 //	@Autowired
 //	private ElementsWithContentsService<Contest> contestService;

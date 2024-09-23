@@ -1,18 +1,25 @@
-/* Stile per il div che contiene le cards */
-.container {
+/* Stile per il div che contiene le liste */
+.containerList {
+	display: flex;
+	justify-content: center;
+    align-items: center;
+	flex-wrap: nowrap;
+	padding: 10px;
+}
+/* Stile per il div che contiene le liste */
+.containerSearch {
 	display: flex;
 	justify-content: center;
 	flex-wrap: nowrap;
 	padding: 10px;
 }
 
-/* Stile per il div che contiene le cards delle liste elementi */
+/* Stile per il div che contiene le cards degli elementi */
 .containerElement {
 	display: flex;
-	flex-direction: column;
+	justify-content: center;
 	align-items: center;
-	flex-wrap: nowrap;
-	padding: 10px;
+	flex-direction: column;
 }
 /* Stile per il div che contiene gli input in riga */
 .containerInputRow {
@@ -22,12 +29,12 @@
 	flex-wrap: nowrap;
 	padding: 10px;
 }
-/* Stile per i div delle cards */
-.card {
+/* Stile per i div delle cards nelle liste */
+.cardList {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 40%; ;
+	width: auto; ;
 	min-width:30%;
 	height: auto;
 	margin: 5px;
@@ -62,7 +69,6 @@
 }
 /* Stile per i bottoni della registrazione*/
 .bottoniForm{
-	width: 30%;
 	background-color: #c0c0c0;
 	color: #fff;
 	font-size: 20px;

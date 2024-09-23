@@ -17,6 +17,6 @@
 	<div th:if = "${noElement}" class = "errorDiv">
 		<h1 class = "scrittaError">Elemento non trovato!</h1>
 	</div>
-    <div th:replace="~{fragments/body-result :: elementView}"></div>
+    <div th:unless = "${noElement}" th:replace="~{fragments/body-result :: elementView}"></div>
 </body>
 </html>

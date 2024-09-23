@@ -1,21 +1,27 @@
-/* Stile per il div che contiene le cards */
-.container {
+/* Stile per il div che contiene i form */
+.containerForm {
 	display: flex;
+	justify-content: center;
+	min-width: 80%;
+	flex-wrap: nowrap;
+	padding: 10px;
+}
+/* Stile per il div che contiene i campi del form */
+.containerFields {
+	display: flex;
+    flex-direction: column;
 	justify-content: center;
 	flex-wrap: nowrap;
 	padding: 10px;
 }
-/* Stile per i div delle cards */
-.card {
+/* Stile per i div delle cards nei form */
+.cardForm {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	width: 40%; ;
-	min-width:20%;
 	height: auto;
-	margin: 5px;
-	padding-top: 10px;
-	padding-bottom: 10px;
+	width: auto;
+	min-width: 40%;
 	border: 2px solid gray;
 	border-radius: 20px;
 	background-color: #e7e7e7;

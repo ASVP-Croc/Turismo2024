@@ -47,7 +47,7 @@ public class ContestController {
         try {
     		modelSetter.getAttributes().put("element", contestService.findById(id));
     		modelSetter.getAttributes().put("isContest", true);
-			return new RedirectView("/element");
+			return new RedirectView("/element?id=" + id);
 		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
 			modelSetter.getAttributes().put("alertMessage", "Contest non trovato!");

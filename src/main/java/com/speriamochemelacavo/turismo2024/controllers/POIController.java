@@ -56,7 +56,7 @@ public class POIController {
         try {
     		modelSetter.getAttributes().put("element", poiService.findById(id));
     		modelSetter.getAttributes().put("isPoi", true);
-			return new RedirectView("/element");
+			return new RedirectView("/element?id=" + id);
 		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
 			modelSetter.getAttributes().put("alertMessage", "Punto di Interesse non trovato!");

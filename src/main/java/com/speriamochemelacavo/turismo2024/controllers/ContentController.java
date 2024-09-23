@@ -50,7 +50,7 @@ public class ContentController {
         try {
     		modelSetter.getAttributes().put("element", contentService.findById(id));
     		modelSetter.getAttributes().put("isContent", true);
-			return new RedirectView("/element");
+			return new RedirectView("/element?id=" + id);
 		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
 			modelSetter.getAttributes().put("alertMessage", "Contenuto non trovato!");
