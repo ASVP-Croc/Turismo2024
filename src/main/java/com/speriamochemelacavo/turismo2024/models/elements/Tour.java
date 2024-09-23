@@ -31,20 +31,20 @@ import jakarta.persistence.OneToMany;
 public class Tour extends ElementWithContents{
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
-	private List<POIForTour> myPOIs = new ArrayList<>();
+	private List<POIForTour> myPOIsForTour = new ArrayList<>();
 	
 	public Tour() {
 		super();
 		this.typology = ElementTypology.TOUR;
 	}
 
-	public Tour(String name, String description, User author, String city, String postcode, List<Content> contents, List<POIForTour> myPOIs) {
+	public Tour(String name, String description, User author, String city, String postcode, List<Content> contents, List<POIForTour> myPOIsForTour) {
 		super(name, description, author, contents, city, postcode);
-		this.myPOIs = myPOIs;
+		this.myPOIsForTour = myPOIsForTour;
 		this.typology = ElementTypology.TOUR;
 	}
 
-	public List<POIForTour> getMyPOIs() {
-		return myPOIs;
+	public List<POIForTour> getMyPOIsForTour() {
+		return myPOIsForTour;
 	}
 }

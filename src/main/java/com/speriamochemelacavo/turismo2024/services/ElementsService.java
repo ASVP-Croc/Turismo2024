@@ -17,10 +17,11 @@ public class ElementsService<T extends Element> {
 	
 	@Autowired
 	protected ElementRepository<T> elementRepository;
-	
-	@Autowired
-	private ValidationsService<T> validationService;
 
+	public ElementsService() {
+		
+	}
+	
 	public T findById(int elemToFindId) throws SQLIntegrityConstraintViolationException {
 		Optional<T> toCheck = elementRepository.findById(elemToFindId);
 		

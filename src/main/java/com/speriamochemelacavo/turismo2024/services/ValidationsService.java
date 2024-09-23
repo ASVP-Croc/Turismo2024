@@ -15,12 +15,16 @@ import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.notifications.Notification;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.models.users.User;
+import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 @Service
 public class ValidationsService<T extends Element> {
 
 	@Autowired
 	private LoggedUserDetailService loggedUserDetailService;
+	
+	@Autowired
+	private LoggedUserDetailService LoggedUserDetailService;
 	
 	@Autowired
 	private NotificationsService notificationService;
@@ -30,10 +34,11 @@ public class ValidationsService<T extends Element> {
 	
 	
 	public void requestValidation(T elementToValidate) {
-		if (loggedUserDetailService.getLoggedUser().getRole() == Role.ROLE_AUTHORIZED_CONTRIBUTOR
-				||loggedUserDetailService.getLoggedUser().getRole() == Role.ROLE_ANIMATOR
-				|| loggedUserDetailService.getLoggedUser().getRole() == Role.ROLE_CURATOR
-				|| loggedUserDetailService.getLoggedUser().getRole() == Role.ROLE_ADMINISTRATOR) {
+		
+		if (LoggedUserDetailService.getLoggedUser().getRole() == Role.ROLE_AUTHORIZED_CONTRIBUTOR 
+				|| LoggedUserDetailService.getLoggedUser().getRole() == Role.ROLE_ANIMATOR
+				|| LoggedUserDetailService.getLoggedUser().getRole() == Role.ROLE_CURATOR
+				|| LoggedUserDetailService.getLoggedUser().getRole() == Role.ROLE_ADMINISTRATOR) {
 			elementToValidate.setValidation(ElementStatus.APPROVED);
 			notificationService.sendToSingleUser("Pubblicazione avvenuta per: " + elementToValidate.getName(), "", elementToValidate, elementToValidate.getAuthor());
 		} else {

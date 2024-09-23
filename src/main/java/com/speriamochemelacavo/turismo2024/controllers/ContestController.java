@@ -35,7 +35,6 @@ public class ContestController {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
 		modelSetter.getAttributes().put("toShow", contestService.findAll());
-		contestService.findAll().forEach(c -> System.out.println(c.toString()));
         return new RedirectView("/elements/list");
     }
     

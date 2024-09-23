@@ -79,7 +79,6 @@ public class PageController {
 		return "elementView";
 	}
 	
-//	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
 	@GetMapping("/elements/list")
 	public String getAllElements(Model model) {
 		modelSetter.setAttributesInModel(model);
