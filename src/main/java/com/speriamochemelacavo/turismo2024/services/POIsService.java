@@ -15,20 +15,18 @@ import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 public class POIsService extends ElementsWithContentsService<PointOfInterest> {
 
 	@Autowired
-	private POIRepository poiRepository;
+	private POIRepository<PointOfInterest> poiRepository;
 	
 	private boolean isPoisLoaded;
 
 	public POIsService(){
 		super();
 	}
-
 	
 	@Override
 	public List<PointOfInterest> findAll() {
 		return poiRepository.findAll();
 	}
-
 
 	@Override
 	public boolean isLoaded() {

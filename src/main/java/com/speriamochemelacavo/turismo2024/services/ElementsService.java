@@ -36,8 +36,8 @@ public class ElementsService<T extends Element> {
 		return elementRepository.findAll();
 	}
 
-	public List<T> findAllByValidated(ElementStatus elementStatus) {
-		return elementRepository.findAllByValidated(elementStatus.toString());
+	public List<T> findByValidated(ElementStatus elementStatus) {
+		return elementRepository.findAllByValidated(elementStatus);
 	}
 	
 	public T add(T elementToAdd) {

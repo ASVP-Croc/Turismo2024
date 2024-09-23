@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
+import com.speriamochemelacavo.turismo2024.models.elements.Tour;
+import com.speriamochemelacavo.turismo2024.models.elements.poi.POIForTour;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +21,6 @@ import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 @Service
 public class ValidationsService<T extends Element> {
-
-	@Autowired
-	private LoggedUserDetailService loggedUserDetailService;
 	
 	@Autowired
 	private LoggedUserDetailService LoggedUserDetailService;
@@ -35,15 +34,26 @@ public class ValidationsService<T extends Element> {
 	
 	public void requestValidation(T elementToValidate) {
 		
+		POIForTour toValidate = null;
+		
+		if (elementToValidate instanceof POIForTour) {
+			toValidate = (POIForTour) elementToValidate;
+		}
+		
 		if (LoggedUserDetailService.getLoggedUser().getRole() == Role.ROLE_AUTHORIZED_CONTRIBUTOR 
 				|| LoggedUserDetailService.getLoggedUser().getRole() == Role.ROLE_ANIMATOR
 				|| LoggedUserDetailService.getLoggedUser().getRole() == Role.ROLE_CURATOR
 				|| LoggedUserDetailService.getLoggedUser().getRole() == Role.ROLE_ADMINISTRATOR) {
-			elementToValidate.setValidation(ElementStatus.APPROVED);
-			notificationService.sendToSingleUser("Pubblicazione avvenuta per: " + elementToValidate.getName(), "", elementToValidate, elementToValidate.getAuthor());
-		} else {
-			setRecipientsOfValidation(elementToValidate);
-		}
+			
+			if (elementToValidate instanceof POIForTour) {
+				toValidate.setForTour(true);
+				notificationService.sendToSingleUser("Aggiunta avvenuta per: " + toValidate.getName(), "", toValidate, toValidate.getAuthorForTour());
+			} else {
+				elementToValidate.setValidation(ElementStatus.APPROVED);
+				notificationService.sendToSingleUser("Pubblicazione avvenuta per: " + elementToValidate.getName(), "", elementToValidate, elementToValidate.getAuthor());
+			}
+			
+		} else setRecipientsOfValidation(elementToValidate);
 	}
 	
 	private void setRecipientsOfValidation(T elementToValidate) {

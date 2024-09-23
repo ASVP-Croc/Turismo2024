@@ -17,11 +17,6 @@ public class ValidationController<T extends Element> {
 
     @Autowired
     private ModelSetter modelSetter;
-    @Autowired
-    private ValidationsService validationsService;
-
-    @Autowired
-    private LoggedUserDetailService loggedUserDetailService;
 
     @Autowired
     private ElementsService<T> elementsService;
@@ -34,7 +29,8 @@ public class ValidationController<T extends Element> {
     public RedirectView getValidation(Model model) {
         modelSetter.clearAllAttributes();
         modelSetter.setBaseVisibility();
-        modelSetter.getAttributes().put("toShow", elementsService.findAllByValidated(ElementStatus.PENDING));
+        modelSetter.getAttributes().put("toShow", elementsService.findByValidated(ElementStatus.PENDING));
+        elementsService.findByValidated(ElementStatus.PENDING).forEach(e -> System.out.println(e.toString()));;
         return new RedirectView("/validations");
     }
 

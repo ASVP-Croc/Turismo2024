@@ -4,6 +4,7 @@
 	justify-content: center;
 	min-width: 80%;
 	flex-wrap: nowrap;
+	margin: 10px;
 	padding: 10px;
 }
 /* Stile per il div che contiene i campi del form */
@@ -20,8 +21,8 @@
 	flex-direction: column;
 	justify-content: center;
 	height: auto;
-	width: auto;
-	min-width: 40%;
+	min-width: 430px;
+	padding: 10px;
 	border: 2px solid gray;
 	border-radius: 20px;
 	background-color: #e7e7e7;
@@ -30,9 +31,8 @@
 .cardLogin {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	width: 20% ;
-	min-width:20%;
+	align-items: center;
+	min-width: 350px;
 	height: auto;
 	margin: 5px;
 	padding-top: 10px;
@@ -40,7 +40,6 @@
 	border: 2px solid gray;
 	border-radius: 20px;
 	background-color: #e7e7e7;
-	cursor: pointer;
 }
 /* Stile per le scritte nei bottoni */
 .scritteCard {
@@ -51,13 +50,13 @@
 }
 /* Stile per i bottoni della registrazione*/
 .bottoniForm{
-	width: 30%;
 	background-color: #c0c0c0;
 	color: #fff;
 	font-size: 20px;
   	color: #000000;
-  	padding: auto;
   	margin: auto;
+  	padding-left: 15px;
+  	padding-right: 15px;
 	border: none;
 	border-radius: 20px;
 	cursor: pointer;

@@ -5,11 +5,6 @@ public enum ElementTypology {
 	TOUR,
 	CONTEST,
 	CONTENT;
-
-	@Override
-	public String toString() {
-		return super.toString();
-	}
 }
 
 

@@ -39,7 +39,7 @@ public class SecurityConfiguration {
 									"/pois/creation", "/tours/creation", 
 									"/pois/add", "/tours/add", "/contents/add").hasAnyRole("CONTRIBUTOR", "AUTHORIZED_CONTRIBUTOR", "CURATOR", "ANIMATOR", "ADMINISTRATOR")
 							.requestMatchers("/contests/creation", "/contests/add").hasAnyRole("ANIMATOR", "ADMINISTRATOR")
-							.requestMatchers("/elements/validation").hasAnyRole("CURATOR","ADMINISTRATOR")
+							.requestMatchers("/validations", "/validation").hasAnyRole("CURATOR","ADMINISTRATOR")
 							.requestMatchers("/users/**").hasRole("ADMINISTRATOR")
         		)
 					        .formLogin(form -> form

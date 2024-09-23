@@ -5,7 +5,7 @@
 </head>
 <body>
 	<div th:fragment = "search" class = "containerSearch">
-		<form class = "cardLogin" action="/search/osm/detail" method="get">
+		<form class = "cardSearch" action="/search/osm/detail" method="get">
 			<h1 class = "scritteCard">Cerca in dettaglio su OSM...</h1>
 			<br/>
 			<input class = "input" type="text" name="amenity" placeholder="Pizzeria, Ristorante...">
@@ -20,7 +20,7 @@
 				<p class = "scritteBottoniForm">CERCA</p>
 			</button>
 		</form>
-		<form class = "cardLogin" action="/search/osm/query" method="get">
+		<form class = "cardSearch" action="/search/osm/query" method="get">
 			<h1 class = "scritteCard">Cerca su OSM...</h1>
 			<br/>
 			<input class = "input" type="text" name="query" placeholder="Pizzeria, Ristorante...">
@@ -29,7 +29,7 @@
 				<p class = "scritteBottoniForm">CERCA</p>
 			</button>
 		</form>
-		<form class = "cardLogin" action="/search/site" method="get">
+		<form class = "cardSearch" action="/search/site" method="get">
 			<h1 class = "scritteCard">Cerca nel sito...</h1>
 			<br/>
 			<input class = "input" type="text" name="tag" placeholder="Stadio comunale, Milano,...">

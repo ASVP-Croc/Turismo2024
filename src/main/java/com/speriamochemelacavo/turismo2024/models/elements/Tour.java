@@ -1,8 +1,12 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.speriamochemelacavo.turismo2024.models.elements.poi.POIForTour;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
@@ -30,21 +34,21 @@ import jakarta.persistence.OneToMany;
 @Entity
 public class Tour extends ElementWithContents{
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
-	private List<POIForTour> myPOIsForTour = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	private Set<POIForTour> myPOIs = new HashSet<>();
+	
 	
 	public Tour() {
 		super();
 		this.typology = ElementTypology.TOUR;
 	}
 
-	public Tour(String name, String description, User author, String city, String postcode, List<Content> contents, List<POIForTour> myPOIsForTour) {
+	public Tour(String name, String description, User author, String city, String postcode, List<Content> contents) {
 		super(name, description, author, contents, city, postcode);
-		this.myPOIsForTour = myPOIsForTour;
 		this.typology = ElementTypology.TOUR;
 	}
 
-	public List<POIForTour> getMyPOIsForTour() {
-		return myPOIsForTour;
+	public Set<POIForTour> getMyPOIs() {
+		return myPOIs;
 	}
 }

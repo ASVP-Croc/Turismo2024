@@ -66,8 +66,8 @@ public class PreparationController {
 		if (!loggedUserService.isLoaded()) {
 			List<User> initialUsers = new ArrayList<>();
 			initialUsers.add(new User("Matteo", "Pallotti", "Maverick", passwordEncoder.encode("12345678"), "maverick@gmail.com", "3929217858", "C.da San Pietro Orgiano, 13", "Fermo", "63900", Role.ROLE_ADMINISTRATOR));
-			initialUsers.add(new User("Lorenzo", "Crovace", "AVCP", passwordEncoder.encode("12345678"), "avcp@gmail.com", "369852147", "Via Ancona, 188", "Macerata", "62100", Role.ROLE_CONTRIBUTOR));
-			initialUsers.add(new User("Simone", "Silver", "SilverSimon", passwordEncoder.encode("12345678"), "simon@gmail.com", "987654321", "Via Pluto", "Ancona", "60100", Role.ROLE_AUTHENTICATED_TOURIST));
+			initialUsers.add(new User("Lorenzo", "Crovace", "AVCP", passwordEncoder.encode("12345678"), "avcp@gmail.com", "369852147", "Via Ancona, 188", "Macerata", "62100", Role.ROLE_CURATOR));
+			initialUsers.add(new User("Simone", "Silver", "SilverSimon", passwordEncoder.encode("12345678"), "simon@gmail.com", "987654321", "Via Pluto", "Ancona", "60100", Role.ROLE_CONTRIBUTOR));
 			userService.addAll(initialUsers);
 			loggedUserService.setLoaded(true);
 			}
@@ -91,8 +91,8 @@ public class PreparationController {
 	@GetMapping("/startDbTours")
 	public RedirectView insertInitialToursRecords() throws IOException{
 		if (!tourService.isLoaded()) {
-			saveTour(List.of(new Tour("tour1", "tour della porchetta", loggedUserService.getLoggedUser(), "Ancona", "60100", new ArrayList<>(), new ArrayList<>())));
-			saveTour(List.of(new Tour("tour2", "tour della fontana", loggedUserService.getLoggedUser(), "Fermo", "63900", new ArrayList<>(), new ArrayList<>())));
+			saveTour(List.of(new Tour("tour1", "tour della porchetta", loggedUserService.getLoggedUser(), "Ancona", "60100", new ArrayList<>())));
+			saveTour(List.of(new Tour("tour2", "tour della fontana", loggedUserService.getLoggedUser(), "Fermo", "63900", new ArrayList<>())));
 			tourService.setLoaded(true);
 		}
 		modelSetter.clearAllAttributes();

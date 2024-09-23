@@ -13,7 +13,6 @@
 }
 /* Stile per i bottoni */
 .bottoniMenu {
-	height: 100px;
 	background-color: #c0c0c0;
 	color: #fff;
 	padding: 10px 20px;
@@ -26,8 +25,6 @@
 .bottoniMenu:hover {
 	background-color: #008000;
 }
-
-
 /* Stile per le scritte nei bottoni */
 .scritteBottoniMenu {
   border: 1px #000;
@@ -60,7 +57,4 @@
 	border: none;
 	border-radius: 20px;
 	cursor: pointer;
-}
-.bottoniForm:hover {
-	background-color: #008000;
 }
