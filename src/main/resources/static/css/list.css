@@ -11,7 +11,14 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: row;
+}
+/* Stile per il div che contiene le cards degli elementi */
+.containerIcons {
+	display: flex;
+	justify-content: center;
 	flex-direction: column;
+	height: auto;
 }
 /* Stile per il div che contiene gli input in riga */
 .containerInputRow {
@@ -24,6 +31,7 @@
 /* Stile per i div delle cards nelle liste */
 .cardList {
 	display: flex;
+	position: relative;
 	flex-direction: column;
 	align-items: center;
 	width: auto; ;
@@ -36,6 +44,28 @@
 	border-radius: 20px;
 	background-color: #e7e7e7;
 	cursor: pointer;
+}
+.iconaElementi{
+	display: flex;
+	border-radius: 50%;
+	height: 40px;
+	width: 90px;
+	border: 2px solid gray;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+/* Stile per le scritte nei bottoni */
+.scritteBottoniElementi {
+	display: flex;
+	font-size: small;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+	width: 40px;
+	border: 1px #000;
+	color: white;
+	text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 /* Stile per le scritte nelle card */
 .scritteCard {

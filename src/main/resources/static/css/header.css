@@ -12,6 +12,8 @@
 }
 /* Stile per i bottoni */
 .bottoneHeader {
+	display: flex;
+	position: relative;
 	background-color: #c0c0c0;
 	color: #fff;
 	padding: 10px 20px;
@@ -21,7 +23,20 @@
 	border-radius: 20px;
 	cursor: pointer;
 }
-
+.iconaNotifiche{
+	position: absolute;
+	top: -15px;
+  	left: 250px;
+	display: flex;
+	border-radius: 30%;
+	border: 2px solid gray;
+	justify-content: center;
+	align-items: center;
+	width: 70px;
+	height: 40px;
+	font-size: 16px;
+	cursor: pointer;
+}
 .bottoneHeader:hover {
 	background-color: #008000;
 }

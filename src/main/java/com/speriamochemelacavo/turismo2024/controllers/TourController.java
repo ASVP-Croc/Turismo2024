@@ -53,7 +53,7 @@ public class TourController {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
 		modelSetter.getAttributes().put("toShow", tourService.findAll());
-        return new RedirectView("/elements/list");
+        return new RedirectView("/elements/site/list");
     }
     
     @GetMapping("/{id}")

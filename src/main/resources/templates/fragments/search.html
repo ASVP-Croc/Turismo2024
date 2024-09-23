@@ -4,40 +4,47 @@
 <meta http-equiv="Content-Type" content="text/html" />
 </head>
 <body>
-	<div th:fragment = "search" class = "containerSearch">
-		<form class = "cardSearch" action="/search/osm/detail" method="get">
-			<h1 class = "scritteCard">Cerca in dettaglio su OSM...</h1>
-			<br/>
-			<input class = "input" type="text" name="amenity" placeholder="Pizzeria, Ristorante...">
-			<br/>
-			<input class = "input" type="text" name="street" placeholder="Via, Viale, Corso...">
-			<br/>
-			<input class = "input" type="text" name="houseNumber" placeholder="Numero Civico">
-			<br/>
-			<input th:unless = "${isLogged}" class = "input" type="text" name="postalCode" placeholder="C.A.P.">
-			<br/>
-			<button type="submit" class = "bottoniForm">
-				<p class = "scritteBottoniForm">CERCA</p>
-			</button>
-		</form>
-		<form class = "cardSearch" action="/search/osm/query" method="get">
-			<h1 class = "scritteCard">Cerca su OSM...</h1>
-			<br/>
-			<input class = "input" type="text" name="query" placeholder="Pizzeria, Ristorante...">
-			<br/>
-			<button type="submit" class = "bottoniForm">
-				<p class = "scritteBottoniForm">CERCA</p>
-			</button>
-		</form>
-		<form class = "cardSearch" action="/search/site" method="get">
+	<div th:fragment = "searchSite" class = "containerSearch">
+		<form class = "barSearch" action="/search/site" method="get">
 			<h1 class = "scritteCard">Cerca nel sito...</h1>
 			<br/>
-			<input class = "input" type="text" name="tag" placeholder="Stadio comunale, Milano,...">
+			<input class = "inputSearch" type="text" name="tag" placeholder="Stadio comunale, Milano,...">
 			<br/>
-			<button type="submit" class = "bottoniForm">
-				<p class = "scritteBottoniForm">CERCA</p>
+			<button type="submit" class = "bottoniSearch">
+				<p class = "scritteBottoniSearch">CERCA</p>
 			</button>
 		</form>
 	</div>
+	
+	<div th:fragment = "searchOsmQuery" class = "containerSearch">
+		<form class = "barSearch" action="/search/osm/query" method="get">
+			<h1 class = "scritteCard">Cerca su OSM...</h1>
+			<br/>
+			<input class = "inputSearch" type="text" name="query" placeholder="Pizzeria, Ristorante...">
+			<br/>
+			<button type="submit" class = "bottoniSearch">
+				<p class = "scritteBottoniSearch">CERCA</p>
+			</button>
+		</form>
+	</div>
+	
+	<div th:fragment = "searchOsmDetail" class = "containerSearch">
+		<form class = "cardSearch" action="/search/osm/detail" method="get">
+			<h1 class = "scritteCard">Cerca in dettaglio su OSM...</h1>
+			<br/>
+			<input class = "inputSearch" type="text" name="amenity" placeholder="Pizzeria, Ristorante...">
+			<br/>
+			<input class = "inputSearch" type="text" name="street" placeholder="Via, Viale, Corso...">
+			<br/>
+			<input class = "inputSearch" type="text" name="houseNumber" placeholder="Numero Civico">
+			<br/>
+			<input th:unless = "${isLogged}" class = "inputSearch" type="text" name="postalCode" placeholder="C.A.P.">
+			<br/>
+			<button type="submit" class = "bottoniSearch">
+				<p class = "scritteBottoniSearch">CERCA</p>
+			</button>
+		</form>
+	</div>
+		
 </body>
 </html>

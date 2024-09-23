@@ -1,15 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<title>Turismo2024</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head> 
+    <title>Turismo2024</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link th:href="@{/css/header.css}" rel="stylesheet" />
 	<link th:href="@{/css/menu.css}" rel="stylesheet" />
 	<link th:href="@{/css/list.css}" rel="stylesheet" />
 	<link th:href="@{/css/body.css}" rel="stylesheet" />
 	<link th:href="@{/css/search.css}" rel="stylesheet" />
 	<link th:href="@{/css/error.css}" rel="stylesheet" />
-	<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/favicon.ico">
 </head>
 <body>
 	<div th:replace="~{fragments/header :: header}"></div>
@@ -18,6 +18,6 @@
 	<div th:if = "${toShow.isEmpty()}" class = "errorDiv">
 		<h1 class = "scrittaError">Ancora nessun elemento caricato!</h1>
 	</div>
-	<div th:replace="~{fragments/body-result :: siteList}"></div>
+    <div th:replace="~{fragments/body-result :: osmList}"></div>
 </body>
 </html>

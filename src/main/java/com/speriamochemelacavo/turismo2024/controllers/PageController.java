@@ -67,6 +67,12 @@ public class PageController {
 		return "validation";
 	}
 	
+	@GetMapping("/element/update")
+	public String updateElement(Model model) {
+		modelSetter.setAttributesInModel(model);
+		return "update-element";
+	}
+	
 	@GetMapping("/element")
 	public String getElement(Model model, @RequestParam int id) {
 		try {
@@ -79,10 +85,10 @@ public class PageController {
 		return "elementView";
 	}
 	
-	@GetMapping("/elements/list")
-	public String getAllElements(Model model) {
+	@GetMapping("/elements/site/list")
+	public String getElements(Model model) {
 		modelSetter.setAttributesInModel(model);
-		return "elements-list";
+		return "site-list";
 	}
 	
 	@GetMapping("/registration")

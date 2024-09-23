@@ -45,7 +45,7 @@ public class POIController {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
 		modelSetter.getAttributes().put("toShow", poiService.findAll());
-        return new RedirectView("/elements/list");
+        return new RedirectView("/elements/site/list");
     }
 	
 	@GetMapping("/{id}")
@@ -72,6 +72,16 @@ public class POIController {
 		modelSetter.getAttributes().put("urlCreationElement", "/pois/add");
 		return new RedirectView("/creation");
 	}
+	
+	@GetMapping("/creation/osm")
+	public RedirectView createPoiFromOSM(PointOfInterest poi) {
+		modelSetter.clearAllAttributes();
+		modelSetter.setBaseVisibility();
+		modelSetter.getAttributes().put("isPoi", true);
+		modelSetter.getAttributes().put("urlCreationElement", "/pois/add");
+		modelSetter.getAttributes().put("element", poi);
+		return new RedirectView("/creation");
+	}
 
 	@PostMapping("/add")
 	public RedirectView addPoI(@ModelAttribute PointOfInterest element, @ModelAttribute Address address) {
@@ -87,6 +97,8 @@ public class POIController {
 		poiService.add(toValidate);
 		return new RedirectView("/pois/" + toValidate.getId());
 	}
+	
+	
 
 	@PutMapping("/update")
 	public RedirectView updatePoI(@ModelAttribute PointOfInterest element, @ModelAttribute Address address) {

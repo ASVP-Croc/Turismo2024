@@ -24,13 +24,13 @@
 				<p class = "scritteBottoniForm">Invia</p>
 			</button>
 			 <div th:if="${param.login}">
-            	<p style="color:red;">Credenziali errate, riprova.</p>
+            	<p style="display:flex; justify-content: center; color:red;">Credenziali errate, riprova.</p>
         	</div>
         	<div th:if="${param.logout}">
-            	<p style="color:green;">Logout avvenuto con successo.</p>
+            	<p style="display:flex; justify-content: center; color:green;">Logout avvenuto con successo.</p>
         	</div>
         	<div th:if="${param.registration}">
-            	<p style="color:green;">Registrazione avvenuta con successo.</p>
+            	<p style="display:flex; justify-content: center; color:green;">Registrazione avvenuta con successo.</p>
         	</div>
 		</form>
 	</div>	

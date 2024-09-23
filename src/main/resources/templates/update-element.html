@@ -11,54 +11,6 @@
 <body>	
 	<div th:replace="~{fragments/header :: header}"></div>
 	<div th:replace="~{fragments/menu :: menu}"></div>
-    <div class = "containerForm">
-    	<form th:id = "creationForm" class = "card" th:object="${element}" th:action="@{${urlCreationElement}}" method="post">
-			<h1 class = "scritteCard">Titolo</h1>
-		    <input class = "input" type="text" name = "name" th:value="${element.getName()}" required/>
-		    <br />
-		    <h1 class = "scritteCard">Descrizione</h1>
-		    <textarea class = "inputDescrizione" rows="10" cols="50" maxlength="200" style="width: 200px; height: 100px;" name = "description" th:value="${element.getDescription()}"/></textarea>
-		    <br />
-		    <h1 class = "scritteCard">Città</h1>
-		    <input class = "input" type="text" name = "city" th:value="${element.getCity()}" required/>
-		    <br />
-		    <h1 class = "scritteCard">C.A.P.</h1>
-		    <input class = "input" type="text" name = "postalcode" th:value="${element.getPostalcode()}" required/>
-		    <br />
-		    <div th:if = "${isPoi}" class = "containerElement" th:object = "${address}">
-		    	<h1 class = "scritteCard">Address</h1>
-		    	<div class = "containerInputRow">
-				    <input class = "input" type="text" name = "road" th:value="${address.getRoad()}"required/>
-				    <br />
-				    <input class = "input" type="number" name = "house_number" th:value="${address.getHouseNumber()}" required/>
-				    <br />
-		    	</div>
-		    </div>
-		    <div th:if = "${isContest}" class = "containerElement">
-		    	<div class = "containerInputRow">
-				    <div class = "containerElement">
-				   		<h1  class = "scritteCard">Inizia il:</h1>
-					    <input class = "input" type="date" name = "starts" th:value="${element.getStarts()}" required/>
-					    <br />
-				    </div>
-				    <div class = "containerElement">	    	
-					    <h1 class = "scritteCard">Termina il:</h1>
-					    <input class = "input" type="date" name = "ends" th:value="${element.getEnds()}" required/>
-					    <br />
-				    </div>
-			    </div>
-			    <h1 class = "scritteCard">Tema</h1>
-			   	<input class = "input" type="text" name = "theme" th:value="${element.getTheme()}"required/>
-		    	<br />
-		    	<h1 class = "scritteCard">Solo su invito</h1>
-		    	<label><input type="checkbox" name="isClosed" th:value="${element.getIsClosed()}" required/></label>
-		    	<br />
-		    </div>		    
-		    
-		    <button type="submit" class = "bottoniForm">
-		    	<p class = "scritteBottoniForm">Creami!</p>
-		    </button>
-		</form>
-	</div>		
+    <div th:replace="~{fragments/body-managers :: elementUpdate}"></div>
 </body>
 </html>

@@ -33,7 +33,7 @@ public class SearchController {
 		modelSetter.setBaseVisibility();
 		modelSetter.setAttributesInModel(model);
 		model.addAttribute("toShow", searchService.searchElementsSite(tag));
-		return "elements-list";
+		return "site-list";
 	}
 	
 	@GetMapping("/osm/detail")
@@ -52,9 +52,9 @@ public class SearchController {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
 		modelSetter.setAttributesInModel(model);
-		model.addAttribute("listElements", toReturn);
+		model.addAttribute("toShow", toReturn);
 		model.addAttribute("isPOI", true);
-		return "elements-list";
+		return "osm-list";
 	}
 	
 	@GetMapping("/osm/query")
@@ -62,9 +62,9 @@ public class SearchController {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
 		modelSetter.setAttributesInModel(model);
-		model.addAttribute("listElements", searchService.searchElementsOSMWithQuery(query));
+		model.addAttribute("toShow", searchService.searchElementsOSMWithQuery(query));
 		model.addAttribute("isPOI", true);
-		return "elements-list";
+		return "osm-list";
 	}
 
 

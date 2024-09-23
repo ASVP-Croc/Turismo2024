@@ -35,7 +35,7 @@ public class ContestController {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
 		modelSetter.getAttributes().put("toShow", contestService.findAll());
-        return new RedirectView("/elements/list");
+        return new RedirectView("/elements/site/list");
     }
     
     @GetMapping("/{id}")

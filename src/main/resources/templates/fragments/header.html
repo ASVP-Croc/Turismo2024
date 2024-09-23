@@ -6,12 +6,13 @@
 <body>
 	<header th:fragment = "header">
 		<div class="headerAdattivo">
-			<button th:onclick = "location.href = '/'" class = "bottoneHeader">
+			<div th:onclick = "location.href = '/'" class = "bottoneHeader" >
 				<h1 class = "scrittaBottoneHeader" th:text = "'Benvenuto ' + ${username} + '!'"></h1>
-			</button>
-			<button th:unless = "${isTourist}" class = "iconaNotifiche">
+				<button th:unless = "${isTourist}" class = "iconaNotifiche">
 				<h1 class = "scritteBottoniMenu" th:text = ${numberOfNotifications}></h1>
-			</button>
+				</button>
+			</div>
+			
 			<!--<div>
 				<ul id="notificatins">
 				  <li><a href="#">Voce 1</a></li>

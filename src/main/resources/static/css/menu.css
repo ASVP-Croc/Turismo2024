@@ -31,13 +31,6 @@
   color: white;
   text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-.iconaNotifiche{
-	border: none;
-	border-radius: 50%;
-	padding: 10px 20px;
-	font-size: 16px;
-	cursor: pointer;
-}
 /* Stile per il div che si adatta alla lunghezza dei bottoni creazione poi/tour/contest */
 .menuAdattivoCreazione {
     display: flex;
