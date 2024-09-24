@@ -5,10 +5,8 @@ public class PointOfInterestFactory {
         switch (type.toUpperCase()) {
             case "physic":
                 return new PoIPhysics();
-
             case "logic":
                     return new PoILogic();
-
             default:
                 throw new IllegalArgumentException("Tipo POI sconosciuto");
         }

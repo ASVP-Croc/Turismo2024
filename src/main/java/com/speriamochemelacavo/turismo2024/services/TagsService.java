@@ -22,58 +22,41 @@ public class TagsService {
 	
 	public Tag findById(int tagId) throws SQLIntegrityConstraintViolationException{
 		Optional<Tag> tagToReturn = tagRepository.findById(tagId);
-		
 		if(tagToReturn.isPresent()) {
-//	    	TODO togliere prima della produzione
 			return tagToReturn.get();
 		} else {
-//	    	TODO togliere prima della produzione
+
 			throw new SQLIntegrityConstraintViolationException("Il Tag con ID " + tagId + " non è stato trovato");
 		}
 	}
 	
 	public Tag findByTag(String tagName) throws SQLIntegrityConstraintViolationException{
 		Optional<Tag> tagToReturn = tagRepository.findByTagName(tagName);
-		
 		if(tagToReturn.isPresent()) {
-//	    	TODO togliere prima della produzione
 			return tagToReturn.get();
 		} else {
-//	    	TODO togliere prima della produzione
 			throw new SQLIntegrityConstraintViolationException("Il Tag " + tagName + " non è stato trovato");
 		}
 	}
 	
 	public Tag add(Tag tagToAdd) {
-//		TODO togliere il try una volta completato il progetto
-		
 		try {
 			Tag toCheck = findByTag(tagToAdd.getTagName());
 			tagToAdd.setId(toCheck.getId());
 			tagToAdd.getElements().addAll(toCheck.getElements());
 			System.out.println("Il Tag " + tagToAdd.getTagName() + " è stato trovato e aggiornato");
 		} catch (SQLIntegrityConstraintViolationException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e.getLocalizedMessage() + ", quindi è stato aggiunto");
 		}
 		
 		return tagRepository.save(tagToAdd);
 	}
-	
-//	public void add(Tag tagToAdd, ElementWithContents element) {
-//		tagToAdd.getElements().add(element);
-//		add(tagToAdd);
-//	}
-//	
+
 	public Set<Tag> addAll(Set<Tag> tagsToAdd) {
 		Set<Tag>  toReturn = new HashSet<>();
 		tagsToAdd.stream().forEach(t -> toReturn.add(add(t)));
 		return toReturn;
 	}
-//	
-//	public void addAll(List<Tag> tagsToAdd, ElementWithContents element) {
-//		tagsToAdd.stream().forEach(t -> add(t, element));
-//	}
 	
 	public void delete(Tag tagToDelete) {
 		tagRepository.delete(tagToDelete);

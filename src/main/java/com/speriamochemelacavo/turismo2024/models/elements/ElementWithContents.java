@@ -28,8 +28,7 @@ public class ElementWithContents extends Element {
 	public ElementWithContents() {
 		super();
 	}
-	
-//	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
+
 	public ElementWithContents(String name, String description, User author, List<Content> contents, String city, String postalcode) {
 		super(name, description, author);
 		this.city = city;

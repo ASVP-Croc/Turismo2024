@@ -26,10 +26,6 @@ import java.util.Date;
 @Component
 @Entity
 public class Content extends Element{
-
-	/*
-	Questo commento dovrà essere cancellato, sono le modifiche per il modello
-	 */
 	
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)

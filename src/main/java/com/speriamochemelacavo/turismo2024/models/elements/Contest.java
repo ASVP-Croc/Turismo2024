@@ -39,8 +39,7 @@ public class Contest extends ElementWithContents {
 		super();
 		this.typology = ElementTypology.CONTEST;
 	}
-	
-//	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
+
 	public Contest(String name, String description, User author, String city, String postcode, List<Content> contents, String theme, boolean isOpen, String linkInvite, LocalDate starts, LocalDate ends) {
 		super(name, description, author, contents, city, postcode);
 		this.theme = theme;

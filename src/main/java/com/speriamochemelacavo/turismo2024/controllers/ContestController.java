@@ -5,8 +5,6 @@ import com.speriamochemelacavo.turismo2024.exception.ElementNotFoundException;
 import com.speriamochemelacavo.turismo2024.models.elements.Contest;
 import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
-import com.speriamochemelacavo.turismo2024.models.elements.Tour;
-import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import com.speriamochemelacavo.turismo2024.services.*;
 
@@ -55,10 +53,8 @@ public class ContestController {
     
     @GetMapping("/{id}")
     public RedirectView getContestById(@PathVariable int id) {
-//    	TODO da ricontrollare, è stato fatto così il metodo per gestire temporaneamente l'eccezione
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
-		//    	TODO da ricontrollare, è stato fatto così il metodo per gestire temporaneamente l'eccezione
         try {
     		modelSetter.getAttributes().put("element", contestService.findById(id));
     		modelSetter.getAttributes().put("isContest", true);

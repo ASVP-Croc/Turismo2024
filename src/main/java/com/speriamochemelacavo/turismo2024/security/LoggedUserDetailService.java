@@ -1,16 +1,12 @@
 package com.speriamochemelacavo.turismo2024.security;
 
-import java.io.IOError;
-import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 import org.springframework.context.annotation.Primary;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.users.Role;

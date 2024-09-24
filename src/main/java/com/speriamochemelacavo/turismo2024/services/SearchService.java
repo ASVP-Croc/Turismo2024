@@ -2,7 +2,6 @@ package com.speriamochemelacavo.turismo2024.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.speriamochemelacavo.turismo2024.models.elements.ElementWithContents;
-import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,6 @@ public class SearchService {
         		try {
 					toReturn.addAll(tagService.findByTag(t).getElements());
 				} catch (SQLIntegrityConstraintViolationException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
         });

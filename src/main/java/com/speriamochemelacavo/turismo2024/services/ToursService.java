@@ -15,9 +15,6 @@ public class ToursService extends ElementsWithContentsService<Tour>{
 	private TourRepository tourRepository;
 	
 	private boolean isToursLoaded;
-	
-//	@Autowired
-//	private MultimediaMaterialRepository multimediaMaterialRepository;
 
 	@Override
 	public List<Tour> findAll() {
@@ -33,14 +30,6 @@ public class ToursService extends ElementsWithContentsService<Tour>{
 	public void setLoaded(boolean isLoaded) {
 		isToursLoaded = isLoaded;
 	}
-//	
-//	public void addPOIToTour(Tour tour, PointOfInterest poi) {
-//		tour.getMyPOIs().add(poi);
-//		elementRepository.save(tour);
-//	}
-//	
-//	public void removePOIToTour(Tour tour, PointOfInterest poi) {
-//		tour.getMyPOIs().remove(poi);
-//		elementRepository.save(tour);
-//	}
+
+
 }

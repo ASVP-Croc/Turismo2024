@@ -20,8 +20,7 @@ import com.speriamochemelacavo.turismo2024.services.ElementsService;
 @Controller
 @RequestMapping
 public class PageController {
-	
-//	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
+
 	@Autowired
 	private ElementsService<Element> elementService;
 	

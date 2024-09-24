@@ -2,7 +2,6 @@ package com.speriamochemelacavo.turismo2024.models.elements.poi;
 
 import org.springframework.stereotype.Component;
 
-import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.ElementWithContents;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 

@@ -37,18 +37,15 @@ public class Element {
 	private User author;
 	@Enumerated(EnumType.STRING)
 	protected ElementTypology typology;
-	//
 	@Enumerated(EnumType.STRING)
 	private ElementStatus validated = ElementStatus.PENDING;
 
-	//utile? il report lo vedo solo con la notifica, non modifica la visibilità
 	private boolean isReported = false;
 	
 	public Element() {
 		
 	}
 
-//	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
 	public Element(String name, String description, User author) {
 		this.name = name;
 		this.description = description;

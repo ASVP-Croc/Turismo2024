@@ -5,7 +5,6 @@ import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
 import com.speriamochemelacavo.turismo2024.services.ReportsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 

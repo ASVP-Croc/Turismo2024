@@ -39,7 +39,6 @@ public class UserController {
 		try {
 			usersService.findByUserName(username);
 		} catch (SQLIntegrityConstraintViolationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return new RedirectView("");

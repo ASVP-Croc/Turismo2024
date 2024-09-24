@@ -3,18 +3,15 @@ package com.speriamochemelacavo.turismo2024.services;
 import java.nio.file.AccessDeniedException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import com.speriamochemelacavo.turismo2024.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.repository.UserRepository;
-import org.springframework.web.client.ResourceAccessException;
 
 @Service
 public class UsersService {
@@ -62,7 +59,6 @@ public class UsersService {
 	}
 
 	public User update(int id, User userToUpdate) throws UserNotFoundException {
-		//TODO
 		User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Utente non trovato!"));
 		user.setName(userToUpdate.getName());
 		user.setSurname(userToUpdate.getSurname());
@@ -90,10 +86,5 @@ public class UsersService {
 	public void delete(int userToDeleteId) {
 		userRepository.deleteById(userToDeleteId);
 	}
-//	
-//	public <T extends Element> void addNewSavedElement(T elementToAdd, int userToSaveElementId) {
-//		User userToUpdate = findById(userToSaveElementId);
-//		userToUpdate.getSavedElements().add(elementToAdd);
-//		updateUser(userToUpdate);
-//	}
+
 }

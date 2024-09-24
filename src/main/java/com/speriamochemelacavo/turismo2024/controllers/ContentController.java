@@ -48,10 +48,8 @@ public class ContentController {
     
     @GetMapping("/{id}")
     public RedirectView getContentById(@PathVariable int id) {
-//    	TODO da ricontrollare, è stato fatto così il metodo per gestire temporaneamente l'eccezione
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
-		//    	TODO da ricontrollare, è stato fatto così il metodo per gestire temporaneamente l'eccezione
         try {
     		modelSetter.getAttributes().put("element", contentService.findById(id));
     		modelSetter.getAttributes().put("isContent", true);
@@ -88,7 +86,7 @@ public class ContentController {
                 .body(new ByteArrayResource(Files.readAllBytes(path)));
     }
 
-    @PostMapping("/add")
+    @PostMapping("/update")
     public RedirectView updateContent(@ModelAttribute Content element) {
         element.setAuthor(loggedUserService.getLoggedUser());
         Content toValidate = contentService.add(element);

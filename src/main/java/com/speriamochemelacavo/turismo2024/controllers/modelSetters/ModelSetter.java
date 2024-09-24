@@ -4,8 +4,6 @@ import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
 import com.speriamochemelacavo.turismo2024.services.ToursService;
-
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,18 +13,18 @@ import org.springframework.ui.Model;
 
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
+/**
+ * La classe ModelSetter viene usata da Thymleaf per impostare le variabili d'ambiente per la sostituzione degli attributi nella pagina html.
+ */
+
 @Component
 public class ModelSetter {
 	
 	private Map<String, Object> attributes = new HashMap<>();
-	
-	
 	@Autowired
 	private LoggedUserDetailService loggedUserService;
-	
 	@Autowired
 	private POIsService poiService;
-	
 	@Autowired
 	private ToursService tourService;
 

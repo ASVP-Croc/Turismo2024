@@ -21,9 +21,7 @@ public abstract class ElementsWithContentsService<T extends ElementWithContents>
 	public abstract void setLoaded(boolean isLoaded);
 	
 	public void addContentToElement(T element, Content content) {
-		//lo facciamo prima o qui?
 		content.setReferenced(element);
-		
 		contentService.add(content);
 		element.getMyContents().add(content);
 		elementRepository.save(element);
@@ -31,9 +29,7 @@ public abstract class ElementsWithContentsService<T extends ElementWithContents>
 	
 	public void deleteContentToElement(T elementWithContent, Content content) {
 		elementWithContent.getMyContents().remove(content);
-		//devo aggiornare l'elemento?
 		elementRepository.save(elementWithContent);
-		
 		contentService.delete(content);
 	}
 }

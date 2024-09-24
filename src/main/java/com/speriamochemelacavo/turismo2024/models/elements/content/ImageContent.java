@@ -20,6 +20,7 @@ public class ImageContent extends Content {
     }
 
     public ContentType getContentType() {
-        return ContentType.IMAGE;
+        super.setContentType(ContentType.IMAGE);
+        return super.getContentType();
     }
 }

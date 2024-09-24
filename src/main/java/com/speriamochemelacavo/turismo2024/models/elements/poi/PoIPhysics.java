@@ -1,10 +1,7 @@
 package com.speriamochemelacavo.turismo2024.models.elements.poi;
 
-import com.speriamochemelacavo.turismo2024.models.elements.category.POIPhysicsEnum;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 
 import java.time.LocalTime;
 
@@ -17,9 +14,6 @@ public class PoIPhysics extends PointOfInterest {
     private String availableService;
     private String webSite;
     private String contact;
-
-    @Enumerated(EnumType.STRING)
-    private POIPhysicsEnum typePoIPhysics;
 
     public String getAvailableService() {
         return availableService;
@@ -35,14 +29,6 @@ public class PoIPhysics extends PointOfInterest {
 
     public void setWebSite(String webSite) {
         this.webSite = webSite;
-    }
-
-    public POIPhysicsEnum getTypePoIPhysics() {
-        return typePoIPhysics;
-    }
-
-    public void setTypePoIPhysics(POIPhysicsEnum typePoIPhysics) {
-        this.typePoIPhysics = typePoIPhysics;
     }
 
     public LocalTime getOpenTime() {

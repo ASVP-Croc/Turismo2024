@@ -19,6 +19,7 @@ public class TextContent extends Content {
     }
 
     public ContentType getContentType() {
-        return ContentType.TEXT;
+        super.setContentType(ContentType.TEXT);
+        return super.getContentType();
     }
 }

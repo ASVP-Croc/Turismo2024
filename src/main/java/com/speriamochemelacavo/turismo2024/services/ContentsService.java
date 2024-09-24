@@ -34,15 +34,6 @@ public class ContentsService extends ElementsService<Content>{
 		return super.add(contentToAdd);
 	}
 
-	//lo fa l'elementWithContentsSevice
-//	public Content addContentToPOI(int id, Content contentToAdd) throws ElementNotFoundException {
-//		PointOfInterest poi = poiRepository.findById(id).orElseThrow(() -> new ElementNotFoundException());
-//		contentToAdd.setReferenced(poi);
-//		contentRepository.save(contentToAdd);
-//		return contentToAdd;
-//	}
-
-
 	public boolean isLoaded() {
 		return isContentsLoaded;
 	}

@@ -47,8 +47,7 @@ public class PointOfInterest extends ElementWithContents {
 		super();
 		this.typology = ElementTypology.POI;
 	}
-	
-//	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
+
 	public PointOfInterest(String name, String description, User author, String city, String postcode, List<Content> contents, float latitude, float longitude, Address address) {
 		super(name, description, author, contents, city, postcode);
 		this.latitude = latitude;

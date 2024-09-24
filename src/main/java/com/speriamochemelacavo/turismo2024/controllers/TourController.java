@@ -9,7 +9,6 @@ import com.speriamochemelacavo.turismo2024.models.elements.poi.POIForTour;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import com.speriamochemelacavo.turismo2024.services.POIsForTourService;
-import com.speriamochemelacavo.turismo2024.services.POIsService;
 import com.speriamochemelacavo.turismo2024.services.TagsService;
 import com.speriamochemelacavo.turismo2024.services.ToursService;
 import com.speriamochemelacavo.turismo2024.services.ValidationsService;
@@ -134,7 +133,7 @@ public class TourController {
 		return new RedirectView("/tours/" + element.getId());    
 	}
 
-	@PutMapping("/update")
+	@PostMapping("/update")
 	public RedirectView updateTour(@ModelAttribute Tour element) {
 		tagService.addAll(tagService.createTagsFromString(
 				element.getName() + "," +
@@ -145,10 +144,18 @@ public class TourController {
 		return new RedirectView("/tours/" + element.getId());
 	}
 
-	@PutMapping("/update/status")
-	public RedirectView updateTourStatus(int id, @RequestBody ElementStatus elementStatus) throws ElementNotFoundException {
+	@PostMapping("/update/tours/status")
+	public RedirectView updateTourStatus(@PathVariable int id, @RequestBody ElementStatus elementStatus) throws ElementNotFoundException {
 		Tour tour = tourService.updateStatus(id, elementStatus);
 		return new RedirectView("/tours/" + tour.getId());
+	}
+
+	@PostMapping("/update/tours/poi")
+	public RedirectView updatePOIsTour(@PathVariable int id, @RequestBody List<POIForTour> pointOfInterestList) throws SQLIntegrityConstraintViolationException {
+		Tour tour = tourService.findById(id);
+		poiForTourService.addAll(pointOfInterestList);
+		tour.getMyPOIs().addAll(pointOfInterestList);
+		return new RedirectView("/" + tour.getId());
 	}
 
     @DeleteMapping("/delete/{id}")

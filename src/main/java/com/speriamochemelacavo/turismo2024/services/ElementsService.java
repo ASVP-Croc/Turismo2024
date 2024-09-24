@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import com.speriamochemelacavo.turismo2024.exception.ElementNotFoundException;
 import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
-import com.speriamochemelacavo.turismo2024.models.users.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +28,6 @@ public class ElementsService<T extends Element> {
 		Optional<T> toCheck = elementRepository.findById(elemToFindId);
 		
 		if (toCheck.isPresent()) {
-//	    	TODO togliere prima della produzione
 			return toCheck.get();
 		} else 
 			throw new SQLIntegrityConstraintViolationException("L'elemento non è stato trovato");
@@ -54,10 +52,9 @@ public class ElementsService<T extends Element> {
 			findById(elementToAdd.getId());
 			System.out.println("L'elemento " + elementToAdd.getName() + " è stato trovato e aggiornato");
 		} catch (SQLIntegrityConstraintViolationException e) {
-//	    	TODO togliere prima della produzione
 			System.out.println(elementToAdd.getName() + " - " + e.getLocalizedMessage() + ", quindi è stato aggiunto");
 		}
-		
+
 		T toReturn = elementRepository.save(elementToAdd);
 		return toReturn;
 	}
@@ -67,19 +64,6 @@ public class ElementsService<T extends Element> {
 		elementsToAdd.stream().forEach(p -> toReturn.add(add(p)));
 		return toReturn;
 	}
-	
-//	public T update(T elementToAdd) {
-//		try {
-//			findById(elementToAdd.getId());
-////	    	TODO togliere prima della produzione
-//			System.out.println("L'elemento " + elementToAdd.getName() + " è stato trovato e aggiornato");
-//		} catch (SQLIntegrityConstraintViolationException e) {
-////	    	TODO togliere prima della produzione
-//			System.out.println(elementToAdd.getName() + " - " + e.getLocalizedMessage() + ", quindi è stato aggiunto");
-//		}
-//
-//		return elementRepository.save(elementToAdd);
-//    }
 
 	public T updateStatus(int id, ElementStatus elementStatus) throws ElementNotFoundException {
 		T element = elementRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("Elemento non trovato"));

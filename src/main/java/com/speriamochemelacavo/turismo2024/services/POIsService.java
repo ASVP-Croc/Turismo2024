@@ -2,6 +2,8 @@ package com.speriamochemelacavo.turismo2024.services;
 
 import java.util.List;
 
+import com.speriamochemelacavo.turismo2024.models.elements.poi.PoIType;
+import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterestFactory;
 import com.speriamochemelacavo.turismo2024.repository.POIRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,11 @@ public class POIsService extends ElementsWithContentsService<PointOfInterest> {
 	public POIsService(){
 		super();
 	}
-	
+
+	public PointOfInterest createPoIType(PoIType type) {
+		return PointOfInterestFactory.createPOI(type.toString());
+	}
+
 	@Override
 	public List<PointOfInterest> findAll() {
 		return poiRepository.findAll();

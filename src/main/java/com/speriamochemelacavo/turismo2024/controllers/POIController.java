@@ -3,6 +3,8 @@ package com.speriamochemelacavo.turismo2024.controllers;
 import com.speriamochemelacavo.turismo2024.exception.ElementNotFoundException;
 import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
+import com.speriamochemelacavo.turismo2024.models.elements.poi.PoIType;
+import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterestFactory;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -15,11 +17,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Address;
-import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.services.AddressService;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
-import com.speriamochemelacavo.turismo2024.services.SearchService;
 import com.speriamochemelacavo.turismo2024.services.TagsService;
 import com.speriamochemelacavo.turismo2024.services.ValidationsService;
 
@@ -66,7 +66,6 @@ public class POIController {
 	public RedirectView getPOIById(@PathVariable int id) {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
-		//    	TODO da ricontrollare, è stato fatto così il metodo per gestire temporaneamente l'eccezione
         try {
     		modelSetter.getAttributes().put("element", poiService.findById(id));
     		modelSetter.getAttributes().put("isPoi", true);
@@ -125,8 +124,15 @@ public class POIController {
 		return new RedirectView("/pois/creation/site");
 	}
 
+	@PostMapping("/add/type")
+	public RedirectView addPoIType(@ModelAttribute PoIType type) {
+		PointOfInterest poi = poiService.createPoIType(type);
+		poiService.add(poi);
+		return new RedirectView("/");
+	}
+
 	@PostMapping("/update")
-	public RedirectView updatePoI(@ModelAttribute PointOfInterest element, @ModelAttribute Address address) throws SQLIntegrityConstraintViolationException {
+	public RedirectView updatePoI(@ModelAttribute PointOfInterest element, @ModelAttribute Address address) {
 		element.setAddress(addressService.add(address));
 		tagService.addAll(tagService.createTagsFromString(
 				element.getName() + "," +
@@ -138,7 +144,7 @@ public class POIController {
 		return new RedirectView("/pois/" + element.getId());
 	}
 
-	@PutMapping("/update/status")
+	@PostMapping("/update/status")
 	public RedirectView updatePoIStatus(@PathVariable int id, @RequestBody ElementStatus elementStatus) throws ElementNotFoundException {
 		PointOfInterest poi = poiService.updateStatus(id, elementStatus);
 		return new RedirectView("/pois/" + poi.getId());
