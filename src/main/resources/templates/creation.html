@@ -15,6 +15,12 @@
 	<div th:replace="~{fragments/header :: header}"></div>
 	<div th:replace="~{fragments/menu :: menu}"></div>
 	<div th:replace="~{fragments/search :: searchOsmQuery}"></div>
-	<div th:replace="~{fragments/body-managers :: elementCreation}"></div>
+	<div th:if = "${isSite}">
+		<div th:replace="~{fragments/body-managers :: elementCreation}"></div>
+	</div>
+	<div th:if = "${isOSM}">
+		<div th:replace="~{fragments/body-managers :: osmCreation}"></div>
+	</div>
+	
 </body>
 </html>

@@ -14,10 +14,12 @@
 <body>
 	<div th:replace="~{fragments/header :: header}"></div>
 	<div th:replace="~{fragments/menu :: menu}"></div>
-	<div th:replace="~{fragments/search :: searchSite}"></div>
+	<div th:replace="~{fragments/search :: searchOsmQuery}"></div>
 	<div th:if = "${toShow.isEmpty()}" class = "errorDiv">
 		<h1 class = "scrittaError">Ancora nessun elemento caricato!</h1>
 	</div>
-    <div th:replace="~{fragments/body-result :: osmList}"></div>
+	<div th:unless = "${toShow.isEmpty()}" class = "errorDiv">
+ 	   <div th:replace="~{fragments/body-result :: osmList}"></div>
+	</div>
 </body>
 </html>

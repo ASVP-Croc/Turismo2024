@@ -2,29 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
     <title>Turismo2024</title> 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html" />
 	<link th:href="@{/css/header.css}" rel="stylesheet" />
 	<link th:href="@{/css/menu.css}" rel="stylesheet" />
 	<link th:href="@{/css/list.css}" rel="stylesheet" />
 	<link th:href="@{/css/body.css}" rel="stylesheet" />
+	<link th:href="@{/css/search.css}" rel="stylesheet" />
     <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/favicon.ico">
 </head>
 <body>
 	<div th:replace="~{fragments/header :: header}"></div>
 	<div th:replace="~{fragments/menu :: menu}"></div>
-    <div class = "containerForm">
-		<form class = "cardAccess" th:action="@{/logout}" method="post">
-			<h1 class = "scritteCard">Sicuro di voler uscire?</h1>
-			<br/>
-			<div class = "containerForm">
-				<button type = "submit" class = "bottoniForm">
-					<p class = "scritteBottoniForm">Sì</p>
-				</button>
-				<div th:onclick = "location.href = '/'" class = "bottoniForm">
-					<p class = "scritteBottoniForm">No</p>
-				</div>
-			</div>
-		</form>
+	<div th:if = "isAdmin">
+    	<div th:replace="~{fragments/search :: searchUser}"></div>
+	</div>
+	<div th:unless = "isTourist">
+    	<div th:replace="~{fragments/body-user :: userManager}"></div>
 	</div>
 </body>
 </html>

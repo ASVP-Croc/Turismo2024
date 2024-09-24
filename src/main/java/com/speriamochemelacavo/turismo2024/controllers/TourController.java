@@ -54,7 +54,14 @@ public class TourController {
     public RedirectView getAllTours() {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
-		modelSetter.getAttributes().put("toShow", tourService.findAll());
+		List<Tour> toReturn;
+		try {
+			toReturn = tourService.findByValidated(ElementStatus.APPROVED);
+		} catch (SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+			toReturn = new ArrayList<>();
+		}
+		modelSetter.getAttributes().put("toShow", toReturn);
         return new RedirectView("/elements/site/list");
     }
     

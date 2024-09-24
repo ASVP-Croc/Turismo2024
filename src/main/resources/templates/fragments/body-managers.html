@@ -7,7 +7,7 @@
 
 	<div th:fragment = "elementCreation" class = "containerFormElement">
 		<div class = "menuAdattivoCreazione">
-	   		<button th:onclick = "location.href = '/pois/creation'" class = "bottoniCreazione">
+	   		<button th:onclick = "location.href = '/pois/creation/site'" class = "bottoniCreazione">
 		    	<p class = "scritteBottoniForm">Punto di Interesse</p>
 		    </button>
 		    <button th:onclick = "location.href = '/tours/creation'" class = "bottoniCreazione">
@@ -68,6 +68,38 @@
 			</form>
 		</div>		
 	</div>
+	
+	<div th:fragment = "osmCreation" class = "containerFormElement">
+	    <div class = "containerForm">
+	    	<form th:id = "creationForm" class = "cardForm" th:action= "@{${urlCreationElement}}" method="post">
+				<h1 class = "scritteCard">Titolo</h1>
+			    <input class = "input" type="text" name = "name" th:value = "${element.getName()}" required/>
+			    <br />
+			    <h1 class = "scritteCard">Descrizione</h1>
+			    <textarea class = "inputDescrizione" rows="10" cols="50" maxlength="200" style="width: 200px; height: 100px;" name = "description" th:text = "${element.getDescription()}"/></textarea>
+			    <br />
+			    <h1 class = "scritteCard">Città</h1>
+			    <input class = "input" type="text" name = "city" th:value = "${element.getCity()}" required/>
+			    <br />
+			    <h1 class = "scritteCard">C.A.P.</h1>
+			    <input class = "input" type="text" name = "postalcode" th:value = "${element.getPostalcode()}" required/>
+			    <br />
+			    <div class = "containerFields">
+			    	<h1 class = "scritteCard">Address</h1>
+			    	<div class = "containerInputRow">
+					    <input class = "input" type="text" name = "road" th:value = "${address.getRoad()}" required/>
+					    <br />
+					    <input class = "input" type="text" name = "house_number" th:value = "${address.getHouseNumber() != 0 ? address.getHouseNumber() : 'snc'}" required/>
+					    <br />
+			    	</div>
+			    </div>
+			    <button type="submit" class = "bottoniForm">
+			    	<p class = "scritteBottoniForm">Creami!</p>
+			    </button>
+			</form>
+		</div>		
+	</div>
+	
 	<div th:fragment = "elementUpdate" class = "containerForm">
     	<form th:id = "creationForm" class = "card" th:object="${element}" th:action="@{${urlUpdateElement}}" method="post">
 			<h1 class = "scritteCard">Titolo</h1>

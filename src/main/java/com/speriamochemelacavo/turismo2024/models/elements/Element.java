@@ -99,7 +99,7 @@ public class Element {
 		return validated;
 	}
 
-	public void setValidation(ElementStatus validated) {
+	public void setValidated(ElementStatus validated) {
 		this.validated = validated;
 	}
 	public boolean isReported() {

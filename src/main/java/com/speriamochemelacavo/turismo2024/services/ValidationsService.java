@@ -46,7 +46,7 @@ public class ValidationsService<T extends Element> {
 				toValidate.setForTour(true);
 				notificationService.sendToSingleUser("Aggiunta avvenuta per: " + toValidate.getName(), "", toValidate, toValidate.getAuthorForTour());
 			} else {
-				elementToValidate.setValidation(ElementStatus.APPROVED);
+				elementToValidate.setValidated(ElementStatus.APPROVED);
 				notificationService.sendToSingleUser("Pubblicazione avvenuta per: " + elementToValidate.getName(), "", elementToValidate, elementToValidate.getAuthor());
 			}
 			
@@ -79,12 +79,12 @@ public class ValidationsService<T extends Element> {
 	}
 
 	public void rejectValidation(String message, T elementToValidate){
-		elementToValidate.setValidation(ElementStatus.REJECTED);
+		elementToValidate.setValidated(ElementStatus.REJECTED);
 		notificationService.sendToSingleUser("Pubblicazione negata: " + elementToValidate.getName(), message, elementToValidate, elementToValidate.getAuthor());
 	}
 	
 	public void confirmValidation(T elementToValidate) {
-		elementToValidate.setValidation(ElementStatus.APPROVED);
+		elementToValidate.setValidated(ElementStatus.APPROVED);
 		notificationService.sendToSingleUser("Pubblicazione avvenuta: " + elementToValidate.getName(), "", elementToValidate, elementToValidate.getAuthor());
 	}
 }

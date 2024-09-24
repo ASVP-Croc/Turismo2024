@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.services.UsersService;
 
@@ -35,7 +36,6 @@ public class LoggedUserDetailService extends UsersService implements UserDetails
 		try {
 			return findByUserName(((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
 		} catch (SQLIntegrityConstraintViolationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -44,25 +44,24 @@ public class LoggedUserDetailService extends UsersService implements UserDetails
 	public boolean isLogged() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
-		if (auth == null || auth instanceof AnonymousAuthenticationToken || auth.getPrincipal() == "anonymousUser") {
+		if (auth == null || auth.getPrincipal() == null || auth.getPrincipal() == "anonymousUser") {
 			return false;
 		}
 		 return true;
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) {
 		User user;
+		
 		try {
 			user = findByUserName(username);
+			UserPrincipal userPrinciple = new UserPrincipal(user.getUsername(), user.getPassword(), user.getRole());
+			return userPrinciple;
 		} catch (SQLIntegrityConstraintViolationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new UsernameNotFoundException("utente non trovato");
+			return new UserPrincipal("Tourist", "", Role.ROLE_TURIST);
 		}
-		
-		UserPrincipal userPrinciple = new UserPrincipal(user.getUsername(), user.getPassword(), user.getRole());
-		return userPrinciple;
 	}
 	
 }

@@ -5,12 +5,15 @@ import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Address;
+import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.services.AddressService;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
@@ -45,7 +48,14 @@ public class POIController {
     public RedirectView getAllPOIs() {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
-		modelSetter.getAttributes().put("toShow", poiService.findAll());
+		List<PointOfInterest> toReturn;
+		try {
+			toReturn = poiService.findByValidated(ElementStatus.APPROVED);
+		} catch (SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+			toReturn = new ArrayList<>();
+		}
+		modelSetter.getAttributes().put("toShow", toReturn);
         return new RedirectView("/elements/site/list");
     }
 	
@@ -65,22 +75,26 @@ public class POIController {
 		}
 	}
 
-	@GetMapping("/creation")
+	@GetMapping("/creation/site")
 	public RedirectView createPoi() {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
+		modelSetter.getAttributes().put("isSite", true);
+		modelSetter.getAttributes().put("isOSM", false);
 		modelSetter.getAttributes().put("isPoi", true);
 		modelSetter.getAttributes().put("urlCreationElement", "/pois/add");
 		return new RedirectView("/creation");
 	}
 	
-	@GetMapping("/creation/osm")
-	public RedirectView createPoiFromOSM(PointOfInterest poi) {
+	@PostMapping("/creation/osm")
+	public RedirectView createPoiFromOSM(@ModelAttribute PointOfInterest element, @ModelAttribute Address address) {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
-		modelSetter.getAttributes().put("isPoi", true);
 		modelSetter.getAttributes().put("urlCreationElement", "/pois/add");
-		modelSetter.getAttributes().put("element", poi);
+		modelSetter.getAttributes().put("element", element);
+		modelSetter.getAttributes().put("address", address);
+		modelSetter.getAttributes().put("isSite", false);
+		modelSetter.getAttributes().put("isOSM", true);
 		return new RedirectView("/creation");
 	}
 

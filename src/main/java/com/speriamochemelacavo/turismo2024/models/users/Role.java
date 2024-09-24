@@ -8,7 +8,8 @@ public enum Role implements GrantedAuthority{
 	ROLE_AUTHENTICATED_TOURIST,
 	ROLE_AUTHORIZED_CONTRIBUTOR,
 	ROLE_CONTRIBUTOR,
-	ROLE_CURATOR;
+	ROLE_CURATOR,
+	ROLE_TURIST;
 
 	@Override
 	public String getAuthority() {

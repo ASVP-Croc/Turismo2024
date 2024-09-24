@@ -26,12 +26,6 @@ public class ContestsService extends ElementsWithContentsService<Contest>  {
 		return contestRepository.findAll();
 		
 	}
-	
-	public void add(Contest contestToAdd, LocalDate starts, LocalDate ends) {
-		contestToAdd.setStarts(starts);
-		contestToAdd.setEnds(ends);
-		super.add(contestToAdd);
-	}
 
 	@Override
 	public boolean isLoaded() {

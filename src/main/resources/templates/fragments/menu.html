@@ -14,6 +14,9 @@
 		<button th:if = "${isTourButtonVisible}" th:onclick = "location.href = '/startDbTours'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Popola il DB Itinerari</h1>
 		</button>
+		<button th:unless = "${isTourist}" th:onclick = "location.href = '/user/manager'" class = "bottoniMenu">
+			<h1 class = "scritteBottoniMenu">Profilo</h1>
+		</button>
 		<button th:if = "${isAdmin}" th:onclick = "location.href = '/users'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Lista Utenti</h1>
 		</button>
@@ -26,18 +29,26 @@
 		<button th:onclick = "location.href = '/contests'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Lista Eventi</h1>
 		</button>
-		<button th:unless = "${isAuthTourist||isTourist}" th:onclick = "location.href = '/pois/creation'" class = "bottoniMenu">
+		<button th:unless = "${isAuthTourist||isTourist}" th:onclick = "location.href = '/pois/creation/site'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Creami</h1>
 		</button>
-		<button th:if = "${isTourist}" th:onclick = "location.href = '/login'" class = "bottoniMenu">
+		<button th:if = "${isTourist}" th:onclick = "location.href = '/access/login'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Login</h1>
 		</button>
-		<button th:if = "${isTourist}" th:onclick = "location.href = '/registration'" class = "bottoniMenu">
+		<button th:if = "${isTourist}" th:onclick = "location.href = '/access/registration'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Registrati</h1>
 		</button>
-		<button th:onclick = "location.href = '/logout'" class = "bottoniMenu">
+		<button th:onclick = "location.href = '/access/logout'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Logout</h1>
 		</button>
 	</div>
+	
+	<div class="menuAdattivo" th:fragment="menuUserManager">
+		<button th:unless = "${isLoadedUsers}" th:onclick = "location.href = '/startDbUsers'" class = "bottoniMenu">
+			<h1 class = "scritteBottoniMenu">Popola il DB Utenti</h1>
+		</button>
+
+	</div>
+	
 </body>
 </html>

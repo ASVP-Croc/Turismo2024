@@ -12,6 +12,7 @@ import com.speriamochemelacavo.turismo2024.services.UsersService;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.nio.file.AccessDeniedException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 @RestController
 @RequestMapping("/users")
@@ -31,10 +32,18 @@ public class UserController {
 		return new RedirectView("/users/list");
 	}
 	
-//	@GetMapping("/{id}")
-//	public User getUserById(@PathVariable int id){
-//		return usersService.findById(id);
-//	}
+	@GetMapping("/{username}")
+	public RedirectView getUserById(@PathVariable String username){
+		modelSetter.clearAllAttributes();
+		modelSetter.setBaseVisibility();
+		try {
+			usersService.findByUserName(username);
+		} catch (SQLIntegrityConstraintViolationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new RedirectView("");
+	}
 
 	@PostMapping("/add")
 	public RedirectView addUser(User userToAdd){

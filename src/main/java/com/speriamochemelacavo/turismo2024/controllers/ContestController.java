@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/contests")
@@ -37,7 +39,14 @@ public class ContestController {
     public RedirectView getAllContests() {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
-		modelSetter.getAttributes().put("toShow", contestService.findAll());
+		List<Contest> toReturn;
+		try {
+			toReturn = contestService.findByValidated(ElementStatus.APPROVED);
+		} catch (SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+			toReturn = new ArrayList<>();
+		}
+		modelSetter.getAttributes().put("toShow", toReturn);
         return new RedirectView("/elements/site/list");
     }
     

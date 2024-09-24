@@ -15,7 +15,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 @RequestMapping("/report")
 public class ReportController<T extends Element> {
     @Autowired
-    private ElementsService elementsService;
+    private ElementsService<T> elementsService;
 
     @Autowired
     private ReportsService<T> reportsService;

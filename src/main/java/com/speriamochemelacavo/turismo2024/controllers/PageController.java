@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
-
+import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
+import com.speriamochemelacavo.turismo2024.models.users.Role;
+import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import com.speriamochemelacavo.turismo2024.services.ElementsService;
 
 @Controller
@@ -24,6 +26,9 @@ public class PageController {
 	private ElementsService<Element> elementService;
 	
 	@Autowired
+	private LoggedUserDetailService loggedUserDetailService;
+	
+	@Autowired
 	private ModelSetter modelSetter;
 	
 	public PageController() {
@@ -31,23 +36,27 @@ public class PageController {
 	
 	@GetMapping("/")
 	public String home(Model model) {
+		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
-		model.addAttribute("toShow", elementService.findAll());
+		try {
+			model.addAttribute("toShow", elementService.findByValidated(ElementStatus.APPROVED));
+		} catch (SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+		}
 		modelSetter.setAttributesInModel(model);
 		return "index";
-	}
-
-	@GetMapping("/login")
-	public String login(Model model) {
-		modelSetter.setBaseVisibility();
-		modelSetter.setAttributesInModel(model);
-		return "login";
 	}
 	
 	@GetMapping("/users/list")
 	public String getUsers(Model model) {
 		modelSetter.setAttributesInModel(model);
 		return "users-list";
+	}
+	
+	@GetMapping("/user/manager")
+	public String getUserManager(Model model) {
+		modelSetter.setAttributesInModel(model);
+		return "user-manager";
 	}
 	
 	@GetMapping("/creation")
@@ -70,11 +79,21 @@ public class PageController {
 	
 	@GetMapping("/element")
 	public String getElement(Model model, @RequestParam int id) {
+		modelSetter.clearAllAttributes();
+		modelSetter.setBaseVisibility();
+		Role userRoleToCheck = loggedUserDetailService.getLoggedUser().getRole();
 		try {
-			modelSetter.getAttributes().put("element", elementService.findById(id));
+			Element elementToCheck = elementService.findById(id);
+			if (userRoleToCheck == Role.ROLE_ADMINISTRATOR ||
+				elementToCheck.getAuthor().getRole() == userRoleToCheck ||
+				elementToCheck.getValidated() == ElementStatus.APPROVED) {
+				
+					model.addAttribute("element", elementToCheck);
+					model.addAttribute("noElement", false);
+			}
 		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
-			modelSetter.getAttributes().put("noElement", true);
+			model.addAttribute("noElement", true);
 		}
 		modelSetter.setAttributesInModel(model);
 		return "elementView";
@@ -86,18 +105,23 @@ public class PageController {
 		return "site-list";
 	}
 	
-	@GetMapping("/registration")
-	public String userRegistration(Model model) {
-		modelSetter.setBaseVisibility();
-		modelSetter.setAttributesInModel(model);
-		return "registration";
-	}
-	
 	@GetMapping("/error")
 	public String error(Model model) {
 		modelSetter.setBaseVisibility();
 		model.addAttribute("message", "Ops, qualcosa è andato storto");
 		modelSetter.setAttributesInModel(model);
 		return "error";
+	}
+	
+	private Element checkElement(int id, ElementStatus status) {
+		Element toCheck = elementService.checkStatusElement(id, status);
+		if (toCheck != null) {
+			modelSetter.getAttributes().put("element", toCheck);
+			modelSetter.getAttributes().put("noElement", false);
+			return toCheck;
+		} else {
+			modelSetter.getAttributes().put("noElement", true);
+		}
+		return null;
 	}
 }

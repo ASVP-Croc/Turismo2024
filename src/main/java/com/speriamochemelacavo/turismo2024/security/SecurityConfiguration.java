@@ -7,7 +7,9 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import com.speriamochemelacavo.turismo2024.models.users.Role;
 
 @Configuration
 @EnableWebSecurity
@@ -26,10 +28,11 @@ public class SecurityConfiguration {
 	                .disable()
 	            )
         	.authorizeHttpRequests(requests -> requests
-	                        .requestMatchers("/h2-console/**", "/", "/registration/**", 
+	                        .requestMatchers("/h2-console/**", "/", "/access/registration/**", 
 	                        		"/css/**", "/favicon.ico", "/element/**", "/elements/**", 
-	                        		"/pois", "/tours", "/contests",
+	                        		"/pois", "/tours", "/contests", 
 	                        		"/startDbUsers", "/search/**", "/error/**").permitAll()
+	                        .requestMatchers("/access/logout/**", "/user/manager").authenticated()
 	                        .requestMatchers("/pois/**", "/tours/**", 
 	                        		"/contests/**", "/contents/**").hasAnyRole("AUTHENTICATED_TOURIST", "CONTRIBUTOR", "AUTHORIZED_CONTRIBUTOR", "CURATOR", "ANIMATOR", "ADMINISTRATOR")
 	                        .requestMatchers("/users/all").hasRole("ADMINISTRATOR")
@@ -38,18 +41,19 @@ public class SecurityConfiguration {
 									"/pois/add", "/tours/add", "/contents/add").hasAnyRole("CONTRIBUTOR", "AUTHORIZED_CONTRIBUTOR", "CURATOR", "ANIMATOR", "ADMINISTRATOR")
 							.requestMatchers("/contests/creation", "/contests/add").hasAnyRole("ANIMATOR", "ADMINISTRATOR")
 							.requestMatchers("/validations", "/validation").hasAnyRole("CURATOR","ADMINISTRATOR")
+							.requestMatchers("/validations", "/validation").hasAnyRole("ANIMATOR","ADMINISTRATOR")
 							.requestMatchers("/users/**").hasRole("ADMINISTRATOR")
         		)
 					        .formLogin(form -> form
-					                .loginPage("/login")
-					                .failureUrl("/login?login=false")
+					                .loginPage("/access/login")
+					                .failureUrl("/access/login?login=false")
 					                .permitAll()
 					            )
 					        .logout(logout -> logout
 					        		.logoutUrl("/logout")
+					                .logoutSuccessUrl("/access/login?logout=true")
 					                .invalidateHttpSession(true)
 					                .deleteCookies("JSESSIONID")
-					                .logoutSuccessUrl("/login?logout=true")
 					                .permitAll()
 			 					)
 	                        .headers(headers -> headers

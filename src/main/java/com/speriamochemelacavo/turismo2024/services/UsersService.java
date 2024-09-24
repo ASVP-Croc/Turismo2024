@@ -50,7 +50,7 @@ public class UsersService {
 		if (toCheck.isPresent()) {
 			return toCheck.get();
 		} else 
-			throw new SQLIntegrityConstraintViolationException("L'Utente/gliutenti non sono stati trovati");
+			throw new SQLIntegrityConstraintViolationException("L'Utente/gli utenti non sono stati trovati");
 	}
 
 	public void add(User userToAdd) {

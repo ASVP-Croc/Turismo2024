@@ -7,8 +7,9 @@
 
 	<div th:fragment = "siteList">
 		<div class = "containerElement" th:each = "element : ${toShow}">
-			<div class = "cardList" th:onclick="'location.href=\'' + @{/element(id=${element.getId()})} + '\''">
-				<h1 class = "scritteCard" th:text = "${'Titolo: '} + ${element.getName()}">Titolo</h1>
+			<div class = "cardList" th:action="@{/element(id=${element.getId()})}">
+			<div>
+			<h1 class = "scritteCard" th:text = "${'Titolo: '} + ${element.getName()}">Titolo</h1>
 	    		<h1 class = "scritteCard" th:text = "${'Descrizione: '} + ${element.getDescription()}">Descrizione</h1>
 	    		<h1 class = "scritteCard" th:text = "${'Autore: '} + ${element.getAuthor().getUsername()}">Autore</h1>
 	    		<h1 th:if = "${element.getTypology().toString() == 'POI'}" class = "scritteCard" th:text = "${'Indirizzo: '} + ${element.getAddress().toString()}">Indirizzo</h1>
@@ -17,6 +18,8 @@
 	    		</div>
 	    		<h1 th:if = "${element.getTypology().toString() == 'CONTEST'}" class = "scritteCard" th:text = "${'Periodo: '} + ${element.getStarts()} + ${' - '} + ${element.getEnds()}">Periodo</h1>
 	    		<h1 class = "scritteCard" th:text = "${'Città: '} + ${element.getCity()} + ${' ('} + ${element.getPostalcode()} + ${')'}">Città</h1>
+			</div>
+				
 			</div>
 			<div class = "containerIcons">
 				<button th:unless = "${isTourist}" class = "iconaElementi">
@@ -93,19 +96,26 @@
     		</div>
 		</div>		
 	</div>
-	
-	<div th:fragment = "osmList" class = "containerElement">
-		<form class = "cardForm" th:each = "element : ${toShow.subList(0, toShow.size() > 5 ? 5 : toShow.size())}" th:onclick="'location.href=\'' + @{/element(id=${element.getId()})} + '\''">
-    		<h1 class = "scritteCard" th:text = "${'Titolo: '} + ${element.getName()}">Titolo</h1>
-    		<h1 class = "scritteCard" th:text = "${'Descrizione: '} + ${element.getDescription()}">Descrizione</h1>
-    		<h1 th:if = "${element.getAuthor() != null}" class = "scritteCard" th:text = "${'Autore: '} + ${element.getAuthor().getUsername()}">Autore</h1>
-    		<h1 th:if = "${element.getTypology().toString() == 'POI'}" class = "scritteCard" th:text = "${'Indirizzo: '} + ${element.getAddress().toString()}">Indirizzo</h1>
-    		<div th:if = "${element.getTypology().toString() == 'TOUR' && element.getMyPOIs()!=null && !element.getMyPOIs().isEmpty}">
-	    		<div th:replace="~{fragments/body-result :: toursList(list=${element.getMyPOIs()})}"></div>
-    		</div>
-    		<h1 th:if = "${element.getTypology().toString() == 'CONTEST'}" class = "scritteCard" th:text = "${'Periodo: '} + ${element.getStarts()} + ${' - '} + ${element.getEnds()}">Periodo</h1>
-    		<h1 class = "scritteCard" th:text = "${'Città: '} + ${element.getCity()} + ${' ('} + ${element.getPostalcode()} + ${')'}">Città</h1>
-    	</form>
+	<div th:fragment = "osmList">
+		<div  class = "containerFormElement">
+			<form th:each = "element : ${toShow.subList(0, toShow.size() > 5 ? 5 : toShow.size())}" th:action = "@{/pois/creation/osm}" method = "post">
+	    		<input th:type = "hidden" th:value = "${element.getName()}" name="name">
+	    		<input th:type = "hidden" th:value = "${element.getDescription()}" name="description">
+	    		<input th:type = "hidden" th:value = "${element.getAddress().getRoad()}" name="road">
+	    		<input th:type = "hidden" th:value = "${element.getAddress().getHouseNumber()}" name="houseNumber">
+	    		<input th:type = "hidden" th:value = "${element.getCity()}" name="city">
+	    		<input th:type = "hidden" th:value = "${element.getPostalcode()}" name="postalcode">
+	    		<input th:type = "hidden" th:value = "${element.getLatitude()}" name="latitude">
+	    		<input th:type = "hidden" th:value = "${element.getLongitude()}" name="longitude">
+	    		<button type="submit" class = "cardForm">
+					<h1 class = "scritteCard" th:text = "${'Titolo: '} + ${element.getName()}">Titolo</h1>
+		    		<h1 class = "scritteCard" th:text = "${'Descrizione: '} + ${element.getDescription()}">Descrizione</h1>
+		    		<h1 class = "scritteCard" th:text = "${'Indirizzo: '} + ${element.getAddress().toString()}">Indirizzo</h1>
+		    		<h1 class = "scritteCard" th:text = "${'Città: '} + ${element.getCity()} + ${' ('} + ${element.getPostalcode()} + ${')'}">Città</h1>
+				</button>
+	    	</form>
+		</div>
 	</div>
+	
 </body>
 </html>

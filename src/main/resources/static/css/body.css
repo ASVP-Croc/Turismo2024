@@ -28,6 +28,7 @@
 /* Stile per i div delle cards nei form */
 .cardForm {
 	display: flex;
+	align-items: center;
 	flex-direction: column;
 	justify-content: center;
 	height: auto;
@@ -38,7 +39,7 @@
 	background-color: #e7e7e7;
 	cursor: pointer;
 }
-.cardLogin {
+.cardAccess {
 	display: flex;
 	flex-direction: column;
 	min-width: 350px;
@@ -63,8 +64,13 @@
 	margin-left: 20px;
 	margin-right: 20px;
 }
+/* Stile per gli spazi di input nei form per OSM*/
+.inputHidden{
+	display: none;
+}
 /* Stile per i bottoni della registrazione*/
 .bottoniForm{
+	width: 200px;
 	background-color: #c0c0c0;
 	color: #fff;
 	font-size: 20px;
@@ -81,6 +87,7 @@
 }
 /* Stile per le scritte nei bottoni della registrazione */
 .scritteBottoniForm {
+	text-align: center;
 	border: 1px #000;
  	color: white;
  	text-shadow: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;

@@ -33,6 +33,7 @@ public class SearchController {
 		modelSetter.setBaseVisibility();
 		modelSetter.setAttributesInModel(model);
 		model.addAttribute("toShow", searchService.searchElementsSite(tag));
+		searchService.searchElementsSite(tag).forEach( e -> System.out.println(e.toString()));
 		return "site-list";
 	}
 	
@@ -63,7 +64,6 @@ public class SearchController {
 		modelSetter.setBaseVisibility();
 		modelSetter.setAttributesInModel(model);
 		model.addAttribute("toShow", searchService.searchElementsOSMWithQuery(query));
-		model.addAttribute("isPOI", true);
 		return "osm-list";
 	}
 

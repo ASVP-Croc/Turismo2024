@@ -7,6 +7,8 @@ import java.util.Optional;
 
 import com.speriamochemelacavo.turismo2024.exception.ElementNotFoundException;
 import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
+import com.speriamochemelacavo.turismo2024.models.users.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,14 +39,20 @@ public class ElementsService<T extends Element> {
 		return elementRepository.findAll();
 	}
 
-	public List<T> findByValidated(ElementStatus elementStatus) {
-		return elementRepository.findAllByValidated(elementStatus);
+	public List<T> findByValidated(ElementStatus elementStatus) throws SQLIntegrityConstraintViolationException {
+		Optional<List<T>> toCheck = elementRepository.findByValidated(elementStatus);
+		
+		if (toCheck.isPresent()) {
+			return toCheck.get();
+		} else 
+			throw new SQLIntegrityConstraintViolationException("L'oggetto/gli oggetti non sono stati trovati");
+		
 	}
 	
 	public T add(T elementToAdd) {
 		try {
 			findById(elementToAdd.getId());
-			elementToAdd.setValidation(ElementStatus.PENDING);
+			elementToAdd.setValidated(ElementStatus.PENDING);
 			System.out.println("L'elemento " + elementToAdd.getName() + " è stato trovato e aggiornato");
 		} catch (SQLIntegrityConstraintViolationException e) {
 //	    	TODO togliere prima della produzione
@@ -77,7 +85,7 @@ public class ElementsService<T extends Element> {
 
 	public T updateStatus(int id, ElementStatus elementStatus) throws ElementNotFoundException {
 		T element = elementRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("Elemento non trovato"));
-		element.setValidation(elementStatus);
+		element.setValidated(elementStatus);
 		return elementRepository.save(element);
 	}
 
@@ -97,4 +105,15 @@ public class ElementsService<T extends Element> {
 		elementRepository.deleteAll(elementsToDelete);
 	}
 
+	public Element checkStatusElement(int id, ElementStatus status) {
+		try {
+			Element toReturn = findById(id);
+			if (toReturn.getValidated() == status) {
+				return toReturn;
+			}			
+		} catch (SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
