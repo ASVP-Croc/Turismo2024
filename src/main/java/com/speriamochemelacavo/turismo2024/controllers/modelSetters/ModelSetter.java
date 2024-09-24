@@ -1,9 +1,11 @@
 package com.speriamochemelacavo.turismo2024.controllers.modelSetters;
 
 import com.speriamochemelacavo.turismo2024.models.users.Role;
+import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
 import com.speriamochemelacavo.turismo2024.services.ToursService;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,20 +34,20 @@ public class ModelSetter {
 	}
 
 	public void setBaseVisibility() {
-		attributes.put("username",
-				loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getUsername() : "Turista");
-		attributes.put("isAdmin", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole() == Role.ROLE_ADMINISTRATOR : false);
-		attributes.put("isCurator", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole() == Role.ROLE_CURATOR : false);
-		attributes.put("isAnimator", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole() == Role.ROLE_ANIMATOR : false);
-		attributes.put("isContributor", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole() == Role.ROLE_CONTRIBUTOR : false);
-		attributes.put("isAuthTourist", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getRole() == Role.ROLE_AUTHENTICATED_TOURIST : false);
-		attributes.put("isTourist", !loggedUserService.isLogged());
+		User user = loggedUserService.getLoggedUser();
+		attributes.put("username", user.getUsername());
+		attributes.put("isAdmin", user.getRole() == Role.ROLE_ADMINISTRATOR);
+		attributes.put("isCurator", user.getRole() == Role.ROLE_CURATOR);
+		attributes.put("isAnimator", user.getRole() == Role.ROLE_ANIMATOR);
+		attributes.put("isContributor", user.getRole() == Role.ROLE_CONTRIBUTOR);
+		attributes.put("isAuthTourist", user.getRole() == Role.ROLE_AUTHENTICATED_TOURIST);
+		attributes.put("isTourist", user.getRole() == Role.ROLE_TOURIST);
 		attributes.put("isLoadedUsers", loggedUserService.isLoaded());
-		boolean isPOIButtonVisible = (loggedUserService.isLogged() && loggedUserService.getLoggedUser().getRole() != Role.ROLE_AUTHENTICATED_TOURIST && !poiService.isLoaded());
+		boolean isPOIButtonVisible = (user.getRole() != Role.ROLE_TOURIST && user.getRole() != Role.ROLE_AUTHENTICATED_TOURIST && !poiService.isLoaded());
 		attributes.put("isPOIButtonVisible", isPOIButtonVisible);
-		boolean isTourButtonVisible = (loggedUserService.isLogged() && loggedUserService.getLoggedUser().getRole() != Role.ROLE_AUTHENTICATED_TOURIST && !tourService.isLoaded());
+		boolean isTourButtonVisible = (user.getRole() != Role.ROLE_TOURIST && user.getRole() != Role.ROLE_AUTHENTICATED_TOURIST && !tourService.isLoaded());
 		attributes.put("isTourButtonVisible", isTourButtonVisible);
-		attributes.put("numberOfNotifications", loggedUserService.isLogged() ? loggedUserService.getLoggedUser().getNotifications().size() : 56);
+		attributes.put("numberOfNotifications", user.getNotifications().size());
 	}
 	
 	public Object getAttribute(String attribute) {

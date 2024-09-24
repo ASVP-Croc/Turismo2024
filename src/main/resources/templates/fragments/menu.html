@@ -38,7 +38,7 @@
 		<button th:if = "${isTourist}" th:onclick = "location.href = '/access/registration'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Registrati</h1>
 		</button>
-		<button th:onclick = "location.href = '/access/logout'" class = "bottoniMenu">
+		<button th:unless = "${isTourist}" th:onclick = "location.href = '/access/logout'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Logout</h1>
 		</button>
 	</div>

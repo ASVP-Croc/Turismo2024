@@ -59,7 +59,7 @@
 		    <h1 class = "scritteCard">C.A.P.</h1>
 		    <h2 class = "scritteCard" th:text = "${element.getPostalcode()}"></h2>
 			<h1>______________</h1>
-		    <div th:if = "${element.getTypology().toString() == 'POI'}" class = "containerElement">
+		    <div th:if = "${element.getTypology().toString() == 'POI'}" class = "cardList">
 		    	<h1 class = "scritteCard">Indirizzo</h1>
 				<h2 class = "scritteCard" th:text = "${element.getAddress().getRoad()} + ${element.getAddress().getHouseNumber()}"></h2>
 			<h1>______________</h1>

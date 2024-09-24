@@ -2,11 +2,13 @@ package com.speriamochemelacavo.turismo2024.controllers;
 
 import com.speriamochemelacavo.turismo2024.exception.ElementNotFoundException;
 import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
+import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.services.AddressService;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
+import com.speriamochemelacavo.turismo2024.services.SearchService;
 import com.speriamochemelacavo.turismo2024.services.TagsService;
 import com.speriamochemelacavo.turismo2024.services.ValidationsService;
 
@@ -40,7 +43,7 @@ public class POIController {
 
 	@Autowired
 	private ValidationsService<PointOfInterest> validationService;
-
+	
 	@Autowired
 	private TagsService tagService;
 	
@@ -100,32 +103,39 @@ public class POIController {
 
 	@PostMapping("/add")
 	public RedirectView addPoI(@ModelAttribute PointOfInterest element, @ModelAttribute Address address) {
-		element.setAuthor(loggedUserService.getLoggedUser());
-		element.setAddress(addressService.add(address));
-		PointOfInterest toValidate = poiService.add(element);
-		tagService.addAll(tagService.createTagsFromString(
+		Set<Tag> toCompare = tagService.createTagsFromString(
 				element.getName() + "," +
 				element.getDescription() + "," +
 				address.getRoad() + "," +
-				element.getCity(), element));
-		validationService.requestValidation(toValidate);
-		poiService.add(toValidate);
-		return new RedirectView("/pois/" + toValidate.getId());
+				element.getCity(), element);
+		for (Tag tag : toCompare) {
+			try {
+				tagService.findByTag(tag.getTagName());
+			} catch (SQLIntegrityConstraintViolationException e) {
+				e.printStackTrace();
+				element.setAuthor(loggedUserService.getLoggedUser());
+				element.setAddress(addressService.add(address));
+				PointOfInterest toValidate = poiService.add(element);
+				tagService.addAll(toCompare);
+				validationService.requestValidation(toValidate);
+				poiService.add(toValidate);
+				return new RedirectView("/pois/" + toValidate.getId());
+			}
+		}
+		return new RedirectView("/pois/creation/site");
 	}
 
-	@PutMapping("/update")
-	public RedirectView updatePoI(@PathVariable int id, @ModelAttribute Address address) throws SQLIntegrityConstraintViolationException {
-		PointOfInterest poi = poiService.findById(id);
-		poi.setAddress(addressService.add(address));
-		PointOfInterest toValidate = poiService.update(poi);
+	@PostMapping("/update")
+	public RedirectView updatePoI(@ModelAttribute PointOfInterest element, @ModelAttribute Address address) throws SQLIntegrityConstraintViolationException {
+		element.setAddress(addressService.add(address));
 		tagService.addAll(tagService.createTagsFromString(
-				poi.getName() + "," +
-						poi.getDescription() + "," +
+				element.getName() + "," +
+						element.getDescription() + "," +
 						address.getRoad() + "," +
-						poi.getCity(), poi));
-		validationService.requestValidation(toValidate);
-		poiService.add(toValidate);
-		return new RedirectView("/pois/" + toValidate.getId());
+						element.getCity(), element));
+		validationService.requestValidation(element);
+		poiService.add(element);
+		return new RedirectView("/pois/" + element.getId());
 	}
 
 	@PutMapping("/update/status")

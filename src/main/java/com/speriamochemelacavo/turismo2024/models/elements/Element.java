@@ -39,7 +39,7 @@ public class Element {
 	protected ElementTypology typology;
 	//
 	@Enumerated(EnumType.STRING)
-	private ElementStatus validated;
+	private ElementStatus validated = ElementStatus.PENDING;
 
 	//utile? il report lo vedo solo con la notifica, non modifica la visibilità
 	private boolean isReported = false;

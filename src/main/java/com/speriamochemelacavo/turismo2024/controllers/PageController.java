@@ -90,6 +90,8 @@ public class PageController {
 				
 					model.addAttribute("element", elementToCheck);
 					model.addAttribute("noElement", false);
+			} else {
+				model.addAttribute("noElement", true);
 			}
 		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();

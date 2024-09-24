@@ -1,6 +1,8 @@
 package com.speriamochemelacavo.turismo2024.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.speriamochemelacavo.turismo2024.models.elements.ElementWithContents;
+import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ public class SearchService {
     @Autowired
     private TagsService tagService;
 
-    public List<ElementWithContents> searchElementsSite(String tag){
+    public List<ElementWithContents> searchElementsSiteByString(String tag){
         List<ElementWithContents> toReturn = new ArrayList<>();
         Set<String> firstSplit = tagService.split(tag.toUpperCase()).stream().collect(Collectors.toSet());
         firstSplit.stream()
@@ -40,17 +42,29 @@ public class SearchService {
         return toReturn;
     }
 
-    public List<PointOfInterest> searchElementsOSMWithDetails(String amenity, String street, String houseNumber, String postalCode) throws IOException {
+    public List<PointOfInterest> searchElementsOSMWithDetails(String amenity, String street, String houseNumber, String postalCode) {
         List<PointOfInterest> toReturn = new ArrayList<>();
-        toReturn.addAll(POIResolver.resolveElements(
-                        nominatimService.getInfoFromParameter(amenity, street + " " + houseNumber, postalCode))
-        );
+        try {
+			toReturn.addAll(POIResolver.resolveElements(
+			                nominatimService.getInfoFromParameter(amenity, street + " " + houseNumber, postalCode))
+			);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
         return toReturn;
     }
 
-    public List<PointOfInterest> searchElementsOSMWithQuery(String query) throws IOException{
+    public List<PointOfInterest> searchElementsOSMWithQuery(String query) {
         List<PointOfInterest> toReturn = new ArrayList<>();
-        toReturn.addAll(POIResolver.resolveElements(nominatimService.getInfoFromQuery(query)));
+        try {
+			toReturn.addAll(POIResolver.resolveElements(nominatimService.getInfoFromQuery(query)));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
         return toReturn;
     }
 

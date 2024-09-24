@@ -3,6 +3,7 @@ package com.speriamochemelacavo.turismo2024.controllers;
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.exception.ElementNotFoundException;
 import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
+import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.POIForTour;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
@@ -17,6 +18,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -34,8 +36,6 @@ public class TourController {
     private ToursService tourService;
     
     @Autowired
-    private POIsService poiService;
-    
     private POIsForTourService poiForTourService;
     
 	@Autowired
@@ -87,63 +87,68 @@ public class TourController {
     public RedirectView createTour(Tour tour) {
     	modelSetter.clearAllAttributes();
     	modelSetter.setBaseVisibility();
+		modelSetter.getAttributes().put("isSite", true);
     	modelSetter.getAttributes().put("isTour", true);
 		modelSetter.getAttributes().put("urlCreationElement", "/tours/add");
         return new RedirectView("/creation");
     }
 
     @PostMapping("/add")
-    public RedirectView addTour(@ModelAttribute Tour element) {
-		element.setAuthor(loggedUserService.getLoggedUser());
-		Tour toValidate = tourService.add(element);
+    public RedirectView addTour(@ModelAttribute Tour element, @ModelAttribute POIForTour... pois) {
+		Set<Tag> toCompare = tagService.createTagsFromString(
+				element.getName() + "," +
+				element.getDescription() + "," +
+				element.getCity(), element);
+    
+    	for (Tag tag : toCompare) {
+			try {
+				tagService.findByTag(tag.getTagName());
+			} catch (SQLIntegrityConstraintViolationException e) {
+				e.printStackTrace();
+				for (POIForTour poi : pois) {
+					poiForTourValidationService.requestValidation(poiForTourService.add(poi));
+					poiForTourService.add(poi);
+				}
+				element.setAuthor(loggedUserService.getLoggedUser());
+				Tour toValidate = tourService.add(element);
+				tagService.addAll(toCompare);
+				tourValidationService.requestValidation(toValidate);
+				tourService.add(toValidate);
+				return new RedirectView("/tours/" + toValidate.getId());
+			}
+    	}
+		return new RedirectView("/tours/creation");    
+	}
+    
+    @PostMapping("/add/pois")
+    public RedirectView addPoisToTour(@ModelAttribute Tour element, @ModelAttribute POIForTour... pois) {
+    	
+    	Arrays.stream(pois).forEach(pft -> {
+    		pft.setAuthorForTour(loggedUserService.getLoggedUser());
+    		poiForTourValidationService.requestValidation(poiForTourService.add(pft));
+    		poiForTourService.add(pft);
+    		element.getMyPOIs().add(pft);
+    	});
+    	
+		tourService.add(element);
+		return new RedirectView("/tours/" + element.getId());    
+	}
+
+	@PutMapping("/update")
+	public RedirectView updateTour(@ModelAttribute Tour element) {
 		tagService.addAll(tagService.createTagsFromString(
 				element.getName() + "," +
 				element.getDescription() + "," +
 				element.getCity(), element));
-		tourValidationService.requestValidation(toValidate);
-		tourService.add(toValidate);
-		return new RedirectView("/tours/" + toValidate.getId());    
-	}
-
-	@PutMapping("/update")
-	public RedirectView updateTour(@PathVariable int id) throws SQLIntegrityConstraintViolationException {
-		Tour tour = tourService.findById(id);
-		Tour toValidate = tourService.update(tour);
-		tagService.addAll(tagService.createTagsFromString(
-				tour.getName() + "," +
-						tour.getDescription() + "," +
-						tour.getCity(), tour));
-		tourValidationService.requestValidation(toValidate);
-		tourService.add(toValidate);
-		return new RedirectView("/tours/" + toValidate.getId());
+		tourValidationService.requestValidation(element);
+		tourService.add(element);
+		return new RedirectView("/tours/" + element.getId());
 	}
 
 	@PutMapping("/update/status")
 	public RedirectView updateTourStatus(int id, @RequestBody ElementStatus elementStatus) throws ElementNotFoundException {
 		Tour tour = tourService.updateStatus(id, elementStatus);
 		return new RedirectView("/tours/" + tour.getId());
-	}
-    
-    @PostMapping("/add/pois")
-    public RedirectView addPoisToTour(@ModelAttribute Tour element, @ModelAttribute PointOfInterest... pois) {
-    	List<POIForTour> toValidate = new ArrayList<>();
-    	Arrays.stream(pois).forEach(p -> {
-			try {
-		    	POIForTour pft = (POIForTour) poiService.findById(p.getId());
-		    	pft.setId(0);
-		    	toValidate.add(pft);
-			} catch (SQLIntegrityConstraintViolationException e) {
-				e.printStackTrace();
-			}
-		});
-    	toValidate.stream().forEach(pft -> {
-    		pft.setAuthorForTour(loggedUserService.getLoggedUser());
-    		poiForTourValidationService.requestValidation(poiForTourService.add(pft));
-    		poiForTourService.add(pft);
-    		element.getMyPOIs().add(pft);
-    		tourService.add(element);
-    	});
-		return new RedirectView("/tours/" + element.getId());    
 	}
 
     @DeleteMapping("/delete/{id}")

@@ -1,5 +1,7 @@
 package com.speriamochemelacavo.turismo2024.security;
 
+import java.io.IOError;
+import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 import org.springframework.context.annotation.Primary;
@@ -33,18 +35,24 @@ public class LoggedUserDetailService extends UsersService implements UserDetails
 	}
 	
 	public User getLoggedUser() {
-		try {
-			return findByUserName(((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
-		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
+		if (isLogged()) {
+			try {
+				return findByUserName(((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+			} catch (SQLIntegrityConstraintViolationException e) {
+				e.printStackTrace();
+			}
 		}
-		return null;
+		
+		return new User();
 	}
 	
 	public boolean isLogged() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
-		if (auth == null || auth.getPrincipal() == null || auth.getPrincipal() == "anonymousUser") {
+		if (auth.getPrincipal() == null ||
+				auth.getPrincipal() == "anonymousUser" ||
+				!(auth.getPrincipal() instanceof UserPrincipal) ||
+				((UserPrincipal) auth.getPrincipal()).getUsername() == null) {
 			return false;
 		}
 		 return true;
@@ -60,7 +68,7 @@ public class LoggedUserDetailService extends UsersService implements UserDetails
 			return userPrinciple;
 		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
-			return new UserPrincipal("Tourist", "", Role.ROLE_TURIST);
+			return new UserPrincipal("Tourist", "", Role.ROLE_TOURIST);
 		}
 	}
 	

@@ -32,8 +32,8 @@ public class SearchController {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
 		modelSetter.setAttributesInModel(model);
-		model.addAttribute("toShow", searchService.searchElementsSite(tag));
-		searchService.searchElementsSite(tag).forEach( e -> System.out.println(e.toString()));
+		model.addAttribute("toShow", searchService.searchElementsSiteByString(tag));
+		searchService.searchElementsSiteByString(tag).forEach( e -> System.out.println(e.toString()));
 		return "site-list";
 	}
 	

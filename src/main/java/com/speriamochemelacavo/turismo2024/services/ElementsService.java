@@ -52,7 +52,6 @@ public class ElementsService<T extends Element> {
 	public T add(T elementToAdd) {
 		try {
 			findById(elementToAdd.getId());
-			elementToAdd.setValidated(ElementStatus.PENDING);
 			System.out.println("L'elemento " + elementToAdd.getName() + " è stato trovato e aggiornato");
 		} catch (SQLIntegrityConstraintViolationException e) {
 //	    	TODO togliere prima della produzione
@@ -69,19 +68,18 @@ public class ElementsService<T extends Element> {
 		return toReturn;
 	}
 	
-	public T update(T elementToAdd) {
-		try {
-			findById(elementToAdd.getId());
-//	    	TODO togliere prima della produzione
-
-			System.out.println("L'elemento " + elementToAdd.getName() + " è stato trovato e aggiornato");
-		} catch (SQLIntegrityConstraintViolationException e) {
-//	    	TODO togliere prima della produzione
-			System.out.println(elementToAdd.getName() + " - " + e.getLocalizedMessage() + ", quindi è stato aggiunto");
-		}
-
-		return elementRepository.save(elementToAdd);
-    }
+//	public T update(T elementToAdd) {
+//		try {
+//			findById(elementToAdd.getId());
+////	    	TODO togliere prima della produzione
+//			System.out.println("L'elemento " + elementToAdd.getName() + " è stato trovato e aggiornato");
+//		} catch (SQLIntegrityConstraintViolationException e) {
+////	    	TODO togliere prima della produzione
+//			System.out.println(elementToAdd.getName() + " - " + e.getLocalizedMessage() + ", quindi è stato aggiunto");
+//		}
+//
+//		return elementRepository.save(elementToAdd);
+//    }
 
 	public T updateStatus(int id, ElementStatus elementStatus) throws ElementNotFoundException {
 		T element = elementRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("Elemento non trovato"));

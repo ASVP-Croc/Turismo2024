@@ -55,15 +55,15 @@ public class User {
 	private String name;
 	private String surname;
 	@Column(name = "username", nullable = false, unique = true)
-	private String username;
-	private String password;
+	private String username = "Tourist";
+	private String password = "";
 	private String email;
 	private String phoneNumber;
 	private String address;
 	private String city;
 	private String CAP;
 	@Enumerated(EnumType.STRING)
-	private Role role;
+	private Role role = Role.ROLE_TOURIST;
 	@ManyToMany(mappedBy = "recipientUsers", cascade = CascadeType.ALL)
 	private Set<Notification> notifications = new HashSet<>();
 	@OneToMany

@@ -84,7 +84,7 @@ public class PreparationController {
 	}
 
 	@GetMapping("/startDbTours")
-	public RedirectView insertInitialToursRecords() throws IOException{
+	public RedirectView insertInitialToursRecords() {
 		if (!tourService.isLoaded()) {
 			saveTour(List.of(new Tour("tour1", "tour della porchetta", loggedUserService.getLoggedUser(), "Ancona", "60100", new ArrayList<>())));
 			saveTour(List.of(new Tour("tour2", "tour della fontana", loggedUserService.getLoggedUser(), "Fermo", "63900", new ArrayList<>())));
