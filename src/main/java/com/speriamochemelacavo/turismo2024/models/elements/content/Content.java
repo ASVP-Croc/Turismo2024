@@ -1,5 +1,8 @@
-package com.speriamochemelacavo.turismo2024.models.elements;
+package com.speriamochemelacavo.turismo2024.models.elements.content;
 
+import com.speriamochemelacavo.turismo2024.models.elements.Element;
+import com.speriamochemelacavo.turismo2024.models.elements.ElementWithContents;
+import com.speriamochemelacavo.turismo2024.models.elements.category.ContentType;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -40,6 +43,9 @@ public class Content extends Element{
 	private ElementWithContents referenced;
 	private String pathToResource;
 
+	@Enumerated(EnumType.STRING)
+	private ContentType contentType;
+
 	public Content() {
 		super();
 		this.typology = ElementTypology.CONTENT;
@@ -53,6 +59,7 @@ public class Content extends Element{
 		this.referenced = referenced;
 		this.pathToResource = pathToResource;
 		this.typology = ElementTypology.CONTENT;
+
 	}
 
 	public ElementWithContents getReferenced() {
@@ -69,6 +76,14 @@ public class Content extends Element{
 
 	public void setPathToResource(String pathToResource) {
 		this.pathToResource = pathToResource;
+	}
+
+	public ContentType getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(ContentType contentType) {
+		this.contentType = contentType;
 	}
 }
 	

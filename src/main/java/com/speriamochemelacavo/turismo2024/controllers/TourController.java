@@ -1,6 +1,8 @@
 package com.speriamochemelacavo.turismo2024.controllers;
 
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
+import com.speriamochemelacavo.turismo2024.exception.ElementNotFoundException;
+import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
 import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.POIForTour;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
@@ -97,15 +99,22 @@ public class TourController {
 	}
 
 	@PutMapping("/update")
-	public RedirectView updateTour(@ModelAttribute Tour element) {
-		Tour toValidate = tourService.update(element);
+	public RedirectView updateTour(@PathVariable int id) throws SQLIntegrityConstraintViolationException {
+		Tour tour = tourService.findById(id);
+		Tour toValidate = tourService.update(tour);
 		tagService.addAll(tagService.createTagsFromString(
-				element.getName() + "," +
-						element.getDescription() + "," +
-						element.getCity(), element));
+				tour.getName() + "," +
+						tour.getDescription() + "," +
+						tour.getCity(), tour));
 		tourValidationService.requestValidation(toValidate);
 		tourService.add(toValidate);
 		return new RedirectView("/tours/" + toValidate.getId());
+	}
+
+	@PutMapping("/update/status")
+	public RedirectView updateTourStatus(int id, @RequestBody ElementStatus elementStatus) throws ElementNotFoundException {
+		Tour tour = tourService.updateStatus(id, elementStatus);
+		return new RedirectView("/tours/" + tour.getId());
 	}
     
     @PostMapping("/add/pois")

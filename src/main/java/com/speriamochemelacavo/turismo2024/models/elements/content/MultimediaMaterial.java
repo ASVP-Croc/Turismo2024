@@ -1,5 +1,6 @@
-package com.speriamochemelacavo.turismo2024.models.elements;
+package com.speriamochemelacavo.turismo2024.models.elements.content;
 
+import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

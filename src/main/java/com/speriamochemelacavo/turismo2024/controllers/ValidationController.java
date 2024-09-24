@@ -32,11 +32,5 @@ public class ValidationController<T extends Element> {
         return new RedirectView("/validations");
     }
 
-    @DeleteMapping
-    public RedirectView deleteContent(T element) {
-
-        return new RedirectView("/");
-    }
-
 
 }

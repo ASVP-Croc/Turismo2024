@@ -3,7 +3,7 @@ package com.speriamochemelacavo.turismo2024.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.speriamochemelacavo.turismo2024.models.elements.Content;
+import com.speriamochemelacavo.turismo2024.models.elements.content.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.ElementWithContents;
 
 @Service

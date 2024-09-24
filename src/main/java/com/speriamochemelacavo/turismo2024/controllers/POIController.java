@@ -1,5 +1,7 @@
 package com.speriamochemelacavo.turismo2024.controllers;
 
+import com.speriamochemelacavo.turismo2024.exception.ElementNotFoundException;
+import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -96,21 +98,26 @@ public class POIController {
 		poiService.add(toValidate);
 		return new RedirectView("/pois/" + toValidate.getId());
 	}
-	
-	
 
 	@PutMapping("/update")
-	public RedirectView updatePoI(@ModelAttribute PointOfInterest element, @ModelAttribute Address address) {
-		element.setAddress(addressService.add(address));
-		PointOfInterest toValidate = poiService.update(element);
+	public RedirectView updatePoI(@PathVariable int id, @ModelAttribute Address address) throws SQLIntegrityConstraintViolationException {
+		PointOfInterest poi = poiService.findById(id);
+		poi.setAddress(addressService.add(address));
+		PointOfInterest toValidate = poiService.update(poi);
 		tagService.addAll(tagService.createTagsFromString(
-				element.getName() + "," +
-						element.getDescription() + "," +
+				poi.getName() + "," +
+						poi.getDescription() + "," +
 						address.getRoad() + "," +
-						element.getCity(), element));
+						poi.getCity(), poi));
 		validationService.requestValidation(toValidate);
 		poiService.add(toValidate);
 		return new RedirectView("/pois/" + toValidate.getId());
+	}
+
+	@PutMapping("/update/status")
+	public RedirectView updatePoIStatus(@PathVariable int id, @RequestBody ElementStatus elementStatus) throws ElementNotFoundException {
+		PointOfInterest poi = poiService.updateStatus(id, elementStatus);
+		return new RedirectView("/pois/" + poi.getId());
 	}
 
 	@DeleteMapping("/delete/{id}")

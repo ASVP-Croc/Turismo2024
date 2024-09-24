@@ -1,6 +1,6 @@
 package com.speriamochemelacavo.turismo2024.repository;
 
-import com.speriamochemelacavo.turismo2024.models.elements.Content;
+import com.speriamochemelacavo.turismo2024.models.elements.content.Content;
 import org.springframework.stereotype.Repository;
 
 @Repository

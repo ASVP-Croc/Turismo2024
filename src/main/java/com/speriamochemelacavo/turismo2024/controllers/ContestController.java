@@ -1,7 +1,10 @@
 package com.speriamochemelacavo.turismo2024.controllers;
 
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
+import com.speriamochemelacavo.turismo2024.exception.ElementNotFoundException;
 import com.speriamochemelacavo.turismo2024.models.elements.Contest;
+import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
+import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import com.speriamochemelacavo.turismo2024.services.*;
 
@@ -81,16 +84,23 @@ public class ContestController {
     }
 
 	@PutMapping("/update")
-	public RedirectView updateContest(@ModelAttribute Contest element) {
-		Contest toValidate = contestService.add(element);
+	public RedirectView updateContest(@PathVariable int id) throws SQLIntegrityConstraintViolationException {
+		Contest contest = contestService.findById(id);
+		Contest toValidate = contestService.update(contest);
 		tagService.addAll(tagService.createTagsFromString(
-				element.getName() + "," +
-						element.getDescription() + "," +
-						element.getTheme() + "," +
-						element.getCity(), element));
+				contest.getName() + "," +
+						contest.getDescription() + "," +
+						contest.getTheme() + "," +
+						contest.getCity(), contest));
 		validationService.requestValidation(toValidate);
 		contestService.add(toValidate);
 		return new RedirectView("/contests/" + toValidate.getId());
+	}
+
+	@PutMapping("/update/status")
+	public RedirectView updateTourStatus(int id, @RequestBody ElementStatus elementStatus) throws ElementNotFoundException {
+		Contest contest = contestService.updateStatus(id, elementStatus);
+		return new RedirectView("/contests/" + contest.getId());
 	}
 
     @DeleteMapping("/delete/{id}")

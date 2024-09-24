@@ -39,7 +39,7 @@ public class Element {
 	protected ElementTypology typology;
 	//
 	@Enumerated(EnumType.STRING)
-	private ElementStatus validated = ElementStatus.PENDING;
+	private ElementStatus validated;
 
 	//utile? il report lo vedo solo con la notifica, non modifica la visibilità
 	private boolean isReported = false;
@@ -95,13 +95,12 @@ public class Element {
 		return typology;
 	}
 
-	public ElementStatus isValidated() {
+	public ElementStatus getValidated() {
 		return validated;
 	}
 
-	public ElementStatus setValidation(ElementStatus validated) {
+	public void setValidation(ElementStatus validated) {
 		this.validated = validated;
-		return validated;
 	}
 	public boolean isReported() {
 		return isReported;
