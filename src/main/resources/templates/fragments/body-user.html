@@ -37,8 +37,7 @@
 			    <select th:if = "${isAdmin}" name = "role" th:field = "${user.role}">
 			    	<option class = "input" th:each="role : ${listRole}" th:value="${'ROLE_'} + ${role}" th:text = "${role}"></option>
 			    </select>
-			    <h1 th:unless = "${isAdmin}" class = "input" th:text = "${user.getRole().toString().substring(5)}"></h1>
-			    <input th:unless = "${isAdmin}" class = "inputHidden"  type="text" name = "role" th:value = "${user.getRole().toString()}"/>
+			    <input th:unless = "${isAdmin}" class = "input"  type="text" name = "role" th:value = "${user.getRole().toString()}" readonly/>
 			    <br />
 			    <button type="submit" class = "bottoniForm">
 			    	<p class = "scritteBottoniForm">Salva</p>

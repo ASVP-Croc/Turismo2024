@@ -50,9 +50,7 @@ public class ElementsService<T extends Element> {
 	public T add(T elementToAdd) {
 		try {
 			findById(elementToAdd.getId());
-			System.out.println("L'elemento " + elementToAdd.getName() + " è stato trovato e aggiornato");
 		} catch (SQLIntegrityConstraintViolationException e) {
-			System.out.println(elementToAdd.getName() + " - " + e.getLocalizedMessage() + ", quindi è stato aggiunto");
 		}
 
 		T toReturn = elementRepository.save(elementToAdd);

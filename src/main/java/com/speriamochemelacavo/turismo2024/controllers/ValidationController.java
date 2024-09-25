@@ -39,7 +39,6 @@ public class ValidationController<T extends Element> {
 		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
 		} finally {
-	        toReturn.forEach(e -> System.out.println(e.toString()));;
 		}
         return new RedirectView("/validations");
     }

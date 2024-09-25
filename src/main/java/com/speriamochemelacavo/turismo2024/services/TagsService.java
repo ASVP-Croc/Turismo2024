@@ -44,9 +44,7 @@ public class TagsService {
 			Tag toCheck = findByTag(tagToAdd.getTagName());
 			tagToAdd.setId(toCheck.getId());
 			tagToAdd.getElements().addAll(toCheck.getElements());
-			System.out.println("Il Tag " + tagToAdd.getTagName() + " è stato trovato e aggiornato");
 		} catch (SQLIntegrityConstraintViolationException e) {
-			System.out.println(e.getLocalizedMessage() + ", quindi è stato aggiunto");
 		}
 		
 		return tagRepository.save(tagToAdd);

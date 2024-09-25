@@ -64,7 +64,6 @@ public class ValidationsService<T extends Element> {
 			}
 			sendNotifications("Hai un nuovo Elemento da validare!", elementToValidate, recipients);
 		} catch (SQLIntegrityConstraintViolationException e) {
-			System.out.println(e.getLocalizedMessage());
 		}
 	}
 	

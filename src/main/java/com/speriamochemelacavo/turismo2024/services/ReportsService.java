@@ -35,7 +35,6 @@ public class ReportsService<T extends Element>{
 			elementToReport.setReported(true);
 			notificationService.sendToMultipleUsers("Segnalazione: " + elementToReport.getName(), message, elementToReport, recipients);
 		} catch (SQLIntegrityConstraintViolationException e) {
-			System.out.println(e.getLocalizedMessage());
 		}
 	}
 }

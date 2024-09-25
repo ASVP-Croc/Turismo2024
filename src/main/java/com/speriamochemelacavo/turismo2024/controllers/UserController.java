@@ -67,7 +67,6 @@ public class UserController {
 	public RedirectView addUser(@ModelAttribute User userToAdd){
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
-		System.out.println(userToAdd.toString());
 		if (loggedUserDetailService.getLoggedUser().getUsername().equals(userToAdd.getUsername()) ||
 				loggedUserDetailService.getLoggedUser().getRole() == Role.ROLE_ADMINISTRATOR) {
 			User toModify;
@@ -76,7 +75,6 @@ public class UserController {
 				userToAdd.setPassword(toModify.getPassword());
 				userService.add(userToAdd);
 				modelSetter.getAttributes().put("user", userToAdd);
-				System.out.println(userToAdd.toString());
 			} catch (SQLIntegrityConstraintViolationException e) {
 				e.printStackTrace();
 				modelSetter.getAttributes().put("userFound", false);
