@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
+
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.models.users.User;
@@ -51,13 +53,13 @@ public class AccessController {
 	}
 
 	@PostMapping("/registration")
-	public String registerUser(Model model, @ModelAttribute User newUser) {
+	public RedirectView registerUser(Model model, @ModelAttribute User newUser) {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
 		modelSetter.setAttributesInModel(model);
 		newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 		newUser.setRole(Role.ROLE_AUTHENTICATED_TOURIST);
 		userService.add(newUser);
-		return "login";
+		return new RedirectView("/access/login?registration=true");
 	}
 }
