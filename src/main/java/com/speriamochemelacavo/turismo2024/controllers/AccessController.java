@@ -1,5 +1,7 @@
 package com.speriamochemelacavo.turismo2024.controllers;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -54,12 +56,18 @@ public class AccessController {
 
 	@PostMapping("/registration")
 	public RedirectView registerUser(Model model, @ModelAttribute User newUser) {
-		modelSetter.clearAllAttributes();
-		modelSetter.setBaseVisibility();
-		modelSetter.setAttributesInModel(model);
-		newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-		newUser.setRole(Role.ROLE_AUTHENTICATED_TOURIST);
-		userService.add(newUser);
-		return new RedirectView("/access/login?registration=true");
+		try {
+			userService.findByUserName(newUser.getUsername());
+			return new RedirectView("/access/registration?registration=true");
+		} catch (SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+			modelSetter.clearAllAttributes();
+			modelSetter.setBaseVisibility();
+			modelSetter.setAttributesInModel(model);
+			newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+			newUser.setRole(Role.ROLE_AUTHENTICATED_TOURIST);
+			userService.add(newUser);
+			return new RedirectView("/access/login?registration=true");
+		}
 	}
 }
