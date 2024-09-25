@@ -3,7 +3,6 @@ package com.speriamochemelacavo.turismo2024.models.elements;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.speriamochemelacavo.turismo2024.models.elements.content.Content;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ManyToMany;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,5 @@
-package com.speriamochemelacavo.turismo2024.models.elements.content;
+package com.speriamochemelacavo.turismo2024.models.elements;
 
-import com.speriamochemelacavo.turismo2024.models.elements.Element;
-import com.speriamochemelacavo.turismo2024.models.elements.ElementWithContents;
 import com.speriamochemelacavo.turismo2024.models.elements.category.ContentType;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,16 +25,9 @@ import java.util.Date;
 @Entity
 public class Content extends Element{
 	
-	@CreationTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createdAt;
-
-	@UpdateTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date updatedAt;
-	
 	@OneToOne(cascade = CascadeType.ALL)
 	private ElementWithContents referenced;
+	
 	private String pathToResource;
 
 	@Enumerated(EnumType.STRING)
@@ -48,10 +39,8 @@ public class Content extends Element{
 	}
 
 //	TODO Questo dovrà essere tolto, usato solo per creare oggetti per i test
-	public Content(String name, String description, User author, LocalDateTime createdAt, LocalDateTime updatedAt, ElementWithContents referenced, String pathToResource) {
+	public Content(String name, String description, User author,ElementWithContents referenced, String pathToResource) {
 		super(name, description, author);
-		this.createdAt = new Date();
-		this.updatedAt = new Date();
 		this.referenced = referenced;
 		this.pathToResource = pathToResource;
 		this.typology = ElementTypology.CONTENT;

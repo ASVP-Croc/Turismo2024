@@ -6,7 +6,7 @@ import com.speriamochemelacavo.turismo2024.repository.ContestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.speriamochemelacavo.turismo2024.models.elements.content.Content;
+import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.Contest;
 
 @Service
@@ -35,14 +35,6 @@ public class ContestsService extends ElementsWithContentsService<Contest>  {
 	@Override
 	public void setLoaded(boolean isLoaded) {
 		isContestsLoaded = isLoaded;
-	}
-	
-	@Override
-	public void addContentToElement(Contest contest, Content content) {
-		LocalDate date = LocalDate.now();
-		if(date.isBefore(contest.getEnds())) {
-			super.addContentToElement(contest, content);
-		}
 	}
 	
 	

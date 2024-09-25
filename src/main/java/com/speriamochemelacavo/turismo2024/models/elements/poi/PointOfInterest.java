@@ -2,7 +2,7 @@ package com.speriamochemelacavo.turismo2024.models.elements.poi;
 
 import java.util.List;
 import com.speriamochemelacavo.turismo2024.models.elements.Address;
-import com.speriamochemelacavo.turismo2024.models.elements.content.Content;
+import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
 import com.speriamochemelacavo.turismo2024.models.elements.ElementWithContents;
 

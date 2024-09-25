@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.speriamochemelacavo.turismo2024.models.elements.content.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.POIForTour;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import org.springframework.stereotype.Component;

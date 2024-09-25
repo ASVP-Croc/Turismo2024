@@ -4,9 +4,9 @@ import com.speriamochemelacavo.turismo2024.exception.ElementNotFoundException;
 import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PoIType;
-import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterestFactory;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 
+import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +14,14 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.elements.Address;
+import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.services.AddressService;
+import com.speriamochemelacavo.turismo2024.services.ContentsService;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
 import com.speriamochemelacavo.turismo2024.services.TagsService;
 import com.speriamochemelacavo.turismo2024.services.ValidationsService;
@@ -46,6 +49,9 @@ public class POIController {
 	
 	@Autowired
 	private TagsService tagService;
+	
+	@Autowired
+	ContentsService contentService;
 	
     @GetMapping("")
     public RedirectView getAllPOIs() {
@@ -122,6 +128,17 @@ public class POIController {
 			}
 		}
 		return new RedirectView("/pois/creation/site");
+	}
+	
+	@PostMapping("/addWithContent")
+	public RedirectView addPOIWithContent(@ModelAttribute PointOfInterest element,
+			@ModelAttribute Address address,
+			@RequestParam MultipartFile file,
+			@ModelAttribute Content content) throws IOException {
+		RedirectView toReturn = addPoI(element, address);
+		content.setAuthor(loggedUserService.getLoggedUser());
+		poiService.addContent(contentService.add(content, element, file), element);
+		return toReturn;
 	}
 
 	@PostMapping("/add/type")
