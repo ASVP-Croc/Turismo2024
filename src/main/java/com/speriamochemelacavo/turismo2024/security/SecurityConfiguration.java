@@ -28,7 +28,7 @@ public class SecurityConfiguration {
 	            )
 	        .cors(Customizer.withDefaults())
         	.authorizeHttpRequests(requests -> requests
-	                        .requestMatchers("/h2-console/**", "/", "/access/registration/**", 
+	                        .requestMatchers("/h2-console/**", "/", "/access/registration**", 
 	                        		"/css/**", "/favicon.ico", "/element/**", "/elements/**", 
 	                        		"/pois", "/tours", "/contests", 
 	                        		"/startDbUsers", "/search/**", "/error/**").permitAll()

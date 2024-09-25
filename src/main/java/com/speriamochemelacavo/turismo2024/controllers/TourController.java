@@ -92,7 +92,7 @@ public class TourController {
     }
 
     @PostMapping("/add")
-    public RedirectView addTour(@ModelAttribute Tour element, @ModelAttribute POIForTour... pois) {
+    public RedirectView addTour(@ModelAttribute Tour element) {
 		Set<Tag> toCompare = tagService.createTagsFromString(
 				element.getName() + "," +
 				element.getDescription() + "," +
@@ -103,10 +103,6 @@ public class TourController {
 				tagService.findByTag(tag.getTagName());
 			} catch (SQLIntegrityConstraintViolationException e) {
 				e.printStackTrace();
-				for (POIForTour poi : pois) {
-					poiForTourValidationService.requestValidation(poiForTourService.add(poi));
-					poiForTourService.add(poi);
-				}
 				element.setAuthor(loggedUserService.getLoggedUser());
 				Tour toValidate = tourService.add(element);
 				tagService.addAll(toCompare);
