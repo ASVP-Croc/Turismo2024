@@ -28,10 +28,10 @@ public class SecurityConfiguration {
 	            )
 	        .cors(Customizer.withDefaults())
         	.authorizeHttpRequests(requests -> requests
-	                        .requestMatchers("/h2-console/**", "/", "/access/registration/**", 
+	                        .requestMatchers("/h2-console/**", "/", "/access/registration**", 
 	                        		"/css/**", "/favicon.ico", "/element/**", "/elements/**", 
 	                        		"/pois", "/tours", "/contests", 
-	                        		"/startDbUsers", "/search/**", "/error/**").permitAll()
+	                        		"/startDbUsers", "/search/**", "/error/**", "/access/login**").permitAll()
 	                        .requestMatchers("/access/logout/**", "/user/**", "/users/**", "/users**", "/pois/**", "/tours/**", 
 	                        		"/contests/**", "/contents/**").authenticated()
 							.requestMatchers("/startDbPOIs", "/startDbTours", "/creation", 
@@ -48,7 +48,7 @@ public class SecurityConfiguration {
 					                .permitAll()
 					            )
 					        .logout(logout -> logout
-					        		.logoutUrl("/logout")
+					        		.logoutUrl("/access/logout")
 					                .logoutSuccessUrl("/access/login?logout=true")
 					                .invalidateHttpSession(true)
 					                .deleteCookies("JSESSIONID")
