@@ -1,17 +1,15 @@
 package com.speriamochemelacavo.turismo2024.controllers;
 
-import com.speriamochemelacavo.turismo2024.exception.UserNotFoundException;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.users.User;
+import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import com.speriamochemelacavo.turismo2024.services.UsersService;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.nio.file.AccessDeniedException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 @RestController
@@ -19,7 +17,10 @@ import java.sql.SQLIntegrityConstraintViolationException;
 public class UserController {
 
 	@Autowired
-	private UsersService usersService;
+	private LoggedUserDetailService loggedUserDetailService;
+	
+	@Autowired
+	private UsersService userService;
 	
 	@Autowired
 	private ModelSetter modelSetter;
@@ -28,41 +29,67 @@ public class UserController {
 	public RedirectView getAllUsers(){
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
-		modelSetter.getAttributes().put("listUsers", usersService.findAll());
-		return new RedirectView("/users/list");
+		modelSetter.getAttributes().put("listUsers", userService.findAll());
+		return new RedirectView("/user/list");
 	}
 	
-	@GetMapping("/{username}")
-	public RedirectView getUserById(@PathVariable String username){
+
+	@GetMapping("/manager")
+	public RedirectView getUserManager() {
 		modelSetter.clearAllAttributes();
 		modelSetter.setBaseVisibility();
-		try {
-			usersService.findByUserName(username);
-		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
+		modelSetter.getAttributes().put("user", loggedUserDetailService.getLoggedUser());
+		return new RedirectView("/user/manager");
+	}
+	
+	@GetMapping("/find")
+	public RedirectView getUserById(@RequestParam String username){
+		modelSetter.clearAllAttributes();
+		modelSetter.setBaseVisibility();
+		if (loggedUserDetailService.getLoggedUser().getUsername() == username ||
+				loggedUserDetailService.getLoggedUser().getRole() == Role.ROLE_ADMINISTRATOR) {
+			User toReturn;
+			try {
+				toReturn = userService.findByUserName(username);
+				modelSetter.getAttributes().put("user", toReturn);
+			} catch (SQLIntegrityConstraintViolationException e) {
+				e.printStackTrace();
+				modelSetter.getAttributes().put("userFound", false);
+				modelSetter.getAttributes().put("message", e.getMessage());
+			}
+		} else {
+			modelSetter.getAttributes().put("user", loggedUserDetailService.getLoggedUser());
 		}
-		return new RedirectView("");
+		return new RedirectView("/user/manager");
 	}
 
 	@PostMapping("/add")
-	public RedirectView addUser(User userToAdd){
-		usersService.add(userToAdd);
-		return new RedirectView("/users");
-	}
-	
-	@PutMapping("/update/{id}")
-	public User updateUser(@PathVariable int id, @RequestBody User userToUpdate) throws UserNotFoundException {
-		return usersService.update(id, userToUpdate);
-	}
-
-	@PutMapping("/update/{id}/role")
-	public RedirectView updateUserRole(@PathVariable int id, @AuthenticationPrincipal User admin, @RequestBody Role newRole) throws UserNotFoundException, AccessDeniedException {
-		User updateUser = usersService.updateUserRole(id, admin, newRole);
-		return new RedirectView("/");
+	public RedirectView addUser(@ModelAttribute User userToAdd){
+		modelSetter.clearAllAttributes();
+		modelSetter.setBaseVisibility();
+		System.out.println(userToAdd.toString());
+		if (loggedUserDetailService.getLoggedUser().getUsername().equals(userToAdd.getUsername()) ||
+				loggedUserDetailService.getLoggedUser().getRole() == Role.ROLE_ADMINISTRATOR) {
+			User toModify;
+			try {
+				toModify = userService.findByUserName(userToAdd.getUsername());
+				userToAdd.setPassword(toModify.getPassword());
+				userService.add(userToAdd);
+				modelSetter.getAttributes().put("user", userToAdd);
+				System.out.println(userToAdd.toString());
+			} catch (SQLIntegrityConstraintViolationException e) {
+				e.printStackTrace();
+				modelSetter.getAttributes().put("userFound", false);
+				modelSetter.getAttributes().put("message", e.getMessage());
+			}
+		} else {
+			modelSetter.getAttributes().put("user", loggedUserDetailService.getLoggedUser());
+		}
+		return new RedirectView("/user/manager");
 	}
 
 	@DeleteMapping("/{id}")
 	public void deleteUserById(@PathVariable int id) {
-		usersService.delete(id);
+		userService.delete(id);
 	}
 }

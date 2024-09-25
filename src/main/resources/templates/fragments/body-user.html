@@ -7,30 +7,41 @@
 	
 	<div th:fragment = "userManager" class = "containerFormElement">
 	    <div class = "containerForm">
-	    	<form th:id = "creationForm" class = "cardForm" th:action= "@{${urlCreationElement}}" method="post">
-				<h1 class = "scritteCard">Titolo</h1>
-			    <input class = "input" type="text" name = "name" th:value = "${element.getName()}" required/>
+	    	<form class = "cardForm" th:action= "@{/users/add}" method="post">
+	    		<input class = "inputHidden" type="text" name = "id" th:value = "${user.getId()}" required/>
+				<h1 class = "scritteCard">Username</h1>
+			    <input class = "input" type="text" name = "username" th:value = "${user.getUsername()}" required/>
 			    <br />
-			    <h1 class = "scritteCard">Descrizione</h1>
-			    <textarea class = "inputDescrizione" rows="10" cols="50" maxlength="200" style="width: 200px; height: 100px;" name = "description" th:text = "${element.getDescription()}"/></textarea>
+				<h1 class = "scritteCard">Nome</h1>
+			    <input class = "input" type="text" name = "name" th:value = "${user.getName()}" required/>
 			    <br />
-			    <h1 class = "scritteCard">Città</h1>
-			    <input class = "input" type="text" name = "city" th:value = "${element.getCity()}" required/>
+				<h1 class = "scritteCard">Cognome</h1>
+			    <input class = "input" type="text" name = "surname" th:value = "${user.getSurname()}" required/>
 			    <br />
-			    <h1 class = "scritteCard">C.A.P.</h1>
-			    <input class = "input" type="text" name = "postalcode" th:value = "${element.getPostalcode()}" required/>
+				<h1 class = "scritteCard">Email</h1>
+			    <input class = "input" type="text" name = "email" th:value = "${user.getEmail()}" required/>
 			    <br />
-			    <div class = "containerFields">
-			    	<h1 class = "scritteCard">Address</h1>
-			    	<div class = "containerInputRow">
-					    <input class = "input" type="text" name = "road" th:value = "${address.getRoad()}" required/>
-					    <br />
-					    <input class = "input" type="text" name = "house_number" th:value = "${address.getHouseNumber() != 0 ? address.getHouseNumber() : 'snc'}" required/>
-					    <br />
-			    	</div>
-			    </div>
+				<h1 class = "scritteCard">Numero di Telefono</h1>
+			    <input class = "input" type="text" name = "phoneNumber" th:value = "${user.getPhoneNumber()}" required/>
+			    <br />
+				<h1 class = "scritteCard">Indirizzo</h1>
+			    <input class = "input" type="text" name = "address" th:value = "${user.getAddress()}" required/>
+			    <br />
+				<h1 class = "scritteCard">Città</h1>
+			    <input class = "input" type="text" name = "city" th:value = "${user.getCity()}" required/>
+			    <br />
+				<h1 class = "scritteCard">C.A.P.</h1>
+			    <input class = "input" type="text" name = "CAP" th:value = "${user.getCAP()}" required/>
+			    <br />
+			    <h1 class = "scritteCard">Ruolo</h1>			    
+			    <select th:if = "${isAdmin}" name = "role" th:field = "${user.role}">
+			    	<option class = "input" th:each="role : ${listRole}" th:value="${'ROLE_'} + ${role}" th:text = "${role}"></option>
+			    </select>
+			    <h1 th:unless = "${isAdmin}" class = "input" th:text = "${user.getRole().toString().substring(5)}"></h1>
+			    <input th:unless = "${isAdmin}" class = "inputHidden"  type="text" name = "role" th:value = "${user.getRole().toString()}"/>
+			    <br />
 			    <button type="submit" class = "bottoniForm">
-			    	<p class = "scritteBottoniForm">Creami!</p>
+			    	<p class = "scritteBottoniForm">Salva</p>
 			    </button>
 			</form>
 		</div>		

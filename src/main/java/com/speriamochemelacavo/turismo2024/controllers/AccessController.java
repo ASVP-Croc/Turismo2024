@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.RedirectView;
-
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.models.users.User;
@@ -24,7 +21,7 @@ public class AccessController {
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
-	private UsersService accountService;
+	private UsersService userService;
 
 	@Autowired
 	private ModelSetter modelSetter;
@@ -60,7 +57,7 @@ public class AccessController {
 		modelSetter.setAttributesInModel(model);
 		newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 		newUser.setRole(Role.ROLE_AUTHENTICATED_TOURIST);
-		accountService.add(newUser);
+		userService.add(newUser);
 		return "login";
 	}
 }

@@ -14,7 +14,7 @@
 		<button th:if = "${isTourButtonVisible}" th:onclick = "location.href = '/startDbTours'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Popola il DB Itinerari</h1>
 		</button>
-		<button th:unless = "${isTourist}" th:onclick = "location.href = '/user/manager'" class = "bottoniMenu">
+		<button th:unless = "${isTourist}" th:onclick = "location.href = '/users/manager'" class = "bottoniMenu">
 			<h1 class = "scritteBottoniMenu">Profilo</h1>
 		</button>
 		<button th:if = "${isAdmin}" th:onclick = "location.href = '/users'" class = "bottoniMenu">

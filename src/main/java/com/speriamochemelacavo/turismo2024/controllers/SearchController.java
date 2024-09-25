@@ -42,7 +42,7 @@ public class SearchController {
 			@RequestParam String amenity, 
 			@RequestParam String street,
 			@RequestParam String houseNumber,
-			@RequestParam(defaultValue = "loggedUser") String postalCode) throws IOException{
+			@RequestParam(defaultValue = "loggedUser") String postalCode) {
 		
 		List<PointOfInterest> toReturn = searchService.searchElementsOSMWithDetails(
 				amenity,

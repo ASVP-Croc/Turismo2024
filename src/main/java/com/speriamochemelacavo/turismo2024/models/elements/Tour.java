@@ -1,7 +1,6 @@
 package com.speriamochemelacavo.turismo2024.models.elements;
 
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 

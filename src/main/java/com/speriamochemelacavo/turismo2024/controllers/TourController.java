@@ -6,7 +6,6 @@ import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
 import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.POIForTour;
-import com.speriamochemelacavo.turismo2024.models.elements.poi.PointOfInterest;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import com.speriamochemelacavo.turismo2024.services.POIsForTourService;
 import com.speriamochemelacavo.turismo2024.services.TagsService;

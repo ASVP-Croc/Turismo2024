@@ -18,7 +18,7 @@
 	<div th:if = "${toShow.isEmpty()}" class = "errorDiv">
 		<h1 class = "scrittaError">Ancora nessun elemento caricato!</h1>
 	</div>
-	<div th:unless = "${toShow.isEmpty()}" class = "errorDiv">
+	<div th:unless = "${toShow.isEmpty()}" class = "containerElement">
    		<div th:replace="~{fragments/body-result :: siteList}"></div>
     </div>
 </body>

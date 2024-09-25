@@ -11,14 +11,6 @@
 <body>
 	<div th:replace="~{fragments/header :: header}"></div>
 	<div th:replace="~{fragments/menu :: menu}"></div>
-    <div class = "containerList">
-    	<button class = "cardList" th:each = "user : ${listUsers}">
-    		<h1 class = "scritteCard" th:text = "${'Nome: '} + ${user.name}">Titolo</h1>
-    		<h1 class = "scritteCard" th:text = "${'Cognome: '} + ${user.surname}">Descrizione</h1>
-    		<h1 class = "scritteCard" th:text = "${'Username: '} + ${user.username}">Autore</h1>
-    		<h1 class = "scritteCard" th:text = "${'email: '} + ${user.email}">CAP</h1>
-    		<h1 class = "scritteCard" th:text = "${'Ruolo: '} + ${user.role}">Indirizzo</h1>
-    	</button>
-	</div>		
+	<div th:replace="~{fragments/body-result :: usersList}"></div>
 </body>
 </html>

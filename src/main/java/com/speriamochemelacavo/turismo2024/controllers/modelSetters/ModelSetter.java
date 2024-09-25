@@ -4,7 +4,9 @@ import com.speriamochemelacavo.turismo2024.models.users.Role;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.services.POIsService;
 import com.speriamochemelacavo.turismo2024.services.ToursService;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,7 @@ public class ModelSetter {
 		attributes.put("isAuthTourist", user.getRole() == Role.ROLE_AUTHENTICATED_TOURIST);
 		attributes.put("isTourist", user.getRole() == Role.ROLE_TOURIST);
 		attributes.put("isLoadedUsers", loggedUserService.isLoaded());
+		attributes.put("listRole", List.of("ADMINISTRATOR", "ANIMATOR", "AUTHENTICATED_TOURIST", "AUTHORIZED_CONTRIBUTOR", "CONTRIBUTOR", "CURATOR"));
 		boolean isPOIButtonVisible = (user.getRole() != Role.ROLE_TOURIST && user.getRole() != Role.ROLE_AUTHENTICATED_TOURIST && !poiService.isLoaded());
 		attributes.put("isPOIButtonVisible", isPOIButtonVisible);
 		boolean isTourButtonVisible = (user.getRole() != Role.ROLE_TOURIST && user.getRole() != Role.ROLE_AUTHENTICATED_TOURIST && !tourService.isLoaded());

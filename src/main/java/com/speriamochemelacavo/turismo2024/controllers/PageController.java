@@ -2,7 +2,6 @@ package com.speriamochemelacavo.turismo2024.controllers;
 
 
 import java.sql.SQLIntegrityConstraintViolationException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,7 +45,7 @@ public class PageController {
 		return "index";
 	}
 	
-	@GetMapping("/users/list")
+	@GetMapping("/user/list")
 	public String getUsers(Model model) {
 		modelSetter.setAttributesInModel(model);
 		return "users-list";
@@ -112,17 +111,5 @@ public class PageController {
 		model.addAttribute("message", "Ops, qualcosa è andato storto");
 		modelSetter.setAttributesInModel(model);
 		return "error";
-	}
-	
-	private Element checkElement(int id, ElementStatus status) {
-		Element toCheck = elementService.checkStatusElement(id, status);
-		if (toCheck != null) {
-			modelSetter.getAttributes().put("element", toCheck);
-			modelSetter.getAttributes().put("noElement", false);
-			return toCheck;
-		} else {
-			modelSetter.getAttributes().put("noElement", true);
-		}
-		return null;
 	}
 }

@@ -37,7 +37,6 @@
 	border: 2px solid gray;
 	border-radius: 20px;
 	background-color: #e7e7e7;
-	cursor: pointer;
 }
 .cardAccess {
 	display: flex;

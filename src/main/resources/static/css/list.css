@@ -11,6 +11,13 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
+}
+/* Stile per il div che contiene le cards degli elementi orizzontali */
+.containerElementRow {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	flex-direction: row;
 }
 /* Stile per il div che contiene le cards degli elementi */
@@ -43,7 +50,6 @@
 	border: 2px solid gray;
 	border-radius: 20px;
 	background-color: #e7e7e7;
-	cursor: pointer;
 }
 .iconaElementi{
 	display: flex;

@@ -9,10 +9,15 @@
 	<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/favicon.ico">
 </head>
 <body>
-<!-- 	<div th:replace="~{fragments/header :: header}"></div>
-	<div th:replace="~{fragments/menu :: menu}"></div> -->
+<!-- 	<header th:fragment = "header">
+		<div class="headerAdattivo">
+			<div th:onclick = "location.href = '/'" class = "bottoneHeader" >
+				<h1 class = "scrittaBottoneHeader" th:text = "Torna indietro!'"></h1>
+			</div>
+		</div>
+	</header>
     <div class = "errorDiv" >
 		<h1 class = "scrittaError" th:text="${message}">Ops, qualcosa è andato storto</h1>
-	</div>		
+	</div> -->		
 </body>
 </html>

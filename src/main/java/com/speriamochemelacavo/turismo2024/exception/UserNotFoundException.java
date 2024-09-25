@@ -1,14 +1,16 @@
 package com.speriamochemelacavo.turismo2024.exception;
 
 public class UserNotFoundException extends Exception{
-    private String message;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2430817064709335531L;
 
-    public UserNotFoundException() {
+	public UserNotFoundException() {
         super("Not found!");
     }
 
     public UserNotFoundException(String message) {
         super();
-        this.message = message;
     }
 }

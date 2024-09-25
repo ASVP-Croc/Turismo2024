@@ -64,7 +64,7 @@ public class NominatimService {
 
 	public List<PointOfInterest> filterPoIByType(List<PointOfInterest> pois, String type) {
 		return pois.stream()
-				.filter(p -> p.getPoiType().equals(type))
+				.filter(p -> p.getPoiType().toString().equals(type))
 				.collect(Collectors.toList());
 	}
 }

@@ -55,7 +55,7 @@ public class User {
 	private String name;
 	private String surname;
 	@Column(name = "username", nullable = false, unique = true)
-	private String username = "Tourist";
+	private String username = "Turista";
 	private String password = "";
 	private String email;
 	private String phoneNumber;
@@ -200,7 +200,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [name=" + name + ", surname=" + surname + ", userName=" + username + ", password: " + password + ", role=" + role + "]";
+		return "User [id="+ id + ", name=" + name + ", surname=" + surname + ", userName=" + username + ", password: " + password + ", role=" + role + "]";
 	}
 }
 		
