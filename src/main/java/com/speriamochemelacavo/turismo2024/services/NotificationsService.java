@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.speriamochemelacavo.turismo2024.models.elements.Element;
+import com.speriamochemelacavo.turismo2024.models.notifications.Notificable;
 import com.speriamochemelacavo.turismo2024.models.notifications.Notification;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 import com.speriamochemelacavo.turismo2024.repository.NotificationRepository;
@@ -28,12 +29,12 @@ public class NotificationsService {
 		notificationRepository.save(notificationToAdd);
 	}
 	
-	public <T extends Element> void sendToSingleUser(String title, String message, T object, User recipient) {
+	public <T extends Element> void sendToSingleUser(String title, String message, Notificable object, User recipient) {
 		Notification toSend = new Notification(title, message, loggedUserDetailService.getLoggedUser(), object, recipient);
 		add(toSend);
 	}
 	
-	public <T extends Element> void sendToMultipleUsers(String title, String message, T object, List<User> recipients) {
+	public <T extends Element> void sendToMultipleUsers(String title, String message, Notificable object, List<User> recipients) {
 		Notification toSend = new Notification(title, message, loggedUserDetailService.getLoggedUser(), object, recipients);
 		add(toSend);
 	}

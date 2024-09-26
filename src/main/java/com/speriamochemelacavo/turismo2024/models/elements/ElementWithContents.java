@@ -21,7 +21,7 @@ public class ElementWithContents extends Element {
 	private String city;
 	@JsonProperty("postcode")
 	private String postalcode = "";
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "referenced", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Content> myContents = new HashSet<>();
 	
 	public ElementWithContents() {

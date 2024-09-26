@@ -2,16 +2,20 @@ package com.speriamochemelacavo.turismo2024.controllers;
 
 import com.speriamochemelacavo.turismo2024.controllers.modelSetters.ModelSetter;
 import com.speriamochemelacavo.turismo2024.exception.ElementNotFoundException;
+import com.speriamochemelacavo.turismo2024.models.elements.Content;
 import com.speriamochemelacavo.turismo2024.models.elements.Contest;
 import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
 import com.speriamochemelacavo.turismo2024.models.elements.Tag;
+import com.speriamochemelacavo.turismo2024.models.elements.Tour;
 import com.speriamochemelacavo.turismo2024.security.LoggedUserDetailService;
 import com.speriamochemelacavo.turismo2024.services.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +35,13 @@ public class ContestController {
 	private LoggedUserDetailService loggedUserService;
 
 	@Autowired
-	private ValidationsService<Contest> validationService;
+	private ValidationsService validationService;
 
 	@Autowired
 	private TagsService tagService;
+
+	@Autowired
+	private ContentsService contentService;
 
     @GetMapping("")
     public RedirectView getAllContests() {
@@ -50,22 +57,6 @@ public class ContestController {
 		modelSetter.getAttributes().put("toShow", toReturn);
         return new RedirectView("/elements/site/list");
     }
-    
-    @GetMapping("/{id}")
-    public RedirectView getContestById(@PathVariable int id) {
-		modelSetter.clearAllAttributes();
-		modelSetter.setBaseVisibility();
-        try {
-    		modelSetter.getAttributes().put("element", contestService.findById(id));
-    		modelSetter.getAttributes().put("isContest", true);
-			return new RedirectView("/element?id=" + id);
-		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
-			modelSetter.getAttributes().put("alertMessage", "Contest non trovato!");
-			return new RedirectView("/");
-		}
-
-	}
 
     @GetMapping("/creation")
     public RedirectView createContest(Contest contest) {
@@ -79,6 +70,8 @@ public class ContestController {
 
     @PostMapping("/add")
     public RedirectView addContest(@ModelAttribute Contest element) {
+    	modelSetter.clearAllAttributes();
+    	modelSetter.setBaseVisibility();
     	Set<Tag> toCompare = tagService.createTagsFromString(
 				element.getName() + "," +
 				element.getDescription() + "," +
@@ -98,6 +91,23 @@ public class ContestController {
 		}
 		return new RedirectView("/contests/creation");
     }
+    
+	@PostMapping("/addWithContent")
+	public RedirectView addContestWithContent(@ModelAttribute Contest element,
+			@RequestParam MultipartFile file,
+			@ModelAttribute Content content) {
+		RedirectView toReturn = addContest(element);
+		content.setAuthor(loggedUserService.getLoggedUser());
+		try {
+			Content toValidate = contentService.add(content, element, file);
+			validationService.requestValidation(toValidate);
+			contentService.add(content);
+		} catch (IOException e) {
+			e.printStackTrace();
+			modelSetter.getAttributes().put("alertMessage", e.getMessage());
+		}
+		return toReturn;
+	}
 
 	@PostMapping("/update")
 	public RedirectView updateContest(@ModelAttribute Contest element) {

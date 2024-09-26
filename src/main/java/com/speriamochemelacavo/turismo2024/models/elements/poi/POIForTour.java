@@ -2,49 +2,97 @@ package com.speriamochemelacavo.turismo2024.models.elements.poi;
 
 import org.springframework.stereotype.Component;
 
-import com.speriamochemelacavo.turismo2024.models.elements.ElementWithContents;
+import com.speriamochemelacavo.turismo2024.models.elements.ElementStatus;
+import com.speriamochemelacavo.turismo2024.models.elements.Tour;
+import com.speriamochemelacavo.turismo2024.models.notifications.Notificable;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Component
 @Entity
-public class POIForTour extends ElementWithContents{
+@Inheritance(strategy = InheritanceType.JOINED)
+public class POIForTour extends Notificable{
 	
-	@OneToOne
-	private PointOfInterest referenced;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	
+	@ManyToOne
+	@JoinColumn(name = "tour_id", referencedColumnName = "id")
+	private Tour tourReferenced;
+	
+	@ManyToOne
+	@JoinColumn(name = "poi_id", referencedColumnName = "id")
+	private PointOfInterest poiReferenced;
+	
+	@ManyToOne
+	@JoinColumn(name = "author_id", referencedColumnName = "id")
 	private User authorForTour;
-	private boolean forTour = false;
+	
+	private ElementStatus statusForTour;
 
 	public POIForTour() {
 		super();
 	}
-	public POIForTour(PointOfInterest poi) {
-
+	
+	public POIForTour(PointOfInterest poiToRefer, User author) {
+		this.poiReferenced = poiToRefer;
+		this.authorForTour = author;
 	}
 
-	public PointOfInterest getReferenced() {
-		return referenced;
+	public int getId() {
+		return id;
 	}
-	public void setReferenced(PointOfInterest referenced) {
-		this.referenced = referenced;
+
+	public void setId(int id) {
+		this.id = id;
 	}
-	public User getAuthorForTour() {
+
+	public Tour getTourReferenced() {
+		return tourReferenced;
+	}
+
+	public void setTourReferenced(Tour tourReferenced) {
+		this.tourReferenced = tourReferenced;
+	}
+
+	public PointOfInterest getPoiReferenced() {
+		return poiReferenced;
+	}
+	
+	@Override
+	public String getName() {
+		return poiReferenced.getName();
+	}
+	
+	public void setPoiReferenced(PointOfInterest referenced) {
+		this.poiReferenced = referenced;
+	}
+
+	public User getAuthor() {
 		return authorForTour;
 	}
 
-	public void setAuthorForTour(User authorForTour) {
-		this.authorForTour = authorForTour;
+	public void setAuthor(User author) {
+		this.authorForTour = author;
 	}
 
-	public boolean isForTour() {
-		return forTour;
+	@Override
+	public ElementStatus getStatus() {
+		return statusForTour;
 	}
-	public void setForTour(boolean forTour) {
-		this.forTour = forTour;
+
+	@Override
+	public void setStatus(ElementStatus status) {
+		this.statusForTour = status;
 	}
 }

@@ -28,7 +28,7 @@ public class ContentsService extends ElementsService<Content>{
 	
 	public Content add(Content contentToAdd, ElementWithContents referenced, MultipartFile file) throws IOException {
 		contentToAdd.setReferenced(referenced);
-		contentToAdd.setPathToResource(fileUpload(file, contentToAdd).get());
+		contentToAdd.setPathToResource(fileUpload(file, add(contentToAdd)).get());
 		return super.add(contentToAdd);
 	}
 
@@ -40,13 +40,17 @@ public class ContentsService extends ElementsService<Content>{
 		isContentsLoaded = isLoaded;
 	}
 	
-	private Optional<String> fileUpload(MultipartFile file, Content content) throws IOException {
-		String url = "src/main/resources/" + content.getName();
+	private Optional<String> fileUpload(MultipartFile file, Content content) throws IOException{
+		String url = "src/main/resources/static/files/" + content.getName() + "-" + content.getId() + "-" + content.getAuthor().getUsername() + ".jpg";
         File newFile=new File(url);
-		newFile.createNewFile();
-		FileOutputStream fileOut=new FileOutputStream(newFile);
-        fileOut.write(file.getBytes());
-        fileOut.close();
+		try {
+			newFile.createNewFile();
+			FileOutputStream fileOut=new FileOutputStream(newFile);
+	        fileOut.write(file.getBytes());
+	        fileOut.close();
+		} catch (IOException e) {
+			throw new IOException("Il file non è stato salvato");
+		}
         content.setPathToResource(url);
         return Optional.of(url);
 	}

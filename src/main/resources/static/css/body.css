@@ -38,6 +38,7 @@
 	border-radius: 20px;
 	background-color: #e7e7e7;
 }
+/* Stile per i div delle cards nei form di accesso*/
 .cardAccess {
 	display: flex;
 	flex-direction: column;
@@ -66,6 +67,22 @@
 /* Stile per gli spazi di input nei form per OSM*/
 .inputHidden{
 	display: none;
+}
+/* Stile per i bottoni della registrazione non cliccabili*/
+.bottoniFormNonClick{
+	width: 200px;
+	background-color: #c0c0c0;
+	color: #fff;
+	font-size: 20px;
+  	color: #000000;
+  	margin: auto;
+  	padding-left: 15px;
+  	padding-right: 15px;
+	border: none;
+	border-radius: 20px;
+}
+.bottoniFormNonClick:hover {
+	background-color: #008000;
 }
 /* Stile per i bottoni della registrazione*/
 .bottoniForm{

@@ -23,6 +23,7 @@ import java.util.Date;
 
 @Component
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Content extends Element{
 	
 	@OneToOne(cascade = CascadeType.ALL)
@@ -45,6 +46,11 @@ public class Content extends Element{
 		this.pathToResource = pathToResource;
 		this.typology = ElementTypology.CONTENT;
 
+	}
+	
+	@Override
+	public void setName(String name) {
+		super.setName(name);
 	}
 
 	public ElementWithContents getReferenced() {

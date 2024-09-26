@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.speriamochemelacavo.turismo2024.models.elements.category.ElementTypology;
+import com.speriamochemelacavo.turismo2024.models.notifications.Notificable;
 import com.speriamochemelacavo.turismo2024.models.users.User;
 
 /**
@@ -24,8 +25,8 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 
 @Component
 @Entity
-@Table(name = "elements")
-public class Element {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Element extends Notificable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,7 +39,7 @@ public class Element {
 	@Enumerated(EnumType.STRING)
 	protected ElementTypology typology;
 	@Enumerated(EnumType.STRING)
-	private ElementStatus validated = ElementStatus.PENDING;
+	private ElementStatus status = ElementStatus.PENDING;
 
 	private boolean isReported = false;
 	
@@ -92,13 +93,16 @@ public class Element {
 		return typology;
 	}
 
-	public ElementStatus getValidated() {
-		return validated;
+	@Override
+	public ElementStatus getStatus() {
+		return status;
 	}
 
-	public void setValidated(ElementStatus validated) {
-		this.validated = validated;
+	@Override
+	public void setStatus(ElementStatus status) {
+		this.status = status;
 	}
+	
 	public boolean isReported() {
 		return isReported;
 	}

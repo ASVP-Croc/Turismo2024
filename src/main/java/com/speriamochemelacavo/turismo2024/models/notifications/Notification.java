@@ -33,7 +33,7 @@ public class Notification {
 	@ManyToOne
 	private User author;
 	@ManyToOne(cascade = CascadeType.ALL)
-	private Element notificationObject;
+	private Notificable notificationObject;
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
 	        name = "notifications_users",
@@ -46,7 +46,7 @@ public class Notification {
 		
 	}
 	
-	public Notification(String title, String message, User author, Element notificationObject, User RecipientUser) {
+	public Notification(String title, String message, User author, Notificable notificationObject, User RecipientUser) {
 		this.title = title;
 		this.message = message;
 		this.author = author;
@@ -55,7 +55,7 @@ public class Notification {
 		setRead(false);
 	}
 	
-	public Notification(String title, String message, User author, Element notificationObject, List<User> RecipientUsers) {
+	public Notification(String title, String message, User author, Notificable notificationObject, List<User> RecipientUsers) {
 		this.title = title;
 		this.message = message;
 		this.author = author;
@@ -96,11 +96,11 @@ public class Notification {
 		this.author = author;
 	}
 
-	public Element getNotificationObject() {
+	public Notificable getNotificationObject() {
 		return notificationObject;
 	}
 	
-	public void setNotificationObject(Element notificationObject) {
+	public void setNotificationObject(Notificable notificationObject) {
 		this.notificationObject = notificationObject;
 	}
 	

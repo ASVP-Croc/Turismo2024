@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface ElementRepository<T extends Element> extends JpaRepository<T, Integer>{
 	
-    Optional<List<T>> findByValidated(ElementStatus elementStatus);
+    Optional<List<T>> findByStatus(ElementStatus elementStatus);
 }
 
 

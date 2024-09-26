@@ -38,7 +38,7 @@ public class ElementsService<T extends Element> {
 	}
 
 	public List<T> findByValidated(ElementStatus elementStatus) throws SQLIntegrityConstraintViolationException {
-		Optional<List<T>> toCheck = elementRepository.findByValidated(elementStatus);
+		Optional<List<T>> toCheck = elementRepository.findByStatus(elementStatus);
 		
 		if (toCheck.isPresent()) {
 			return toCheck.get();
@@ -65,14 +65,14 @@ public class ElementsService<T extends Element> {
 
 	public T updateStatus(int id, ElementStatus elementStatus) throws ElementNotFoundException {
 		T element = elementRepository.findById(id).orElseThrow(() -> new ElementNotFoundException("Elemento non trovato"));
-		element.setValidated(elementStatus);
+		element.setStatus(elementStatus);
 		return elementRepository.save(element);
 	}
 
 	public void deleteById(Integer id) {
 		Optional<T> element = elementRepository.findById(id);
 		element.ifPresent(e -> {
-			if(e.getValidated() == ElementStatus.REJECTED) {
+			if(e.getStatus() == ElementStatus.REJECTED) {
 				delete(e);
 			}
 		});
@@ -88,7 +88,7 @@ public class ElementsService<T extends Element> {
 	public Element checkStatusElement(int id, ElementStatus status) {
 		try {
 			Element toReturn = findById(id);
-			if (toReturn.getValidated() == status) {
+			if (toReturn.getStatus() == status) {
 				return toReturn;
 			}			
 		} catch (SQLIntegrityConstraintViolationException e) {

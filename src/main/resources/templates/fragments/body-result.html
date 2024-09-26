@@ -7,7 +7,7 @@
 
 	<div th:fragment = "siteList">
 		<div class = "containerElementRow" th:each = "element : ${toShow}">
-			<div th:onclick="|location.href='/element?id=' + ${element.getId()}|">
+			<div th:onclick="|location.href='/element?showAddContent=true&id=' + ${element.getId()}|">
 				<div class = "cardList">
 					<h1 class = "scritteCard" th:text = "${'Titolo: '} + ${element.getName()}">Titolo</h1>
 		    		<h1 class = "scritteCard" th:text = "${'Descrizione: '} + ${element.getDescription()}">Descrizione</h1>
@@ -43,9 +43,10 @@
     		<h1 class = "scritteCard" th:text = "${'Città: '} + ${poi.getCity()} + ${' ('} + ${poi.getPostalcode()} + ${')'}">Città</h1>
     	</div>
 	</div>
+
 	
 	<div th:fragment = "elementView" class = "containerElement">
-		<div class = "cardList" th:object = "${element}">
+		<div class = "cardList">
 			<h1 class = "scritteCard">Titolo</h1>
 			<h2 class = "scritteCard" th:text = "${element.getName()}"></h2>
 			<h1>______________</h1>
@@ -90,11 +91,57 @@
 			    	</div>
 		    	</div>
 		    </div>
+		    <div th:if = "${element.getMyContents() !=null && !element.getMyContents().isEmpty}">
+	    		<div th:replace="~{fragments/body-result :: contentsList(list=${element.getMyContents()})}"></div>
+    		</div>
 		    <div th:if = "${element.getTypology().toString() == 'TOUR' && element.getMyPOIs()!=null && !element.getMyPOIs().isEmpty}">
 	    		<div th:replace="~{fragments/body-result :: toursList(list=${element.getMyPOIs()})}"></div>
     		</div>
+    		<div th:if = "${showAddContent}" class ="containerForm">
+	    		<form class = "cardForm" th:action="@{${urlAddContent}}" method="post" enctype="multipart/form-data">
+	    			<h1 class = "scritteCard">Titolo</h1>
+				    <input name="name" type = "text" placeholder = "Inserisci il nome">
+				    <br />
+				    <h1 class = "scritteCard">Descrizione</h1>
+			    	<textarea class = "inputDescrizione" rows="10" cols="50" maxlength="200" style="width: 200px; height: 100px;" name = "description" placeholder="Descrivimi!"/></textarea>
+				    <br />
+				    <h1 class = "scritteCard">File da caricare</h1>
+					<input type="file" name="file">
+				    <br />
+				    <div hidden = "true">
+				    	<input class = "inputHidden" type="text" name="elementId" th:value = "${element.getId()}">
+				    </div>
+				    <button class = "bottoniForm" type="submit" th:text="${'Aggiungi Contenuto'}"></button>
+				</form>
+    		</div>
+    		<div th:if = "${showAddContent}">
+    			<a th:href="@{/element(id=${element.getId()}, showAddContent=${showAddContent})}">
+					<button class = "bottoniFormNonClick" th:text="${'Non Aggiungere'}"></button>
+				</a>
+    		</div>
+    		<div th:unless = "${showAddContent}" class ="containerForm">
+    			<a th:href="@{/element(id=${element.getId()}, showAddContent=${showAddContent})}">
+					<button class = "bottoniFormNonClick" th:text="${'Vuoi aggiungere un contenuto?'}"></button>
+				</a>
+    		</div>
 		</div>		
 	</div>
+	
+		
+	<div th:fragment = "contentsList" class = "Card">
+		<div class = "cardList" th:each = "content : ${list}">
+			<h1 class = "scritteCard">Titolo</h1>
+			<h2 class = "scritteCard" th:text = "${content.getName()}"></h2>
+			<h1>______________</h1>
+			<h1 class = "scritteCard">Descrizione</h1>
+			<h2 class = "scritteCard" th:text = "${content.getDescription()}"></h2>
+			<h1>______________</h1>
+			<h1 class = "scritteCard">Contenuto</h1>
+    		<img th:src="@{${content.getPathToResource()}}" width="300">
+    		<h1>______________</h1>
+    	</div>
+	</div>
+	
 	<div th:fragment = "osmList">
 		<div  class = "containerFormElement">
 			<form th:each = "element : ${toShow.subList(0, toShow.size() > 5 ? 5 : toShow.size())}" th:action = "@{/pois/creation/osm}" method = "post">

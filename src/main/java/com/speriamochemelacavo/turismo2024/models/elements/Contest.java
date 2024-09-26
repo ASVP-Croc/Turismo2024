@@ -11,6 +11,8 @@ import com.speriamochemelacavo.turismo2024.models.elements.category.ElementTypol
 import com.speriamochemelacavo.turismo2024.models.users.User;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 
 /**
  * È un {@link Element Elemento} che rappresenta l'idea di "evento competitivo".
@@ -24,6 +26,7 @@ import jakarta.persistence.Entity;
 
 @Component
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Contest extends ElementWithContents {
 
 	private LocalDate starts;

@@ -54,7 +54,7 @@ public class PreparationController {
 	private ModelSetter modelSetter;	
 	
 	@Autowired
-	private ValidationsService<Element> valisationService;
+	private ValidationsService validationService;
 
 	@GetMapping("/startDbUsers")
 	public RedirectView insertInitialUserRecords(){
@@ -102,7 +102,7 @@ public class PreparationController {
 		poisToSave.stream().forEach(p -> {
 			p.setAuthor(loggedUserService.getLoggedUser());
 			p.setAddress(addressService.findById(addressService.add(p.getAddress()).getId()));
-			valisationService.requestValidation(poiService.add(p));
+			validationService.requestValidation(poiService.add(p));
 			poiService.add(p);
 			tagService.addAll(
 					tagService.createTagsFromString(
@@ -118,7 +118,7 @@ public class PreparationController {
 	private void saveTour(List<Tour> tourToSave) {
 		tourToSave.stream().forEach(t -> {
 			t.setAuthor(loggedUserService.getLoggedUser());
-			valisationService.requestValidation(tourService.add(t));
+			validationService.requestValidation(tourService.add(t));
 			tourService.add(t);
 			tagService.addAll(
 					tagService.createTagsFromString(

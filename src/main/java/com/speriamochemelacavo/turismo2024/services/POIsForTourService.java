@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.speriamochemelacavo.turismo2024.models.elements.poi.POIForTour;
 
 @Service
-public class POIsForTourService extends ElementsWithContentsService<POIForTour> {
+public class POIsForTourService {
 
 	@Autowired
 	private POIForTourRepository poiForTourRepository;
@@ -17,22 +17,9 @@ public class POIsForTourService extends ElementsWithContentsService<POIForTour> 
 	public POIsForTourService(){
 		super();
 	}
-
-	@Override
+	
 	public List<POIForTour> findAll() {
 		return poiForTourRepository.findAll();
-	}
-
-	@Override
-	public boolean isLoaded() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setLoaded(boolean isLoaded) {
-		// TODO Auto-generated method stub
-		
 	}
 }
 

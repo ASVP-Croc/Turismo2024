@@ -45,13 +45,13 @@ public class POIController {
 	private ModelSetter modelSetter;
 
 	@Autowired
-	private ValidationsService<PointOfInterest> validationService;
+	private ValidationsService validationService;
 	
 	@Autowired
 	private TagsService tagService;
 	
 	@Autowired
-	ContentsService contentService;
+	private ContentsService contentService;
 	
     @GetMapping("")
     public RedirectView getAllPOIs() {
@@ -67,21 +67,6 @@ public class POIController {
 		modelSetter.getAttributes().put("toShow", toReturn);
         return new RedirectView("/elements/site/list");
     }
-	
-	@GetMapping("/{id}")
-	public RedirectView getPOIById(@PathVariable int id) {
-		modelSetter.clearAllAttributes();
-		modelSetter.setBaseVisibility();
-        try {
-    		modelSetter.getAttributes().put("element", poiService.findById(id));
-    		modelSetter.getAttributes().put("isPoi", true);
-			return new RedirectView("/element?id=" + id);
-		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
-			modelSetter.getAttributes().put("alertMessage", "Punto di Interesse non trovato!");
-			return new RedirectView("/");
-		}
-	}
 
 	@GetMapping("/creation/site")
 	public RedirectView createPoi() {
@@ -108,6 +93,8 @@ public class POIController {
 
 	@PostMapping("/add")
 	public RedirectView addPoI(@ModelAttribute PointOfInterest element, @ModelAttribute Address address) {
+		modelSetter.clearAllAttributes();
+		modelSetter.setBaseVisibility();
 		Set<Tag> toCompare = tagService.createTagsFromString(
 				element.getName() + "," +
 				element.getDescription() + "," +
@@ -124,21 +111,36 @@ public class POIController {
 				tagService.addAll(toCompare);
 				validationService.requestValidation(toValidate);
 				poiService.add(toValidate);
-				return new RedirectView("/pois/" + toValidate.getId());
+				return new RedirectView("/element?id=" + element.getId() + "&showAddContent=true");
 			}
 		}
 		return new RedirectView("/pois/creation/site");
 	}
 	
-	@PostMapping("/addWithContent")
-	public RedirectView addPOIWithContent(@ModelAttribute PointOfInterest element,
-			@ModelAttribute Address address,
+	@PostMapping("/esistent/addWithContent")
+	public RedirectView addPOIWithContent(@RequestParam int elementId,
 			@RequestParam MultipartFile file,
-			@ModelAttribute Content content) throws IOException {
-		RedirectView toReturn = addPoI(element, address);
+			@RequestParam String name,
+			@RequestParam String description,
+			@ModelAttribute Content content) {
+		System.out.println(name);
+		PointOfInterest poi = null;
+		try {
+			poi = poiService.findById(elementId);
+		} catch (SQLIntegrityConstraintViolationException e) {
+		}
+		content.setName(name);
+		content.setDescription(description);
 		content.setAuthor(loggedUserService.getLoggedUser());
-		poiService.addContent(contentService.add(content, element, file), element);
-		return toReturn;
+		try {
+			Content toValidate = contentService.add(content, poi, file);
+			validationService.requestValidation(toValidate);
+			contentService.add(content);
+		} catch (IOException e) {
+			e.printStackTrace();
+			modelSetter.getAttributes().put("alertMessage", e.getMessage());
+		}
+		return new RedirectView("/element?id=" + elementId + "&showAddContent=true");
 	}
 
 	@PostMapping("/add/type")

@@ -14,6 +14,8 @@ import com.speriamochemelacavo.turismo2024.models.users.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
 
 /**
@@ -28,9 +30,10 @@ import jakarta.persistence.OneToMany;
 
 @Component
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Tour extends ElementWithContents{
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "tourReferenced", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<POIForTour> myPOIs = new HashSet<>();
 	
 	

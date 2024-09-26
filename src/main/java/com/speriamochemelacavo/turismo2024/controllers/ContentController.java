@@ -45,7 +45,7 @@ public class ContentController {
 	private ModelSetter modelSetter;
 
 	@Autowired
-	private ValidationsService<Content> validationService;
+	private ValidationsService validationService;
     
     @GetMapping("")
     public RedirectView getAllContents() {

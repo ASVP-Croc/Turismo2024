@@ -31,8 +31,8 @@ public class SecurityConfiguration {
 	                        .requestMatchers("/h2-console/**", "/", "/access/registration**", 
 	                        		"/css/**", "/favicon.ico", "/element/**", "/elements/**", 
 	                        		"/pois", "/tours", "/contests", 
-	                        		"/startDbUsers", "/search/**", "/error/**", "/access/login**").permitAll()
-	                        .requestMatchers("/access/logout/**", "/user/**", "/users/**", "/users**", "/pois/**", "/tours/**", 
+	                        		"/startDbUsers", "/search/**", "/error/**", "/access/login**", "/files/**").permitAll()
+	                        .requestMatchers("/access/logout/**", "/user/**", "/users/**", "/users**", "/pois/**", "/pois/esistent/addWithContent", "/tours/**", 
 	                        		"/contests/**", "/contents/**").authenticated()
 							.requestMatchers("/startDbPOIs", "/startDbTours", "/creation", 
 									"/pois/creation", "/tours/creation", 
